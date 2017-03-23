@@ -283,9 +283,7 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 				.addGroup(
 						layout.createSequentialGroup()
-								.addContainerGap(
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)
+								.addContainerGap()
 								.addGroup(
 										layout.createParallelGroup(
 												javax.swing.GroupLayout.Alignment.LEADING)
@@ -352,9 +350,9 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 																		javax.swing.LayoutStyle.ComponentPlacement.RELATED)
 																.addComponent(
 																		jScrollPane1,
-																		javax.swing.GroupLayout.PREFERRED_SIZE,
+																		javax.swing.GroupLayout.DEFAULT_SIZE,
 																		269,
-																		javax.swing.GroupLayout.PREFERRED_SIZE))
+																		Short.MAX_VALUE))
 												.addGroup(
 														layout.createParallelGroup(
 																javax.swing.GroupLayout.Alignment.LEADING)
