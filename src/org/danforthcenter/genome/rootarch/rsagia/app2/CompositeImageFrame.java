@@ -49,8 +49,8 @@ public class CompositeImageFrame extends javax.swing.JFrame implements
 		}
 		progressLabel.setText("Creating 0 out of " + inputsize
 				+ " thumbnail images.");
-		ciw = new CompositeImageWorker(gps, recropinputs, new Dimension(4096,
-				4096), crop, am);
+		ciw = new CompositeImageWorker(gps, recropinputs, new Dimension(2048,
+				2048), crop, am);
 		ciw.addPropertyChangeListener(this);
 		ciw.execute();
 	}

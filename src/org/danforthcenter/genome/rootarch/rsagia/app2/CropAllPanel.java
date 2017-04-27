@@ -35,20 +35,18 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
     private JLabel jLabel1;
     private JLabel jLabel2;
 
-    public CropAllPanel(ImageManipulationFrame imf, Crop crop, RsaImageSet gp, OutputInfo recropi, OutputInfo oi, int rot) {
-
-        this.imf = imf;
-        this.gp = gp;
-        this.recropi = recropi;
-        this.imf = imf;
-        this.crop = crop;
-        this.oi = oi;
-        this.rotation = rot;
-        double s = 0;
-        BufferedImage bi = null;
+    public CropAllPanel(ImageManipulationFrame imf, Crop crop, RsaImageSet gp, OutputInfo recropi, OutputInfo oi, Rectangle rect, int rot) {
 
         $$$setupUI$$$();
 
+        this.imf = imf;
+        this.crop = crop;
+        this.gp = gp;
+        this.recropi = recropi;
+        this.oi = oi;
+
+        double s = 0;
+        BufferedImage bi = null;
 
         imf.getMip().addMouseListener(this);
         imf.setAppPanel(this.panel1);
@@ -67,47 +65,87 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
             // index=0 corresponds to 100% - the already cropped images
             // are smaller,so increase scale
             imf.getItp().getZoomComboBox().setSelectedIndex(3);
-            imf.getMip().setScale(1, 1);
             s = 1;
+            imf.getMip().setScale(s, s);
             Dimension d = imf.getMip().getPreferredSize();
+            if (rot == 1 || rot == 3) {
+                int i = d.height;
+                d.height = d.width;
+                d.width = i;
+            }
             bi = scaleAndLoad(crop.getThumbnail(oi), s, d);
             imf.getMip().setImage(bi);
             //imf.setTitle(gp.toString());
-
         } else {
             // based on the ris
             eff = new ExtensionFileFilter(gp.getPreferredType());
             imf.getMip().setImage(gp.getPreferredInputDir().listFiles(eff)[0]);
             s = imf.getItp().getZoom();
             imf.getMip().setScale(s, s);
-
             Dimension d = imf.getMip().getPreferredSize();
+            if (rot == 1 || rot == 3) {
+                int i = d.height;
+                d.height = d.width;
+                d.width = i;
+            }
             bi = scaleAndLoad(crop.getThumbnail(oi), s, d);
             imf.getMip().setImage(bi);
             imf.setTitle(gp.toString());
         }
-        int p1x = (int) (bi.getWidth() / 4);
-        int p1y = (int) (bi.getHeight() / 4);
-        int p2x = (int) (bi.getWidth() / 2);
-        int p2y = p1y;
-        Point p1 = new Point(p1x, p1y);
-        Point p2 = new Point(p2x, p2y);
 
-        p1.x *= s;
-        p1.y *= s;
-        p2.x *= s;
-        p2.y *= s;
+        this.rotation = 0;
 
-        rs = new ResizableSquare(p1, p2, new Point(p2.x, p2.y + 50), new Point(
-                p1.x, p1.y + 50), s, s, Color.MAGENTA, 3);
+        if (rect == null) {
+            int p1x = (int) (bi.getWidth() / 4);
+            int p1y = (int) (bi.getHeight() / 4);
+            int p2x = (int) (bi.getWidth() / 2);
+            int p2y = p1y;
+            Point p1 = new Point(p1x, p1y);
+            Point p2 = new Point(p2x, p2y);
+
+            p1.x *= s;
+            p1.y *= s;
+            p2.x *= s;
+            p2.y *= s;
+
+            rs = new ResizableSquare(p1, p2, new Point(p2.x, p2.y + 50), new Point(
+                    p1.x, p1.y + 50), s, s, Color.MAGENTA, 3);
+        } else {
+            this.rotation = rot;
+            imf.getMip().setRotation(rot);
+
+            int p1x = rect.x;
+            int p1y = rect.y;
+            int p2x = rect.x + rect.width;
+            int p2y = rect.y;
+            int p3x = rect.x + rect.width;
+            int p3y = rect.y + rect.height;
+            int p4x = rect.x;
+            int p4y = rect.y + rect.height;
+
+            Point p1 = new Point(p1x, p1y);
+            Point p2 = new Point(p2x, p2y);
+            Point p3 = new Point(p3x, p3y);
+            Point p4 = new Point(p4x, p4y);
+            p1.x *= s;
+            p1.y *= s;
+            p2.x *= s;
+            p2.y *= s;
+            p3.x *= s;
+            p3.y *= s;
+            p4.x *= s;
+            p4.y *= s;
+
+            rs = new ResizableSquare(p1, p2, p3, p4, s, s, Color.MAGENTA, 3);
+        }
         rs.addMouseListener(rs);
         //rs.setTopLocked(true);
         rotLeftButton.addActionListener(this);
         rotRightButton.addActionListener(this);
         nextButton.addActionListener(this);
         imf.getMip().add(rs, new Integer(JLayeredPane.PALETTE_LAYER));
+        imf.getMip().setFocus(rs);
         imf.getMip().revalidate();
-
 
         //imf.getItp().getLockTopButton().setVisible(true);
         //imf.getItp().getLockTopButton().addActionListener(this);
@@ -154,7 +192,7 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
         } else if (e.getSource() == nextButton) {
             imf.remove(this.panel1);
             imf.getMip().remove(rs);
-
+            imf.getMip().removeMouseListener(this);
             //imf.getItp().getLockTopButton().setVisible(false);
             //imf.getItp().getLockTopButton().removeActionListener(this);
             firePropertyChange("done", new Boolean(false), new Boolean(true));
@@ -206,9 +244,9 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
         panel1.setEnabled(true);
-        panel1.setMaximumSize(new Dimension(1000, 80));
+        panel1.setMaximumSize(new Dimension(1000, 112));
         panel1.setMinimumSize(new Dimension(834, 50));
-        panel1.setPreferredSize(new Dimension(834, 50));
+        panel1.setPreferredSize(new Dimension(834, 112));
         jLabel1 = new JLabel();
         jLabel1.setText("Rotate if needed:");
         GridBagConstraints gbc;

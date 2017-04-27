@@ -170,15 +170,17 @@ public class CropPanelManager implements java.beans.PropertyChangeListener {
 
     protected void doNext() {
         // RsaImageSet ris = inputs.get(curIndex);
-//		Rectangle rect = (rects.size() > 0) ? rects.get(rects.size() - 1)
-//				: null;
-        int rot = 0;
+		Rectangle rect = (rects.size() > 0) ? rects.get(rects.size() - 1)
+				: null;
+        int rot = (rots.size() > 0) ? rots.get(rects.size() - 1)
+                : -1;
         if (crop.getRecrop()) {
             cap = new CropAllPanel(imf, crop, null, recropinputs.get(curIndex),
-                    outputs.get(curIndex), rot);
+                    outputs.get(curIndex), rect, rot);
         } else {
             RsaImageSet ris = inputs.get(curIndex);
-            cap = new CropAllPanel(imf, crop, ris, null, outputs.get(curIndex), rot);
+            cap = new CropAllPanel(imf, crop, ris, null, outputs.get(curIndex),
+                    rect, rot);
         }
         cap.addPropertyChangeListener("done", this);
     }
