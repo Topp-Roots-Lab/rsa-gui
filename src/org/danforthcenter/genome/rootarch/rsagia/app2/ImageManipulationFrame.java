@@ -33,8 +33,8 @@ public class ImageManipulationFrame extends javax.swing.JFrame implements
 	public ImageManipulationFrame() {
 		initComponents();
 
-		this.setSize(new Dimension(900, 650));
-		this.setPreferredSize(new Dimension(900, 650));
+		this.setSize(new Dimension(900, 680));
+		this.setPreferredSize(new Dimension(900, 680));
 		BoxLayout bl = new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS);
 		this.setLayout(bl);
 		JPanel p = new JPanel();

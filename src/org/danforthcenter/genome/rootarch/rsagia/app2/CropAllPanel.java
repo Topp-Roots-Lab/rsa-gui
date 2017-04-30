@@ -244,9 +244,10 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
         panel1.setEnabled(true);
-        panel1.setMaximumSize(new Dimension(1000, 112));
+        panel1.setMaximumSize(new Dimension(2147483647, 112));
         panel1.setMinimumSize(new Dimension(834, 50));
         panel1.setPreferredSize(new Dimension(834, 112));
+        panel1.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Step 2: Rotate and Set Crop"));
         jLabel1 = new JLabel();
         jLabel1.setText("Rotate if needed:");
         GridBagConstraints gbc;

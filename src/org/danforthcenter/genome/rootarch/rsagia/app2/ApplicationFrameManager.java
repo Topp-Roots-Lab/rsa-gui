@@ -29,7 +29,7 @@ public class ApplicationFrameManager implements
 	protected ArrayList<String> appNames;
 	protected int curApp;
 	protected ArrayList<RsaImageSet> inputs;
-	protected ScalePanel sp;
+	protected ScaleAllPanel sp;
 	protected ImageManipulationFrame spImf;
 	protected int spCount;
 	protected CompositeImageFrame cif;
@@ -416,7 +416,7 @@ public class ApplicationFrameManager implements
 	public void runScale(ArrayList<RsaImageSet> riss, String s) {
 		spCount = riss.size();
 		spImf = new ImageManipulationFrame();
-		sp = new ScalePanel(spImf, riss, (Scale) am.getApplicationByName(s), am);
+		sp = new ScaleAllPanel(spImf, riss, (Scale) am.getApplicationByName(s), am);
 		sp.addPropertyChangeListener("curIndex", this);
 		spImf.setVisible(true);
 	}

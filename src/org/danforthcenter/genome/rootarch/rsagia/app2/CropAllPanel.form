@@ -6,11 +6,11 @@
     </constraints>
     <properties>
       <enabled value="true"/>
-      <maximumSize width="1000" height="112"/>
+      <maximumSize width="2147483647" height="112"/>
       <minimumSize width="834" height="50"/>
       <preferredSize width="834" height="112"/>
     </properties>
-    <border type="none"/>
+    <border type="line" title="Step 2: Rotate and Set Crop"/>
     <children>
       <component id="f446c" class="javax.swing.JLabel" binding="jLabel1">
         <constraints>
