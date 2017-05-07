@@ -417,6 +417,27 @@ public class RsaInputTable extends javax.swing.JTable implements
 		return v;
 	}
 
+	public void updateRows(ArrayList<Integer> rowIndexes) {
+		int colCount = this.getColumnCount();
+		for (int i : rowIndexes) {
+			for (int j = savedCols.size(); j < colCount; j++) {
+				Object ans = computeCellData(i, this.getColumnName(j));
+				this.getModel().setValueAt(ans, i, j);
+			}
+		}
+	}
+
+	public ArrayList<Integer> getCheckedRowIndexes() {
+		TableModel dtm = this.getModel();
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+		for (int i = 0; i < dtm.getRowCount(); i++) {
+			if ((Boolean) dtm.getValueAt(i, 0)) {
+				indexes.add(i);
+			}
+		}
+		return indexes;
+	}
+
 	public void setColumns(ArrayList<String> cols) {
 		ArrayList<Object[]> newData = new ArrayList<Object[]>();
 		DefaultTableModel dtm = (DefaultTableModel) this.getModel();

@@ -270,6 +270,7 @@ public class MainFrame extends javax.swing.JFrame implements
                         // System.out.println(this.getClass() + " " + inputSet.size() + " " + inputSet.get(0));
 						ApplicationFrameManager afm = new ApplicationFrameManager(
 								this, am, appNames, inputSet);
+						afm.addPropertyChangeListener("update", this);
 						afm.run();
 					}
 				}
@@ -285,6 +286,10 @@ public class MainFrame extends javax.swing.JFrame implements
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
+		if (evt.getPropertyName().equals("update")) {
+			rsaTable.updateRows(rsaTable.getCheckedRowIndexes());
+		}
+
 		if (evt.getSource() == rff && evt.getPropertyName().equals("done")
 				&& (Boolean) evt.getNewValue()) {
 			rff.setVisible(false);

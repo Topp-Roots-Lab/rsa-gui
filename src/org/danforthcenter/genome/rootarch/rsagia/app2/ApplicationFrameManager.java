@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import org.danforthcenter.genome.rootarch.rsagia2.*;
 
@@ -22,7 +22,7 @@ import org.danforthcenter.genome.rootarch.rsagia2.*;
  * 
  * @author bm93, vp23
  */
-public class ApplicationFrameManager implements
+public class ApplicationFrameManager extends JComponent implements
 		java.beans.PropertyChangeListener {
 	protected MainFrame mfrm;
 	protected ApplicationManager am;
@@ -210,7 +210,7 @@ public class ApplicationFrameManager implements
 				spImf.dispose();
 				spImf = null;
 				sp = null;
-
+				firePropertyChange("update", false, true);
 				doNext();
 
 			}
@@ -233,6 +233,7 @@ public class ApplicationFrameManager implements
 			cpm.run();
 		} else if (evt.getSource() == cpm) {
 			cpm = null;
+			firePropertyChange("update", false, true);
 			doNext();
 		} else if (evt.getSource() == grcf) {
 			giaTemplate = grcf.getGiaTemplate();
@@ -272,19 +273,23 @@ public class ApplicationFrameManager implements
 		} else if (evt.getSource() == rf) {
 			rf.dispose();
 			rf = null;
+			firePropertyChange("update", false, true);
 		} else if (evt.getSource() == giaFrame) {
 			giaFrame.dispose();
 			giaFrame = null;
+			firePropertyChange("update", false, true);
 		} else if (evt.getSource() == efm) {
 			efm = null;
 			doNext();
 		} else if (evt.getSource() == this.rootf) {
 			rootf.dispose();
 			rootf = null;
+			firePropertyChange("update", false, true);
 			doNext();
         } else if (evt.getSource() == this.rootfpers) {
             rootfpers.dispose();
             rootfpers = null;
+			firePropertyChange("update", false, true);
             doNext();
 		} else if (evt.getSource() == gia3DCof) {
 			gia3DVols = gia3DCof.getOutputs();
@@ -317,6 +322,7 @@ public class ApplicationFrameManager implements
 		} else if (evt.getSource() == gia3DLogFrame) {
 			gia3DLogFrame.dispose();
 			gia3DLogFrame = null;
+			firePropertyChange("update", false, true);
 			doNext();
 		} else if (evt.getSource() == gia3D_v2Cof) {
 			gia3D_v2Vols = gia3D_v2Cof.getOutputs();
@@ -363,6 +369,7 @@ public class ApplicationFrameManager implements
 		} else if (evt.getSource() == gia3D_v2LogFrame) {
 			gia3D_v2LogFrame.dispose();
 			gia3D_v2LogFrame = null;
+			firePropertyChange("update", false, true);
 			doNext();
 		}
 
