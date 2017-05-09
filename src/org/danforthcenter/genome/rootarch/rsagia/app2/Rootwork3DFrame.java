@@ -92,7 +92,7 @@ public class Rootwork3DFrame extends javax.swing.JFrame implements
 
 			cof.dispose();
 			cof = null;
-			int maxProcesses = AdminFrame.AdminSettings.getMaxProcesses();
+			int maxProcesses = AdminFrameNew.AdminSettings.getMaxProcesses();
 			rlf = new Rootwork3DLogFrame(maxProcesses, am.getRootwork3D(), am,
 					                     inputs, thresholds,
 //                            Integer.parseInt(reconLowerThreshold.getText()),

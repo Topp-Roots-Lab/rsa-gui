@@ -156,7 +156,7 @@ public class Rootwork3DPersFrame extends javax.swing.JFrame implements
 			cofGia.dispose();
 			cofGia = null;
 
-			int maxProcesses = AdminFrame.AdminSettings.getMaxProcesses();
+			int maxProcesses = AdminFrameNew.AdminSettings.getMaxProcesses();
 			rlf = new Rootwork3DPersLogFrame(maxProcesses, am.getRootwork3DPers(), am, giaInputs, thresholds,
                         scales,
 //                        Integer.parseInt(reconLowerThreshold.getText()),

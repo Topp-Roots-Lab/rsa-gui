@@ -314,7 +314,7 @@ public class ApplicationFrameManager extends JComponent implements
 			}
 			gia3DVols = null;
 
-			int maxProcesses = AdminFrame.AdminSettings.getMaxProcesses();
+			int maxProcesses = AdminFrameNew.AdminSettings.getMaxProcesses();
 			gia3DLogFrame = new GiaRoot3DLogFrame(maxProcesses,
 					am.getGiaRoot3D(), am, riss, vols, descriptors, config);
 			gia3DLogFrame.addPropertyChangeListener("done", this);
@@ -361,7 +361,7 @@ public class ApplicationFrameManager extends JComponent implements
 			}
 			gia3D_v2Vols = null;
 
-			int maxProcesses = AdminFrame.AdminSettings.getMaxProcesses();
+			int maxProcesses = AdminFrameNew.AdminSettings.getMaxProcesses();
 			gia3D_v2LogFrame = new Gia3D_v2LogFrame(maxProcesses,
 					am.getGia3D_v2(), am, riss, vols, descriptors, config);
 			gia3D_v2LogFrame.addPropertyChangeListener("done", this);
@@ -391,7 +391,7 @@ public class ApplicationFrameManager extends JComponent implements
 			giaInputs.add(g);
 		}
 
-		int maxProcesses = AdminFrame.AdminSettings.getMaxProcesses();
+		int maxProcesses = AdminFrameNew.AdminSettings.getMaxProcesses();
 		giaFrame = new GiaRoot2DFrame(maxProcesses, am.getGiaRoot2D(),
 				giaInputs, am);
 		giaFrame.addPropertyChangeListener("done", this);

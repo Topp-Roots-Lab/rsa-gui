@@ -45,7 +45,7 @@ public class MainFrame extends javax.swing.JFrame implements
 	protected ISecurityManager ism;
 	protected ApplicationManager am;
 	protected RisFilterFrame rff;
-	protected AdminFrame admin;
+	protected AdminFrameNew admin;
 
 	protected static File baseDir;
 	protected File userFile;
@@ -101,7 +101,7 @@ public class MainFrame extends javax.swing.JFrame implements
 				StringPairFilter.toString(imagingDayPlant_Filter));
 		rff.addPropertyChangeListener(this);
 		this.userFile = userFile;
-		this.admin = new AdminFrame();
+		this.admin = new AdminFrameNew();
 		// this.runTree.setEnabled(false);
 	}
 
