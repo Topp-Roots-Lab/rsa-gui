@@ -155,8 +155,7 @@ public class AdminFrameNew extends JFrame implements ActionListener {
         setSystemLoadFields();
 
         timer = new Timer(2000, this);
-        timer.setInitialDelay(2000);
-        timer.start();
+        timer.setInitialDelay(0);
 
         closeButton.addActionListener(this);
         this.getContentPane().add(this.panel1);
@@ -166,6 +165,13 @@ public class AdminFrameNew extends JFrame implements ActionListener {
     public void dispose() {
         timer.stop();
         super.dispose();
+    }
+
+    public void setVisible(boolean b) {
+        if (b == true) {
+            timer.start();
+        }
+        super.setVisible(b);
     }
 
     private void initiliazeMaxProcessesField() {
