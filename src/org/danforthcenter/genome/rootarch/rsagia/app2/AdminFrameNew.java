@@ -163,6 +163,11 @@ public class AdminFrameNew extends JFrame implements ActionListener {
         pack();
     }
 
+    public void dispose() {
+        timer.stop();
+        super.dispose();
+    }
+
     private void initiliazeMaxProcessesField() {
         int MaxProcessesDefault = AdminSettings.getMaxProcessesDefault();
         if (AdminSettings.getMaxProcesses() == Integer.MIN_VALUE) {
@@ -218,5 +223,4 @@ public class AdminFrameNew extends JFrame implements ActionListener {
     private void createUIComponents() {
         // TODO: place custom component creation code here
     }
-
 }
