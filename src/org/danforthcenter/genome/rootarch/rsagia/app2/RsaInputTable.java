@@ -417,6 +417,10 @@ public class RsaInputTable extends javax.swing.JTable implements
 		return v;
 	}
 
+	public ArrayList<RsaImageSet> getInputData() {
+		return this.inputData;
+	}
+
 	public void updateRows(ArrayList<Integer> rowIndexes) {
 		int colCount = this.getColumnCount();
 		for (int i : rowIndexes) {

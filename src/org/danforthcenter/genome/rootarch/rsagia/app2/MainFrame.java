@@ -180,84 +180,17 @@ public class MainFrame extends javax.swing.JFrame implements
 					 */
 					boolean canRun = true;
 					for (String s : appNames) {
-						if (!s.equals("export") && !s.equals("review")
-								&& !s.equals("qc") && !s.equals("qc2")
-								&& !s.equals("qc3")) {
-							IApplication app = am.getApplicationByName(s);
-							for (RsaImageSet ris : inputSet) {
+						MissingInputsFrame minf = new MissingInputsFrame(rsaTable, s, am);
+						boolean cancel = minf.getCancel();
 
-								if (!app.hasRequiredInput(ris, am)) {
-									JOptionPane
-											.showMessageDialog(
-													this,
-													"Cannot run "
-															+ s
-															+ " on "
-															+ ris
-															+ ".  It is missing one or \nmore required -valid- inputs (e.g., cropping for gia root, thresholding for rootwork)");
-									canRun = false;
-									break;
-								}
-							}
-						} else if (s.equals("export")) {
-							for (RsaImageSet ris : inputSet) {
-								if (!am.getExport().hasRequiredInput(ris, am)) {
-									JOptionPane
-											.showMessageDialog(
-													this,
-													"Cannot run "
-															+ s
-															+ " on "
-															+ ris
-															+ ".  It is missing one or \nmore required -valid- inputs (e.g., cropping for gia root, thresholding for rootwork)");
-									canRun = false;
-									break;
-								}
-							}
-						} else if (s.equals("qc")) {
-							for (RsaImageSet ris : inputSet) {
-								if (!am.getQc().hasRequiredInput(ris, am)) {
-									JOptionPane
-											.showMessageDialog(
-													this,
-													"Cannot run "
-															+ s
-															+ " on "
-															+ ris
-															+ ".  It is missing one or \nmore required -valid- inputs (e.g., cropping for gia root, thresholding for rootwork)");
-									canRun = false;
-									break;
-								}
-							}
-						} else if (s.equals("qc2")) {
-							for (RsaImageSet ris : inputSet) {
-								if (!am.getQc2().hasRequiredInput(ris, am)) {
-									JOptionPane
-											.showMessageDialog(
-													this,
-													"Cannot run "
-															+ s
-															+ " on "
-															+ ris
-															+ ".  It is missing one or \nmore required -valid- inputs (e.g., cropping for gia root, thresholding for rootwork)");
-									canRun = false;
-									break;
-								}
-							}
-						} else if (s.equals("qc3")) {
-							for (RsaImageSet ris : inputSet) {
-								if (!am.getQc3().hasRequiredInput(ris, am)) {
-									JOptionPane
-											.showMessageDialog(
-													this,
-													"Cannot run "
-															+ s
-															+ " on "
-															+ ris
-															+ ".  It is missing one or \nmore required -valid- inputs (e.g., cropping for gia root, thresholding for rootwork)");
-									canRun = false;
-									break;
-								}
+						if (cancel == true) {
+							canRun = false;
+						} else {
+							inputSet = rsaTable.getSelectedData();
+							if (inputSet.size() == 0) {
+								JOptionPane.showMessageDialog(this,
+										"Please select at least one image set.");
+								canRun = false;
 							}
 						}
 
@@ -267,7 +200,6 @@ public class MainFrame extends javax.swing.JFrame implements
 					}
 
 					if (canRun) {
-                        // System.out.println(this.getClass() + " " + inputSet.size() + " " + inputSet.get(0));
 						ApplicationFrameManager afm = new ApplicationFrameManager(
 								this, am, appNames, inputSet);
 						afm.addPropertyChangeListener("update", this);

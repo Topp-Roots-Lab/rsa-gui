@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.danforthcenter.genome.rootarch.rsagia.app2.MissingInputsFrame">
+  <grid id="27dc6" binding="panel1" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="20" y="20" width="354" height="300"/>
+    </constraints>
+    <properties>
+      <maximumSize width="300" height="252"/>
+      <minimumSize width="300" height="252"/>
+      <preferredSize width="300" height="252"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <component id="abf48" class="javax.swing.JButton" binding="removeAllButton">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="10" bottom="10" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Skip these and Continue"/>
+        </properties>
+      </component>
+      <scrollpane id="e6062">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="10" bottom="10" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <preferredSize width="280" height="100"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="d32e7" class="javax.swing.JTable" binding="missingTable">
+            <constraints/>
+            <properties>
+              <dragEnabled value="false"/>
+              <intercellSpacing width="5" height="1"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="330d3" class="javax.swing.JButton" binding="closeButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="10" bottom="10" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Cancel"/>
+        </properties>
+      </component>
+      <component id="7257b" class="javax.swing.JLabel" binding="missingText">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="10" bottom="10" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <maximumSize width="280" height="60"/>
+          <minimumSize width="280" height="60"/>
+          <preferredSize width="280" height="60"/>
+          <text value="label"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
