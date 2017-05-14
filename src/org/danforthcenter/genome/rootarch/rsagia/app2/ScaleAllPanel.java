@@ -64,6 +64,7 @@ public class ScaleAllPanel extends JComponent implements
         lineScaleTextField.setInputVerifier(new DecimalInputVerifier());
 
         imf.setAppPanel(this.panel1);
+        imf.pack();
         imf.getMip().addMouseListener(this);
         curIndex = 0;
 

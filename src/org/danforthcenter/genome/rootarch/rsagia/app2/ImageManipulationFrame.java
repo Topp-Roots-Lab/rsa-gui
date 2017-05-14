@@ -70,7 +70,7 @@ public class ImageManipulationFrame extends javax.swing.JFrame implements
 		this.appPanel = appPanel;
 		this.add(appPanel);
 		appPanel.setVisible(true);
-		pack();
+		revalidate();
 	}
 
 	public ImageToolsPanel getItp() {

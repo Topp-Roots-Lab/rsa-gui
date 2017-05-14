@@ -324,7 +324,7 @@ public class MainFrame extends javax.swing.JFrame implements
 		jMenu3 = new javax.swing.JMenu();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("rsa-gia 3.0.20");
+		setTitle("rsa-gia 3.1.0");
 		setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
 		nextButton.setText("Next");

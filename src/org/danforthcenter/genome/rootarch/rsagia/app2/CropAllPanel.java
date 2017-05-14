@@ -139,7 +139,7 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
             rs = new ResizableSquare(p1, p2, p3, p4, s, s, Color.MAGENTA, 3);
         }
         rs.addMouseListener(rs);
-        //rs.setTopLocked(true);
+        rs.setTopLocked(true);
         rotLeftButton.addActionListener(this);
         rotRightButton.addActionListener(this);
         nextButton.addActionListener(this);
@@ -147,8 +147,8 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
         imf.getMip().setFocus(rs);
         imf.getMip().revalidate();
 
-        //imf.getItp().getLockTopButton().setVisible(true);
-        //imf.getItp().getLockTopButton().addActionListener(this);
+        imf.getItp().getLockTopButton().setVisible(true);
+        imf.getItp().getLockTopButton().addActionListener(this);
     }
 
     protected BufferedImage scaleAndLoad(File f, double s, Dimension d) {
@@ -187,14 +187,14 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
         } else if (e.getSource() == rotRightButton) {
             rotation = incRot(rotation, 1);
             imf.getMip().setRotation(rotation);
-//        } else if (e.getSource() == imf.getItp().getLockTopButton()) {
-//            rs.setTopLocked(imf.getItp().getLockTopButton().isSelected());
+        } else if (e.getSource() == imf.getItp().getLockTopButton()) {
+            rs.setTopLocked(imf.getItp().getLockTopButton().isSelected());
         } else if (e.getSource() == nextButton) {
             imf.remove(this.panel1);
             imf.getMip().remove(rs);
             imf.getMip().removeMouseListener(this);
-            //imf.getItp().getLockTopButton().setVisible(false);
-            //imf.getItp().getLockTopButton().removeActionListener(this);
+            imf.getItp().getLockTopButton().setVisible(false);
+            imf.getItp().getLockTopButton().removeActionListener(this);
             firePropertyChange("done", new Boolean(false), new Boolean(true));
         }
 

@@ -24,7 +24,7 @@ public class ImageToolsPanel extends javax.swing.JPanel {
 	public ImageToolsPanel() {
 		initComponents();
 
-		//lockTopButton.setVisible(false);
+		lockTopButton.setVisible(false);
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class ImageToolsPanel extends javax.swing.JPanel {
 
 		zoomComboBox = new javax.swing.JComboBox();
 		jLabel1 = new javax.swing.JLabel();
-		//lockTopButton = new javax.swing.JToggleButton();
+		lockTopButton = new javax.swing.JToggleButton();
 
 		setBorder(javax.swing.BorderFactory
 				.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -50,9 +50,12 @@ public class ImageToolsPanel extends javax.swing.JPanel {
 
 		jLabel1.setText("Zoom:");
 
-
-		//lockTopButton.setSelected(true);
-		//lockTopButton.setToolTipText("Lock the top of the rectangle");
+		lockTopButton.setIcon(new
+				javax.swing.ImageIcon(getClass().getResource("/resources/dash-square.png")));
+		lockTopButton.setSelectedIcon(new
+				javax.swing.ImageIcon(getClass().getResource("/resources/top-square.png")));
+		lockTopButton.setSelected(true);
+		lockTopButton.setToolTipText("Lock the top of the rectangle");
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
 		this.setLayout(layout);
@@ -69,12 +72,12 @@ public class ImageToolsPanel extends javax.swing.JPanel {
 														javax.swing.GroupLayout.PREFERRED_SIZE,
 														122,
 														javax.swing.GroupLayout.PREFERRED_SIZE)
-												.addComponent(jLabel1))
-//												.addComponent(
-//														lockTopButton,
-//														javax.swing.GroupLayout.PREFERRED_SIZE,
-//														34,
-//														javax.swing.GroupLayout.PREFERRED_SIZE))
+												.addComponent(jLabel1)
+												.addComponent(
+														lockTopButton,
+														javax.swing.GroupLayout.PREFERRED_SIZE,
+														34,
+														javax.swing.GroupLayout.PREFERRED_SIZE))
 								.addContainerGap(55, Short.MAX_VALUE)));
 		layout.setVerticalGroup(layout
 				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,23 +93,23 @@ public class ImageToolsPanel extends javax.swing.JPanel {
 										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addPreferredGap(
 										javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-//								.addComponent(lockTopButton,
-//										javax.swing.GroupLayout.PREFERRED_SIZE,
-//										33,
-//										javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addComponent(lockTopButton,
+										javax.swing.GroupLayout.PREFERRED_SIZE,
+										33,
+										javax.swing.GroupLayout.PREFERRED_SIZE)
 								.addContainerGap(396, Short.MAX_VALUE)));
 	}// </editor-fold>//GEN-END:initComponents
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JLabel jLabel1;
-	//private javax.swing.JToggleButton lockTopButton;
+	private javax.swing.JToggleButton lockTopButton;
 	private javax.swing.JComboBox zoomComboBox;
 
 	// End of variables declaration//GEN-END:variables
 
-//	public JToggleButton getLockTopButton() {
-//		return lockTopButton;
-//	}
+	public JToggleButton getLockTopButton() {
+		return lockTopButton;
+	}
 
 	public JComboBox getZoomComboBox() {
 		return zoomComboBox;

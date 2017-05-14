@@ -182,6 +182,9 @@ public class CropPanelManager implements java.beans.PropertyChangeListener {
             cap = new CropAllPanel(imf, crop, ris, null, outputs.get(curIndex),
                     rect, rot);
         }
+        if (curIndex == 0) {
+            imf.pack();
+        }
         cap.addPropertyChangeListener("done", this);
     }
 }

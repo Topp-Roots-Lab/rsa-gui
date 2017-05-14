@@ -103,8 +103,8 @@ public class CropRestPanel extends javax.swing.JPanel implements
 			}
 		BufferedImage bi = scaleAndLoad(crop.getThumbnail(oi), s, d);
 
-		//imf.getItp().getLockTopButton().setVisible(true);
-		//imf.getItp().getLockTopButton().addActionListener(this);
+		imf.getItp().getLockTopButton().setVisible(true);
+		imf.getItp().getLockTopButton().addActionListener(this);
 
 		imf.getMip().setImage(bi);
 		System.out.println("new dimension:"
@@ -215,20 +215,20 @@ public class CropRestPanel extends javax.swing.JPanel implements
 		if (e.getSource() == nextButton) {
 			imf.remove(this);
 			imf.getMip().remove(rs);
-			//imf.getItp().getLockTopButton().setVisible(false);
-			//imf.getItp().getLockTopButton().removeActionListener(this);
+			imf.getItp().getLockTopButton().setVisible(false);
+			imf.getItp().getLockTopButton().removeActionListener(this);
 			firePropertyChange("done", new Boolean(false), new Boolean(true));
 			// RsaImageSetMetaData rism = new RsaImageSetMetaData(gp.getRis());
 			// rism.load(gp.getOutputDir());
 			// rism.writeCrop(rs.getRectangle(), rotation, gp.getOutputDir());
 			// callback.setCropDone(rs.getRectangle());
-//		} else if (e.getSource() == imf.getItp().getLockTopButton()) {
-//			rs.setTopLocked(imf.getItp().getLockTopButton().isSelected());
+		} else if (e.getSource() == imf.getItp().getLockTopButton()) {
+			rs.setTopLocked(imf.getItp().getLockTopButton().isSelected());
 		} else if (e.getSource() == backButton) {
 			imf.remove(this);
 			imf.getMip().remove(rs);
-//			imf.getItp().getLockTopButton().setVisible(false);
-//			imf.getItp().getLockTopButton().removeActionListener(this);
+			imf.getItp().getLockTopButton().setVisible(false);
+			imf.getItp().getLockTopButton().removeActionListener(this);
 			firePropertyChange("back", new Boolean(false), new Boolean(true));
 		}
 
