@@ -22,7 +22,7 @@ public class AdminFrameNew extends JFrame implements ActionListener {
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
-        panel1.setPreferredSize(new Dimension(350, 230));
+        panel1.setPreferredSize(new Dimension(420, 230));
         label1 = new JLabel();
         label1.setText("Total CPU Number");
         GridBagConstraints gbc;

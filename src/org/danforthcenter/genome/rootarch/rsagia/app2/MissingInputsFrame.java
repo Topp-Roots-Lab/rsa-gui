@@ -127,9 +127,9 @@ public class MissingInputsFrame extends JDialog implements ActionListener {
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
-        panel1.setMaximumSize(new Dimension(300, 252));
-        panel1.setMinimumSize(new Dimension(300, 252));
-        panel1.setPreferredSize(new Dimension(300, 252));
+        panel1.setMaximumSize(new Dimension(340, 252));
+        panel1.setMinimumSize(new Dimension(340, 252));
+        panel1.setPreferredSize(new Dimension(340, 252));
         removeAllButton = new JButton();
         removeAllButton.setText("Skip these and Continue");
         GridBagConstraints gbc;
