@@ -28,8 +28,8 @@
           <gridbag top="0" left="10" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <minimumSize width="50" height="24"/>
-          <preferredSize width="50" height="24"/>
+          <minimumSize width="60" height="24"/>
+          <preferredSize width="60" height="24"/>
           <text value="1.0"/>
         </properties>
       </component>

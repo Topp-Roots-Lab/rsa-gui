@@ -6,6 +6,8 @@ import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
 import org.danforthcenter.genome.rootarch.rsagia2.Scale;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -23,7 +25,7 @@ import java.util.regex.Pattern;
  */
 public class ScaleAllPanel extends JComponent implements
         ActionListener, MouseListener,
-        PropertyChangeListener {
+        PropertyChangeListener, DocumentListener {
     protected ImageManipulationFrame imf;
     protected ArrayList<RsaImageSet> inputs;
     protected ApplicationManager am;
@@ -60,7 +62,7 @@ public class ScaleAllPanel extends JComponent implements
         vertHorzCheckbox.addActionListener(this);
         scaleAllCheckBox.addActionListener(this);
         changePicButton.addActionListener(this);
-
+        lineScaleTextField.getDocument().addDocumentListener(this);
         lineScaleTextField.setInputVerifier(new DecimalInputVerifier());
 
         imf.setAppPanel(this.panel1);
@@ -173,6 +175,7 @@ public class ScaleAllPanel extends JComponent implements
 
                 imf.getMip().add(line, new Integer(JLayeredPane.PALETTE_LAYER));
                 imf.getMip().revalidate();
+                changeLineorLineText();
             }
         }
     }
@@ -195,11 +198,31 @@ public class ScaleAllPanel extends JComponent implements
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getSource() == line) {
+            changeLineorLineText();
+        }
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        changeLineorLineText();
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        changeLineorLineText();
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        changeLineorLineText();
+    }
+
+    public void changeLineorLineText() {
+        if (line != null && lineScaleTextField.getInputVerifier().verify(lineScaleTextField)) {
             double d1 = Double.parseDouble(lineScaleTextField.getText());
             DecimalFormat df = new DecimalFormat("0.####");
             absoluteScaleTextField.setText(df.format(d1 / line.getLength()));
         }
-
     }
 
     private void createUIComponents() {
@@ -230,8 +253,8 @@ public class ScaleAllPanel extends JComponent implements
         gbc.insets = new Insets(0, 10, 0, 0);
         panel1.add(jLabel1, gbc);
         absoluteScaleTextField = new JTextField();
-        absoluteScaleTextField.setMinimumSize(new Dimension(50, 24));
-        absoluteScaleTextField.setPreferredSize(new Dimension(50, 24));
+        absoluteScaleTextField.setMinimumSize(new Dimension(60, 24));
+        absoluteScaleTextField.setPreferredSize(new Dimension(60, 24));
         absoluteScaleTextField.setText("1.0");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
