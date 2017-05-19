@@ -140,6 +140,7 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
         }
         rs.addMouseListener(rs);
         rs.setTopLocked(true);
+        imf.getItp().getLockTopButton().setSelected(true);
         rotLeftButton.addActionListener(this);
         rotRightButton.addActionListener(this);
         nextButton.addActionListener(this);
