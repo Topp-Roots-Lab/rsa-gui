@@ -385,7 +385,7 @@ public class MainFrame extends javax.swing.JFrame implements
 //		jToolBar1.add(gia3DToggle);
 
 
-		gia3D_v2Toggle.setText("Gia3D_v2");
+		gia3D_v2Toggle.setText("3D_traits");
 		gia3D_v2Toggle.setFocusable(false);
 		gia3D_v2Toggle
 				.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
