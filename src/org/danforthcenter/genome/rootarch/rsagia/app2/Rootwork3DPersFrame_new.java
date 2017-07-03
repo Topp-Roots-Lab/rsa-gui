@@ -244,8 +244,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
-        panel1.setMinimumSize(new Dimension(440, 420));
-        panel1.setPreferredSize(new Dimension(440, 420));
+        panel1.setMinimumSize(new Dimension(460, 420));
+        panel1.setPreferredSize(new Dimension(460, 420));
         jLabel1 = new JLabel();
         jLabel1.setFont(new Font(jLabel1.getFont().getName(), Font.BOLD, jLabel1.getFont().getSize()));
         jLabel1.setText("Number Nodes Octree:");
