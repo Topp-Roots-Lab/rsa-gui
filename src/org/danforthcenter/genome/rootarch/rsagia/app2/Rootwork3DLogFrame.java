@@ -53,7 +53,7 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 	protected int resolution;
 	protected int refImage;
 	protected double refRatio;
-
+	protected boolean doAdd;
 	protected ArrayList<JTextArea> outputTextAreas;
 	protected ArrayList<JScrollPane> outputPanels;
 	protected int cur;
@@ -61,14 +61,14 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 
 	/** Creates new form MultiLogWindow */
 	public Rootwork3DLogFrame(int maxProcesses, Rootwork3D rootwork3D,
-			ApplicationManager am, ArrayList<RsaImageSet> riss,
+                              ApplicationManager am, ArrayList<RsaImageSet> riss,
 //			ArrayList<IOutputThreshold> thresholds, int reconLowerThesh,
-            ArrayList<IOutputThreshold> thresholds,
-			int nodesOctree, int imagesUsed, int reconOption,
+                              ArrayList<IOutputThreshold> thresholds,
+                              int nodesOctree, int imagesUsed, int reconOption,
 //			int reconUpperThreshold, int distortionRadius,
-            int distortionRadius,
-			int numberOfComponents, int resolution, int refImage,
-			double refRatio) {
+                              int distortionRadius,
+                              int numberOfComponents, int resolution, int refImage,
+                              double refRatio, String doAdd) {
 		initComponents();
 
 		this.maxProcesses = maxProcesses;
@@ -86,6 +86,12 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 		this.resolution = resolution;
 		this.refImage = refImage;
 		this.refRatio = refRatio;
+		if (doAdd.equalsIgnoreCase("T") || doAdd.equalsIgnoreCase("true") ) {
+			this.doAdd = true;
+		}
+		else {
+			this.doAdd = false;
+		}
 		this.outputs = new ArrayList<OutputInfo>();
 		outputTextAreas = new ArrayList<JTextArea>();
 		outputPanels = new ArrayList<JScrollPane>();
@@ -135,7 +141,7 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 				outputs.get(cur), thresholds.get(cur), reconLowerThresh,
 				nodesOctree, imagesUsed, reconOption, outputTextAreas.get(cur),
 				am, cur, reconUpperThreshold, distortionRadius,
-				numberOfComponents, resolution, refImage, refRatio);
+				numberOfComponents, resolution, refImage, refRatio, doAdd);
 
 		rw.addPropertyChangeListener(this);
 		rw.execute();

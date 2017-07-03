@@ -61,25 +61,25 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
     protected Double roll;
     protected int translation;
     protected int focusOffset;
-
+	protected boolean doAdd;
 
 	/** Creates new form MultiLogWindow */
 	// tw 2015july11
 	public Rootwork3DPersLogFrame(int maxProcesses, Rootwork3DPers rootwork3DPers,
-                                  ApplicationManager am, ArrayList<RsaImageSet> thresholdRiss,
+								  ApplicationManager am, ArrayList<RsaImageSet> thresholdRiss,
 //			ArrayList<IOutputThreshold> thresholds, int reconLowerThesh,
-                                  ArrayList<IOutputThreshold> thresholds,
-                                  // tw 2015july11 add to meet perspective scale requirement
+								  ArrayList<IOutputThreshold> thresholds,
+								  // tw 2015july11 add to meet perspective scale requirement
 //                                  ArrayList<RsaImageSet> ScaleRiss,
-                                  ArrayList<OutputInfo> scales,
-                                  int nodesOctree, int imagesUsed, int reconOption,
+								  ArrayList<OutputInfo> scales,
+								  int nodesOctree, int imagesUsed, int reconOption,
 //			int reconUpperThreshold, int distortionRadius,
-                                  int distortionRadius,
-                                  int numberOfComponents, int resolution, int refImage,
-                                  double refRatio,
-                              int camDist, int rotDir, String doFindRotAxis, String doCalib,
-                              Double pitch, Double roll, int translation, int focusOffset
-    ) {
+								  int distortionRadius,
+								  int numberOfComponents, int resolution, int refImage,
+								  double refRatio,
+								  int camDist, int rotDir, String doFindRotAxis, String doCalib,
+								  Double pitch, Double roll, int translation, int focusOffset,
+								  String doAdd) {
 		initComponents();
 
 
@@ -97,6 +97,12 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
 		}
 		else{
 			this.doCalib = false;
+		}
+		if (doAdd.equalsIgnoreCase("T") || doAdd.equalsIgnoreCase("true") ) {
+			this.doAdd = true;
+		}
+		else{
+			this.doAdd = false;
 		}
         this.pitch = pitch;
         this.roll = roll;
@@ -179,7 +185,7 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
 				am, cur, reconUpperThreshold, distortionRadius,
 				numberOfComponents, resolution, refImage, refRatio,
                 this.camDist, this.rotDir, this.doFindRotAxis, this.doCalib, this.pitch,
-                this.roll, this.translation, this.focusOffset
+                this.roll, this.translation, this.focusOffset, this.doAdd
         );
 
 		rw.addPropertyChangeListener(this);

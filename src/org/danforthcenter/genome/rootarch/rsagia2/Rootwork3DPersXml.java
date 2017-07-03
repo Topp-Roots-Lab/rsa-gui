@@ -56,16 +56,17 @@ public class Rootwork3DPersXml {
     protected int yCrop;
     protected int heightCrop;
     protected int widthCrop;
+    protected boolean doAdd;
 
     public Rootwork3DPersXml(File outputFile, int reconOption,
-                         int reconLowerThreshold, int numNodesOctree, int numImagesUsed,
-                         int numImages, String extGiaImages, String filePrefix,
-                         int reconUpperThreshold, int distortionRadius,
-                         int numberOfComponents, int resolution, int refImage,
-                         double refRatio,
+                             int reconLowerThreshold, int numNodesOctree, int numImagesUsed,
+                             int numImages, String extGiaImages, String filePrefix,
+                             int reconUpperThreshold, int distortionRadius,
+                             int numberOfComponents, int resolution, int refImage,
+                             double refRatio,
                              int rotDigits, ArrayList<Rectangle> rectsUsed, double scale,
-                             int camDist,int rotDir, boolean doFindRotAxis, boolean doCalib,
-                             Double pitch, Double roll, int translation, int focusOffset) {
+                             int camDist, int rotDir, boolean doFindRotAxis, boolean doCalib,
+                             Double pitch, Double roll, int translation, int focusOffset, boolean doAdd) {
 
         this.doFindRotAxis = doFindRotAxis;
         this.rotDigits = rotDigits;
@@ -99,7 +100,7 @@ public class Rootwork3DPersXml {
         this.resolution = resolution;
         this.refImage = refImage;
         this.refRatio = refRatio;
-
+        this.doAdd = doAdd;
         // note used - everwhere equals to 0.15
         this.extraInfo = "0.15";
     }
@@ -283,6 +284,7 @@ public class Rootwork3DPersXml {
         return focusOffset;
     }
 
+    public boolean getDoAdd() { return doAdd; }
 
 
     @Override
@@ -339,7 +341,7 @@ public class Rootwork3DPersXml {
         ans += "\t<roll>" + roll + "</roll>" + eol;
         ans += "\t<translation>" + translation + "</translation>" + eol;
         ans += "\t<focus-offset>" + focusOffset + "</focus-offset>" + eol;
-
+        ans += "\t<do-addtopline>" + doAdd + "</do-addtopline>" + eol;
         ans += "</params>" + eol;
 
         return ans;

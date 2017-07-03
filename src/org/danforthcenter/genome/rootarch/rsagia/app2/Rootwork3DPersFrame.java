@@ -176,8 +176,8 @@ public class Rootwork3DPersFrame extends javax.swing.JFrame implements
                     Double.parseDouble(pitchField.getText()),
                     Double.parseDouble(rollField.getText()),
                     Integer.parseInt(translationField.getText()),
-                    Integer.parseInt(focusOffsetField.getText())
-            );
+                    Integer.parseInt(focusOffsetField.getText()),
+					"F");
 			rlf.addPropertyChangeListener("done", this);
 			rlf.setVisible(true);
 		} else if (evt.getSource() == rlf

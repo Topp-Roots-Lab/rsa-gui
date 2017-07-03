@@ -34,13 +34,14 @@ public class Rootwork3DXml {
 	protected int refImage;
 	protected double refRatio;
 	protected String extraInfo;
+	protected boolean doAdd;
 
 	public Rootwork3DXml(File outputFile, int reconOption,
-			int reconLowerThreshold, int numNodesOctree, int numImagesUsed,
-			int numImages, String extGiaImages, String filePrefix,
-			int reconUpperThreshold, int distortionRadius,
-			int numberOfComponents, int resolution, int refImage,
-			double refRatio) {
+						 int reconLowerThreshold, int numNodesOctree, int numImagesUsed,
+						 int numImages, String extGiaImages, String filePrefix,
+						 int reconUpperThreshold, int distortionRadius,
+						 int numberOfComponents, int resolution, int refImage,
+						 double refRatio, boolean doAdd) {
 		this.outputFile = outputFile;
 		this.reconOption = reconOption;
 		this.reconLowerThreshold = reconLowerThreshold;
@@ -55,6 +56,7 @@ public class Rootwork3DXml {
 		this.resolution = resolution;
 		this.refImage = refImage;
 		this.refRatio = refRatio;
+		this.doAdd = doAdd;
 
 		// note used - everwhere equals to 0.15
 		this.extraInfo = "0.15";
@@ -171,6 +173,8 @@ public class Rootwork3DXml {
 		return extraInfo;
 	}
 
+	public boolean getDoAdd() { return doAdd; }
+
 	@Override
 	public String toString() {
 		String eol = System.getProperty("line.separator");
@@ -218,6 +222,7 @@ public class Rootwork3DXml {
 				+ "</number-of-components>" + eol;
 		ans += "\t<ref-image>" + refImage + "</ref-image>" + eol;
 		ans += "\t<ref-ratio>" + refRatio + "</ref-ratio>" + eol;
+		ans += "\t<do-addtopline>" + doAdd + "</do-addtopline>" + eol;
 		ans += "</params>" + eol;
 
 		return ans;

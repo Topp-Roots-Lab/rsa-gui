@@ -96,10 +96,10 @@ public class Rootwork3D implements IApplication {
 	}
 
 	public Process start(OutputInfo out, IOutputThreshold iot, int reconOpt,
-			int reconLowerThresh, int numNodesOctree, int numImagesUsed,
-			int reconUpperThreshold, int distortionRadius,
-			int numberOfComponents, int resolution, int refImage,
-			double refRatio) {
+                         int reconLowerThresh, int numNodesOctree, int numImagesUsed,
+                         int reconUpperThreshold, int distortionRadius,
+                         int numberOfComponents, int resolution, int refImage,
+                         double refRatio, boolean doAdd) {
 		Process ans = null;
 		Rootwork3DOutput rout = new Rootwork3DOutput(out);
 		//
@@ -113,7 +113,7 @@ public class Rootwork3D implements IApplication {
 		//
 		preprocess(rout, iot, reconOpt, reconLowerThresh, numNodesOctree,
 				numImagesUsed, reconUpperThreshold, distortionRadius,
-				numberOfComponents, resolution, refImage, refRatio);
+				numberOfComponents, resolution, refImage, refRatio, doAdd);
 
 		boolean isSTL = false;
 		String[] cmd = getReconstruction3dCmd(useMatlab, rout, isSTL);
@@ -324,7 +324,8 @@ public class Rootwork3D implements IApplication {
 					String.valueOf(rxml.getExtraInfo()),
 					String.valueOf(rot_digits),
 					String.valueOf(rxml.getRefImage()),
-					String.valueOf(rxml.getRefRatio()) };
+					String.valueOf(rxml.getRefRatio()),
+					String.valueOf(rxml.getDoAdd()) };
 			ret = cmd;
 		}
 
@@ -676,10 +677,10 @@ public class Rootwork3D implements IApplication {
 	 * @return
 	 */
 	protected void preprocess(Rootwork3DOutput rout, IOutputThreshold iot,
-			int reconOpt, int reconLowerThresh, int numNodesOctree,
-			int numImagesUsed, int reconUpperThreshold, int distortionRadius,
-			int numberOfComponents, int resolution, int refImage,
-			double refRatio) {
+							  int reconOpt, int reconLowerThresh, int numNodesOctree,
+							  int numImagesUsed, int reconUpperThreshold, int distortionRadius,
+							  int numberOfComponents, int resolution, int refImage,
+							  double refRatio, boolean doAdd) {
 		rout.makeThresholdDir(ism);
 		File ft = rout.getThresholdDir();
 		File[] fs = iot.getThresholdedImages();
@@ -720,7 +721,7 @@ public class Rootwork3D implements IApplication {
 		rxml = new Rootwork3DXml(rout.getVolumeFile(), reconOpt,
 				reconLowerThresh, numNodesOctree, numImagesUsed, fs.length,
 				ext, pref, reconUpperThreshold, distortionRadius,
-				numberOfComponents, resolution, refImage, refRatio);
+				numberOfComponents, resolution, refImage, refRatio, doAdd);
 		rxml.save(rout.getConfigFile());
 
 		// // tw 2014nov12

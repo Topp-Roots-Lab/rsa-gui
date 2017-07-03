@@ -40,8 +40,8 @@ public class ApplicationFrameManager extends JComponent implements
 	protected ArrayList<OutputInfo> giaManualCrops;
 	protected String giaDescriptors;
 	protected GiaRoot2DFrame giaFrame;
-	protected Rootwork3DFrame rootf;
-    protected Rootwork3DPersFrame rootfpers;
+	protected Rootwork3DFrame_new rootf;
+    protected Rootwork3DPersFrame_new rootfpers;
 	protected ReviewFrame2 rf;
 	protected ExportFrameManager efm;
 	protected ChooseOutputFrame gia3DCof;
@@ -108,11 +108,11 @@ public class ApplicationFrameManager extends JComponent implements
 				grcf.addPropertyChangeListener("done", this);
 				grcf.setVisible(true);
 			} else if (s.equals(rootwork3D.getName())) {
-				rootf = new Rootwork3DFrame(am, inputs);
+				rootf = new Rootwork3DFrame_new(am, inputs);
 				rootf.addPropertyChangeListener("done", this);
 				rootf.setVisible(true);
             } else if (s.equals(rootwork3DPers.getName())) {
-                rootfpers = new Rootwork3DPersFrame(am, inputs);
+                rootfpers = new Rootwork3DPersFrame_new(am, inputs);
                 rootfpers.addPropertyChangeListener("done", this);
                 rootfpers.setVisible(true);
 			} else if (s.equals("review")) {

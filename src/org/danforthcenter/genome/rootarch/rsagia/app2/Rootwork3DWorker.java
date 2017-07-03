@@ -45,17 +45,18 @@ public class Rootwork3DWorker extends javax.swing.SwingWorker<Integer, String> {
 	protected int resolution;
 	protected int refImage;
 	protected double refRatio;
+	protected boolean doAdd;
 
 	public int getReturnValue() {
 		return returnValue;
 	}
 
 	public Rootwork3DWorker(Rootwork3D rootwork3D, OutputInfo out,
-			IOutputThreshold threshold, int reconLowerThresh, int nodesOctree,
-			int imagesUsed, int reconOption, JTextArea log,
-			ApplicationManager am, int id, int reconUpperThreshold,
-			int distortionRadius, int numberOfComponents, int resolution,
-			int refImage, double refRatio) {
+                            IOutputThreshold threshold, int reconLowerThresh, int nodesOctree,
+                            int imagesUsed, int reconOption, JTextArea log,
+                            ApplicationManager am, int id, int reconUpperThreshold,
+                            int distortionRadius, int numberOfComponents, int resolution,
+                            int refImage, double refRatio, boolean doAdd) {
 		this.rootwork3D = rootwork3D;
 		this.out = out;
 		this.threshold = threshold;
@@ -74,6 +75,7 @@ public class Rootwork3DWorker extends javax.swing.SwingWorker<Integer, String> {
 		this.resolution = resolution;
 		this.refImage = refImage;
 		this.refRatio = refRatio;
+		this.doAdd = doAdd;
 	}
 
 	public int getId() {
@@ -88,7 +90,7 @@ public class Rootwork3DWorker extends javax.swing.SwingWorker<Integer, String> {
 			p = rootwork3D.start(out, threshold, reconOption, reconLowerThresh,
 					nodesOctree, imagesUsed, reconUpperThreshold,
 					distortionRadius, numberOfComponents, resolution, refImage,
-					refRatio);
+					refRatio, doAdd);
 			BufferedReader br = null;
 			try {
 				br = new BufferedReader(new InputStreamReader(

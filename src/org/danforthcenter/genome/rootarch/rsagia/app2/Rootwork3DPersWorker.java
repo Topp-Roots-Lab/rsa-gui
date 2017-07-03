@@ -51,6 +51,7 @@ public class Rootwork3DPersWorker extends javax.swing.SwingWorker<Integer, Strin
     protected Double roll;
     protected int translation;
     protected int focusOffset;
+	protected boolean doAdd;
 
 
 	public int getReturnValue() {
@@ -58,16 +59,15 @@ public class Rootwork3DPersWorker extends javax.swing.SwingWorker<Integer, Strin
 	}
 
 	public Rootwork3DPersWorker(Rootwork3DPers rootwork3DPers, OutputInfo out,
-								IOutputThreshold threshold,OutputInfo scale,
+								IOutputThreshold threshold, OutputInfo scale,
 								int reconLowerThresh, int nodesOctree,
 								int imagesUsed, int reconOption, JTextArea log,
 								ApplicationManager am, int id, int reconUpperThreshold,
 								int distortionRadius, int numberOfComponents, int resolution,
 								int refImage, double refRatio,
-                                int camDist, int rotDir, boolean doFindRotAxis, boolean doCalib, Double pitch,
-                                Double roll, int translation, int focusOffset
-
-                                ) {
+								int camDist, int rotDir, boolean doFindRotAxis, boolean doCalib, Double pitch,
+								Double roll, int translation, int focusOffset,
+								boolean doAdd) {
 
         this.camDist = camDist;
         this.rotDir = rotDir;
@@ -77,6 +77,7 @@ public class Rootwork3DPersWorker extends javax.swing.SwingWorker<Integer, Strin
         this.roll = roll;
         this.translation = translation;
         this.focusOffset = focusOffset;
+        this.doAdd = doAdd;
 
 
 		this.rootwork3DPers = rootwork3DPers;
@@ -114,7 +115,7 @@ public class Rootwork3DPersWorker extends javax.swing.SwingWorker<Integer, Strin
 					distortionRadius, numberOfComponents, resolution, refImage,
 					refRatio,
                     this.camDist, this.rotDir, this.doFindRotAxis, this.doCalib, this.pitch,
-                    this.roll, this.translation, this.focusOffset
+                    this.roll, this.translation, this.focusOffset, this.doAdd
                     );
 			BufferedReader br = null;
 			try {

@@ -104,7 +104,8 @@ public class Rootwork3DFrame extends javax.swing.JFrame implements
                             Integer.parseInt(numComponentsField.getText()),
                             Integer.parseInt(resolutionField.getText()),
                             Integer.parseInt(refImageField.getText()),
-                            Double.parseDouble(refRatioField.getText()));
+                            Double.parseDouble(refRatioField.getText()),
+                            "F");
 			rlf.addPropertyChangeListener("done", this);
 			rlf.setVisible(true);
 		} else if (evt.getSource() == rlf

@@ -216,9 +216,9 @@ public class Rootwork3DPers  implements IApplication {
                          int reconUpperThreshold, int distortionRadius,
                          int numberOfComponents, int resolution, int refImage,
                          double refRatio,
-                         int camDist,int rotDir, boolean doFindRotAxis, boolean doCalib, Double pitch,
-                         Double roll, int translation, int focusOffset
-                         ) {
+                         int camDist, int rotDir, boolean doFindRotAxis, boolean doCalib, Double pitch,
+                         Double roll, int translation, int focusOffset,
+                         boolean doAdd) {
         Process ans = null;
         Rootwork3DPersOutput rout = new Rootwork3DPersOutput(out);
 
@@ -248,7 +248,7 @@ public class Rootwork3DPers  implements IApplication {
                 numImagesUsed, reconUpperThreshold, distortionRadius,
                 numberOfComponents, resolution, refImage, refRatio, rot_digits,
                 rectsUsed, scale, camDist, rotDir, doFindRotAxis, doCalib, pitch,
-                roll, translation, focusOffset
+                roll, translation, focusOffset, doAdd
                 );
 
 
@@ -323,7 +323,8 @@ public class Rootwork3DPers  implements IApplication {
             String.valueOf(rxml.getTranslation()),
             String.valueOf(rxml.getRoll()),
             String.valueOf(rxml.getPitch()),
-            String.valueOf(rxml.getFocusOffset())
+            String.valueOf(rxml.getFocusOffset()),
+            String.valueOf(rxml.getDoAdd())
         };
         ret = cmd;
 
@@ -668,7 +669,7 @@ public class Rootwork3DPers  implements IApplication {
                               double refRatio, int rot_digits,
                               ArrayList<Rectangle> rectsUsed, double scale, int camDist,
                               int rotDir, boolean doFindRotAxis, boolean doCalib, Double pitch,
-                              Double roll, int translation, int focusOffset) {
+                              Double roll, int translation, int focusOffset, boolean doAdd) {
 
         File ft = rout.getThresholdDir();
         File[] thresholdFiles = iot.getThresholdedImages();
@@ -689,7 +690,7 @@ public class Rootwork3DPers  implements IApplication {
                 numberOfComponents, resolution, refImage, refRatio,
                 rot_digits, rectsUsed, scale,
                 camDist, rotDir, doFindRotAxis, doCalib, pitch,
-                roll, translation, focusOffset);
+                roll, translation, focusOffset, doAdd);
         rxml.save(rout.getConfigFile());
 
         // // tw 2014nov12
