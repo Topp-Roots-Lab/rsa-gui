@@ -155,8 +155,8 @@ public class Rootwork3DFrame_new extends JFrame implements
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
-        panel1.setMinimumSize(new Dimension(380, 250));
-        panel1.setPreferredSize(new Dimension(380, 250));
+        panel1.setMinimumSize(new Dimension(400, 250));
+        panel1.setPreferredSize(new Dimension(400, 250));
         jLabel1 = new JLabel();
         jLabel1.setFont(new Font(jLabel1.getFont().getName(), Font.BOLD, jLabel1.getFont().getSize()));
         jLabel1.setText("Number Nodes Octree:");
@@ -298,7 +298,7 @@ public class Rootwork3DFrame_new extends JFrame implements
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(refRatioField, gbc);
         nextButton = new JButton();
-        nextButton.setPreferredSize(new Dimension(80, 26));
+        nextButton.setPreferredSize(new Dimension(90, 26));
         nextButton.setText("Next");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -307,7 +307,7 @@ public class Rootwork3DFrame_new extends JFrame implements
         gbc.insets = new Insets(10, 0, 0, 0);
         panel1.add(nextButton, gbc);
         cancelButton = new JButton();
-        cancelButton.setPreferredSize(new Dimension(80, 26));
+        cancelButton.setPreferredSize(new Dimension(90, 26));
         cancelButton.setText("Cancel");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
