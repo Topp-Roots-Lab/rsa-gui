@@ -298,7 +298,7 @@ public class Rootwork3DFrame_new extends JFrame implements
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(refRatioField, gbc);
         nextButton = new JButton();
-        nextButton.setPreferredSize(new Dimension(100, 26));
+        nextButton.setPreferredSize(new Dimension(80, 26));
         nextButton.setText("Next");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -307,7 +307,7 @@ public class Rootwork3DFrame_new extends JFrame implements
         gbc.insets = new Insets(10, 0, 0, 0);
         panel1.add(nextButton, gbc);
         cancelButton = new JButton();
-        cancelButton.setPreferredSize(new Dimension(100, 26));
+        cancelButton.setPreferredSize(new Dimension(80, 26));
         cancelButton.setText("Cancel");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
