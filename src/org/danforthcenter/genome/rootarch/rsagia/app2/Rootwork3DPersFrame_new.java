@@ -247,7 +247,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         panel1.setMinimumSize(new Dimension(460, 420));
         panel1.setPreferredSize(new Dimension(460, 420));
         jLabel1 = new JLabel();
-        jLabel1.setFont(new Font(jLabel1.getFont().getName(), Font.BOLD, jLabel1.getFont().getSize()));
+        Font jLabel1Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel1.getFont());
+        if (jLabel1Font != null) jLabel1.setFont(jLabel1Font);
         jLabel1.setText("Number Nodes Octree:");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
@@ -256,7 +257,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel1, gbc);
         jLabel2 = new JLabel();
-        jLabel2.setFont(new Font(jLabel2.getFont().getName(), Font.BOLD, jLabel2.getFont().getSize()));
+        Font jLabel2Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel2.getFont());
+        if (jLabel2Font != null) jLabel2.setFont(jLabel2Font);
         jLabel2.setText("Number Images Used:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -264,7 +266,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel2, gbc);
         jLabel3 = new JLabel();
-        jLabel3.setFont(new Font(jLabel3.getFont().getName(), Font.BOLD, jLabel3.getFont().getSize()));
+        Font jLabel3Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel3.getFont());
+        if (jLabel3Font != null) jLabel3.setFont(jLabel3Font);
         jLabel3.setText("Recon Option:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -272,7 +275,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel3, gbc);
         jLabel4 = new JLabel();
-        jLabel4.setFont(new Font(jLabel4.getFont().getName(), Font.BOLD, jLabel4.getFont().getSize()));
+        Font jLabel4Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel4.getFont());
+        if (jLabel4Font != null) jLabel4.setFont(jLabel4Font);
         jLabel4.setText("Distortion Radius:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -280,7 +284,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel4, gbc);
         jLabel5 = new JLabel();
-        jLabel5.setFont(new Font(jLabel5.getFont().getName(), Font.BOLD, jLabel5.getFont().getSize()));
+        Font jLabel5Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel5.getFont());
+        if (jLabel5Font != null) jLabel5.setFont(jLabel5Font);
         jLabel5.setText("Number of Components:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -288,7 +293,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel5, gbc);
         jLabel6 = new JLabel();
-        jLabel6.setFont(new Font(jLabel6.getFont().getName(), Font.BOLD, jLabel6.getFont().getSize()));
+        Font jLabel6Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel6.getFont());
+        if (jLabel6Font != null) jLabel6.setFont(jLabel6Font);
         jLabel6.setText("Resolution:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -296,7 +302,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel6, gbc);
         jLabel7 = new JLabel();
-        jLabel7.setFont(new Font(jLabel7.getFont().getName(), Font.BOLD, jLabel7.getFont().getSize()));
+        Font jLabel7Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel7.getFont());
+        if (jLabel7Font != null) jLabel7.setFont(jLabel7Font);
         jLabel7.setText("Distance to Camera (mm):");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -304,7 +311,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel7, gbc);
         jLabel8 = new JLabel();
-        jLabel8.setFont(new Font(jLabel8.getFont().getName(), Font.BOLD, jLabel8.getFont().getSize()));
+        Font jLabel8Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel8.getFont());
+        if (jLabel8Font != null) jLabel8.setFont(jLabel8Font);
         jLabel8.setText("Direction of Rotation (-1 or 1):");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -312,7 +320,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel8, gbc);
         jLabel9 = new JLabel();
-        jLabel9.setFont(new Font(jLabel9.getFont().getName(), Font.BOLD, jLabel9.getFont().getSize()));
+        Font jLabel9Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel9.getFont());
+        if (jLabel9Font != null) jLabel9.setFont(jLabel9Font);
         jLabel9.setText("Find Rotation Axis (T/F):");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -320,7 +329,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel9, gbc);
         jLabel10 = new JLabel();
-        jLabel10.setFont(new Font(jLabel10.getFont().getName(), Font.BOLD, jLabel10.getFont().getSize()));
+        Font jLabel10Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel10.getFont());
+        if (jLabel10Font != null) jLabel10.setFont(jLabel10Font);
         jLabel10.setText("Use calibration (T/F):");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -328,7 +338,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel10, gbc);
         jLabel11 = new JLabel();
-        jLabel11.setFont(new Font(jLabel11.getFont().getName(), Font.BOLD, jLabel11.getFont().getSize()));
+        Font jLabel11Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel11.getFont());
+        if (jLabel11Font != null) jLabel11.setFont(jLabel11Font);
         jLabel11.setText("Pitch (deg):");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -336,7 +347,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel11, gbc);
         jLabel12 = new JLabel();
-        jLabel12.setFont(new Font(jLabel12.getFont().getName(), Font.BOLD, jLabel12.getFont().getSize()));
+        Font jLabel12Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel12.getFont());
+        if (jLabel12Font != null) jLabel12.setFont(jLabel12Font);
         jLabel12.setText("Roll (deg):");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -344,7 +356,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel12, gbc);
         jLabel13 = new JLabel();
-        jLabel13.setFont(new Font(jLabel13.getFont().getName(), Font.BOLD, jLabel13.getFont().getSize()));
+        Font jLabel13Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel13.getFont());
+        if (jLabel13Font != null) jLabel13.setFont(jLabel13Font);
         jLabel13.setText("Rotation axis correction (pixels):");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -353,7 +366,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.insets = new Insets(0, 0, 0, 10);
         panel1.add(jLabel13, gbc);
         jLabel14 = new JLabel();
-        jLabel14.setFont(new Font(jLabel14.getFont().getName(), Font.BOLD, jLabel14.getFont().getSize()));
+        Font jLabel14Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel14.getFont());
+        if (jLabel14Font != null) jLabel14.setFont(jLabel14Font);
         jLabel14.setText("Focus offset (mm):");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -361,7 +375,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(jLabel14, gbc);
         jLabel15 = new JLabel();
-        jLabel15.setFont(new Font(jLabel15.getFont().getName(), Font.BOLD, jLabel15.getFont().getSize()));
+        Font jLabel15Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel15.getFont());
+        if (jLabel15Font != null) jLabel15.setFont(jLabel15Font);
         jLabel15.setText("Ref Image:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -496,7 +511,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(refImageField, gbc);
         jLabel16 = new JLabel();
-        jLabel16.setFont(new Font(jLabel16.getFont().getName(), Font.BOLD, jLabel16.getFont().getSize()));
+        Font jLabel16Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel16.getFont());
+        if (jLabel16Font != null) jLabel16.setFont(jLabel16Font);
         jLabel16.setText("Ref Ratio:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -514,7 +530,8 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(refRatioField, gbc);
         jLabel17 = new JLabel();
-        jLabel17.setFont(new Font(jLabel17.getFont().getName(), Font.BOLD, jLabel17.getFont().getSize()));
+        Font jLabel17Font = this.$$$getFont$$$(null, Font.BOLD, -1, jLabel17.getFont());
+        if (jLabel17Font != null) jLabel17.setFont(jLabel17Font);
         jLabel17.setText("Add Top Line:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -557,6 +574,25 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(focusOffsetField, gbc);
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**
