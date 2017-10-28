@@ -383,11 +383,11 @@ public class RsaInputTable extends javax.swing.JTable implements
 		} else if (col.equals(GIA_TOTAL)) {
 			ans = new Integer(getAppCount(ris, am.getGiaRoot2D(), true, true));
 		} else if (col.equals(GIA3D_SANDBOX)) {
-			ans = new Integer(getAppCount(ris, am.getGiaRoot3D(), false, true));
+			ans = new Integer(getAppCount(ris, am.getGia3D_v2(), false, true));
 		} else if (col.equals(GIA3D_SAVED)) {
-			ans = new Integer(getAppCount(ris, am.getGiaRoot3D(), true, false));
+			ans = new Integer(getAppCount(ris, am.getGia3D_v2(), true, false));
 		} else if (col.equals(GIA3D_TOTAL)) {
-			ans = new Integer(getAppCount(ris, am.getGiaRoot3D(), true, true));
+			ans = new Integer(getAppCount(ris, am.getGia3D_v2(), true, true));
 		} else if (col.equals(RW_SANDBOX)) {
 			ans = new Integer(getAppCount(ris, am.getRootwork3D(), false, true));
 		} else if (col.equals(RW_SAVED)) {
