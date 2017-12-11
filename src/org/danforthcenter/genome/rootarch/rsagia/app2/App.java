@@ -5,11 +5,7 @@
 
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -30,6 +26,15 @@ public class App {
 				System.out.println("Usage: rsa-gia PROPERTIES_FILE");
 				System.exit(1);
 			}
+			///////////////
+			String user = System.getProperty("user.name");
+			String os = System.getProperty("os.name");
+
+			UserManagement um = new UserManagement();
+			ArrayList<String> userGroups = null;
+			userGroups = um.findUserGroups(user,os);
+
+			///////////////
 
 			final Properties sysProps = new Properties();
 			FileInputStream fis1 = null;

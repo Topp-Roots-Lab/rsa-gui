@@ -22,6 +22,8 @@ import java.util.Properties;
 
 import javax.swing.JOptionPane;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.ConnectDb;
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.FillDb;
 import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
 import org.danforthcenter.genome.rootarch.rsagia2.Crop;
 import org.danforthcenter.genome.rootarch.rsagia2.Export;
@@ -73,6 +75,26 @@ public class MainFrame extends javax.swing.JFrame implements
 				imagingDayPlant_Filter);
         // System.out.println(this.getClass() + " " + riss.size()
         //                   + " " + riss.get(0));
+
+		///////////////////////////////
+		ConnectDb cdb = new ConnectDb();
+		FillDb cfdb = null;
+		try {
+			cfdb = new FillDb();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (cfdb != null) {
+			//cfdb.fillTables1();
+			//cfdb.convertTemplatestoJson();
+			//cfdb.fillSavedConfigTableGia2d();
+			//cfdb.getUser();
+			//cfdb.fillSavedConfigTableGia3dv2();
+			//cfdb.fillSavedConfigTable();
+			//cfdb.fillProgramRunTable(riss,am);
+		}
+		////////////////////////////////////
+
 		rsaTable = new RsaInputTable(am);
 		rsaTable.setData(riss);
 		ArrayList<String> cols = new ArrayList<String>();
