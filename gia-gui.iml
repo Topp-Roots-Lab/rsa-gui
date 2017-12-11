@@ -12,5 +12,8 @@
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="mysql:mysql-connector-java:5.1.44" level="project" />
     <orderEntry type="library" name="net.imagej:ij:1.51r" level="project" />
+    <orderEntry type="library" name="org.jooq:jooq:3.10.1" level="project" />
+    <orderEntry type="library" name="org.jooq:jooq-meta:3.10.1" level="project" />
+    <orderEntry type="library" name="org.jooq:jooq-codegen:3.10.1" level="project" />
   </component>
 </module>
