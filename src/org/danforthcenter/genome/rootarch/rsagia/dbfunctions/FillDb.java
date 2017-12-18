@@ -9,6 +9,8 @@ import org.danforthcenter.genome.rootarch.rsagia2.*;
 import org.jooq.*;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -50,6 +52,30 @@ public class FillDb {
         dslContext = dbConnection.getDslContext();
     }
 
+    public void fillUserTable(ArrayList<RsaImageSet> riss, ApplicationManager am)
+    {
+        int i = 1;
+        i = this.fillPrepUserTable(i,riss,am,true,false);
+        i = this.fillPrepUserTable(i,riss,am,false,true);
+    }
+    public int fillPrepUserTable(int i,ArrayList<RsaImageSet> riss, ApplicationManager am, boolean doSaved,boolean doSandbox)
+    {
+        Boolean red = false;
+        for(RsaImageSet ris:riss) {
+            ArrayList<OutputInfo> ois = OutputInfo.getInstances(am, ris, doSaved, doSandbox, null, red);
+            for (OutputInfo oi : ois) {
+                String username = oi.getUser();
+                Result<Record> userRecord = dslContext.fetch("select * from user where user_name='" + username + "'");
+                if (userRecord.size() == 0) {
+                    String query = "insert into user values(" + i + ",'" + username + "','" + username+"','"+username+"','topplab')";
+                    dslContext.execute(query);
+                    i = i + 1;
+                }
+            }
+        }
+        return i;
+    }
+
     //organism,experiment,seed tables
     public void fillTables1() {
         File[] ss = this.originalImagesPath.listFiles();
@@ -79,6 +105,11 @@ public class FillDb {
                                         String timeValue_name = timeValue.getName();
                                         dslContext.insertInto(DATASET,DATASET.DATASET_ID,DATASET.SEED_ID,DATASET.TIMEPOINT_D_T_VALUE)
                                                 .values(j,i,timeValue_name).execute();
+                                        if(timeValue_name.substring(0,1).equals("t"))
+                                        {
+                                            String query = "update seed set experiment_timepoint_value='"+SeedExperimentTimepointValue.hour+"' where seed_id="+i;
+                                            dslContext.execute(query);
+                                        }
                                         File[] imageTypes = timeValue.listFiles();
                                         if (imageTypes != null && imageTypes.length > 0) {
                                             for (File imageType : imageTypes) {
@@ -111,11 +142,17 @@ public class FillDb {
         for (File gia2dXmlFile : gia2dXmlFiles) {
             String configName = gia2dXmlFile.getName();
             String path = gia2dXmlFile.getAbsolutePath();
-            path = path.replaceAll("\\\\", "\\\\\\\\");
-            Query query1 = dslContext.query("set @xml := load_file('" + path + "')");
-            dslContext.execute(query1);
+            if(File.separator.equals( "\\")) {
+                path = path.replaceAll("\\\\", "\\\\\\\\");
+            }
+            String contents = null;
+            try {
+                contents = new String(Files.readAllBytes((Paths.get(path))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Query query2 = dslContext.query("insert into saved_config(config_id,program_id,name,contents) values("
-                    + i + ",3,'" + configName.substring(0, configName.length() - 4) + "',@xml)");
+                    + i + ",3,'" + configName.substring(0, configName.length() - 4) + "','"+contents+"')");
             dslContext.execute(query2);
             i = i + 1;
         }
@@ -128,10 +165,17 @@ public class FillDb {
         for (File gia3dv2XmlFile : gia3dv2XmlFiles) {
             String configName = gia3dv2XmlFile.getName();
             String path = gia3dv2XmlFile.getAbsolutePath();
-            path = path.replaceAll("\\\\", "\\\\\\\\");
-            dslContext.execute("set @xml := load_file('" + path + "')");
+            if(File.separator.equals( "\\")) {
+                path = path.replaceAll("\\\\", "\\\\\\\\");
+            }
+            String contents = null;
+            try {
+                contents = new String(Files.readAllBytes((Paths.get(path))));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             dslContext.execute("insert into saved_config(config_id,program_id,name,contents) values("
-                    + result + ",6,'" + configName.substring(0, configName.length() - 4) + "',@xml)");
+                    + result + ",6,'" + configName.substring(0, configName.length() - 4) + "','" + contents +"')");
             result = result + 1;
         }
     }
@@ -241,7 +285,11 @@ public class FillDb {
             String DATE_FORMAT = "yyyy-MM-dd_HH-mm-ss";
             String date_ = new SimpleDateFormat(DATE_FORMAT).format(date);
             processedPath = oi.getDir().getAbsolutePath();
-            processedPath = processedPath.replaceAll("\\\\","\\\\\\\\");
+
+            if(File.separator.equals( "\\"))
+            {
+                processedPath = processedPath.replaceAll("\\\\","\\\\\\\\");
+            }
 
             for(Map.Entry<Object, Object> hs:programMap.entrySet()) {
                 String appName = (String) hs.getValue();
