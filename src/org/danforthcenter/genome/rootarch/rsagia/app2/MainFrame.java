@@ -24,16 +24,7 @@ import javax.swing.JOptionPane;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.ConnectDb;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.FillDb;
-import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
-import org.danforthcenter.genome.rootarch.rsagia2.Crop;
-import org.danforthcenter.genome.rootarch.rsagia2.Export;
-import org.danforthcenter.genome.rootarch.rsagia2.GiaRoot2D;
-import org.danforthcenter.genome.rootarch.rsagia2.IApplication;
-import org.danforthcenter.genome.rootarch.rsagia2.ISecurityManager;
-import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
-import org.danforthcenter.genome.rootarch.rsagia2.Scale;
-import org.danforthcenter.genome.rootarch.rsagia2.SimpleSecurityManager;
-import org.danforthcenter.genome.rootarch.rsagia2.StringPairFilter;
+import org.danforthcenter.genome.rootarch.rsagia2.*;
 
 /**
  * 
@@ -85,11 +76,8 @@ public class MainFrame extends javax.swing.JFrame implements
 			e.printStackTrace();
 		}
 		if (cfdb != null) {
+			//cfdb.fillUserTable(riss,am);
 			//cfdb.fillTables1();
-			//cfdb.convertTemplatestoJson();
-			//cfdb.fillSavedConfigTableGia2d();
-			//cfdb.getUser();
-			//cfdb.fillSavedConfigTableGia3dv2();
 			//cfdb.fillSavedConfigTable();
 			//cfdb.fillProgramRunTable(riss,am);
 		}

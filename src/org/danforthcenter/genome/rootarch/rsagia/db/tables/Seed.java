@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Seed extends TableImpl<SeedRecord> {
 
-    private static final long serialVersionUID = 1970005288;
+    private static final long serialVersionUID = -121652643;
 
     /**
      * The reference instance of <code>rsa_gia.seed</code>
@@ -62,34 +62,14 @@ public class Seed extends TableImpl<SeedRecord> {
     public final TableField<SeedRecord, Integer> SEED_ID = createField("seed_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>rsa_gia.seed.organism_name</code>.
+     * The column <code>rsa_gia.seed.experiment_id</code>.
      */
-    public final TableField<SeedRecord, String> ORGANISM_NAME = createField("organism_name", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
-
-    /**
-     * The column <code>rsa_gia.seed.experiment_code</code>.
-     */
-    public final TableField<SeedRecord, String> EXPERIMENT_CODE = createField("experiment_code", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
+    public final TableField<SeedRecord, Integer> EXPERIMENT_ID = createField("experiment_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>rsa_gia.seed.seed_name</code>.
      */
     public final TableField<SeedRecord, String> SEED_NAME = createField("seed_name", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
-
-    /**
-     * The column <code>rsa_gia.seed.description</code>.
-     */
-    public final TableField<SeedRecord, String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR(100).defaultValue(org.jooq.impl.DSL.inline("'NULL'", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
-
-    /**
-     * The column <code>rsa_gia.seed.experiment_start_date</code>.
-     */
-    public final TableField<SeedRecord, Timestamp> EXPERIMENT_START_DATE = createField("experiment_start_date", org.jooq.impl.SQLDataType.TIMESTAMP.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.TIMESTAMP)), this, "");
-
-    /**
-     * The column <code>rsa_gia.seed.experiment_timepoint_value</code>.
-     */
-    public final TableField<SeedRecord, SeedExperimentTimepointValue> EXPERIMENT_TIMEPOINT_VALUE = createField("experiment_timepoint_value", org.jooq.util.mysql.MySQLDataType.VARCHAR.asEnumDataType(org.danforthcenter.genome.rootarch.rsagia.db.enums.SeedExperimentTimepointValue.class), this, "");
 
     /**
      * The column <code>rsa_gia.seed.genotype</code>.
@@ -99,27 +79,42 @@ public class Seed extends TableImpl<SeedRecord> {
     /**
      * The column <code>rsa_gia.seed.dry_shoot</code>.
      */
-    public final TableField<SeedRecord, Double> DRY_SHOOT = createField("dry_shoot", org.jooq.impl.SQLDataType.FLOAT.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.FLOAT)), this, "");
+    public final TableField<SeedRecord, Double> DRY_SHOOT = createField("dry_shoot", org.jooq.impl.SQLDataType.FLOAT, this, "");
 
     /**
      * The column <code>rsa_gia.seed.dry_root</code>.
      */
-    public final TableField<SeedRecord, Double> DRY_ROOT = createField("dry_root", org.jooq.impl.SQLDataType.FLOAT.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.FLOAT)), this, "");
+    public final TableField<SeedRecord, Double> DRY_ROOT = createField("dry_root", org.jooq.impl.SQLDataType.FLOAT, this, "");
 
     /**
      * The column <code>rsa_gia.seed.wet_shoot</code>.
      */
-    public final TableField<SeedRecord, Double> WET_SHOOT = createField("wet_shoot", org.jooq.impl.SQLDataType.FLOAT.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.FLOAT)), this, "");
+    public final TableField<SeedRecord, Double> WET_SHOOT = createField("wet_shoot", org.jooq.impl.SQLDataType.FLOAT, this, "");
 
     /**
      * The column <code>rsa_gia.seed.wet_root</code>.
      */
-    public final TableField<SeedRecord, Double> WET_ROOT = createField("wet_root", org.jooq.impl.SQLDataType.FLOAT.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.FLOAT)), this, "");
+    public final TableField<SeedRecord, Double> WET_ROOT = createField("wet_root", org.jooq.impl.SQLDataType.FLOAT, this, "");
 
     /**
      * The column <code>rsa_gia.seed.sterilization_chamber</code>.
      */
-    public final TableField<SeedRecord, Double> STERILIZATION_CHAMBER = createField("sterilization_chamber", org.jooq.impl.SQLDataType.FLOAT.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.FLOAT)), this, "");
+    public final TableField<SeedRecord, Double> STERILIZATION_CHAMBER = createField("sterilization_chamber", org.jooq.impl.SQLDataType.FLOAT, this, "");
+
+    /**
+     * The column <code>rsa_gia.seed.experiment_timepoint_value</code>.
+     */
+    public final TableField<SeedRecord, SeedExperimentTimepointValue> EXPERIMENT_TIMEPOINT_VALUE = createField("experiment_timepoint_value", org.jooq.util.mysql.MySQLDataType.VARCHAR.asEnumDataType(org.danforthcenter.genome.rootarch.rsagia.db.enums.SeedExperimentTimepointValue.class), this, "");
+
+    /**
+     * The column <code>rsa_gia.seed.description</code>.
+     */
+    public final TableField<SeedRecord, String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
+
+    /**
+     * The column <code>rsa_gia.seed.experiment_start_date</code>.
+     */
+    public final TableField<SeedRecord, Timestamp> EXPERIMENT_START_DATE = createField("experiment_start_date", org.jooq.impl.SQLDataType.TIMESTAMP.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.TIMESTAMP)), this, "");
 
     /**
      * Create a <code>rsa_gia.seed</code> table reference
@@ -163,7 +158,7 @@ public class Seed extends TableImpl<SeedRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.SEED_PRIMARY, Indexes.SEED_SEED_EXPERIMENT_EXPERIMENT_CODE_FK, Indexes.SEED_SEED_ORGANISM_ORGANISM_NAME_FK);
+        return Arrays.<Index>asList(Indexes.SEED_PRIMARY, Indexes.SEED_SEED_EXPERIMENT_EXPERIMENT_ID_FK);
     }
 
     /**
@@ -195,7 +190,7 @@ public class Seed extends TableImpl<SeedRecord> {
      */
     @Override
     public List<ForeignKey<SeedRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<SeedRecord, ?>>asList(Keys.SEED_ORGANISM_ORGANISM_NAME_FK, Keys.SEED_EXPERIMENT_EXPERIMENT_CODE_FK);
+        return Arrays.<ForeignKey<SeedRecord, ?>>asList(Keys.SEED_EXPERIMENT_EXPERIMENT_ID_FK);
     }
 
     /**

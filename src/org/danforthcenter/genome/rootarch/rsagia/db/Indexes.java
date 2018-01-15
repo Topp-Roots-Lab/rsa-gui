@@ -44,6 +44,8 @@ public class Indexes {
     public static final Index DATASET_COUNT_DATASET_COUNT_PROGRAM_PROGRAM_ID_FK = Indexes0.DATASET_COUNT_DATASET_COUNT_PROGRAM_PROGRAM_ID_FK;
     public static final Index DATASET_COUNT_PRIMARY = Indexes0.DATASET_COUNT_PRIMARY;
     public static final Index DATASET_IMAGE_PATHS_PRIMARY = Indexes0.DATASET_IMAGE_PATHS_PRIMARY;
+    public static final Index EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX = Indexes0.EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX;
+    public static final Index EXPERIMENT_EXPERIMENT_ORGANISM_ORGANISM_NAME_FK = Indexes0.EXPERIMENT_EXPERIMENT_ORGANISM_ORGANISM_NAME_FK;
     public static final Index EXPERIMENT_EXPERIMENT_USER_USER_ID_FK = Indexes0.EXPERIMENT_EXPERIMENT_USER_USER_ID_FK;
     public static final Index EXPERIMENT_PRIMARY = Indexes0.EXPERIMENT_PRIMARY;
     public static final Index ORGANISM_PRIMARY = Indexes0.ORGANISM_PRIMARY;
@@ -58,8 +60,7 @@ public class Indexes {
     public static final Index SAVED_CONFIG_PRIMARY = Indexes0.SAVED_CONFIG_PRIMARY;
     public static final Index SAVED_CONFIG_SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = Indexes0.SAVED_CONFIG_SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK;
     public static final Index SEED_PRIMARY = Indexes0.SEED_PRIMARY;
-    public static final Index SEED_SEED_EXPERIMENT_EXPERIMENT_CODE_FK = Indexes0.SEED_SEED_EXPERIMENT_EXPERIMENT_CODE_FK;
-    public static final Index SEED_SEED_ORGANISM_ORGANISM_NAME_FK = Indexes0.SEED_SEED_ORGANISM_ORGANISM_NAME_FK;
+    public static final Index SEED_SEED_EXPERIMENT_EXPERIMENT_ID_FK = Indexes0.SEED_SEED_EXPERIMENT_EXPERIMENT_ID_FK;
     public static final Index USER_PRIMARY = Indexes0.USER_PRIMARY;
 
     // -------------------------------------------------------------------------
@@ -72,8 +73,10 @@ public class Indexes {
         public static Index DATASET_COUNT_DATASET_COUNT_PROGRAM_PROGRAM_ID_FK = createIndex("dataset_count_program_program_id_fk", DatasetCount.DATASET_COUNT, new OrderField[] { DatasetCount.DATASET_COUNT.PROGRAM_ID }, false);
         public static Index DATASET_COUNT_PRIMARY = createIndex("PRIMARY", DatasetCount.DATASET_COUNT, new OrderField[] { DatasetCount.DATASET_COUNT.DATASET_ID, DatasetCount.DATASET_COUNT.PROGRAM_ID, DatasetCount.DATASET_COUNT.CONDITION_TYPE }, true);
         public static Index DATASET_IMAGE_PATHS_PRIMARY = createIndex("PRIMARY", DatasetImagePaths.DATASET_IMAGE_PATHS, new OrderField[] { DatasetImagePaths.DATASET_IMAGE_PATHS.DATASET_ID, DatasetImagePaths.DATASET_IMAGE_PATHS.IMAGE_TYPE }, true);
+        public static Index EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX = createIndex("experiment_experiment_code_organism_name_uindex", Experiment.EXPERIMENT, new OrderField[] { Experiment.EXPERIMENT.EXPERIMENT_CODE, Experiment.EXPERIMENT.ORGANISM_NAME }, true);
+        public static Index EXPERIMENT_EXPERIMENT_ORGANISM_ORGANISM_NAME_FK = createIndex("experiment_organism_organism_name_fk", Experiment.EXPERIMENT, new OrderField[] { Experiment.EXPERIMENT.ORGANISM_NAME }, false);
         public static Index EXPERIMENT_EXPERIMENT_USER_USER_ID_FK = createIndex("experiment_user_user_id_fk", Experiment.EXPERIMENT, new OrderField[] { Experiment.EXPERIMENT.USER_ID }, false);
-        public static Index EXPERIMENT_PRIMARY = createIndex("PRIMARY", Experiment.EXPERIMENT, new OrderField[] { Experiment.EXPERIMENT.EXPERIMENT_CODE }, true);
+        public static Index EXPERIMENT_PRIMARY = createIndex("PRIMARY", Experiment.EXPERIMENT, new OrderField[] { Experiment.EXPERIMENT.EXPERIMENT_ID }, true);
         public static Index ORGANISM_PRIMARY = createIndex("PRIMARY", Organism.ORGANISM, new OrderField[] { Organism.ORGANISM.ORGANISM_NAME }, true);
         public static Index PROGRAM_PRIMARY = createIndex("PRIMARY", Program.PROGRAM, new OrderField[] { Program.PROGRAM.PROGRAM_ID }, true);
         public static Index PROGRAM_DEPENDENCY_PRIMARY = createIndex("PRIMARY", ProgramDependency.PROGRAM_DEPENDENCY, new OrderField[] { ProgramDependency.PROGRAM_DEPENDENCY.PROGRAM_DEPENDENCY_ID, ProgramDependency.PROGRAM_DEPENDENCY.PROGRAM_ID }, true);
@@ -86,8 +89,7 @@ public class Indexes {
         public static Index SAVED_CONFIG_PRIMARY = createIndex("PRIMARY", SavedConfig.SAVED_CONFIG, new OrderField[] { SavedConfig.SAVED_CONFIG.CONFIG_ID }, true);
         public static Index SAVED_CONFIG_SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = createIndex("saved_config_program_program_id_fk", SavedConfig.SAVED_CONFIG, new OrderField[] { SavedConfig.SAVED_CONFIG.PROGRAM_ID }, false);
         public static Index SEED_PRIMARY = createIndex("PRIMARY", Seed.SEED, new OrderField[] { Seed.SEED.SEED_ID }, true);
-        public static Index SEED_SEED_EXPERIMENT_EXPERIMENT_CODE_FK = createIndex("seed_experiment_experiment_code_fk", Seed.SEED, new OrderField[] { Seed.SEED.EXPERIMENT_CODE }, false);
-        public static Index SEED_SEED_ORGANISM_ORGANISM_NAME_FK = createIndex("seed_organism_organism_name_fk", Seed.SEED, new OrderField[] { Seed.SEED.ORGANISM_NAME }, false);
+        public static Index SEED_SEED_EXPERIMENT_EXPERIMENT_ID_FK = createIndex("seed_experiment_experiment_id_fk", Seed.SEED, new OrderField[] { Seed.SEED.EXPERIMENT_ID }, false);
         public static Index USER_PRIMARY = createIndex("PRIMARY", User.USER, new OrderField[] { User.USER.USER_ID }, true);
     }
 }

@@ -81,6 +81,7 @@ public class FillDb {
         File[] ss = this.originalImagesPath.listFiles();
         int i = 1;
         int j = 1;
+        int e = 1;
         if (ss != null && ss.length > 0) {
             for (File s : ss) {
                 String species_name = s.getName();
@@ -91,14 +92,14 @@ public class FillDb {
                 if (exps != null && exps.length > 0) {
                     for (File exp : exps) {
                         String experiment_name = exp.getName();
-                        dslContext.insertInto(EXPERIMENT, EXPERIMENT.EXPERIMENT_CODE, EXPERIMENT.USER_ID, EXPERIMENT.DESCRIPTION)
-                                .values(experiment_name, 1, "desc").execute();
+                        dslContext.insertInto(EXPERIMENT, EXPERIMENT.EXPERIMENT_ID,EXPERIMENT.EXPERIMENT_CODE, EXPERIMENT.USER_ID, EXPERIMENT.DESCRIPTION,EXPERIMENT.ORGANISM_NAME)
+                                .values(e,experiment_name, 1, "desc",species_name).execute();
                         File[] seeds = exp.listFiles();
                         if (seeds != null && seeds.length > 0) {
                             for (File seed : seeds) {
                                 String seed_name = seed.getName();
-                                dslContext.insertInto(SEED, SEED.SEED_ID, SEED.SEED_NAME, SEED.DESCRIPTION, SEED.EXPERIMENT_START_DATE, SEED.EXPERIMENT_TIMEPOINT_VALUE, SEED.GENOTYPE, SEED.DRY_SHOOT, SEED.DRY_ROOT, SEED.WET_SHOOT, SEED.WET_ROOT, SEED.STERILIZATION_CHAMBER, ORGANISM.ORGANISM_NAME, EXPERIMENT.EXPERIMENT_CODE)
-                                        .values(i, seed_name, "desc", null, SeedExperimentTimepointValue.day, "genotype", null, null, null, null, null, species_name, experiment_name).execute();
+                                dslContext.insertInto(SEED, SEED.SEED_ID, SEED.SEED_NAME, SEED.DESCRIPTION, SEED.EXPERIMENT_START_DATE, SEED.EXPERIMENT_TIMEPOINT_VALUE, SEED.GENOTYPE, SEED.DRY_SHOOT, SEED.DRY_ROOT, SEED.WET_SHOOT, SEED.WET_ROOT, SEED.STERILIZATION_CHAMBER, SEED.EXPERIMENT_ID)
+                                        .values(i, seed_name, "desc", null, SeedExperimentTimepointValue.day, "genotype", null, null, null, null, null, e).execute();
                                 File[] timeValues = seed.listFiles();
                                 if (timeValues != null && timeValues.length > 0) {
                                     for (File timeValue : timeValues) {
@@ -124,6 +125,7 @@ public class FillDb {
                                 i = i + 1;
                             }
                         }
+                        e = e+1;
                     }
                 }
             }
@@ -273,8 +275,9 @@ public class FillDb {
         String experiment = ris.getExperiment();
         String plant = ris.getPlant();
         String day = ris.getImagingDay();
-        Result<Record> datasetRecord = dslContext.fetch("select  dataset_id from dataset d inner join seed s on d.seed_id=s.seed_id where " +
-                "s.organism_name='" +organism+ "' and s.experiment_code='"+experiment+ "' and s.seed_name='"+plant+"' " +
+        Result<Record> datasetRecord = dslContext.fetch("select  dataset_id from dataset d inner join seed s on d.seed_id=s.seed_id " +
+                "inner join experiment e on s.experiment_id=e.experiment_id where " +
+                "e.organism_name='" +organism+ "' and e.experiment_code='"+experiment+ "' and s.seed_name='"+plant+"' " +
                 "and d.timepoint_d_t_value='"+day+"'");
         datasetID = (int) datasetRecord.getValue(0,"dataset_id");
         for (OutputInfo oi : ois) {

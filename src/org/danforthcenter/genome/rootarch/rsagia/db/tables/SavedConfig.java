@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SavedConfig extends TableImpl<SavedConfigRecord> {
 
-    private static final long serialVersionUID = 47870188;
+    private static final long serialVersionUID = -518241977;
 
     /**
      * The reference instance of <code>rsa_gia.saved_config</code>
@@ -72,7 +72,7 @@ public class SavedConfig extends TableImpl<SavedConfigRecord> {
     /**
      * The column <code>rsa_gia.saved_config.contents</code>.
      */
-    public final TableField<SavedConfigRecord, String> CONTENTS = createField("contents", org.jooq.impl.SQLDataType.CLOB.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.CLOB)), this, "");
+    public final TableField<SavedConfigRecord, String> CONTENTS = createField("contents", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
      * Create a <code>rsa_gia.saved_config</code> table reference

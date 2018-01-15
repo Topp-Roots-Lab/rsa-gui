@@ -38,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Experiment extends TableImpl<ExperimentRecord> {
 
-    private static final long serialVersionUID = 1783579884;
+    private static final long serialVersionUID = -1561575128;
 
     /**
      * The reference instance of <code>rsa_gia.experiment</code>
@@ -54,19 +54,29 @@ public class Experiment extends TableImpl<ExperimentRecord> {
     }
 
     /**
+     * The column <code>rsa_gia.experiment.experiment_id</code>.
+     */
+    public final TableField<ExperimentRecord, Integer> EXPERIMENT_ID = createField("experiment_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
      * The column <code>rsa_gia.experiment.experiment_code</code>.
      */
     public final TableField<ExperimentRecord, String> EXPERIMENT_CODE = createField("experiment_code", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
 
     /**
-     * The column <code>rsa_gia.experiment.description</code>.
+     * The column <code>rsa_gia.experiment.organism_name</code>.
      */
-    public final TableField<ExperimentRecord, String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR(100).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<ExperimentRecord, String> ORGANISM_NAME = createField("organism_name", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
 
     /**
      * The column <code>rsa_gia.experiment.user_id</code>.
      */
     public final TableField<ExperimentRecord, Integer> USER_ID = createField("user_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
+     * The column <code>rsa_gia.experiment.description</code>.
+     */
+    public final TableField<ExperimentRecord, String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
      * Create a <code>rsa_gia.experiment</code> table reference
@@ -110,7 +120,7 @@ public class Experiment extends TableImpl<ExperimentRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.EXPERIMENT_EXPERIMENT_USER_USER_ID_FK, Indexes.EXPERIMENT_PRIMARY);
+        return Arrays.<Index>asList(Indexes.EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX, Indexes.EXPERIMENT_EXPERIMENT_ORGANISM_ORGANISM_NAME_FK, Indexes.EXPERIMENT_EXPERIMENT_USER_USER_ID_FK, Indexes.EXPERIMENT_PRIMARY);
     }
 
     /**
@@ -126,7 +136,7 @@ public class Experiment extends TableImpl<ExperimentRecord> {
      */
     @Override
     public List<UniqueKey<ExperimentRecord>> getKeys() {
-        return Arrays.<UniqueKey<ExperimentRecord>>asList(Keys.KEY_EXPERIMENT_PRIMARY);
+        return Arrays.<UniqueKey<ExperimentRecord>>asList(Keys.KEY_EXPERIMENT_PRIMARY, Keys.KEY_EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX);
     }
 
     /**
@@ -134,7 +144,7 @@ public class Experiment extends TableImpl<ExperimentRecord> {
      */
     @Override
     public List<ForeignKey<ExperimentRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ExperimentRecord, ?>>asList(Keys.EXPERIMENT_USER_USER_ID_FK);
+        return Arrays.<ForeignKey<ExperimentRecord, ?>>asList(Keys.EXPERIMENT_ORGANISM_ORGANISM_NAME_FK, Keys.EXPERIMENT_USER_USER_ID_FK);
     }
 
     /**

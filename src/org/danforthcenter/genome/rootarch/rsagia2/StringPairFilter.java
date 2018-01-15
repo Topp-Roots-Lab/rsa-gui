@@ -29,6 +29,21 @@ public class StringPairFilter {
 	protected String r2;
 	protected String r3;
 
+	public String getR1()
+	{
+		return r1;
+	}
+
+	public String getR2()
+	{
+		return r2;
+	}
+
+	public String getR3()
+	{
+		return r3;
+	}
+
 	public static boolean isValid(String s) {
 		Pattern p = Pattern.compile(LIST_REGEX);
 		Matcher m = p.matcher(s);

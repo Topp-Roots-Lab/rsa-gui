@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DatasetCount extends TableImpl<DatasetCountRecord> {
 
-    private static final long serialVersionUID = 323733270;
+    private static final long serialVersionUID = -1488041836;
 
     /**
      * The reference instance of <code>rsa_gia.dataset_count</code>
@@ -72,12 +72,12 @@ public class DatasetCount extends TableImpl<DatasetCountRecord> {
     /**
      * The column <code>rsa_gia.dataset_count.data_count</code>.
      */
-    public final TableField<DatasetCountRecord, Integer> DATA_COUNT = createField("data_count", org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<DatasetCountRecord, Integer> DATA_COUNT = createField("data_count", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>rsa_gia.dataset_count.red_flag_count</code>.
      */
-    public final TableField<DatasetCountRecord, Integer> RED_FLAG_COUNT = createField("red_flag_count", org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<DatasetCountRecord, Integer> RED_FLAG_COUNT = createField("red_flag_count", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * Create a <code>rsa_gia.dataset_count</code> table reference

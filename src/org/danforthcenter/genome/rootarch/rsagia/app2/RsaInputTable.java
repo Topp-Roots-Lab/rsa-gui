@@ -403,7 +403,25 @@ public class RsaInputTable extends javax.swing.JTable implements
 		return ans;
 	}
 
-	protected int getAppCount(RsaImageSet ris, IApplication app,
+	protected int getAppCount(RsaImageSet ris, IApplication app, boolean doSaved, boolean doSandbox)
+	{
+		HashMap<String, int[]> countApps= ris.getCounts();
+		String appName= app.getName();
+		int[] arr = countApps.get(appName);
+		int saved=0;
+		int sandbox=0;
+		if(doSandbox==true)
+		{
+			sandbox = arr[0];
+		}
+		if(doSaved == true)
+		{
+			saved = arr[1];
+		}
+		int total = saved+sandbox;
+		return total;
+	}
+	protected int getAppCount_old(RsaImageSet ris, IApplication app,
 			boolean doSaved, boolean doSandbox) {
 		ArrayList<OutputInfo> ois = OutputInfo.getInstances(am, ris, doSaved,
 				doSandbox, null, false);
@@ -421,7 +439,18 @@ public class RsaInputTable extends javax.swing.JTable implements
 		return this.inputData;
 	}
 
-	public void updateRows(ArrayList<Integer> rowIndexes) {
+	public void updateRows(ArrayList<Integer> rowIndexes)
+	{
+		int colCount = this.getColumnCount();
+		for (int i : rowIndexes) {
+			for (int j = savedCols.size(); j < colCount; j++) {
+				Object ans = computeCellData(i, this.getColumnName(j));
+				this.getModel().setValueAt(ans, i, j);
+			}
+		}
+	}
+
+	public void updateRows_old(ArrayList<Integer> rowIndexes) {
 		int colCount = this.getColumnCount();
 		for (int i : rowIndexes) {
 			for (int j = savedCols.size(); j < colCount; j++) {

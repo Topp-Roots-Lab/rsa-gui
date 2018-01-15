@@ -65,6 +65,7 @@ public class Keys {
     public static final UniqueKey<DatasetCountRecord> KEY_DATASET_COUNT_PRIMARY = UniqueKeys0.KEY_DATASET_COUNT_PRIMARY;
     public static final UniqueKey<DatasetImagePathsRecord> KEY_DATASET_IMAGE_PATHS_PRIMARY = UniqueKeys0.KEY_DATASET_IMAGE_PATHS_PRIMARY;
     public static final UniqueKey<ExperimentRecord> KEY_EXPERIMENT_PRIMARY = UniqueKeys0.KEY_EXPERIMENT_PRIMARY;
+    public static final UniqueKey<ExperimentRecord> KEY_EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX = UniqueKeys0.KEY_EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX;
     public static final UniqueKey<OrganismRecord> KEY_ORGANISM_PRIMARY = UniqueKeys0.KEY_ORGANISM_PRIMARY;
     public static final UniqueKey<ProgramRecord> KEY_PROGRAM_PRIMARY = UniqueKeys0.KEY_PROGRAM_PRIMARY;
     public static final UniqueKey<ProgramDependencyRecord> KEY_PROGRAM_DEPENDENCY_PRIMARY = UniqueKeys0.KEY_PROGRAM_DEPENDENCY_PRIMARY;
@@ -81,6 +82,7 @@ public class Keys {
     public static final ForeignKey<DatasetCountRecord, DatasetRecord> DATASET_COUNT_DATASET_DATASET_ID_FK = ForeignKeys0.DATASET_COUNT_DATASET_DATASET_ID_FK;
     public static final ForeignKey<DatasetCountRecord, ProgramRecord> DATASET_COUNT_PROGRAM_PROGRAM_ID_FK = ForeignKeys0.DATASET_COUNT_PROGRAM_PROGRAM_ID_FK;
     public static final ForeignKey<DatasetImagePathsRecord, DatasetRecord> DATASET_IMAGE_PATHS_DATASET_DATASET_ID_FK = ForeignKeys0.DATASET_IMAGE_PATHS_DATASET_DATASET_ID_FK;
+    public static final ForeignKey<ExperimentRecord, OrganismRecord> EXPERIMENT_ORGANISM_ORGANISM_NAME_FK = ForeignKeys0.EXPERIMENT_ORGANISM_ORGANISM_NAME_FK;
     public static final ForeignKey<ExperimentRecord, UserRecord> EXPERIMENT_USER_USER_ID_FK = ForeignKeys0.EXPERIMENT_USER_USER_ID_FK;
     public static final ForeignKey<ProgramDependencyRecord, ProgramRecord> PROGRAM_DEPENDENCY_PROGRAM_PROGRAM_ID_FK = ForeignKeys0.PROGRAM_DEPENDENCY_PROGRAM_PROGRAM_ID_FK;
     public static final ForeignKey<ProgramRunRecord, UserRecord> PROGRAM_RUN_USER_USER_ID_FK = ForeignKeys0.PROGRAM_RUN_USER_USER_ID_FK;
@@ -88,8 +90,7 @@ public class Keys {
     public static final ForeignKey<ProgramRunRecord, DatasetRecord> PROGRAM_RUN_DATASET_DATASET_ID_FK = ForeignKeys0.PROGRAM_RUN_DATASET_DATASET_ID_FK;
     public static final ForeignKey<ProgramRunRecord, SavedConfigRecord> PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK = ForeignKeys0.PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK;
     public static final ForeignKey<SavedConfigRecord, ProgramRecord> SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = ForeignKeys0.SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK;
-    public static final ForeignKey<SeedRecord, OrganismRecord> SEED_ORGANISM_ORGANISM_NAME_FK = ForeignKeys0.SEED_ORGANISM_ORGANISM_NAME_FK;
-    public static final ForeignKey<SeedRecord, ExperimentRecord> SEED_EXPERIMENT_EXPERIMENT_CODE_FK = ForeignKeys0.SEED_EXPERIMENT_EXPERIMENT_CODE_FK;
+    public static final ForeignKey<SeedRecord, ExperimentRecord> SEED_EXPERIMENT_EXPERIMENT_ID_FK = ForeignKeys0.SEED_EXPERIMENT_EXPERIMENT_ID_FK;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -106,7 +107,8 @@ public class Keys {
         public static final UniqueKey<DatasetRecord> KEY_DATASET_PRIMARY = createUniqueKey(Dataset.DATASET, "KEY_dataset_PRIMARY", Dataset.DATASET.DATASET_ID);
         public static final UniqueKey<DatasetCountRecord> KEY_DATASET_COUNT_PRIMARY = createUniqueKey(DatasetCount.DATASET_COUNT, "KEY_dataset_count_PRIMARY", DatasetCount.DATASET_COUNT.DATASET_ID, DatasetCount.DATASET_COUNT.PROGRAM_ID, DatasetCount.DATASET_COUNT.CONDITION_TYPE);
         public static final UniqueKey<DatasetImagePathsRecord> KEY_DATASET_IMAGE_PATHS_PRIMARY = createUniqueKey(DatasetImagePaths.DATASET_IMAGE_PATHS, "KEY_dataset_image_paths_PRIMARY", DatasetImagePaths.DATASET_IMAGE_PATHS.DATASET_ID, DatasetImagePaths.DATASET_IMAGE_PATHS.IMAGE_TYPE);
-        public static final UniqueKey<ExperimentRecord> KEY_EXPERIMENT_PRIMARY = createUniqueKey(Experiment.EXPERIMENT, "KEY_experiment_PRIMARY", Experiment.EXPERIMENT.EXPERIMENT_CODE);
+        public static final UniqueKey<ExperimentRecord> KEY_EXPERIMENT_PRIMARY = createUniqueKey(Experiment.EXPERIMENT, "KEY_experiment_PRIMARY", Experiment.EXPERIMENT.EXPERIMENT_ID);
+        public static final UniqueKey<ExperimentRecord> KEY_EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX = createUniqueKey(Experiment.EXPERIMENT, "KEY_experiment_experiment_experiment_code_organism_name_uindex", Experiment.EXPERIMENT.EXPERIMENT_CODE, Experiment.EXPERIMENT.ORGANISM_NAME);
         public static final UniqueKey<OrganismRecord> KEY_ORGANISM_PRIMARY = createUniqueKey(Organism.ORGANISM, "KEY_organism_PRIMARY", Organism.ORGANISM.ORGANISM_NAME);
         public static final UniqueKey<ProgramRecord> KEY_PROGRAM_PRIMARY = createUniqueKey(Program.PROGRAM, "KEY_program_PRIMARY", Program.PROGRAM.PROGRAM_ID);
         public static final UniqueKey<ProgramDependencyRecord> KEY_PROGRAM_DEPENDENCY_PRIMARY = createUniqueKey(ProgramDependency.PROGRAM_DEPENDENCY, "KEY_program_dependency_PRIMARY", ProgramDependency.PROGRAM_DEPENDENCY.PROGRAM_DEPENDENCY_ID, ProgramDependency.PROGRAM_DEPENDENCY.PROGRAM_ID);
@@ -121,6 +123,7 @@ public class Keys {
         public static final ForeignKey<DatasetCountRecord, DatasetRecord> DATASET_COUNT_DATASET_DATASET_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_DATASET_PRIMARY, DatasetCount.DATASET_COUNT, "dataset_count_dataset_dataset_id_fk", DatasetCount.DATASET_COUNT.DATASET_ID);
         public static final ForeignKey<DatasetCountRecord, ProgramRecord> DATASET_COUNT_PROGRAM_PROGRAM_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_PROGRAM_PRIMARY, DatasetCount.DATASET_COUNT, "dataset_count_program_program_id_fk", DatasetCount.DATASET_COUNT.PROGRAM_ID);
         public static final ForeignKey<DatasetImagePathsRecord, DatasetRecord> DATASET_IMAGE_PATHS_DATASET_DATASET_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_DATASET_PRIMARY, DatasetImagePaths.DATASET_IMAGE_PATHS, "dataset_image_paths_dataset_dataset_id_fk", DatasetImagePaths.DATASET_IMAGE_PATHS.DATASET_ID);
+        public static final ForeignKey<ExperimentRecord, OrganismRecord> EXPERIMENT_ORGANISM_ORGANISM_NAME_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_ORGANISM_PRIMARY, Experiment.EXPERIMENT, "experiment_organism_organism_name_fk", Experiment.EXPERIMENT.ORGANISM_NAME);
         public static final ForeignKey<ExperimentRecord, UserRecord> EXPERIMENT_USER_USER_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_USER_PRIMARY, Experiment.EXPERIMENT, "experiment_user_user_id_fk", Experiment.EXPERIMENT.USER_ID);
         public static final ForeignKey<ProgramDependencyRecord, ProgramRecord> PROGRAM_DEPENDENCY_PROGRAM_PROGRAM_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_PROGRAM_PRIMARY, ProgramDependency.PROGRAM_DEPENDENCY, "program_dependency_program_program_id_fk", ProgramDependency.PROGRAM_DEPENDENCY.PROGRAM_ID);
         public static final ForeignKey<ProgramRunRecord, UserRecord> PROGRAM_RUN_USER_USER_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_USER_PRIMARY, ProgramRun.PROGRAM_RUN, "program_run_user_user_id_fk", ProgramRun.PROGRAM_RUN.USER_ID);
@@ -128,7 +131,6 @@ public class Keys {
         public static final ForeignKey<ProgramRunRecord, DatasetRecord> PROGRAM_RUN_DATASET_DATASET_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_DATASET_PRIMARY, ProgramRun.PROGRAM_RUN, "program_run_dataset_dataset_id_fk", ProgramRun.PROGRAM_RUN.DATASET_ID);
         public static final ForeignKey<ProgramRunRecord, SavedConfigRecord> PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_SAVED_CONFIG_PRIMARY, ProgramRun.PROGRAM_RUN, "program_run_saved_config_config_id_fk", ProgramRun.PROGRAM_RUN.CONFIG_ID);
         public static final ForeignKey<SavedConfigRecord, ProgramRecord> SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_PROGRAM_PRIMARY, SavedConfig.SAVED_CONFIG, "saved_config_program_program_id_fk", SavedConfig.SAVED_CONFIG.PROGRAM_ID);
-        public static final ForeignKey<SeedRecord, OrganismRecord> SEED_ORGANISM_ORGANISM_NAME_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_ORGANISM_PRIMARY, Seed.SEED, "seed_organism_organism_name_fk", Seed.SEED.ORGANISM_NAME);
-        public static final ForeignKey<SeedRecord, ExperimentRecord> SEED_EXPERIMENT_EXPERIMENT_CODE_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_EXPERIMENT_PRIMARY, Seed.SEED, "seed_experiment_experiment_code_fk", Seed.SEED.EXPERIMENT_CODE);
+        public static final ForeignKey<SeedRecord, ExperimentRecord> SEED_EXPERIMENT_EXPERIMENT_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_EXPERIMENT_PRIMARY, Seed.SEED, "seed_experiment_experiment_id_fk", Seed.SEED.EXPERIMENT_ID);
     }
 }
