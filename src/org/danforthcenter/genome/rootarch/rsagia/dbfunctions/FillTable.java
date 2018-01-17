@@ -62,7 +62,7 @@ public class FillTable {
                 } else {
                     query = query + "(";
                 }
-                query = query + "s.organism_name='" + spp.getR3() + "'";
+                query = query + "e.organism_name='" + spp.getR3() + "'";
                 s1 = s1 + 1;
             }
             query = query + ")";
@@ -77,7 +77,7 @@ public class FillTable {
                 } else {
                     query = query + "(";
                 }
-                query = query + "s.experiment_code='" + exp.getR3() + "'";
+                query = query + "e.experiment_code='" + exp.getR3() + "'";
 
                 e1 = e1 + 1;
             }
@@ -148,6 +148,7 @@ public class FillTable {
             query = query + ")";
         }
         query = query + " order by d.dataset_id;";
+        System.out.println(query);
         Result<Record> datasetRecord = dslContext.fetch(query);
         return datasetRecord;
     }

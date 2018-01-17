@@ -71,16 +71,17 @@ public class MainFrame extends javax.swing.JFrame implements
 		ConnectDb cdb = new ConnectDb();
 		FillDb cfdb = null;
 		try {
-			cfdb = new FillDb();
+			cfdb = new FillDb(baseDir);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		if (cfdb != null) {
-			//cfdb.fillUserTable(riss,am);
-			//cfdb.fillTables1();
-			//cfdb.fillSavedConfigTable();
-			//cfdb.fillProgramRunTable(riss,am);
+//			cfdb.fillUserTable(riss,am);
+//			cfdb.fillTables1();
+//			cfdb.fillSavedConfigTable();
+//			cfdb.fillProgramRunTable(riss,am);
 		}
+//		System.exit(0);
 		////////////////////////////////////
 
 		rsaTable = new RsaInputTable(am);
@@ -334,7 +335,7 @@ public class MainFrame extends javax.swing.JFrame implements
 		jMenu3 = new javax.swing.JMenu();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setTitle("rsa-gia 3.1.0");
+		setTitle("rsa-gia 4.0.0");
 		setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
 		nextButton.setText("Next");

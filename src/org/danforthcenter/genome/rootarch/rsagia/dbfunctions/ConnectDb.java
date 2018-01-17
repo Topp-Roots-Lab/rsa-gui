@@ -26,7 +26,8 @@ public class ConnectDb {
         this.dbName= "rsa_gia";
         this.dbUser= "rsa-gia";
         this.dbPassword = "rsagia";
-        this.dbServer = "localhost";
+        this.dbServer = "mercury.bioinformatics.danforthcenter.org";
+        //this.dbServer = "localhost";
         mds.setDatabaseName(this.dbName);
         mds.setUser(this.dbUser);
         mds.setPassword(this.dbPassword);

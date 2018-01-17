@@ -35,13 +35,11 @@ public class FillDb {
     private String[] seedArray;
     private DSLContext dslContext;
 
-    public FillDb() throws IOException {
+    public FillDb(File baseDir) throws IOException {
         FileInputStream fis1 = null;
         this.sysProps = new Properties();
 
-        fis1 = new FileInputStream(new File("default.properties"));
-        this.sysProps.load(fis1);
-        this.baseDir = new File(this.sysProps.getProperty("base_dir"));
+        this.baseDir = baseDir;
         this.originalImagesPath = new File(this.baseDir.getAbsolutePath() + File.separator
                 + "original_images"
 //                + File.separator + this.preferredType
@@ -67,7 +65,7 @@ public class FillDb {
                 String username = oi.getUser();
                 Result<Record> userRecord = dslContext.fetch("select * from user where user_name='" + username + "'");
                 if (userRecord.size() == 0) {
-                    String query = "insert into user values(" + i + ",'" + username + "','" + username+"','"+username+"','topplab')";
+                    String query = "insert into user values(" + i + ",'" + username + "','" + username+"','"+username+"','topplab','Submitter')";
                     dslContext.execute(query);
                     i = i + 1;
                 }
@@ -92,6 +90,7 @@ public class FillDb {
                 if (exps != null && exps.length > 0) {
                     for (File exp : exps) {
                         String experiment_name = exp.getName();
+                        System.out.println(experiment_name);
                         dslContext.insertInto(EXPERIMENT, EXPERIMENT.EXPERIMENT_ID,EXPERIMENT.EXPERIMENT_CODE, EXPERIMENT.USER_ID, EXPERIMENT.DESCRIPTION,EXPERIMENT.ORGANISM_NAME)
                                 .values(e,experiment_name, 1, "desc",species_name).execute();
                         File[] seeds = exp.listFiles();
@@ -115,6 +114,8 @@ public class FillDb {
                                         if (imageTypes != null && imageTypes.length > 0) {
                                             for (File imageType : imageTypes) {
                                                 String imageTypeName = imageType.getName();
+                                                System.out.println(species_name + " " + experiment_name + " " + seed_name + " " + imageTypeName);
+
                                                 dslContext.insertInto(DATASET_IMAGE_PATHS,DATASET_IMAGE_PATHS.DATASET_ID,DATASET_IMAGE_PATHS.IMAGE_TYPE,DATASET_IMAGE_PATHS.IMAGE_PATH)
                                                         .values(j, imageTypeName,imageType.getAbsolutePath()).execute();
                                             }
@@ -269,7 +270,7 @@ public class FillDb {
     {
         ArrayList<OutputInfo> ois = OutputInfo.getInstances(am, ris, doSaved, doSandbox, null, red);
         int s=0; int c=0;int g2d=0; int r3d=0;int r3dpers=0;int g3dv2=0;
-        int rs=0; int rc=0;int rg2d=0; int rr3d=0;int rr3dpers=0;int rg3dv2=0;
+        int rs=0; int rc=0;int rg2d=0; int rr3d=0;int rr3dpers=0;int rg3dv2=0;int qc=0;int rqc=0;int qc2=0;int rqc2=0;int qc3=0;int rqc3=0;
         String username = null;Date date = null;int datasetID = 0;String processedPath = null;
         String organism = ris.getSpecies();
         String experiment = ris.getExperiment();
@@ -408,6 +409,60 @@ public class FillDb {
                         run_id = run_id+1;
                     }
                 }
+                else if(appName.equals("qc")&&oi.getAppName().equals("qc"))
+                {
+                    if(oi.isValid()) {
+                        qc = qc + 1;
+                        String q="insert into program_run values("+run_id+","+userId+","+appId+","+datasetID+","+doSaved+","+0+",'"+ processedPath
+                                +"','"+date_+"',NULL,NULL,NULL, NULL)";
+                        dslContext.execute(q);
+                        run_id = run_id+1;
+                    }
+                    else
+                    {
+                        rqc = rqc + 1;
+                        String q="insert into program_run values("+run_id+","+userId+","+appId+","+datasetID+","+doSaved+","+1+",'"+ processedPath
+                                +"','"+date_+"',NULL,NULL,NULL, NULL)";
+                        dslContext.execute(q);
+                        run_id = run_id+1;
+                    }
+                }
+                else if(appName.equals("qc2")&&oi.getAppName().equals("qc2"))
+                {
+                    if(oi.isValid()) {
+                        qc2 = qc2 + 1;
+                        String q="insert into program_run values("+run_id+","+userId+","+appId+","+datasetID+","+doSaved+","+0+",'"+ processedPath
+                                +"','"+date_+"',NULL,NULL,NULL, NULL)";
+                        dslContext.execute(q);
+                        run_id = run_id+1;
+                    }
+                    else
+                    {
+                        rqc2 = rqc2 + 1;
+                        String q="insert into program_run values("+run_id+","+userId+","+appId+","+datasetID+","+doSaved+","+1+",'"+ processedPath
+                                +"','"+date_+"',NULL,NULL,NULL, NULL)";
+                        dslContext.execute(q);
+                        run_id = run_id+1;
+                    }
+                }
+                else if(appName.equals("qc3")&&oi.getAppName().equals("qc3"))
+                {
+                    if(oi.isValid()) {
+                        qc3 = qc3 + 1;
+                        String q="insert into program_run values("+run_id+","+userId+","+appId+","+datasetID+","+doSaved+","+0+",'"+ processedPath
+                                +"','"+date_+"',NULL,NULL,NULL, NULL)";
+                        dslContext.execute(q);
+                        run_id = run_id+1;
+                    }
+                    else
+                    {
+                        rqc3 = rqc3 + 1;
+                        String q="insert into program_run values("+run_id+","+userId+","+appId+","+datasetID+","+doSaved+","+1+",'"+ processedPath
+                                +"','"+date_+"',NULL,NULL,NULL, NULL)";
+                        dslContext.execute(q);
+                        run_id = run_id+1;
+                    }
+                }
             }
         }
         for(Map.Entry<Object,Object> hs:programMap.entrySet()) {
@@ -443,6 +498,21 @@ public class FillDb {
             {
                 x = g3dv2;
                 y = rg3dv2;
+            }
+            else if(appName.equals("qc"))
+            {
+                x = qc;
+                y = rqc;
+            }
+            else if(appName.equals("qc2"))
+            {
+                x = qc2;
+                y = rqc2;
+            }
+            else if(appName.equals("qc3"))
+            {
+                x = qc3;
+                y = rqc3;
             }
             if(doSandbox == true) {
                 dslContext.insertInto(DATASET_COUNT, DATASET_COUNT.DATASET_ID, DATASET_COUNT.PROGRAM_ID, DATASET_COUNT.CONDITION_TYPE, DATASET_COUNT.DATA_COUNT, DATASET_COUNT.RED_FLAG_COUNT)
