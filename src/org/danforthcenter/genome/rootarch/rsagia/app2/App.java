@@ -27,12 +27,12 @@ public class App {
 				System.exit(1);
 			}
 			///////////////
-			String user = System.getProperty("user.name");
-			String os = System.getProperty("os.name");
+			//String user = System.getProperty("user.name");
+			//String os = System.getProperty("os.name");
 
-			UserManagement um = new UserManagement();
-			ArrayList<String> userGroups = null;
-			userGroups = um.findUserGroups(user,os);
+			//UserManagement um = new UserManagement();
+			//ArrayList<String> userGroups = null;
+			//userGroups = um.findUserGroups(user,os);
 
 			///////////////
 

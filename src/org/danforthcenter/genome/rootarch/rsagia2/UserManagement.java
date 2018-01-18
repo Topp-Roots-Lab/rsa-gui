@@ -30,7 +30,6 @@ public class UserManagement {
         }
         try {
             Process process = Runtime.getRuntime().exec(command);
-            System.out.println("the output stream is " + process.getOutputStream());
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             if(os.contains("Windows"))
             {
@@ -51,7 +50,6 @@ public class UserManagement {
         String s;
         String[] arr = null;
         while ((s = reader.readLine()) != null) {
-            System.out.println("The inout stream is " + s);
             if (s.contains("Local Group Memberships")) {
                 arr = s.split("\\*");
                 if (arr != null) {
