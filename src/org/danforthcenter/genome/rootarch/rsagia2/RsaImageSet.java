@@ -30,14 +30,13 @@ public class RsaImageSet {
     protected String experiment;
     protected String plant;
     protected String imagingDay;
-    protected Calendar imagingDate;
 
     protected  HashMap<String,int[]> countsApps;
 
     protected File inputDir;
     protected File processedDir;
     protected File protectedInputDir;
-    protected String[] inputTypes;
+    protected HashSet<String> inputTypes;
 
     protected File baseDir;
     protected ISecurityManager ism;
@@ -81,7 +80,7 @@ public class RsaImageSet {
         Result<Record> datasetRecord = ft.getDatasets(sps,exps,pls,ims,pls_ims);
         int previousDatasetID=-1;
         RsaImageSet ris=null;
-
+        ArrayList<String> programNames = ft.getProgramNames();
         for (Record r:datasetRecord)
         {
             if(!r.getValue("dataset_id").equals(previousDatasetID))
@@ -95,11 +94,14 @@ public class RsaImageSet {
                 String experiment = (String) r.getValue("experiment_code");
                 String plant = (String) r.getValue("seed_name");
                 String imagingDay = (String) r.getValue("timepoint_d_t_value");
-
-                HashMap<String, int[]> countsApps = makeHashMapApps(ft);
+                String imageType = (String) r.getValue("image_type");
+                HashSet<String> imageTypes = new HashSet<>();
+                imageTypes.add(imageType);
+                HashMap<String, int[]> countsApps = makeHashMapApps(programNames);
 
                 ris = new RsaImageSet(dir, species, experiment, plant, imagingDay, ism);
                 ris.setCountsApps(countsApps);
+                ris.setInputTypesSet(imageTypes);
                 String  programName = (String) r.getValue("name");
                 String conditionType = (String) r.getValue("condition_type");
                 int total = (int) r.getValue("data_count");
@@ -117,6 +119,8 @@ public class RsaImageSet {
             }
             else
             {
+                HashSet<String> imageTypes = ris.getInputTypesSet();
+                imageTypes.add((String) r.getValue("image_type"));
                 HashMap<String, int[]> countsApps = ris.getCounts();
                 int total = (int) r.getValue("data_count");
                 String conditionType = (String) r.getValue("condition_type");
@@ -136,10 +140,9 @@ public class RsaImageSet {
         return ans;
     }
 
-    public static HashMap<String, int[]> makeHashMapApps(FillTable ft)
+    public static HashMap<String, int[]> makeHashMapApps(ArrayList<String> programNames)
     {
         HashMap<String, int[]> countsApps = new HashMap<String, int[]>();
-        ArrayList<String> programNames = ft.getProgramNames();
         for(int i=0;i<programNames.size();i++)
         {
             countsApps.put(programNames.get(i),new int[2]);
@@ -149,6 +152,11 @@ public class RsaImageSet {
 
     public void setCountsApps(HashMap<String, int[]> countsApps) {
         this.countsApps = countsApps;
+    }
+
+    public void setInputTypesSet(HashSet<String> imageTypes)
+    {
+        this.inputTypes = imageTypes;
     }
 
     public HashMap<String, int[]> getCounts()
@@ -174,32 +182,6 @@ public class RsaImageSet {
         this.protectedInputDir = new File(this.processedDir + File.separator
                 + "original");
 
-        DirectoryFileFilter dff = new DirectoryFileFilter();
-        File[] imgs = this.inputDir.listFiles(dff);
-        // System.out.println(this.getClass() + " " + inputDir);
-
-        this.imagingDate = null;
-
-        // bug is caused if there are goofy directories without images
-        if (imgs != null && imgs.length > 0) {
-            this.imagingDate = Calendar.getInstance();
-            this.imagingDate.setTimeInMillis(imgs[0].lastModified());
-        } else {
-            // System.out.println("No images in:" + inputDir.getAbsolutePath());
-        }
-
-        HashSet<String> hs = new HashSet<String>();
-        if (imgs != null) {
-            for (File img : imgs) {
-                String[] ss = img.getName().split("\\.", 0);
-                String t = ss[ss.length - 1];
-                if (!hs.contains(t)) {
-                    hs.add(t);
-                }
-            }
-        }
-
-        this.inputTypes = hs.toArray(new String[0]);
         this.baseDir = dir;
         this.ism = ism;
     }
@@ -312,10 +294,6 @@ public class RsaImageSet {
         return experiment;
     }
 
-    public Calendar getImagingDate() {
-        return imagingDate;
-    }
-
     public String getImagingDay() {
         return imagingDay;
     }
@@ -325,7 +303,7 @@ public class RsaImageSet {
     }
 
     public String[] getInputTypes() {
-        return inputTypes;
+        return inputTypes.toArray(new String[0]);
     }
 
     public String getPlant() {
@@ -346,6 +324,11 @@ public class RsaImageSet {
 
     public String getPreferredType() {
         return preferredType;
+    }
+
+    public HashSet<String> getInputTypesSet()
+    {
+        return this.inputTypes;
     }
 
     public void setPreferredType(String preferredType) {

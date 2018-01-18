@@ -148,7 +148,6 @@ public class FillTable {
             query = query + ")";
         }
         query = query + " order by d.dataset_id;";
-        System.out.println(query);
         Result<Record> datasetRecord = dslContext.fetch(query);
         return datasetRecord;
     }

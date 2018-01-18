@@ -533,13 +533,10 @@ public class RsaInputTable extends javax.swing.JTable implements
 		dtm.setRowCount(0);
 		this.inputData = inputData;
 
-        System.out.println("setData inputData.size " + inputData.size());
-
 		ArrayList<String[]> types = new ArrayList<String[]>();
 		for (int i = 0; i < inputData.size(); i++) {
 			// RsaImageSet ris = inputData.get(i);
 			types.add(inputData.get(i).getInputTypes());
-            System.out.println("setData types.size " + types.size() + " " + types.get(0).length);
 			Object[] nr = new Object[dtm.getColumnCount()];
 			for (int j = 0; j < nr.length; j++) {
 				nr[j] = computeCellData(i, dtm.getColumnName(j));
