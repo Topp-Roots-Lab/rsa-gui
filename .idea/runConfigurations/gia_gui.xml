@@ -2,7 +2,7 @@
   <configuration default="false" name="gia_gui" type="Application" factoryName="Application">
     <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
     <option name="MAIN_CLASS_NAME" value="org.danforthcenter.genome.rootarch.rsagia.app2.App" />
-    <option name="VM_PARAMETERS" value="-Dorg.jooq.no-logo=true" />
+    <option name="VM_PARAMETERS" value="" />
     <option name="PROGRAM_PARAMETERS" value="default.properties" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />

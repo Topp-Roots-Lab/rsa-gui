@@ -26,6 +26,9 @@ public class App {
 				System.out.println("Usage: rsa-gia PROPERTIES_FILE");
 				System.exit(1);
 			}
+
+			System.getProperties().setProperty("org.jooq.no-logo", "true");
+
 			///////////////
 			//String user = System.getProperty("user.name");
 			//String os = System.getProperty("os.name");
