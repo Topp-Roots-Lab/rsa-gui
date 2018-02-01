@@ -6,6 +6,7 @@
 package org.danforthcenter.genome.rootarch.rsagia2;
 
 import java.io.File;
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -95,46 +96,35 @@ public class RsaImageSet {
                 String plant = (String) r.getValue("seed_name");
                 String imagingDay = (String) r.getValue("timepoint_d_t_value");
                 String imageType = (String) r.getValue("image_type");
+                String programName = (String) r.getValue("name");
+
                 HashSet<String> imageTypes = new HashSet<>();
                 imageTypes.add(imageType);
+
                 HashMap<String, int[]> countsApps = makeHashMapApps(programNames);
+                int[] countArray = countsApps.get(programName);
+                countArray[0] = ((BigInteger)r.getValue("sandbox_count")).intValue();
+                countArray[1] = ((BigInteger)r.getValue("saved_count")).intValue();
 
                 ris = new RsaImageSet(dir, species, experiment, plant, imagingDay, ism);
-                ris.setCountsApps(countsApps);
                 ris.setInputTypesSet(imageTypes);
-                String  programName = (String) r.getValue("name");
-                String conditionType = (String) r.getValue("condition_type");
-                int total = (int) r.getValue("data_count");
-                int[] countArray = countsApps.get(programName);
-                if(conditionType.equals("sandbox"))
-                {
-                    countArray[0]=total;
-                }
-                else
-                {
-                    countArray[1]=total;
-                }
+                ris.setCountsApps(countsApps);
                 ans.add(ris);
-                previousDatasetID= (int) r.getValue("dataset_id");
+
+                previousDatasetID = (int) r.getValue("dataset_id");
             }
             else
             {
-                HashSet<String> imageTypes = ris.getInputTypesSet();
-                imageTypes.add((String) r.getValue("image_type"));
-                HashMap<String, int[]> countsApps = ris.getCounts();
-                int total = (int) r.getValue("data_count");
-                String conditionType = (String) r.getValue("condition_type");
-                String  programName = (String) r.getValue("name");
+                String imageType = (String) r.getValue("image_type");
+                String programName = (String) r.getValue("name");
 
+                HashSet<String> imageTypes = ris.getInputTypesSet();
+                imageTypes.add(imageType);
+
+                HashMap<String, int[]> countsApps = ris.getCounts();
                 int[] countArray = countsApps.get(programName);
-                if(conditionType.equals("sandbox"))
-                {
-                    countArray[0]=total;
-                }
-                else
-                {
-                    countArray[1]=total;
-                }
+                countArray[0] = ((BigInteger)r.getValue("sandbox_count")).intValue();
+                countArray[1] = ((BigInteger)r.getValue("saved_count")).intValue();
             }
         }
         return ans;

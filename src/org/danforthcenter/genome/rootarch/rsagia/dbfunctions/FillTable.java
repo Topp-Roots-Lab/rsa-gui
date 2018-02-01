@@ -47,11 +47,25 @@ public class FillTable {
         int pi1 = 0;
         String plsString = null;
 
-        String query = "select e.organism_name,dip.image_type,e.experiment_code,d.dataset_id,s.seed_id,s.seed_name,d.timepoint_d_t_value, " +
-                "p.name,dc.condition_type,dc.data_count,dc.red_flag_count,dip.image_path from experiment e inner join seed s " +
-                "inner join dataset d inner join dataset_count dc inner join dataset_image_paths dip inner join " +
-                "program p on s.experiment_id=e.experiment_id and d.dataset_id=dc.dataset_id and s.seed_id=d.seed_id and " +
-                "d.dataset_id=dip.dataset_id and dc.program_id=p.program_id ";
+        String query = "SELECT" +
+                "  e.experiment_code," +
+                "  e.organism_name," +
+                "  s.seed_id," +
+                "  s.seed_name," +
+                "  d.dataset_id," +
+                "  d.timepoint_d_t_value," +
+                "  dip.image_type," +
+                "  dip.image_path," +
+                "  pr.program_id," +
+                "  p.name," +
+                "  SUM(IFNULL(pr.saved, 0)) AS saved_count," +
+                "  IF(pr.saved IS NULL, 0, COUNT(*) - SUM(pr.saved)) AS sandbox_count " +
+                "FROM experiment e" +
+                "  INNER JOIN seed s ON e.experiment_id = s.experiment_id" +
+                "  INNER JOIN dataset d ON s.seed_id = d.seed_id" +
+                "  INNER JOIN dataset_image_paths dip ON d.dataset_id = dip.dataset_id" +
+                "  LEFT OUTER JOIN program_run pr ON d.dataset_id = pr.dataset_id AND pr.red_flag = 0" +
+                "  LEFT OUTER JOIN program p ON pr.program_id = p.program_id ";
         if (sps.size() != 0 || exps.size() != 0 || pls.size() != 0 || ims.size() != 0 || pls_ims.size() != 0) {
             query = query + "where ";
         }
@@ -147,7 +161,7 @@ public class FillTable {
             }
             query = query + ")";
         }
-        query = query + " order by d.dataset_id;";
+        query = query + " GROUP BY dip.dataset_id,dip.image_type,pr.program_id order by d.dataset_id;";
         Result<Record> datasetRecord = dslContext.fetch(query);
         return datasetRecord;
     }
