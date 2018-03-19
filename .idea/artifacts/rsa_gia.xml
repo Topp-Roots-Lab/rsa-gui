@@ -22,6 +22,7 @@
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/stax-api-1.0-2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/mysql/mysql-connector-java/5.1.44/mysql-connector-java-5.1.44.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jooq/jooq/3.10.1/jooq-3.10.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/java/dev/jna/jna/4.5.1/jna-4.5.1.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

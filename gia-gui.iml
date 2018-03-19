@@ -15,5 +15,6 @@
     <orderEntry type="library" name="org.jooq:jooq:3.10.1" level="project" />
     <orderEntry type="library" name="org.jooq:jooq-meta:3.10.1" level="project" />
     <orderEntry type="library" name="org.jooq:jooq-codegen:3.10.1" level="project" />
+    <orderEntry type="library" name="net.java.dev.jna:jna:4.5.1" level="project" />
   </component>
 </module>
