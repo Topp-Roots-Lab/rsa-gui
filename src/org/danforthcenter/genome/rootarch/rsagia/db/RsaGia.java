@@ -11,8 +11,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Dataset;
-import org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetCount;
-import org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImagePaths;
+import org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImageType;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Experiment;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Organism;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Program;
@@ -39,7 +38,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class RsaGia extends SchemaImpl {
 
-    private static final long serialVersionUID = 1967422678;
+    private static final long serialVersionUID = 1789090039;
 
     /**
      * The reference instance of <code>rsa_gia</code>
@@ -52,14 +51,9 @@ public class RsaGia extends SchemaImpl {
     public final Dataset DATASET = org.danforthcenter.genome.rootarch.rsagia.db.tables.Dataset.DATASET;
 
     /**
-     * The table <code>rsa_gia.dataset_count</code>.
+     * The table <code>rsa_gia.dataset_image_type</code>.
      */
-    public final DatasetCount DATASET_COUNT = org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetCount.DATASET_COUNT;
-
-    /**
-     * The table <code>rsa_gia.dataset_image_paths</code>.
-     */
-    public final DatasetImagePaths DATASET_IMAGE_PATHS = org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImagePaths.DATASET_IMAGE_PATHS;
+    public final DatasetImageType DATASET_IMAGE_TYPE = org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImageType.DATASET_IMAGE_TYPE;
 
     /**
      * The table <code>rsa_gia.experiment</code>.
@@ -127,8 +121,7 @@ public class RsaGia extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             Dataset.DATASET,
-            DatasetCount.DATASET_COUNT,
-            DatasetImagePaths.DATASET_IMAGE_PATHS,
+            DatasetImageType.DATASET_IMAGE_TYPE,
             Experiment.EXPERIMENT,
             Organism.ORGANISM,
             Program.PROGRAM,

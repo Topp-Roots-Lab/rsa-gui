@@ -7,8 +7,7 @@ package org.danforthcenter.genome.rootarch.rsagia.db;
 import javax.annotation.Generated;
 
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Dataset;
-import org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetCount;
-import org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImagePaths;
+import org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImageType;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Experiment;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Organism;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Program;
@@ -38,14 +37,9 @@ public class Tables {
     public static final Dataset DATASET = org.danforthcenter.genome.rootarch.rsagia.db.tables.Dataset.DATASET;
 
     /**
-     * The table <code>rsa_gia.dataset_count</code>.
+     * The table <code>rsa_gia.dataset_image_type</code>.
      */
-    public static final DatasetCount DATASET_COUNT = org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetCount.DATASET_COUNT;
-
-    /**
-     * The table <code>rsa_gia.dataset_image_paths</code>.
-     */
-    public static final DatasetImagePaths DATASET_IMAGE_PATHS = org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImagePaths.DATASET_IMAGE_PATHS;
+    public static final DatasetImageType DATASET_IMAGE_TYPE = org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImageType.DATASET_IMAGE_TYPE;
 
     /**
      * The table <code>rsa_gia.experiment</code>.

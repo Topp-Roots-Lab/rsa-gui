@@ -12,6 +12,7 @@ import javax.annotation.Generated;
 import org.danforthcenter.genome.rootarch.rsagia.db.Indexes;
 import org.danforthcenter.genome.rootarch.rsagia.db.Keys;
 import org.danforthcenter.genome.rootarch.rsagia.db.RsaGia;
+import org.danforthcenter.genome.rootarch.rsagia.db.enums.ProgramConfigFormat;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.records.ProgramRecord;
 import org.jooq.Field;
 import org.jooq.Identity;
@@ -38,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Program extends TableImpl<ProgramRecord> {
 
-    private static final long serialVersionUID = -325809037;
+    private static final long serialVersionUID = 841174741;
 
     /**
      * The reference instance of <code>rsa_gia.program</code>
@@ -61,12 +62,17 @@ public class Program extends TableImpl<ProgramRecord> {
     /**
      * The column <code>rsa_gia.program.name</code>.
      */
-    public final TableField<ProgramRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(50).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<ProgramRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>rsa_gia.program.description</code>.
      */
-    public final TableField<ProgramRecord, String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR(100).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<ProgramRecord, String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
+
+    /**
+     * The column <code>rsa_gia.program.config_format</code>.
+     */
+    public final TableField<ProgramRecord, ProgramConfigFormat> CONFIG_FORMAT = createField("config_format", org.jooq.util.mysql.MySQLDataType.VARCHAR.asEnumDataType(org.danforthcenter.genome.rootarch.rsagia.db.enums.ProgramConfigFormat.class), this, "");
 
     /**
      * Create a <code>rsa_gia.program</code> table reference

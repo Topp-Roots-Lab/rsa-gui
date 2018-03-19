@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Dataset extends TableImpl<DatasetRecord> {
 
-    private static final long serialVersionUID = 1581969506;
+    private static final long serialVersionUID = 410865930;
 
     /**
      * The reference instance of <code>rsa_gia.dataset</code>
@@ -65,9 +65,9 @@ public class Dataset extends TableImpl<DatasetRecord> {
     public final TableField<DatasetRecord, Integer> SEED_ID = createField("seed_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>rsa_gia.dataset.timepoint_d_t_value</code>.
+     * The column <code>rsa_gia.dataset.timepoint</code>.
      */
-    public final TableField<DatasetRecord, String> TIMEPOINT_D_T_VALUE = createField("timepoint_d_t_value", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
+    public final TableField<DatasetRecord, String> TIMEPOINT = createField("timepoint", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
 
     /**
      * Create a <code>rsa_gia.dataset</code> table reference
@@ -111,7 +111,7 @@ public class Dataset extends TableImpl<DatasetRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.DATASET_DATASET_SEED_SEED_ID_FK, Indexes.DATASET_PRIMARY);
+        return Arrays.<Index>asList(Indexes.DATASET_DATASET_SEED_SEED_ID_FK, Indexes.DATASET_DATASET_TIMEPOINT_D_T_VALUE_INDEX, Indexes.DATASET_PRIMARY);
     }
 
     /**

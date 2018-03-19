@@ -37,7 +37,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Organism extends TableImpl<OrganismRecord> {
 
-    private static final long serialVersionUID = -855602516;
+    private static final long serialVersionUID = -1656343802;
 
     /**
      * The reference instance of <code>rsa_gia.organism</code>
@@ -58,9 +58,14 @@ public class Organism extends TableImpl<OrganismRecord> {
     public final TableField<OrganismRecord, String> ORGANISM_NAME = createField("organism_name", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
 
     /**
+     * The column <code>rsa_gia.organism.species_code</code>.
+     */
+    public final TableField<OrganismRecord, String> SPECIES_CODE = createField("species_code", org.jooq.impl.SQLDataType.VARCHAR(10).nullable(false), this, "");
+
+    /**
      * The column <code>rsa_gia.organism.species</code>.
      */
-    public final TableField<OrganismRecord, String> SPECIES = createField("species", org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
+    public final TableField<OrganismRecord, String> SPECIES = createField("species", org.jooq.impl.SQLDataType.VARCHAR(50).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>rsa_gia.organism.subspecies</code>.
@@ -114,7 +119,7 @@ public class Organism extends TableImpl<OrganismRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.ORGANISM_PRIMARY);
+        return Arrays.<Index>asList(Indexes.ORGANISM_ORGANISM_SPECIES_CODE_UINDEX, Indexes.ORGANISM_PRIMARY);
     }
 
     /**
@@ -130,7 +135,7 @@ public class Organism extends TableImpl<OrganismRecord> {
      */
     @Override
     public List<UniqueKey<OrganismRecord>> getKeys() {
-        return Arrays.<UniqueKey<OrganismRecord>>asList(Keys.KEY_ORGANISM_PRIMARY);
+        return Arrays.<UniqueKey<OrganismRecord>>asList(Keys.KEY_ORGANISM_PRIMARY, Keys.KEY_ORGANISM_ORGANISM_SPECIES_CODE_UINDEX);
     }
 
     /**

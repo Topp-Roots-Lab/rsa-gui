@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SavedConfig extends TableImpl<SavedConfigRecord> {
 
-    private static final long serialVersionUID = -518241977;
+    private static final long serialVersionUID = -541850540;
 
     /**
      * The reference instance of <code>rsa_gia.saved_config</code>
@@ -67,12 +67,17 @@ public class SavedConfig extends TableImpl<SavedConfigRecord> {
     /**
      * The column <code>rsa_gia.saved_config.name</code>.
      */
-    public final TableField<SavedConfigRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(50).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<SavedConfigRecord, String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>rsa_gia.saved_config.contents</code>.
      */
     public final TableField<SavedConfigRecord, String> CONTENTS = createField("contents", org.jooq.impl.SQLDataType.CLOB, this, "");
+
+    /**
+     * The column <code>rsa_gia.saved_config.user_id</code>.
+     */
+    public final TableField<SavedConfigRecord, Integer> USER_ID = createField("user_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * Create a <code>rsa_gia.saved_config</code> table reference
@@ -116,7 +121,7 @@ public class SavedConfig extends TableImpl<SavedConfigRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.SAVED_CONFIG_PRIMARY, Indexes.SAVED_CONFIG_SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK);
+        return Arrays.<Index>asList(Indexes.SAVED_CONFIG_PRIMARY, Indexes.SAVED_CONFIG_SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK, Indexes.SAVED_CONFIG_SAVED_CONFIG_USER_USER_ID_FK);
     }
 
     /**
@@ -148,7 +153,7 @@ public class SavedConfig extends TableImpl<SavedConfigRecord> {
      */
     @Override
     public List<ForeignKey<SavedConfigRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<SavedConfigRecord, ?>>asList(Keys.SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK);
+        return Arrays.<ForeignKey<SavedConfigRecord, ?>>asList(Keys.SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK, Keys.SAVED_CONFIG_USER_USER_ID_FK);
     }
 
     /**

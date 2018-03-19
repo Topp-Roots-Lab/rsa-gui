@@ -37,7 +37,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = -1119316689;
+    private static final long serialVersionUID = -198527375;
 
     /**
      * The reference instance of <code>rsa_gia.user</code>
@@ -124,7 +124,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.USER_PRIMARY);
+        return Arrays.<Index>asList(Indexes.USER_PRIMARY, Indexes.USER_USER_USER_NAME_UINDEX);
     }
 
     /**
@@ -140,7 +140,7 @@ public class User extends TableImpl<UserRecord> {
      */
     @Override
     public List<UniqueKey<UserRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserRecord>>asList(Keys.KEY_USER_PRIMARY);
+        return Arrays.<UniqueKey<UserRecord>>asList(Keys.KEY_USER_PRIMARY, Keys.KEY_USER_USER_USER_NAME_UINDEX);
     }
 
     /**

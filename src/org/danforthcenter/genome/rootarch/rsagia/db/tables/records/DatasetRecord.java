@@ -27,7 +27,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DatasetRecord extends UpdatableRecordImpl<DatasetRecord> implements Record3<Integer, Integer, String> {
 
-    private static final long serialVersionUID = 1154477894;
+    private static final long serialVersionUID = 1371530969;
 
     /**
      * Setter for <code>rsa_gia.dataset.dataset_id</code>.
@@ -58,16 +58,16 @@ public class DatasetRecord extends UpdatableRecordImpl<DatasetRecord> implements
     }
 
     /**
-     * Setter for <code>rsa_gia.dataset.timepoint_d_t_value</code>.
+     * Setter for <code>rsa_gia.dataset.timepoint</code>.
      */
-    public void setTimepointDTValue(String value) {
+    public void setTimepoint(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>rsa_gia.dataset.timepoint_d_t_value</code>.
+     * Getter for <code>rsa_gia.dataset.timepoint</code>.
      */
-    public String getTimepointDTValue() {
+    public String getTimepoint() {
         return (String) get(2);
     }
 
@@ -124,7 +124,7 @@ public class DatasetRecord extends UpdatableRecordImpl<DatasetRecord> implements
      */
     @Override
     public Field<String> field3() {
-        return Dataset.DATASET.TIMEPOINT_D_T_VALUE;
+        return Dataset.DATASET.TIMEPOINT;
     }
 
     /**
@@ -148,7 +148,7 @@ public class DatasetRecord extends UpdatableRecordImpl<DatasetRecord> implements
      */
     @Override
     public String component3() {
-        return getTimepointDTValue();
+        return getTimepoint();
     }
 
     /**
@@ -172,7 +172,7 @@ public class DatasetRecord extends UpdatableRecordImpl<DatasetRecord> implements
      */
     @Override
     public String value3() {
-        return getTimepointDTValue();
+        return getTimepoint();
     }
 
     /**
@@ -198,7 +198,7 @@ public class DatasetRecord extends UpdatableRecordImpl<DatasetRecord> implements
      */
     @Override
     public DatasetRecord value3(String value) {
-        setTimepointDTValue(value);
+        setTimepoint(value);
         return this;
     }
 
@@ -227,11 +227,11 @@ public class DatasetRecord extends UpdatableRecordImpl<DatasetRecord> implements
     /**
      * Create a detached, initialised DatasetRecord
      */
-    public DatasetRecord(Integer datasetId, Integer seedId, String timepointDTValue) {
+    public DatasetRecord(Integer datasetId, Integer seedId, String timepoint) {
         super(Dataset.DATASET);
 
         set(0, datasetId);
         set(1, seedId);
-        set(2, timepointDTValue);
+        set(2, timepoint);
     }
 }

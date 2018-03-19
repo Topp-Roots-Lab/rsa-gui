@@ -13,7 +13,7 @@ import javax.annotation.Generated;
 import org.danforthcenter.genome.rootarch.rsagia.db.Indexes;
 import org.danforthcenter.genome.rootarch.rsagia.db.Keys;
 import org.danforthcenter.genome.rootarch.rsagia.db.RsaGia;
-import org.danforthcenter.genome.rootarch.rsagia.db.enums.SeedExperimentTimepointValue;
+import org.danforthcenter.genome.rootarch.rsagia.db.enums.SeedImagingIntervalUnit;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.records.SeedRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Seed extends TableImpl<SeedRecord> {
 
-    private static final long serialVersionUID = -121652643;
+    private static final long serialVersionUID = 655019200;
 
     /**
      * The reference instance of <code>rsa_gia.seed</code>
@@ -74,7 +74,7 @@ public class Seed extends TableImpl<SeedRecord> {
     /**
      * The column <code>rsa_gia.seed.genotype</code>.
      */
-    public final TableField<SeedRecord, String> GENOTYPE = createField("genotype", org.jooq.impl.SQLDataType.VARCHAR(50).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<SeedRecord, String> GENOTYPE = createField("genotype", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>rsa_gia.seed.dry_shoot</code>.
@@ -102,19 +102,19 @@ public class Seed extends TableImpl<SeedRecord> {
     public final TableField<SeedRecord, Double> STERILIZATION_CHAMBER = createField("sterilization_chamber", org.jooq.impl.SQLDataType.FLOAT, this, "");
 
     /**
-     * The column <code>rsa_gia.seed.experiment_timepoint_value</code>.
-     */
-    public final TableField<SeedRecord, SeedExperimentTimepointValue> EXPERIMENT_TIMEPOINT_VALUE = createField("experiment_timepoint_value", org.jooq.util.mysql.MySQLDataType.VARCHAR.asEnumDataType(org.danforthcenter.genome.rootarch.rsagia.db.enums.SeedExperimentTimepointValue.class), this, "");
-
-    /**
      * The column <code>rsa_gia.seed.description</code>.
      */
     public final TableField<SeedRecord, String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>rsa_gia.seed.experiment_start_date</code>.
+     * The column <code>rsa_gia.seed.imaging_interval_unit</code>.
      */
-    public final TableField<SeedRecord, Timestamp> EXPERIMENT_START_DATE = createField("experiment_start_date", org.jooq.impl.SQLDataType.TIMESTAMP.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.TIMESTAMP)), this, "");
+    public final TableField<SeedRecord, SeedImagingIntervalUnit> IMAGING_INTERVAL_UNIT = createField("imaging_interval_unit", org.jooq.util.mysql.MySQLDataType.VARCHAR.asEnumDataType(org.danforthcenter.genome.rootarch.rsagia.db.enums.SeedImagingIntervalUnit.class), this, "");
+
+    /**
+     * The column <code>rsa_gia.seed.imaging_start_date</code>.
+     */
+    public final TableField<SeedRecord, Timestamp> IMAGING_START_DATE = createField("imaging_start_date", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * Create a <code>rsa_gia.seed</code> table reference
@@ -158,7 +158,7 @@ public class Seed extends TableImpl<SeedRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.SEED_PRIMARY, Indexes.SEED_SEED_EXPERIMENT_EXPERIMENT_ID_FK);
+        return Arrays.<Index>asList(Indexes.SEED_PRIMARY, Indexes.SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX, Indexes.SEED_SEED_SEED_NAME_INDEX);
     }
 
     /**
@@ -182,7 +182,7 @@ public class Seed extends TableImpl<SeedRecord> {
      */
     @Override
     public List<UniqueKey<SeedRecord>> getKeys() {
-        return Arrays.<UniqueKey<SeedRecord>>asList(Keys.KEY_SEED_PRIMARY);
+        return Arrays.<UniqueKey<SeedRecord>>asList(Keys.KEY_SEED_PRIMARY, Keys.KEY_SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX);
     }
 
     /**
