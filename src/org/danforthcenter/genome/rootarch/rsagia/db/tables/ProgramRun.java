@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProgramRun extends TableImpl<ProgramRunRecord> {
 
-    private static final long serialVersionUID = -611810566;
+    private static final long serialVersionUID = 944935451;
 
     /**
      * The reference instance of <code>rsa_gia.program_run</code>
@@ -92,7 +92,7 @@ public class ProgramRun extends TableImpl<ProgramRunRecord> {
     /**
      * The column <code>rsa_gia.program_run.input_runs</code>.
      */
-    public final TableField<ProgramRunRecord, String> INPUT_RUNS = createField("input_runs", org.jooq.impl.SQLDataType.CLOB.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.CLOB)), this, "");
+    public final TableField<ProgramRunRecord, String> INPUT_RUNS = createField("input_runs", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
      * The column <code>rsa_gia.program_run.saved_config_id</code>.

@@ -59,7 +59,6 @@ public class Indexes {
     public static final Index PROGRAM_RUN_PROGRAM_RUN_USER_USER_ID_FK = Indexes0.PROGRAM_RUN_PROGRAM_RUN_USER_USER_ID_FK;
     public static final Index SAVED_CONFIG_PRIMARY = Indexes0.SAVED_CONFIG_PRIMARY;
     public static final Index SAVED_CONFIG_SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = Indexes0.SAVED_CONFIG_SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK;
-    public static final Index SAVED_CONFIG_SAVED_CONFIG_USER_USER_ID_FK = Indexes0.SAVED_CONFIG_SAVED_CONFIG_USER_USER_ID_FK;
     public static final Index SEED_PRIMARY = Indexes0.SEED_PRIMARY;
     public static final Index SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX = Indexes0.SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX;
     public static final Index SEED_SEED_SEED_NAME_INDEX = Indexes0.SEED_SEED_SEED_NAME_INDEX;
@@ -92,7 +91,6 @@ public class Indexes {
         public static Index PROGRAM_RUN_PROGRAM_RUN_USER_USER_ID_FK = createIndex("program_run_user_user_id_fk", ProgramRun.PROGRAM_RUN, new OrderField[] { ProgramRun.PROGRAM_RUN.USER_ID }, false);
         public static Index SAVED_CONFIG_PRIMARY = createIndex("PRIMARY", SavedConfig.SAVED_CONFIG, new OrderField[] { SavedConfig.SAVED_CONFIG.CONFIG_ID }, true);
         public static Index SAVED_CONFIG_SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = createIndex("saved_config_program_program_id_fk", SavedConfig.SAVED_CONFIG, new OrderField[] { SavedConfig.SAVED_CONFIG.PROGRAM_ID }, false);
-        public static Index SAVED_CONFIG_SAVED_CONFIG_USER_USER_ID_FK = createIndex("saved_config_user_user_id_fk", SavedConfig.SAVED_CONFIG, new OrderField[] { SavedConfig.SAVED_CONFIG.USER_ID }, false);
         public static Index SEED_PRIMARY = createIndex("PRIMARY", Seed.SEED, new OrderField[] { Seed.SEED.SEED_ID }, true);
         public static Index SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX = createIndex("seed_experiment_id_seed_name_uindex", Seed.SEED, new OrderField[] { Seed.SEED.EXPERIMENT_ID, Seed.SEED.SEED_NAME }, true);
         public static Index SEED_SEED_SEED_NAME_INDEX = createIndex("seed_seed_name_index", Seed.SEED, new OrderField[] { Seed.SEED.SEED_NAME }, false);

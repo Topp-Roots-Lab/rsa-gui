@@ -88,7 +88,6 @@ public class Keys {
     public static final ForeignKey<ProgramRunRecord, DatasetRecord> PROGRAM_RUN_DATASET_DATASET_ID_FK = ForeignKeys0.PROGRAM_RUN_DATASET_DATASET_ID_FK;
     public static final ForeignKey<ProgramRunRecord, SavedConfigRecord> PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK = ForeignKeys0.PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK;
     public static final ForeignKey<SavedConfigRecord, ProgramRecord> SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = ForeignKeys0.SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK;
-    public static final ForeignKey<SavedConfigRecord, UserRecord> SAVED_CONFIG_USER_USER_ID_FK = ForeignKeys0.SAVED_CONFIG_USER_USER_ID_FK;
     public static final ForeignKey<SeedRecord, ExperimentRecord> SEED_EXPERIMENT_EXPERIMENT_ID_FK = ForeignKeys0.SEED_EXPERIMENT_EXPERIMENT_ID_FK;
 
     // -------------------------------------------------------------------------
@@ -130,7 +129,6 @@ public class Keys {
         public static final ForeignKey<ProgramRunRecord, DatasetRecord> PROGRAM_RUN_DATASET_DATASET_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_DATASET_PRIMARY, ProgramRun.PROGRAM_RUN, "program_run_dataset_dataset_id_fk", ProgramRun.PROGRAM_RUN.DATASET_ID);
         public static final ForeignKey<ProgramRunRecord, SavedConfigRecord> PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_SAVED_CONFIG_PRIMARY, ProgramRun.PROGRAM_RUN, "program_run_saved_config_config_id_fk", ProgramRun.PROGRAM_RUN.SAVED_CONFIG_ID);
         public static final ForeignKey<SavedConfigRecord, ProgramRecord> SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_PROGRAM_PRIMARY, SavedConfig.SAVED_CONFIG, "saved_config_program_program_id_fk", SavedConfig.SAVED_CONFIG.PROGRAM_ID);
-        public static final ForeignKey<SavedConfigRecord, UserRecord> SAVED_CONFIG_USER_USER_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_USER_PRIMARY, SavedConfig.SAVED_CONFIG, "saved_config_user_user_id_fk", SavedConfig.SAVED_CONFIG.USER_ID);
         public static final ForeignKey<SeedRecord, ExperimentRecord> SEED_EXPERIMENT_EXPERIMENT_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_EXPERIMENT_PRIMARY, Seed.SEED, "seed_experiment_experiment_id_fk", Seed.SEED.EXPERIMENT_ID);
     }
 }
