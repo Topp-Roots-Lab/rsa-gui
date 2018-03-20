@@ -12,12 +12,9 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
-import org.danforthcenter.genome.rootarch.rsagia2.CompositeImage;
-import org.danforthcenter.genome.rootarch.rsagia2.Crop;
-import org.danforthcenter.genome.rootarch.rsagia2.ExtensionFileFilter;
-import org.danforthcenter.genome.rootarch.rsagia2.OutputInfo;
-import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.*;
+import org.jooq.tools.json.JSONObject;
 
 /**
  *
@@ -58,10 +55,14 @@ public class CompositeImageWorker extends
 				CompositeImage ci = new CompositeImage(3);
 				BufferedImage bi = null;
 				try {
-					OutputInfo oi = new OutputInfo(crop.getName(), gp, false);
+					CropOutput oi = new CropOutput(crop.getName(), gp, false);
                     File oiDir = oi.getDir();
                     System.out.println(this.getClass() + oiDir.toString());
 					OutputInfo.createDirectory(oi, am);
+
+					OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+					oidbf.insertProgramRunTable(oi);
+
 					ExtensionFileFilter eff = new ExtensionFileFilter(
 							gp.getPreferredType());
    					bi = ImageIO
@@ -93,9 +94,18 @@ public class CompositeImageWorker extends
 					// results are now kept in the 'crop' folder
 					//
 					String cropname = "crop";
-					OutputInfo oi = new OutputInfo(cropname, rcri.getRis(),
+					CropOutput oi = new CropOutput(cropname, rcri.getRis(),
 							false);
 					OutputInfo.createDirectory(oi, am);
+
+					OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+					oidbf.insertProgramRunTable(oi);
+					int usedCropRunID = rcri.getRunID();
+					JSONObject jo = new JSONObject();
+					String used = "Used " + rcri.getAppName() + " Run ID";
+					jo.put(used,usedCropRunID);
+					oi.setInputRuns(jo.toString());
+
 					String PreferredType = "tiff";
 					ExtensionFileFilter eff = new ExtensionFileFilter(
 							PreferredType);

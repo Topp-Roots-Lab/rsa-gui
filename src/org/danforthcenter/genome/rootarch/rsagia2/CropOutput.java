@@ -16,7 +16,11 @@ public class CropOutput extends OutputInfo implements IOutputCrop {
 		super(f, ris);
 		outputs = InputOutputTypes.CROP;
 	}
-
+	public CropOutput(String appName, RsaImageSet ris, boolean toSaved)
+	{
+		super(appName,ris,toSaved);
+		this.outputs = InputOutputTypes.CROP;
+	}
 	public File[] getCroppedImages() {
 		return getCroppedImageDir().listFiles();
 	}

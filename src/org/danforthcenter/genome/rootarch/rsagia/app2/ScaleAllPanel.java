@@ -1,9 +1,7 @@
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
-import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
-import org.danforthcenter.genome.rootarch.rsagia2.ExtensionFileFilter;
-import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
-import org.danforthcenter.genome.rootarch.rsagia2.Scale;
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.*;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -119,9 +117,15 @@ public class ScaleAllPanel extends JComponent implements
                         "Please enter a valid scale.");
             } else {
                 double d = Double.parseDouble(absoluteScaleTextField.getText());
-                if (checkAll == false) {
-                    scale.writeScale(false, inputs.get(curIndex), d, am);
 
+                OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+
+                if (checkAll == false) {
+                    OutputInfo oi = scale.writeScale(false, inputs.get(curIndex), d, am, oidbf);
+                    oidbf.updateRedFlag(oi);
+                    oidbf.updateContents(oi);
+                    oidbf.updateResults(oi);
+                    oi.getRis().updateCountsOfApp("scale");
                     curIndex++;
                     firePropertyChange("curIndex", curIndex - 1, curIndex);
                     if (curIndex < inputs.size()) {
@@ -129,7 +133,11 @@ public class ScaleAllPanel extends JComponent implements
                     }
                 } else {
                     for (int i = 0; i < inputs.size(); i++) {
-                        scale.writeScale(false, inputs.get(i), d, am);
+                        OutputInfo oi = scale.writeScale(false, inputs.get(i), d, am, oidbf);
+                        oidbf.updateRedFlag(oi);
+                        oidbf.updateContents(oi);
+                        oidbf.updateResults(oi);
+                        oi.getRis().updateCountsOfApp("scale");
                         firePropertyChange("curIndex", i, i + 1);
                     }
                 }

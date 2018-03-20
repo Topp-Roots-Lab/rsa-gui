@@ -22,6 +22,8 @@ public class App {
 
 	public static void main(String[] args) {
 		try {
+			UserAccess.reducePrivileges();
+
 			if (args.length < 1) {
 				System.out.println("Usage: rsa-gia PROPERTIES_FILE");
 				System.exit(1);
@@ -187,9 +189,12 @@ public class App {
 			File f7 = new File(sysProps.getProperty("gia3d_v2_template_dir"));
 			Gia3D_v2 gia3D_v2 = new Gia3D_v2(s11, s12, s14, s15, f7, s72);
 
+			String importScriptPath = sysProps.getProperty("import_script_path");
+			Import importApp = new Import(importScriptPath, f1, ssm);
+
 			final ApplicationManager am = new ApplicationManager(ssm, scale,
 					crop, recrop, gia, export, rootwork3D, rootwork3Dpers, giaRoot3D,
-					gia3D_v2);
+					gia3D_v2, importApp);
 			giaRoot3D.setAm(am);
 			gia3D_v2.setAm(am);
 

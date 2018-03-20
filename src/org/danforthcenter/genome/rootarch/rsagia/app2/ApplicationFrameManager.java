@@ -81,7 +81,7 @@ public class ApplicationFrameManager extends JComponent implements
 		doNext();
 	}
 
-	protected void doNext() {
+	private void doNext() {
 		curApp++;
 		if (curApp < appNames.size()) {
 			String s = appNames.get(curApp);

@@ -17,14 +17,14 @@ import java.util.HashMap;
  */
 public class Rootwork3DPersFrame_new extends JFrame implements
         ActionListener, PropertyChangeListener {
-    protected ApplicationManager am;
-    protected ArrayList<RsaImageSet> riss;
-    protected ChooseOutputFrame cofScale;
-    protected ChooseOutputFrame cofGia;
-    protected Rootwork3DPersLogFrame rlf;
+    private ApplicationManager am;
+    private ArrayList<RsaImageSet> riss;
+    private ChooseOutputFrame cofScale;
+    private ChooseOutputFrame cofGia;
+    private Rootwork3DPersLogFrame rlf;
 
-    protected ArrayList<OutputInfo> scales = new ArrayList<OutputInfo>();
-    protected ArrayList<RsaImageSet> scaleInputs = new ArrayList<RsaImageSet>();
+    private ArrayList<OutputInfo> scales = new ArrayList<OutputInfo>();
+    private ArrayList<RsaImageSet> scaleInputs = new ArrayList<RsaImageSet>();
 
 
     private JTextField nodesOctreeField;

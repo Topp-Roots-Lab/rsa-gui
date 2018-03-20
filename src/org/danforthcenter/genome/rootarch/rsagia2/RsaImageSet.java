@@ -15,6 +15,7 @@ import java.util.*;
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import org.danforthcenter.genome.rootarch.rsagia.app2.App;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.FillTable;
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.RsaImageSetDBFunctions;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -33,6 +34,7 @@ public class RsaImageSet {
     protected String imagingDay;
 
     protected  HashMap<String,int[]> countsApps;
+    protected int datasetID;
 
     protected File inputDir;
     protected File processedDir;
@@ -68,15 +70,8 @@ public class RsaImageSet {
                                                 ArrayList<StringPairFilter> pls_ims) {
         ArrayList<RsaImageSet> ans = new ArrayList<RsaImageSet>();
 
-        File d2 = new File(dir.getAbsolutePath() + File.separator
-                + "original_images"
-//                + File.separator + this.preferredType
-        );
-        File[] ss = d2.listFiles();
-
         //////////////////////////////////////////////////////////////////////////////////////////
-        String[] spcname = App.getSpecieName();
-        List<String> listname = Arrays.asList(spcname);
+
         FillTable ft = new FillTable();
         Result<Record> datasetRecord = ft.getDatasets(sps,exps,pls,ims,pls_ims);
         int previousDatasetID=-1;
@@ -87,14 +82,10 @@ public class RsaImageSet {
             if(!r.getValue("dataset_id").equals(previousDatasetID))
             {
                 String species = (String) r.getValue("organism_name");
-                boolean view = listname.contains(species);
-                if (!view)
-                {
-                    continue;
-                }
+
                 String experiment = (String) r.getValue("experiment_code");
                 String plant = (String) r.getValue("seed_name");
-                String imagingDay = (String) r.getValue("timepoint_d_t_value");
+                String imagingDay = (String) r.getValue("timepoint");
                 String imageType = (String) r.getValue("image_type");
                 String programName = (String) r.getValue("name");
 
@@ -102,13 +93,18 @@ public class RsaImageSet {
                 imageTypes.add(imageType);
 
                 HashMap<String, int[]> countsApps = makeHashMapApps(programNames);
-                int[] countArray = countsApps.get(programName);
-                countArray[0] = ((BigInteger)r.getValue("sandbox_count")).intValue();
-                countArray[1] = ((BigInteger)r.getValue("saved_count")).intValue();
+                if(programName != null)
+                {
+                    int[] countArray = countsApps.get(programName);
+                    countArray[0] = ((BigInteger)r.getValue("sandbox_count")).intValue();
+                    countArray[1] = ((BigInteger)r.getValue("saved_count")).intValue();
+                }
+
 
                 ris = new RsaImageSet(dir, species, experiment, plant, imagingDay, ism);
                 ris.setInputTypesSet(imageTypes);
                 ris.setCountsApps(countsApps);
+                ris.setDatasetID((Integer) r.getValue("dataset_id"));
                 ans.add(ris);
 
                 previousDatasetID = (int) r.getValue("dataset_id");
@@ -144,6 +140,26 @@ public class RsaImageSet {
         this.countsApps = countsApps;
     }
 
+    public void updateCountsOfApp(String programName)
+    {
+        RsaImageSetDBFunctions risDBFunctions = new RsaImageSetDBFunctions();
+        Result<Record> datasetRecord = risDBFunctions.selectCountsOfAppForDatasetProgram(this.datasetID,programName);
+        int[] countArray = this.getCounts().get(programName);
+
+        if(datasetRecord.size() != 0) {
+            Record r = datasetRecord.get(0);
+            countArray[0] = ((BigInteger)r.getValue("sandbox_count")).intValue();
+            countArray[1] = ((BigInteger)r.getValue("saved_count")).intValue();
+        }
+        else
+        {
+            countArray[0] = 0;
+            countArray[1] = 0;
+        }
+
+
+    }
+
     public void setInputTypesSet(HashSet<String> imageTypes)
     {
         this.inputTypes = imageTypes;
@@ -152,6 +168,15 @@ public class RsaImageSet {
     public HashMap<String, int[]> getCounts()
     {
         return this.countsApps;
+    }
+
+    public void setDatasetID(int dataset_id)
+    {
+        this.datasetID = dataset_id;
+    }
+    public int getDatasetID()
+    {
+        return this.datasetID;
     }
     /////////////////////////////////////////////////////////////////////////////////////////
 

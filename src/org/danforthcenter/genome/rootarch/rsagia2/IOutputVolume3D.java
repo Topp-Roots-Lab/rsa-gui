@@ -11,7 +11,7 @@ import java.io.File;
  * 
  * @author bm93
  */
-public interface IOutputVolume3D {
+public interface IOutputVolume3D extends IProgramRun {
 	public File getVolumeFile();
 
 	public File getVolumeSTLFile();

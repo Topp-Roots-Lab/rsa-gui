@@ -42,15 +42,15 @@ public class Rootwork3DPersWorker extends javax.swing.SwingWorker<Integer, Strin
 	protected int refImage;
 	protected double refRatio;
 
-    // tw 2015july15
-    protected int camDist;
-    protected int rotDir;
-    protected boolean doFindRotAxis;
+	// tw 2015july15
+	protected int camDist;
+	protected int rotDir;
+	protected boolean doFindRotAxis;
 	protected boolean doCalib;
-    protected Double pitch;
-    protected Double roll;
-    protected int translation;
-    protected int focusOffset;
+	protected Double pitch;
+	protected Double roll;
+	protected int translation;
+	protected int focusOffset;
 	protected boolean doAdd;
 
 
@@ -69,15 +69,15 @@ public class Rootwork3DPersWorker extends javax.swing.SwingWorker<Integer, Strin
 								Double roll, int translation, int focusOffset,
 								boolean doAdd) {
 
-        this.camDist = camDist;
-        this.rotDir = rotDir;
+		this.camDist = camDist;
+		this.rotDir = rotDir;
 		this.doFindRotAxis = doFindRotAxis;
-        this.doCalib = doCalib;
-        this.pitch = pitch;
-        this.roll = roll;
-        this.translation = translation;
-        this.focusOffset = focusOffset;
-        this.doAdd = doAdd;
+		this.doCalib = doCalib;
+		this.pitch = pitch;
+		this.roll = roll;
+		this.translation = translation;
+		this.focusOffset = focusOffset;
+		this.doAdd = doAdd;
 
 
 		this.rootwork3DPers = rootwork3DPers;
@@ -114,9 +114,9 @@ public class Rootwork3DPersWorker extends javax.swing.SwingWorker<Integer, Strin
 					nodesOctree, imagesUsed, reconUpperThreshold,
 					distortionRadius, numberOfComponents, resolution, refImage,
 					refRatio,
-                    this.camDist, this.rotDir, this.doFindRotAxis, this.doCalib, this.pitch,
-                    this.roll, this.translation, this.focusOffset, this.doAdd
-                    );
+					this.camDist, this.rotDir, this.doFindRotAxis, this.doCalib, this.pitch,
+					this.roll, this.translation, this.focusOffset, this.doAdd
+			);
 			BufferedReader br = null;
 			try {
 				br = new BufferedReader(new InputStreamReader(

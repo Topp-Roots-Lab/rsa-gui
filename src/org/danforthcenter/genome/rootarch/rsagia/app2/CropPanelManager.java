@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import javax.swing.SwingWorker;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
 import org.danforthcenter.genome.rootarch.rsagia2.Crop;
 import org.danforthcenter.genome.rootarch.rsagia2.OutputInfo;
@@ -27,26 +28,26 @@ import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
  * @author bm93
  */
 public class CropPanelManager implements java.beans.PropertyChangeListener {
-    protected PropertyChangeSupport pcs;
+    private PropertyChangeSupport pcs;
 
-    protected ArrayList<RsaImageSet> inputs;
-    protected ArrayList<OutputInfo> recropinputs;
-    protected ArrayList<OutputInfo> outputs;
-    protected ArrayList<Integer> rots;
-    protected ArrayList<Rectangle> rects;
+    private ArrayList<RsaImageSet> inputs;
+    private ArrayList<OutputInfo> recropinputs;
+    private ArrayList<OutputInfo> outputs;
+    private ArrayList<Integer> rots;
+    private ArrayList<Rectangle> rects;
 
-    protected int curIndex;
-    protected Crop crop;
-    protected ApplicationManager am;
-    protected ImageManipulationFrame imf;
-    protected CropTopPanel ctp;
-    protected CropRestPanel crp;
-    protected CropAllPanel cap;
+    private int curIndex;
+    private Crop crop;
+    private ApplicationManager am;
+    private ImageManipulationFrame imf;
+    private CropTopPanel ctp;
+    private CropRestPanel crp;
+    private CropAllPanel cap;
 
-    protected CropWorker cw;
-    protected int endCropIndex;
-    protected int curCropIndex;
-    protected CropWaitFrame cwf;
+    private CropWorker cw;
+    private int endCropIndex;
+    private int curCropIndex;
+    private CropWaitFrame cwf;
 
     // number of files (imgs) that are used for cropping
     private int num_crop_imgs;
@@ -121,10 +122,16 @@ public class CropPanelManager implements java.beans.PropertyChangeListener {
             if (evt.getPropertyName().equals("state")) {
                 if (evt.getNewValue() == SwingWorker.StateValue.DONE) {
                     // rename files for recropping only
+                    OutputInfo oi = cw.getOi();
                     if (crop.getRecrop()) {
-                        OutputInfo oi = cw.getOi();
                         crop.postprocessrecrop(oi, am);
                     }
+
+                    OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+                    oidbf.updateRedFlag(oi);
+                    oidbf.updateContents(oi);
+                    oidbf.updateResults(oi);
+                    oi.getRis().updateCountsOfApp("crop");
 
                     cw = null;
 
@@ -146,7 +153,7 @@ public class CropPanelManager implements java.beans.PropertyChangeListener {
     /**
      * Creates a single SwingWorker to crop the curCropIndex image
      */
-    protected void cropNext() {
+    private void cropNext() {
 
         if (cw == null && curCropIndex <= endCropIndex) {
             if (cwf != null) {
@@ -168,7 +175,7 @@ public class CropPanelManager implements java.beans.PropertyChangeListener {
         }
     }
 
-    protected void doNext() {
+    private void doNext() {
         // RsaImageSet ris = inputs.get(curIndex);
 		Rectangle rect = (rects.size() > 0) ? rects.get(rects.size() - 1)
 				: null;

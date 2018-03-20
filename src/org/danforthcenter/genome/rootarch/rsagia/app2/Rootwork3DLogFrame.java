@@ -23,11 +23,9 @@ import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
-import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
-import org.danforthcenter.genome.rootarch.rsagia2.IOutputThreshold;
-import org.danforthcenter.genome.rootarch.rsagia2.OutputInfo;
-import org.danforthcenter.genome.rootarch.rsagia2.Rootwork3D;
-import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.*;
+import org.jooq.tools.json.JSONObject;
 
 /**
  *
@@ -37,27 +35,27 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 		java.awt.event.WindowListener, javax.swing.event.ListSelectionListener,
 		java.beans.PropertyChangeListener {
 
-	protected int maxProcesses;
-	protected Rootwork3D rootwork3D;
-	protected ApplicationManager am;
-	protected ArrayList<RsaImageSet> riss;
-	protected ArrayList<IOutputThreshold> thresholds;
-	protected ArrayList<OutputInfo> outputs;
-	protected int reconLowerThresh;
-	protected int nodesOctree;
-	protected int imagesUsed;
-	protected int reconOption;
-	protected int reconUpperThreshold;
-	protected int distortionRadius;
-	protected int numberOfComponents;
-	protected int resolution;
-	protected int refImage;
-	protected double refRatio;
-	protected boolean doAdd;
-	protected ArrayList<JTextArea> outputTextAreas;
-	protected ArrayList<JScrollPane> outputPanels;
-	protected int cur;
-	protected int doneCnt;
+	private int maxProcesses;
+	private Rootwork3D rootwork3D;
+	private ApplicationManager am;
+	private ArrayList<RsaImageSet> riss;
+	private ArrayList<IOutputThreshold> thresholds;
+	private ArrayList<Rootwork3DOutput> outputs;
+	private int reconLowerThresh;
+	private int nodesOctree;
+	private int imagesUsed;
+	private int reconOption;
+	private int reconUpperThreshold;
+	private int distortionRadius;
+	private int numberOfComponents;
+	private int resolution;
+	private int refImage;
+	private double refRatio;
+	private boolean doAdd;
+	private ArrayList<JTextArea> outputTextAreas;
+	private ArrayList<JScrollPane> outputPanels;
+	private int cur;
+	private int doneCnt;
 
 	/** Creates new form MultiLogWindow */
 	public Rootwork3DLogFrame(int maxProcesses, Rootwork3D rootwork3D,
@@ -92,7 +90,7 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 		else {
 			this.doAdd = false;
 		}
-		this.outputs = new ArrayList<OutputInfo>();
+		this.outputs = new ArrayList<Rootwork3DOutput>();
 		outputTextAreas = new ArrayList<JTextArea>();
 		outputPanels = new ArrayList<JScrollPane>();
 
@@ -105,9 +103,19 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 		cur = 0;
 		doneCnt = 0;
 		for (int i = 0; i < riss.size(); i++) {
-			OutputInfo oi = new OutputInfo(rootwork3D.getName(), riss.get(i),
+			Rootwork3DOutput oi = new Rootwork3DOutput(rootwork3D.getName(), riss.get(i),
 					false);
 			OutputInfo.createDirectory(oi, am);
+
+			OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+			oidbf.insertProgramRunTable(oi);
+			JSONObject jo = new JSONObject();
+			OutputInfo usedOI = (OutputInfo) thresholds.get(i);
+			String used = "Used " + usedOI.getAppName() + " Run ID";
+			jo.put(used,usedOI.getRunID());
+			oi.setInputRuns(jo.toString());
+			oi.setSavedConfigID(null);
+
 			outputs.add(oi);
 			add(riss.get(i));
 		}
@@ -133,7 +141,7 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 		dtm.addRow(row);
 	}
 
-	protected void doNext() {
+	private void doNext() {
 		// System.out.println("ABOUT TO RUn");
 		// GiaRoot2DWorker grw = new GiaRoot2DWorker(gia, inputs.get(cur),
 		// outputs.get(cur), outputTextAreas.get(cur), cur, am);
@@ -202,6 +210,14 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 			JOptionPane.showMessageDialog(this,
 					"Cannot close until all tasks are finished.");
 		} else {
+			OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+			for(Rootwork3DOutput oi:outputs)
+			{
+				oidbf.updateRedFlag(oi);
+				oi.setUnsavedConfigContents(rootwork3D.getRxml().toString());
+				oidbf.updateContents(oi);
+				oi.getRis().updateCountsOfApp(oi.getAppName());
+			}
 			firePropertyChange("done", false, true);
 			// mlw.dispose();
 		}

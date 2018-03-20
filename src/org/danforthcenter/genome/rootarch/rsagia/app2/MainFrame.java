@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.ConnectDb;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.FillDb;
@@ -56,8 +56,6 @@ public class MainFrame extends javax.swing.JFrame implements
 		initComponents();
 
         // System.out.println(this.getClass() + " " + baseDir);
-
-
 		this.baseDir = baseDir;
 		this.ism = ism;
 		this.am = am;
@@ -71,17 +69,21 @@ public class MainFrame extends javax.swing.JFrame implements
 		ConnectDb cdb = new ConnectDb();
 		FillDb cfdb = null;
 		try {
-			cfdb = new FillDb(baseDir);
-		} catch (IOException e) {
+			//cfdb = new FillDb(baseDir);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if (cfdb != null) {
-//			cfdb.fillUserTable(riss,am);
-//			cfdb.fillTables1();
-//			cfdb.fillSavedConfigTable();
-//			cfdb.fillProgramRunTable(riss,am);
+			riss = RsaImageSet_old.getAll(baseDir, ism, speciesFilter,
+					experimentFilter, plantFilter, imagingDayFilter,
+					imagingDayPlant_Filter);
+			cfdb.deleteAllTables();
+			cfdb.fillUserTable(riss,am);
+			cfdb.fillTables1();
+			cfdb.fillSavedConfigTable();
+			cfdb.fillProgramRunTable(riss,am);
+   			System.exit(0);
 		}
-//		System.exit(0);
 		////////////////////////////////////
 
 		rsaTable = new RsaInputTable(am);
@@ -104,6 +106,16 @@ public class MainFrame extends javax.swing.JFrame implements
 		this.editColsButton.addActionListener(this);
 		this.filterButton.addActionListener(this);
 		this.adminButton.addActionListener(this);
+		this.addOrganism.addActionListener(this);
+		this.addExperiment.addActionListener(this);
+		this.addSeed.addActionListener(this);
+		this.editOrganism.addActionListener(this);
+		this.editExperiment.addActionListener(this);
+		this.editSeed.addActionListener(this);
+		this.uploadImages.addActionListener(this);
+		this.jMenu1.addActionListener(this);
+		this.jMenu2.addActionListener(this);
+		this.jMenu4.addActionListener(this);
 
 		rff = new RisFilterFrame(StringPairFilter.toString(speciesFilter),
 				StringPairFilter.toString(experimentFilter),
@@ -226,12 +238,58 @@ public class MainFrame extends javax.swing.JFrame implements
 		} else if (e.getSource() == this.adminButton) {
 			admin.setVisible(true);
 		}
+		else if(e.getSource() == this.editOrganism)
+		{
+			SelectOrganismFrame selOrg = new SelectOrganismFrame(baseDir);
+			selOrg.addPropertyChangeListener("getall",this);
+			selOrg.setVisible(true);
+		}
+		else if(e.getSource() == this.editExperiment)
+		{
+			SelectExperimentFrame selExp = new SelectExperimentFrame(baseDir);
+            selExp.addPropertyChangeListener("getall",this);
+			selExp.setVisible(true);
+		}
+		else if(e.getSource() == this.editSeed)
+		{
+            SelectSeedFrame selSeed = new SelectSeedFrame(baseDir);
+            selSeed.addPropertyChangeListener("getall",this);
+            selSeed.setVisible(true);
+		}
+		else if(e.getSource() == this.uploadImages)
+		{
+			UploadImages ui = new UploadImages(am.getImport(), baseDir);
+			ui.addPropertyChangeListener("getall",this);
+			ui.setVisible(true);
+		}
+		else if(e.getSource() == this.addOrganism)
+		{
+			AddOrganismFrame aof = new AddOrganismFrame();
+			aof.setVisible(true);
+		}
+		else if(e.getSource() == this.addExperiment)
+		{
+			AddExperimentFrame aef = new AddExperimentFrame();
+			aef.setVisible(true);
+		}
+		else if(e.getSource() == this.addSeed)
+		{
+			AddSeedFrame asf = new AddSeedFrame();
+			asf.setVisible(true);
+		}
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("update")) {
 			rsaTable.updateRows(rsaTable.getCheckedRowIndexes());
 		}
+		if(evt.getPropertyName().equals("getall"))
+        {
+            riss = RsaImageSet.getAll(baseDir, ism, rff.getSpeciesFilter(),
+                    rff.getExperimentFilter(), rff.getPlantFilter(),
+                    rff.getImagingDayFilter(), rff.getImagingDay_PlantFilter());
+            rsaTable.setData(riss);
+        }
 
 		if (evt.getSource() == rff && evt.getPropertyName().equals("done")
 				&& (Boolean) evt.getNewValue()) {
@@ -331,8 +389,15 @@ public class MainFrame extends javax.swing.JFrame implements
 		adminButton = new javax.swing.JButton();
 		jMenuBar1 = new javax.swing.JMenuBar();
 		jMenu1 = new javax.swing.JMenu();
+		addOrganism = new javax.swing.JMenuItem();
+		addExperiment = new javax.swing.JMenuItem();
+		addSeed = new javax.swing.JMenuItem();
 		jMenu2 = new javax.swing.JMenu();
-		jMenu3 = new javax.swing.JMenu();
+		editOrganism = new javax.swing.JMenuItem();
+		editExperiment = new javax.swing.JMenuItem();
+		editSeed = new javax.swing.JMenuItem();
+		jMenu4 = new javax.swing.JMenu();
+		uploadImages = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("rsa-gia 4.0.0");
@@ -461,17 +526,31 @@ public class MainFrame extends javax.swing.JFrame implements
 		adminButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 		jToolBar2.add(adminButton);
 
-		jMenu1.setText("File");
-		jMenu1.setEnabled(false);
+		jMenu1.setText("Add Metadata");
+		jMenu1.setEnabled(true);
 		jMenuBar1.add(jMenu1);
+		addOrganism.setText("Add Organism");
+		jMenu1.add(addOrganism);
+		addExperiment.setText("Add Experiment");
+		jMenu1.add(addExperiment);
+		addSeed.setText("Add Seed");
+		jMenu1.add(addSeed);
 
-		jMenu2.setText("Window");
-		jMenu2.setEnabled(false);
+		jMenu2.setText("Edit Metadata");
+		jMenu2.setEnabled(true);
 		jMenuBar1.add(jMenu2);
+		editOrganism.setText("Edit/View Organism");
+		jMenu2.add(editOrganism);
+		editExperiment.setText("Edit/View Experiment");
+		jMenu2.add(editExperiment);
+		editSeed.setText("Edit/View Seed");
+		jMenu2.add(editSeed);
 
-		jMenu3.setText("Help");
-		jMenu3.setEnabled(false);
-		jMenuBar1.add(jMenu3);
+		jMenu4.setText("Add Dataset");
+		jMenu4.setEnabled(true);
+		jMenuBar1.add(jMenu4);
+		uploadImages.setText("Upload Images");
+		jMenu4.add(uploadImages);
 
 		setJMenuBar(jMenuBar1);
 
@@ -589,7 +668,14 @@ public class MainFrame extends javax.swing.JFrame implements
 	private javax.swing.JToggleButton gia3D_v2Toggle;
 	private javax.swing.JMenu jMenu1;
 	private javax.swing.JMenu jMenu2;
-	private javax.swing.JMenu jMenu3;
+	private javax.swing.JMenu jMenu4;
+	private javax.swing.JMenuItem addOrganism;
+	private javax.swing.JMenuItem addExperiment;
+	private javax.swing.JMenuItem addSeed;
+	private javax.swing.JMenuItem editOrganism;
+	private javax.swing.JMenuItem editExperiment;
+	private javax.swing.JMenuItem editSeed;
+	private javax.swing.JMenuItem uploadImages;
 	private javax.swing.JMenuBar jMenuBar1;
 	private javax.swing.JToolBar jToolBar1;
 	private javax.swing.JToolBar jToolBar2;

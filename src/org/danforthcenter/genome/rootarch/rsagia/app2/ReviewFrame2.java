@@ -28,6 +28,8 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.ReviewFrameDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.RsaImageSetDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
 import org.danforthcenter.genome.rootarch.rsagia2.OutputInfo;
 import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
@@ -40,7 +42,7 @@ import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
  *         layout compared with ReviewFrame)
  *
  */
-public final class ReviewFrame2 extends javax.swing.JFrame implements
+public final class ReviewFrame2 extends javax.swing.JDialog implements
 		java.awt.event.ActionListener {
 	protected ChooseOutputPanel2 cop;
 	protected ApplicationManager am;
@@ -55,6 +57,7 @@ public final class ReviewFrame2 extends javax.swing.JFrame implements
 
 		initCop(riss, false, false);
 		initComponents();
+		this.setModal(true);
 
 		// checkboxes listeners
 		showScaleCheckbox.addActionListener(this);
@@ -153,13 +156,17 @@ public final class ReviewFrame2 extends javax.swing.JFrame implements
 					JOptionPane.YES_NO_OPTION);
 			if (v == JOptionPane.YES_OPTION) {
 				for (OutputInfo oi : ois) {
-
                     // tw 2015jan8 added try catch
                     try {
                         OutputInfo.moveToSaved(oi, am);
                     } catch (IOException ioe) {
                         ioe.printStackTrace();
                     }
+                    int runID = oi.getRunID();
+					ReviewFrameDBFunctions rfdbf = new ReviewFrameDBFunctions();
+					rfdbf.changeToSavedinDB(runID);
+					RsaImageSet ris = oi.getRis();
+					ris.updateCountsOfApp(oi.getAppName());
 				}
 				cop.removeFinalOutputs();
 			}
@@ -178,6 +185,11 @@ public final class ReviewFrame2 extends javax.swing.JFrame implements
 			if (v == JOptionPane.YES_OPTION) {
 				for (OutputInfo oi : ois) {
 					OutputInfo.delete(oi, am);
+					int runID = oi.getRunID();
+					ReviewFrameDBFunctions rfdbf = new ReviewFrameDBFunctions();
+					rfdbf.deleteRun(runID);
+					RsaImageSet ris = oi.getRis();
+					ris.updateCountsOfApp(oi.getAppName());
 				}
 				cop.removeFinalOutputs();
 			}

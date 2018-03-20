@@ -24,7 +24,13 @@ public class ScaleOutput extends OutputInfo implements IOutputScale {
 				+ SCALE_FILENAME);
 		outputs = InputOutputTypes.SCALE;
 	}
-
+	public ScaleOutput(String appName, RsaImageSet ris, boolean toSaved)
+	{
+		super(appName, ris, toSaved);
+		this.scaleFile = new File(this.getDir()+ File.separator
+				+ SCALE_FILENAME);
+		this.outputs = InputOutputTypes.SCALE;
+	}
 	@Override
 	public double getScale() {
 		Properties props = new Properties();

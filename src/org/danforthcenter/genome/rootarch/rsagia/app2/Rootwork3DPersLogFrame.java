@@ -11,7 +11,9 @@
 
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.*;
+import org.jooq.tools.json.JSONObject;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -28,40 +30,40 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
 		java.awt.event.WindowListener, javax.swing.event.ListSelectionListener,
 		java.beans.PropertyChangeListener {
 
-	protected int maxProcesses;
-	protected Rootwork3DPers rootwork3DPers;
-	protected ApplicationManager am;
-	protected ArrayList<RsaImageSet> thresholdRiss;
-    protected ArrayList<RsaImageSet> scaleRiss;
-	protected ArrayList<IOutputThreshold> thresholds;
-    protected ArrayList<OutputInfo> scales;
-	protected ArrayList<OutputInfo> outputs;
-	protected int reconLowerThresh;
-	protected int nodesOctree;
-	protected int imagesUsed;
-	protected int reconOption;
-	protected int reconUpperThreshold;
-	protected int distortionRadius;
-	protected int numberOfComponents;
-	protected int resolution;
-	protected int refImage;
-	protected double refRatio;
+	private int maxProcesses;
+	private Rootwork3DPers rootwork3DPers;
+	private ApplicationManager am;
+	private ArrayList<RsaImageSet> thresholdRiss;
+    private ArrayList<RsaImageSet> scaleRiss;
+	private ArrayList<IOutputThreshold> thresholds;
+    private ArrayList<OutputInfo> scales;
+	private ArrayList<Rootwork3DPersOutput> outputs;
+	private int reconLowerThresh;
+	private int nodesOctree;
+	private int imagesUsed;
+	private int reconOption;
+	private int reconUpperThreshold;
+	private int distortionRadius;
+	private int numberOfComponents;
+	private int resolution;
+	private int refImage;
+	private double refRatio;
 
-	protected ArrayList<JTextArea> outputTextAreas;
-	protected ArrayList<JScrollPane> outputPanels;
-	protected int cur;
-	protected int doneCnt;
+	private ArrayList<JTextArea> outputTextAreas;
+	private ArrayList<JScrollPane> outputPanels;
+	private int cur;
+	private int doneCnt;
 
     // tw 2015july15
-    protected int camDist;
-    protected int rotDir;
-	protected boolean doFindRotAxis;
-    protected boolean doCalib;
-    protected Double pitch;
-    protected Double roll;
-    protected int translation;
-    protected int focusOffset;
-	protected boolean doAdd;
+    private int camDist;
+    private int rotDir;
+	private boolean doFindRotAxis;
+    private boolean doCalib;
+    private Double pitch;
+    private Double roll;
+    private int translation;
+    private int focusOffset;
+	private boolean doAdd;
 
 	/** Creates new form MultiLogWindow */
 	// tw 2015july11
@@ -128,7 +130,7 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
 		this.resolution = resolution;
 		this.refImage = refImage;
 		this.refRatio = refRatio;
-		this.outputs = new ArrayList<OutputInfo>();
+		this.outputs = new ArrayList<Rootwork3DPersOutput>();
 		outputTextAreas = new ArrayList<JTextArea>();
 		outputPanels = new ArrayList<JScrollPane>();
 
@@ -141,9 +143,21 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
 		cur = 0;
 		doneCnt = 0;
 		for (int i = 0; i < thresholdRiss.size(); i++) {
-			OutputInfo oi = new OutputInfo(rootwork3DPers.getName(), thresholdRiss.get(i),
+			Rootwork3DPersOutput oi = new Rootwork3DPersOutput(rootwork3DPers.getName(), thresholdRiss.get(i),
 					false);
 			OutputInfo.createDirectory(oi, am);
+
+			OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+			oidbf.insertProgramRunTable(oi);
+			JSONObject jo = new JSONObject();
+			OutputInfo usedOI = (OutputInfo) thresholds.get(i);
+			String used = "Used " + usedOI.getAppName() + " Run ID";
+			jo.put(used,usedOI.getRunID());
+			used = "Used " + scales.get(i).getAppName() + " Run ID";
+			jo.put(used,scales.get(i).getRunID());
+			oi.setInputRuns(jo.toString());
+			oi.setSavedConfigID(null);
+
 			outputs.add(oi);
 			add(thresholdRiss.get(i));
 		}
@@ -153,7 +167,7 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
 		}
 	}
 
-	protected void add(RsaImageSet ris) {
+	private void add(RsaImageSet ris) {
 		DefaultTableModel dtm = (DefaultTableModel) statusTable.getModel();
 
 		JTextArea jt = new JTextArea();
@@ -169,7 +183,7 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
 		dtm.addRow(row);
 	}
 
-	protected void doNext() {
+	private void doNext() {
 		// System.out.println("ABOUT TO RUn");
 		// GiaRoot2DWorker grw = new GiaRoot2DWorker(gia, inputs.get(cur),
 		// outputs.get(cur), outputTextAreas.get(cur), cur, am);
@@ -247,6 +261,14 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
 			JOptionPane.showMessageDialog(this,
 					"Cannot close until all tasks are finished.");
 		} else {
+			OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+			for(Rootwork3DPersOutput oi:outputs)
+			{
+				oidbf.updateRedFlag(oi);
+				oi.setUnsavedConfigContents(rootwork3DPers.getRxml().toString());
+				oidbf.updateContents(oi);
+				oi.getRis().updateCountsOfApp(oi.getAppName());
+			}
 			firePropertyChange("done", false, true);
 			// mlw.dispose();
 		}

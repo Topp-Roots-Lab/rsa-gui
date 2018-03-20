@@ -5,6 +5,8 @@
 
 package org.danforthcenter.genome.rootarch.rsagia2;
 
+import org.jooq.tools.json.JSONObject;
+
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -14,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -314,6 +315,19 @@ public class Crop implements IApplication {
                 + "," + origRect.height);
 
 		props.setProperty(INPUT_TYPE_PROP, inputType);
+
+		JSONObject jo = new JSONObject();
+		jo.put(ORIG_RECT_PROP,origRect.x + "," + origRect.y + "," + origRect.width + "," + origRect.height);
+		jo.put(INPUT_TYPE_PROP,inputType);
+		jo.put(ROTATION_PROP,rot);
+		jo.put(CROP_PROP,rect.x + "," + rect.y + "," + rect.width
+                + "," + rect.height);
+		jo.put(CROP_SUM_PROP,rectSum.x + "," + rectSum.y + "," + rectSum.width
+                + "," + rectSum.height);
+
+		oi.setResults(jo.toString());
+		oi.setSavedConfigID(null);
+		oi.setUnsavedConfigContents(null);
 
 		File f = new File(oi.getDir().getAbsolutePath() + File.separator
 				+ CROP_FILE);

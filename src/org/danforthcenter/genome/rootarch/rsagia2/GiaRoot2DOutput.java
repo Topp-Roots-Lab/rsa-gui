@@ -5,10 +5,12 @@
 
 package org.danforthcenter.genome.rootarch.rsagia2;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import org.jooq.tools.json.JSONArray;
+import org.jooq.tools.json.JSONObject;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 
@@ -29,7 +31,13 @@ public class GiaRoot2DOutput extends OutputInfo implements IOutputCrop,
 				+ DESCRIPTOR_FILENAME);
 		outputs = getCropFlag() | getThresholdFlag() | getDescriptorFlag();
 	}
-
+	public GiaRoot2DOutput(String appName, RsaImageSet ris, boolean toSaved)
+	{
+		super(appName, ris, toSaved);
+		descriptorFile = new File(dir.getAbsolutePath() + File.separator
+				+ DESCRIPTOR_FILENAME);
+		outputs = getCropFlag() | getThresholdFlag() | getDescriptorFlag();
+	}
 	public File[] getCroppedImages() {
 		NameSubstringFileFilter nsf = new NameSubstringFileFilter(
 				CROP_SUBSTRING);
@@ -40,6 +48,49 @@ public class GiaRoot2DOutput extends OutputInfo implements IOutputCrop,
 		NameSubstringFileFilter nsf = new NameSubstringFileFilter(
 				THRESHOLD_SUBSTRING);
 		return dir.listFiles(nsf);
+	}
+
+	public static String readFormatCSVFile(File csvFile)
+	{
+		String results = null;
+		BufferedReader br = null;
+		JSONArray csvJsonArray = new JSONArray();
+		String[] headerArray = null;
+		int imageCount = 0;
+		//HashMap<String, ArrayList<Object>> csvMap = new HashMap<>();
+		boolean firstLine = true;
+		try {
+			br = new BufferedReader(new FileReader(csvFile));
+			String line = null;
+			try {
+				while(br.ready()) {
+					line = br.readLine();
+					if(line.isEmpty())
+					{
+						continue;
+					}
+					String[] dataArray = null;
+					if (firstLine == true) {
+						headerArray = line.split(",");
+						firstLine = false;
+					} else {
+						dataArray = line.split(",");
+						JSONObject csvJsonObject = new JSONObject();
+						for (int i = 0; i < headerArray.length; i++) {
+							csvJsonObject.put(headerArray[i], dataArray[i]);
+						}
+						csvJsonArray.add(csvJsonObject);
+						//imageCount = imageCount + 1;
+					}
+				}
+				results = csvJsonArray.toString();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return results;
 	}
 
 	public File getDescriptorFile() {

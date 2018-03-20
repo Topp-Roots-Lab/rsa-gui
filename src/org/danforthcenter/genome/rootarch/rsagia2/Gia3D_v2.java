@@ -1,12 +1,12 @@
 /*
  *  Copyright 2013 vp23.
- * 
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- * 
+ *
  *       http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,9 @@
  */
 
 package org.danforthcenter.genome.rootarch.rsagia2;
+
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
+import org.jooq.tools.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -30,28 +33,28 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * 
+ *
  * @author vp23
  */
 
 public class Gia3D_v2 implements IApplication {
 
-	protected ApplicationManager am;
-	protected GiaRoot giaRoot;
-	protected String descriptors;
-	protected String descriptors_view;
-	protected String gia3D_v2ScriptPath;
-	protected String gia3D_v2MatlabScriptPath;
-	protected File templateDir;
-	protected Skel3DConfigXml scx;
-	protected String useMatlab;
+	private ApplicationManager am;
+	private GiaRoot giaRoot;
+	private String descriptors;
+	private String descriptors_view;
+	private String gia3D_v2ScriptPath;
+	private String gia3D_v2MatlabScriptPath;
+	private File templateDir;
+	private Skel3DConfigXml scx;
+	private String useMatlab;
 
-	protected final static String SURFACE_AREA_SKEL3D_NAME = "SurfArea";
-	protected final static String SURFACE_AREA_MATLAB_NAME = "area";
+	private final static String SURFACE_AREA_SKEL3D_NAME = "SurfArea";
+	private final static String SURFACE_AREA_MATLAB_NAME = "area";
 
 	public Gia3D_v2(String gia3D_v2ScriptPath, String descriptors,
-			String descriptors_view, String gia3D_v2MatlabScriptPath,
-			File templateDir, String useMatlab) {
+					String descriptors_view, String gia3D_v2MatlabScriptPath,
+					File templateDir, String useMatlab) {
 		this.am = null;
 		this.gia3D_v2ScriptPath = gia3D_v2ScriptPath;
 		this.gia3D_v2MatlabScriptPath = gia3D_v2MatlabScriptPath;
@@ -70,17 +73,11 @@ public class Gia3D_v2 implements IApplication {
 	}
 
 	public ArrayList<String> getConfigs() {
-		ArrayList<String> ans = new ArrayList<String>();
-		ExtensionFileFilter eff = new ExtensionFileFilter("xml");
-		File[] fs = templateDir.listFiles(eff);
-		if (fs != null) {
-			for (File f : fs) {
-				ans.add(f.getName().replace(".xml", ""));
-			}
-		}
-
-		return ans;
-	}
+        ArrayList<String> ans = new ArrayList<String>();
+        OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+        ans = oidbf.getTemplates("gia3d_v2");
+        return ans;
+    }
 
 	public ArrayList<String> getDescriptors() {
 		ArrayList<String> ans = new ArrayList<String>();
@@ -105,36 +102,48 @@ public class Gia3D_v2 implements IApplication {
 	/**
 	 * Creates the output directory and allows the caller to have a handle to
 	 * the output folder.
-	 * 
+	 *
 	 * @param vol
 	 * @param descriptors
 	 * @return
 	 */
 	public Gia3D_v2Output preprocess(RsaImageSet ris, IOutputVolume3D vol,
-			String descriptors, String config) {
-		Gia3D_v2Output ans = getOutputInfo(ris);
-		OutputInfo.createDirectory(ans, am);
+									 String descriptors, String config) {
+		Gia3D_v2Output oi = getOutputInfo(ris);
+		OutputInfo.createDirectory(oi, am);
+
+		OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+		oidbf.insertProgramRunTable(oi);
+		int configID = oidbf.findConfigID(config);
+		oi.setSavedConfigID(configID);
+		JSONObject jo = new JSONObject();
+		OutputInfo usedOI = (OutputInfo) vol;
+		String used = "Used "+usedOI.getAppName()+ " Run ID";
+		jo.put(used,vol.getRunID());
+		oi.setInputRuns(jo.toString());
+		oi.setUnsavedConfigContents(null);
+		oi.setDescriptors(descriptors);
 
 		File templateFile = new File(templateDir + File.separator + config
 				+ ".xml");
 		scx = new Skel3DConfigXml(templateFile, "out",
 				Gia3D_v2Output.OUTPUT_TYPE_2);
-		scx.write(ans.getConfigFile(templateFile));
+		scx.write(oi.getConfigFile(templateFile));
 
 		// preprocess is done before the 'start', so linkname would be updated
-		File linkname = new File(ans.getDir().getAbsolutePath()
+		File linkname = new File(oi.getDir().getAbsolutePath()
 				+ File.separator + "rootwork.out");
-		ans.setVolumeFile(linkname);
+		oi.setVolumeFile(linkname);
 
-        // tw 2015may6 change order to match arguments in Java Files.createSymbolicLink method
+		// tw 2015may6 change order to match arguments in Java Files.createSymbolicLink method
 		//FileUtil.createSymLink(vol.getVolumeFile(), linkname);
-        FileUtil.createSymLink(linkname, vol.getVolumeFile());
+		FileUtil.createSymLink(linkname, vol.getVolumeFile());
 
-		writeScaleFile(ans, vol.getScale());
+		writeScaleFile(oi, vol.getScale());
 
-		writeFeaturesHeaderFile(ans);
+		writeFeaturesHeaderFile(oi);
 
-		return ans;
+		return oi;
 	}
 
 	public void writeScaleFile(Gia3D_v2Output out, double scale) {
@@ -194,7 +203,7 @@ public class Gia3D_v2 implements IApplication {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param output
 	 * @return
 	 */
@@ -231,7 +240,7 @@ public class Gia3D_v2 implements IApplication {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param output
 	 * @return
 	 */
@@ -252,7 +261,7 @@ public class Gia3D_v2 implements IApplication {
 		String inFile = output.getVolumeFile().getAbsolutePath();
 		String outFile = output.getMatlabFile().getAbsolutePath();
 //		String[] cmd = { "nice", gia3D_v2MatlabScriptPath, inFile, outFile, };
-        // tw 2015july16 remove nice for windows
+		// tw 2015july16 remove nice for windows
 		String[] cmd = { gia3D_v2MatlabScriptPath, inFile, outFile, };
 
 		ProcessBuilder pb = new ProcessBuilder(cmd);
@@ -429,7 +438,7 @@ public class Gia3D_v2 implements IApplication {
 		}
 	}
 
-	public String getTemplateString(OutputInfo oi) {
+	private String getTemplateString(OutputInfo oi) {
 		ExtensionFileFilter eff = new ExtensionFileFilter("xml");
 		File[] fs = oi.getDir().listFiles(eff);
 		String ans = null;
@@ -456,8 +465,8 @@ public class Gia3D_v2 implements IApplication {
 	}
 
 	public Gia3D_v2Output getOutputInfo(RsaImageSet ris) {
-		OutputInfo oi = new OutputInfo(getName(), ris, false);
-		return new Gia3D_v2Output(oi.getDir(), ris);
+		Gia3D_v2Output oi = new Gia3D_v2Output(getName(), ris, false);
+		return oi;
 	}
 
 	@Override
@@ -500,7 +509,7 @@ public class Gia3D_v2 implements IApplication {
 		return ans;
 	}
 
-	protected static class GiaRoot3D_v2Exception extends RuntimeException {
+	private static class GiaRoot3D_v2Exception extends RuntimeException {
 		public GiaRoot3D_v2Exception(Throwable th) {
 			super(th);
 		}

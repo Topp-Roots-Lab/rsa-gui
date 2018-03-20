@@ -27,6 +27,7 @@ package org.danforthcenter.genome.rootarch.rsagia.app2;
 
 import java.awt.event.WindowEvent;
 import java.beans.PropertyChangeEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
@@ -37,6 +38,7 @@ import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
 import org.danforthcenter.genome.rootarch.rsagia2.Gia3D_v2;
 import org.danforthcenter.genome.rootarch.rsagia2.Gia3D_v2Output;
@@ -51,23 +53,23 @@ public class Gia3D_v2LogFrame extends javax.swing.JFrame implements
 		java.awt.event.WindowListener, javax.swing.event.ListSelectionListener,
 		java.beans.PropertyChangeListener {
 
-	protected int maxProcesses;
-	protected Gia3D_v2 gia3D_v2;
-	protected ApplicationManager am;
-	protected ArrayList<RsaImageSet> riss;
-	protected ArrayList<IOutputVolume3D> vols;
-	protected ArrayList<Gia3D_v2Output> outputs;
+	private int maxProcesses;
+	private Gia3D_v2 gia3D_v2;
+	private ApplicationManager am;
+	private ArrayList<RsaImageSet> riss;
+	private ArrayList<IOutputVolume3D> vols;
+	private ArrayList<Gia3D_v2Output> outputs;
 
-	protected String descriptors;
-	protected String config;
+	private String descriptors;
+	private String config;
 
-	protected ArrayList<JTextArea> outputTextAreas;
-	protected ArrayList<JScrollPane> outputPanels;
-	protected int cur;
-	protected int doneCnt;
-	protected int cur2;
-	protected int doneCnt2;
-	protected boolean isMatlabStarted = false;
+	private ArrayList<JTextArea> outputTextAreas;
+	private ArrayList<JScrollPane> outputPanels;
+	private int cur;
+	private int doneCnt;
+	private int cur2;
+	private int doneCnt2;
+	private boolean isMatlabStarted = false;
 
 	/** Creates new form MultiLogWindow */
 	public Gia3D_v2LogFrame(int maxProcesses, Gia3D_v2 gia3D_v2,
@@ -105,7 +107,7 @@ public class Gia3D_v2LogFrame extends javax.swing.JFrame implements
 		}
 	}
 
-	protected void add(RsaImageSet ris) {
+	private void add(RsaImageSet ris) {
 		DefaultTableModel dtm = (DefaultTableModel) statusTable.getModel();
 
 		JTextArea jt = new JTextArea();
@@ -121,7 +123,7 @@ public class Gia3D_v2LogFrame extends javax.swing.JFrame implements
 		dtm.addRow(row);
 	}
 
-	protected void doNext() {
+	private void doNext() {
 		// System.out.println("ABOUT TO RUn");
 		Gia3D_v2Worker gw = new Gia3D_v2Worker(gia3D_v2, outputs.get(cur),
 				outputTextAreas.get(cur), cur, am);
@@ -131,7 +133,7 @@ public class Gia3D_v2LogFrame extends javax.swing.JFrame implements
 		cur++;
 	}
 
-	protected void doNext2() {
+	private void doNext2() {
 		// System.out.println("ABOUT TO RUn");
 		// GiaRoot2DWorker grw = new GiaRoot2DWorker(gia, inputs.get(cur),
 		// outputs.get(cur), outputTextAreas.get(cur), cur, am);
@@ -244,6 +246,20 @@ public class Gia3D_v2LogFrame extends javax.swing.JFrame implements
 			JOptionPane.showMessageDialog(this,
 					"Cannot close until all tasks are finished.");
 		} else {
+		    for(Gia3D_v2Output oi:outputs)
+            {
+                OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+                oidbf.updateRedFlag(oi);
+                oidbf.updateContents(oi);
+                oidbf.updateDescriptors(oi);
+
+                File tsvFile = oi.getTsvFile();
+                String tsvJson = oi.readFormatTSVFile(tsvFile);
+				oi.setResults(tsvJson);
+				oidbf.updateResults(oi);
+
+                oi.getRis().updateCountsOfApp(oi.getAppName());
+            }
 			firePropertyChange("done", false, true);
 			// mlw.dispose();
 		}

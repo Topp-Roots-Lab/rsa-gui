@@ -25,6 +25,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
 import org.danforthcenter.genome.rootarch.rsagia2.ExtensionFileFilter;
 import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
@@ -157,9 +158,10 @@ public class ScalePanel extends javax.swing.JPanel implements
 				JOptionPane.showMessageDialog(imf,
 						"Please enter a valid scale.");
 			}
+			OutputInfoDBFunctions useless = new OutputInfoDBFunctions();
 
 			double d = Double.parseDouble(absoluteScaleTextField.getText());
-			scale.writeScale(false, inputs.get(curIndex), d, am);
+			scale.writeScale(false, inputs.get(curIndex), d, am, useless );
 
 			curIndex++;
 			firePropertyChange("curIndex", curIndex - 1, curIndex);

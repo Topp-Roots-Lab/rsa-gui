@@ -5,6 +5,8 @@
 
 package org.danforthcenter.genome.rootarch.rsagia2;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,19 +19,19 @@ import java.util.Map;
  * @author bm93
  */
 public class GiaRoot2D implements IApplication {
-	protected File templateDir;
-	protected final static String TEMPLATE_EXT = "xml";
-	protected final static String THRESHOLD_SUBSTR = "threshold";
+	private File templateDir;
+	private final static String TEMPLATE_EXT = "xml";
+	private final static String THRESHOLD_SUBSTR = "threshold";
 
-	protected String giaExecPath;
-	protected File giaPath;
-	protected String allDescriptors;
+	private String giaExecPath;
+	private File giaPath;
+	private String allDescriptors;
 
 	public static final String OUTPUT_TYPE = "tiff";
 	public static final String CONFIG_XML_SUFFIX = "-gia-config.xml";
 	public static final String JOB_XML_NAME = "job-config.xml";
 
-    protected ISecurityManager ism;
+    private ISecurityManager ism;
 
 
     public GiaRoot2D(File templateDir, String giaExecPath, File giaPath,
@@ -72,23 +74,8 @@ public class GiaRoot2D implements IApplication {
 
 	public ArrayList<String> getConfigTemplates() {
 		ArrayList<String> ans = new ArrayList<String>();
-		ExtensionFileFilter eff = new ExtensionFileFilter(TEMPLATE_EXT);
-
-        System.out.println(this.getClass() + " " + templateDir);
-
-		// tw 2014july3 add try catch for file null pointer exception
-		try {
-			File[] fs = templateDir.listFiles(eff);
-			for (File f : fs) {
-				String s1 = f.getName();
-				String s2 = s1.substring(0, s1.lastIndexOf("." + TEMPLATE_EXT));
-
-				ans.add(s2);
-			}
-		} catch (NullPointerException e) {
-			ans.add("no template files found");
-		}
-
+		OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+		ans = oidbf.getTemplates("giaroot_2d");
 		return ans;
 	}
 
@@ -178,7 +165,7 @@ public class GiaRoot2D implements IApplication {
 		return ans;
 	}
 
-	protected void createAlgorithmsLink(OutputInfo oi) {
+	private void createAlgorithmsLink(OutputInfo oi) {
 
         // 2014jan1 tw
         File algDir = new File(giaPath.getAbsolutePath()+ File.separator + "algorithms");
@@ -194,12 +181,12 @@ public class GiaRoot2D implements IApplication {
         }
 	}
 
-	protected void deleteAlgorithmsLink(OutputInfo oi) {
+	private void deleteAlgorithmsLink(OutputInfo oi) {
 		new File(oi.getDir().getAbsolutePath() + File.separator + "algorithms")
 				.delete();
 	}
 
-	protected File getTemplateFromString(String str) {
+	private File getTemplateFromString(String str) {
 		return new File(templateDir + File.separator + str + "." + TEMPLATE_EXT);
 	}
 
@@ -286,7 +273,7 @@ public class GiaRoot2D implements IApplication {
 		return oi.getDir().listFiles(nsf);
 	}
 
-	protected static class GiaRoot2DException extends RuntimeException {
+	private static class GiaRoot2DException extends RuntimeException {
 		public GiaRoot2DException(String msg, Throwable th) {
 			super(msg, th);
 		}
