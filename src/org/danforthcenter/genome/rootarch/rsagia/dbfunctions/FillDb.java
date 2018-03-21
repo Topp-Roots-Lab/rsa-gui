@@ -378,7 +378,8 @@ public class FillDb {
                         }
                         String rootworkUnsavedConfigContents  = null;
                         try {
-                            rootworkUnsavedConfigContents  = new String(Files.readAllBytes((Paths.get(path))));
+                            rootworkUnsavedConfigContents = new String(Files.readAllBytes((Paths.get(path))));
+                            rootworkUnsavedConfigContents = rootworkUnsavedConfigContents.replace("\\", "\\\\");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -405,7 +406,8 @@ public class FillDb {
                         }
                         String rootworkPersUnsavedConfigContents  = null;
                         try {
-                            rootworkPersUnsavedConfigContents  = new String(Files.readAllBytes((Paths.get(path))));
+                            rootworkPersUnsavedConfigContents = new String(Files.readAllBytes((Paths.get(path))));
+                            rootworkPersUnsavedConfigContents = rootworkPersUnsavedConfigContents.replace("\\", "\\\\");
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

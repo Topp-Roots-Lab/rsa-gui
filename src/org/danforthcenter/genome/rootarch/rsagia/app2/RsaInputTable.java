@@ -421,19 +421,6 @@ public class RsaInputTable extends javax.swing.JTable implements
 		int total = saved+sandbox;
 		return total;
 	}
-	protected int getAppCount_old(RsaImageSet ris, IApplication app,
-			boolean doSaved, boolean doSandbox) {
-		ArrayList<OutputInfo> ois = OutputInfo.getInstances(am, ris, doSaved,
-				doSandbox, null, false);
-		int v = 0;
-		for (OutputInfo oi : ois) {
-			if (oi.isValid() && oi.getAppName().equals(app.getName())) {
-				v++;
-			}
-		}
-
-		return v;
-	}
 
 	public ArrayList<RsaImageSet> getInputData() {
 		return this.inputData;
@@ -441,16 +428,6 @@ public class RsaInputTable extends javax.swing.JTable implements
 
 	public void updateRows(ArrayList<Integer> rowIndexes)
 	{
-		int colCount = this.getColumnCount();
-		for (int i : rowIndexes) {
-			for (int j = savedCols.size(); j < colCount; j++) {
-				Object ans = computeCellData(i, this.getColumnName(j));
-				this.getModel().setValueAt(ans, i, j);
-			}
-		}
-	}
-
-	public void updateRows_old(ArrayList<Integer> rowIndexes) {
 		int colCount = this.getColumnCount();
 		for (int i : rowIndexes) {
 			for (int j = savedCols.size(); j < colCount; j++) {
