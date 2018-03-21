@@ -265,7 +265,6 @@ public class Rootwork3DPersLogFrame extends javax.swing.JFrame implements
 			for(Rootwork3DPersOutput oi:outputs)
 			{
 				oidbf.updateRedFlag(oi);
-				oi.setUnsavedConfigContents(rootwork3DPers.getRxml().toString());
 				oidbf.updateContents(oi);
 				oi.getRis().updateCountsOfApp(oi.getAppName());
 			}

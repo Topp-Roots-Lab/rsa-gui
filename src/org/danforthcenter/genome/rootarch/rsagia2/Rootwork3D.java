@@ -95,14 +95,6 @@ public class Rootwork3D implements IApplication {
 		return new Rootwork3DOutput(f, ris);
 	}
 
-	public Rootwork3DXml getRxml() {
-		return rxml;
-	}
-
-	public void setRxml(Rootwork3DXml rxml) {
-		this.rxml = rxml;
-	}
-
 	public Process start(OutputInfo out, IOutputThreshold iot, int reconOpt,
 						 int reconLowerThresh, int numNodesOctree, int numImagesUsed,
 						 int reconUpperThreshold, int distortionRadius,
@@ -731,7 +723,7 @@ public class Rootwork3D implements IApplication {
 				ext, pref, reconUpperThreshold, distortionRadius,
 				numberOfComponents, resolution, refImage, refRatio, doAdd);
 		rxml.save(rout.getConfigFile());
-		this.setRxml(rxml);
+		rout.setUnsavedConfigContents(rxml.toString());
 
 		// // tw 2014nov12
 		// ism.setFilePermissions(rout.getConfigFile());

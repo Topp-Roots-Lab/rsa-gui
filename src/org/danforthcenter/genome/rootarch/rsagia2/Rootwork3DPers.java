@@ -180,14 +180,6 @@ public class Rootwork3DPers  implements IApplication {
         System.out.println(this.getClass().getSimpleName() + " has Required Input ans " + ans);
         return ans;
     }
-    public Rootwork3DPersXml getRxml()
-    {
-        return rxml;
-    }
-    public void setRxml(Rootwork3DPersXml rxmlNew)
-    {
-        this.rxml = rxmlNew;
-    }
     @Override
     public int getOptionalInputs() {
         return InputOutputTypes.NONE;
@@ -699,7 +691,7 @@ public class Rootwork3DPers  implements IApplication {
                 camDist, rotDir, doFindRotAxis, doCalib, pitch,
                 roll, translation, focusOffset, doAdd);
         rxml.save(rout.getConfigFile());
-        this.setRxml(rxml);
+        rout.setUnsavedConfigContents(rxml.toString());
 
         // // tw 2014nov12
         // ism.setFilePermissions(rout.getConfigFile());
