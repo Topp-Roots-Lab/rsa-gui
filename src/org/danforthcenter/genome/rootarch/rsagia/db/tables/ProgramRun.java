@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProgramRun extends TableImpl<ProgramRunRecord> {
 
-    private static final long serialVersionUID = 944935451;
+    private static final long serialVersionUID = 451809923;
 
     /**
      * The reference instance of <code>rsa_gia.program_run</code>
@@ -97,22 +97,22 @@ public class ProgramRun extends TableImpl<ProgramRunRecord> {
     /**
      * The column <code>rsa_gia.program_run.saved_config_id</code>.
      */
-    public final TableField<ProgramRunRecord, Integer> SAVED_CONFIG_ID = createField("saved_config_id", org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<ProgramRunRecord, Integer> SAVED_CONFIG_ID = createField("saved_config_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>rsa_gia.program_run.unsaved_config_contents</code>.
      */
-    public final TableField<ProgramRunRecord, String> UNSAVED_CONFIG_CONTENTS = createField("unsaved_config_contents", org.jooq.impl.SQLDataType.CLOB.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.CLOB)), this, "");
+    public final TableField<ProgramRunRecord, String> UNSAVED_CONFIG_CONTENTS = createField("unsaved_config_contents", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
      * The column <code>rsa_gia.program_run.descriptors</code>.
      */
-    public final TableField<ProgramRunRecord, String> DESCRIPTORS = createField("descriptors", org.jooq.impl.SQLDataType.CLOB.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.CLOB)), this, "");
+    public final TableField<ProgramRunRecord, String> DESCRIPTORS = createField("descriptors", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
      * The column <code>rsa_gia.program_run.results</code>.
      */
-    public final TableField<ProgramRunRecord, String> RESULTS = createField("results", org.jooq.impl.SQLDataType.CLOB.defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.CLOB)), this, "");
+    public final TableField<ProgramRunRecord, String> RESULTS = createField("results", org.jooq.impl.SQLDataType.CLOB, this, "");
 
     /**
      * Create a <code>rsa_gia.program_run</code> table reference

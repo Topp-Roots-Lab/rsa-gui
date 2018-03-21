@@ -37,7 +37,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = -198527375;
+    private static final long serialVersionUID = -556973775;
 
     /**
      * The reference instance of <code>rsa_gia.user</code>
@@ -80,7 +80,7 @@ public class User extends TableImpl<UserRecord> {
     /**
      * The column <code>rsa_gia.user.access_level</code>.
      */
-    public final TableField<UserRecord, String> ACCESS_LEVEL = createField("access_level", org.jooq.impl.SQLDataType.VARCHAR(20).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<UserRecord, String> ACCESS_LEVEL = createField("access_level", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
 
     /**
      * Create a <code>rsa_gia.user</code> table reference

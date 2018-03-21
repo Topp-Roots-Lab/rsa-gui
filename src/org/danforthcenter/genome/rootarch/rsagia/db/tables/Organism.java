@@ -37,7 +37,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Organism extends TableImpl<OrganismRecord> {
 
-    private static final long serialVersionUID = -1656343802;
+    private static final long serialVersionUID = -2000350650;
 
     /**
      * The reference instance of <code>rsa_gia.organism</code>
@@ -65,17 +65,17 @@ public class Organism extends TableImpl<OrganismRecord> {
     /**
      * The column <code>rsa_gia.organism.species</code>.
      */
-    public final TableField<OrganismRecord, String> SPECIES = createField("species", org.jooq.impl.SQLDataType.VARCHAR(50).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<OrganismRecord, String> SPECIES = createField("species", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>rsa_gia.organism.subspecies</code>.
      */
-    public final TableField<OrganismRecord, String> SUBSPECIES = createField("subspecies", org.jooq.impl.SQLDataType.VARCHAR(50).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<OrganismRecord, String> SUBSPECIES = createField("subspecies", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>rsa_gia.organism.variety</code>.
      */
-    public final TableField<OrganismRecord, String> VARIETY = createField("variety", org.jooq.impl.SQLDataType.VARCHAR(50).defaultValue(org.jooq.impl.DSL.inline("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<OrganismRecord, String> VARIETY = createField("variety", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * Create a <code>rsa_gia.organism</code> table reference

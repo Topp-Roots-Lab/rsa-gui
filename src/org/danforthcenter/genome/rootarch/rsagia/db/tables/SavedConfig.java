@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SavedConfig extends TableImpl<SavedConfigRecord> {
 
-    private static final long serialVersionUID = 1283486215;
+    private static final long serialVersionUID = -1284070276;
 
     /**
      * The reference instance of <code>rsa_gia.saved_config</code>
@@ -116,7 +116,7 @@ public class SavedConfig extends TableImpl<SavedConfigRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.SAVED_CONFIG_PRIMARY, Indexes.SAVED_CONFIG_SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK);
+        return Arrays.<Index>asList(Indexes.SAVED_CONFIG_PRIMARY, Indexes.SAVED_CONFIG_SAVED_CONFIG_PROGRAM_ID_NAME_UINDEX);
     }
 
     /**
@@ -140,7 +140,7 @@ public class SavedConfig extends TableImpl<SavedConfigRecord> {
      */
     @Override
     public List<UniqueKey<SavedConfigRecord>> getKeys() {
-        return Arrays.<UniqueKey<SavedConfigRecord>>asList(Keys.KEY_SAVED_CONFIG_PRIMARY);
+        return Arrays.<UniqueKey<SavedConfigRecord>>asList(Keys.KEY_SAVED_CONFIG_PRIMARY, Keys.KEY_SAVED_CONFIG_SAVED_CONFIG_PROGRAM_ID_NAME_UINDEX);
     }
 
     /**

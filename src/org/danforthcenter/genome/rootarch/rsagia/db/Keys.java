@@ -69,6 +69,7 @@ public class Keys {
     public static final UniqueKey<ProgramDependencyRecord> KEY_PROGRAM_DEPENDENCY_PRIMARY = UniqueKeys0.KEY_PROGRAM_DEPENDENCY_PRIMARY;
     public static final UniqueKey<ProgramRunRecord> KEY_PROGRAM_RUN_PRIMARY = UniqueKeys0.KEY_PROGRAM_RUN_PRIMARY;
     public static final UniqueKey<SavedConfigRecord> KEY_SAVED_CONFIG_PRIMARY = UniqueKeys0.KEY_SAVED_CONFIG_PRIMARY;
+    public static final UniqueKey<SavedConfigRecord> KEY_SAVED_CONFIG_SAVED_CONFIG_PROGRAM_ID_NAME_UINDEX = UniqueKeys0.KEY_SAVED_CONFIG_SAVED_CONFIG_PROGRAM_ID_NAME_UINDEX;
     public static final UniqueKey<SeedRecord> KEY_SEED_PRIMARY = UniqueKeys0.KEY_SEED_PRIMARY;
     public static final UniqueKey<SeedRecord> KEY_SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX = UniqueKeys0.KEY_SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
@@ -112,6 +113,7 @@ public class Keys {
         public static final UniqueKey<ProgramDependencyRecord> KEY_PROGRAM_DEPENDENCY_PRIMARY = createUniqueKey(ProgramDependency.PROGRAM_DEPENDENCY, "KEY_program_dependency_PRIMARY", ProgramDependency.PROGRAM_DEPENDENCY.PROGRAM_DEPENDENCY_ID, ProgramDependency.PROGRAM_DEPENDENCY.PROGRAM_ID);
         public static final UniqueKey<ProgramRunRecord> KEY_PROGRAM_RUN_PRIMARY = createUniqueKey(ProgramRun.PROGRAM_RUN, "KEY_program_run_PRIMARY", ProgramRun.PROGRAM_RUN.RUN_ID);
         public static final UniqueKey<SavedConfigRecord> KEY_SAVED_CONFIG_PRIMARY = createUniqueKey(SavedConfig.SAVED_CONFIG, "KEY_saved_config_PRIMARY", SavedConfig.SAVED_CONFIG.CONFIG_ID);
+        public static final UniqueKey<SavedConfigRecord> KEY_SAVED_CONFIG_SAVED_CONFIG_PROGRAM_ID_NAME_UINDEX = createUniqueKey(SavedConfig.SAVED_CONFIG, "KEY_saved_config_saved_config_program_id_name_uindex", SavedConfig.SAVED_CONFIG.PROGRAM_ID, SavedConfig.SAVED_CONFIG.NAME);
         public static final UniqueKey<SeedRecord> KEY_SEED_PRIMARY = createUniqueKey(Seed.SEED, "KEY_seed_PRIMARY", Seed.SEED.SEED_ID);
         public static final UniqueKey<SeedRecord> KEY_SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX = createUniqueKey(Seed.SEED, "KEY_seed_seed_experiment_id_seed_name_uindex", Seed.SEED.EXPERIMENT_ID, Seed.SEED.SEED_NAME);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.USER_ID);
