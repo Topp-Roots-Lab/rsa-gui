@@ -115,6 +115,8 @@ public class Rootwork3D implements IApplication {
 				numImagesUsed, reconUpperThreshold, distortionRadius,
 				numberOfComponents, resolution, refImage, refRatio, doAdd);
 
+		out.setUnsavedConfigContents(rout.getUnsavedConfigContents());
+
 		boolean isSTL = false;
 		String[] cmd = getReconstruction3dCmd(useMatlab, rout, isSTL);
 		ProcessBuilder pb = new ProcessBuilder(cmd);

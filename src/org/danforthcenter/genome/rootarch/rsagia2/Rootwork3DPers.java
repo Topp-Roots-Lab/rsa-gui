@@ -250,6 +250,7 @@ public class Rootwork3DPers  implements IApplication {
                 roll, translation, focusOffset, doAdd
                 );
 
+        out.setUnsavedConfigContents(rout.getUnsavedConfigContents());
 
         String[] cmd = getReconstruction3dCmd(rout);
 
