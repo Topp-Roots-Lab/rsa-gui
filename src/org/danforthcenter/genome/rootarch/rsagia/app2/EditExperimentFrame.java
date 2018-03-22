@@ -33,12 +33,12 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
 
 
     public EditExperimentFrame(String selExperiment, String selOrganism, File baseDir) {
+        super(null, "Edit Experiment", ModalityType.APPLICATION_MODAL);
+
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("Edit Experiment");
         pack();
-        this.setModal(true);
         this.baseDir = baseDir;
         this.saveButton.addActionListener(this);
         this.cancelButton.addActionListener(this);
@@ -109,6 +109,8 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
 
                 this.dispose();
             }
+        } else if (e.getSource() == cancelButton) {
+            this.dispose();
         }
     }
 

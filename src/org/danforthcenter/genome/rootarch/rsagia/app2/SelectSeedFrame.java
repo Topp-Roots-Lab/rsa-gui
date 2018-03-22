@@ -29,12 +29,12 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     private String selectedSeed;
 
     public SelectSeedFrame(File baseDir) {
+        super(null, "Select Seed", ModalityType.APPLICATION_MODAL);
+
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("Select Seed");
         pack();
-        this.setModal(true);
         this.baseDir = baseDir;
         this.viewButton.addActionListener(this);
         this.editButton.addActionListener(this);
@@ -201,6 +201,7 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
         gbc.gridx = 0;
         gbc.gridy = 6;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 70, 0, 0);
         panel1.add(viewButton, gbc);
         editButton = new JButton();
         editButton.setText("Edit");

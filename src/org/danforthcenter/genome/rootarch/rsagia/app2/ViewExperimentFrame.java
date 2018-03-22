@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ViewExperimentFrame extends JFrame implements ActionListener {
+public class ViewExperimentFrame extends JDialog implements ActionListener {
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
@@ -22,10 +22,11 @@ public class ViewExperimentFrame extends JFrame implements ActionListener {
     private MetadataDBFunctions mdf;
 
     public ViewExperimentFrame(String selectedExperiment, String organism) {
+        super(null, "View Experiment", ModalityType.APPLICATION_MODAL);
+
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("View Experiment");
         pack();
         this.OKButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();

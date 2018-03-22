@@ -12,7 +12,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 
-public class SelectOrganismFrame extends JFrame implements
+public class SelectOrganismFrame extends JDialog implements
         ActionListener, PropertyChangeListener {
     private JComboBox comboBox1;
     private JButton editButton;
@@ -22,10 +22,11 @@ public class SelectOrganismFrame extends JFrame implements
     private File baseDir;
 
     public SelectOrganismFrame(File baseDir) {
+        super(null, "Select Organism", ModalityType.APPLICATION_MODAL);
+
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("Select Organism");
         pack();
         this.baseDir = baseDir;
         editButton.addActionListener(this);
@@ -51,12 +52,12 @@ public class SelectOrganismFrame extends JFrame implements
             EditOrganismFrame editOrganism = new EditOrganismFrame(selectedOrganism, this.baseDir);
             editOrganism.addPropertyChangeListener("getall", this);
             editOrganism.setVisible(true);
-            this.dispose();
+
         } else if (e.getSource() == this.viewButton) {
             String selectedOrganism = (String) comboBox1.getSelectedItem();
             ViewOrganismFrame viewOrganism = new ViewOrganismFrame(selectedOrganism);
             viewOrganism.setVisible(true);
-            this.dispose();
+
         }
     }
 

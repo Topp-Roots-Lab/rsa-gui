@@ -20,10 +20,10 @@ public class AddExperimentFrame extends JDialog implements ActionListener {
 
 
     public AddExperimentFrame() {
+        super(null, "Add Experiment", ModalityType.APPLICATION_MODAL);
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("Add Experiment");
         pack();
 
         addButton.addActionListener(this);
@@ -33,7 +33,6 @@ public class AddExperimentFrame extends JDialog implements ActionListener {
             String organism = (String) r.getValue("organism_name");
             organismComboBox.addItem(organism);
         }
-        this.setModal(true);
     }
 
     private void createUIComponents() {

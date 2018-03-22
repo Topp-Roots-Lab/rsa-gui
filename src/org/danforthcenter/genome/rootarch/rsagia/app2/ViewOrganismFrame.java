@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ViewOrganismFrame extends JFrame implements ActionListener {
+public class ViewOrganismFrame extends JDialog implements ActionListener {
     private JTextField textField1;
     private JTextField textField2;
     private JTextField textField3;
@@ -21,10 +21,11 @@ public class ViewOrganismFrame extends JFrame implements ActionListener {
     private MetadataDBFunctions mdf;
 
     public ViewOrganismFrame(String selectedOrganism) {
+        super(null, "View Organism", ModalityType.APPLICATION_MODAL);
+
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("View Organism");
         pack();
         this.OKButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();

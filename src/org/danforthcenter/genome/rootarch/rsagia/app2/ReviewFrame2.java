@@ -50,6 +50,8 @@ public final class ReviewFrame2 extends javax.swing.JDialog implements
 
 	/** Creates new form ReviewFrame2 */
 	public ReviewFrame2(ArrayList<RsaImageSet> riss, ApplicationManager am) {
+		super(null, "Review Window", ModalityType.APPLICATION_MODAL);
+
 		this.riss = riss;
 		this.am = am;
 
@@ -57,7 +59,6 @@ public final class ReviewFrame2 extends javax.swing.JDialog implements
 
 		initCop(riss, false, false);
 		initComponents();
-		this.setModal(true);
 
 		// checkboxes listeners
 		showScaleCheckbox.addActionListener(this);

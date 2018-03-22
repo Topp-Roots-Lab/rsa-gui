@@ -27,12 +27,12 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
     private MetadataDBFunctions mdf;
 
     public ViewSeedFrame(String organism, String experiment, String seed) {
+        super(null, "View Seed", ModalityType.APPLICATION_MODAL);
+
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("View Seed");
         pack();
-        this.setModal(true);
         this.OKButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
         Result<Record> seedRecord = this.mdf.findSeedMetadataFromOrgExpSeed(organism, experiment, seed);

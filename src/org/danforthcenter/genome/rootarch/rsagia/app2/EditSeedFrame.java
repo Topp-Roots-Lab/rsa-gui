@@ -41,12 +41,11 @@ public class EditSeedFrame extends JDialog implements ActionListener {
     private File baseDir;
 
     public EditSeedFrame(String organism, String experiment, String seed, File baseDir) {
+        super(null, "Edit Seed", ModalityType.APPLICATION_MODAL);
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("Edit Seed");
         pack();
-        this.setModal(true);
         this.saveButton.addActionListener(this);
         this.cancelButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
@@ -186,7 +185,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
-        panel1.setPreferredSize(new Dimension(400, 571));
+        panel1.setPreferredSize(new Dimension(500, 571));
         final JLabel label1 = new JLabel();
         label1.setText("Organism:");
         GridBagConstraints gbc;
@@ -358,8 +357,10 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         gbc.gridx = 0;
         gbc.gridy = 24;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 110, 0, 110);
         panel1.add(saveButton, gbc);
         cancelButton = new JButton();
+        cancelButton.setPreferredSize(new Dimension(90, 35));
         cancelButton.setText("Cancel");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;

@@ -16,7 +16,7 @@ import java.nio.file.Files;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
-public class EditOrganismFrame extends JFrame implements
+public class EditOrganismFrame extends JDialog implements
         ActionListener, PropertyChangeListener {
     private JTextField nameField;
     private JButton saveButton;
@@ -31,10 +31,11 @@ public class EditOrganismFrame extends JFrame implements
     private File baseDir;
 
     public EditOrganismFrame(String selectedOrganism, File baseDir) {
+        super(null, "Edit Organism", ModalityType.APPLICATION_MODAL);
+
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("Edit Organism");
         pack();
         this.baseDir = baseDir;
         this.saveButton.addActionListener(this);

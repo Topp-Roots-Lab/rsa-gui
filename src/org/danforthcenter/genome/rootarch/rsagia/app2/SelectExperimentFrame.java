@@ -14,7 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 
-public class SelectExperimentFrame extends JFrame implements ActionListener, PropertyChangeListener {
+public class SelectExperimentFrame extends JDialog implements ActionListener, PropertyChangeListener {
     private JComboBox expComboBox;
     private JButton editButton;
     private JPanel panel1;
@@ -24,10 +24,10 @@ public class SelectExperimentFrame extends JFrame implements ActionListener, Pro
     private File baseDir;
 
     public SelectExperimentFrame(File baseDir) {
+        super(null, "Select Experiment", ModalityType.APPLICATION_MODAL);
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("Select Experiment");
         pack();
         this.baseDir = baseDir;
         this.editButton.addActionListener(this);
@@ -67,7 +67,7 @@ public class SelectExperimentFrame extends JFrame implements ActionListener, Pro
             EditExperimentFrame editExp = new EditExperimentFrame(experiment, organism, this.baseDir);
             editExp.addPropertyChangeListener("getall", this);
             editExp.setVisible(true);
-            this.dispose();
+
         } else if (e.getSource() == viewButton) {
             String selectedExperiment = (String) expComboBox.getSelectedItem();
             String organism = (String) orgComboBox.getSelectedItem();

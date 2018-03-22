@@ -32,14 +32,14 @@ public class AddSeedFrame extends JDialog implements ActionListener {
     private MetadataDBFunctions mdf;
 
     public AddSeedFrame() {
+        super(null, "Add Seed", ModalityType.APPLICATION_MODAL);
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("Add Seed");
         pack();
         addButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
-        this.setModal(true);
+
         organismComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {

@@ -18,14 +18,13 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
     private MetadataDBFunctions mdf;
 
     public AddOrganismFrame() {
+        super(null, "Add Organism", ModalityType.APPLICATION_MODAL);
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        this.setTitle("Add Organism");
         pack();
         addButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
-        this.setModal(true);
     }
 
     {
