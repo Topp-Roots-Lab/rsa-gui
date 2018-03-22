@@ -57,6 +57,10 @@ public class GiaRoot2DWorker extends javax.swing.SwingWorker<Integer, String> {
 		return id;
 	}
 
+	public OutputInfo getOutput() {
+		return output;
+	}
+
 	@Override
 	protected Integer doInBackground() throws Exception {
 		// System.out.println("doInBackground() id: " + id + "; " +

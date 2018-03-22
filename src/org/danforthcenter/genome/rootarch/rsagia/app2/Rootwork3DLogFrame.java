@@ -189,6 +189,16 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 
 			String s = (v == 0) ? "DONE" : "ERROR(" + v + ")";
 			statusTable.setValueAt(s, i, 1);
+
+			if (v == 0)
+			{
+				OutputInfo oi = rw.getOutput();
+				OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+				oidbf.updateRedFlag(oi);
+				oidbf.updateContents(oi);
+				oi.getRis().updateCountsOfApp(oi.getAppName());
+			}
+
 			doneCnt++;
 
 			if (cur < riss.size()) {
@@ -210,13 +220,6 @@ public class Rootwork3DLogFrame extends javax.swing.JFrame implements
 			JOptionPane.showMessageDialog(this,
 					"Cannot close until all tasks are finished.");
 		} else {
-			OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
-			for(Rootwork3DOutput oi:outputs)
-			{
-				oidbf.updateRedFlag(oi);
-				oidbf.updateContents(oi);
-				oi.getRis().updateCountsOfApp(oi.getAppName());
-			}
 			firePropertyChange("done", false, true);
 			// mlw.dispose();
 		}

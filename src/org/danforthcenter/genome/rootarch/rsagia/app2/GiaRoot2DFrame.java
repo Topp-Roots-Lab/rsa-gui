@@ -154,6 +154,20 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 
 			String s = (v == 0) ? "DONE" : "ERROR(" + v + ")";
 			statusTable.setValueAt(s, i, 1);
+
+			if (v == 0)
+			{
+				OutputInfo oi = grw.getOutput();
+				OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+				oidbf.updateRedFlag(oi);
+				oidbf.updateContents(oi);
+				oidbf.updateDescriptors(oi);
+				String csvJson = GiaRoot2DOutput.readFormatCSVFile(this.gia.getCsvFile(oi));
+				oi.setResults(csvJson);
+				oidbf.updateResults(oi);
+				oi.getRis().updateCountsOfApp(oi.getAppName());
+			}
+
 			doneCnt++;
 
 			if (cur < inputs.size()) {
@@ -175,17 +189,6 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 			JOptionPane.showMessageDialog(this,
 					"Cannot close until all tasks are finished.");
 		} else {
-			OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
-			for(GiaRoot2DOutput oi:outputs)
-			{
-                oidbf.updateRedFlag(oi);
-                oidbf.updateContents(oi);
-                oidbf.updateDescriptors(oi);
-                String csvJson = oi.readFormatCSVFile(this.gia.getCsvFile(oi));
-                oi.setResults(csvJson);
-                oidbf.updateResults(oi);
-                oi.getRis().updateCountsOfApp(oi.getAppName());
-			}
 			firePropertyChange("done", false, true);
 			// mlw.dispose();
 		}

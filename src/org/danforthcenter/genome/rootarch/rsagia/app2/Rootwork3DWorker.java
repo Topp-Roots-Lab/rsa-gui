@@ -82,6 +82,10 @@ public class Rootwork3DWorker extends javax.swing.SwingWorker<Integer, String> {
 		return id;
 	}
 
+	public OutputInfo getOutput() {
+		return out;
+	}
+
 	@Override
 	protected Integer doInBackground() throws Exception {
 		Process p = null;
