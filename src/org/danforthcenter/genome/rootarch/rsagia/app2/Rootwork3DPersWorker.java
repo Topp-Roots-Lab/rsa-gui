@@ -105,6 +105,10 @@ public class Rootwork3DPersWorker extends javax.swing.SwingWorker<Integer, Strin
 		return id;
 	}
 
+	public OutputInfo getOutput() {
+		return out;
+	}
+
 	@Override
 	protected Integer doInBackground() throws Exception {
 		Process p = null;

@@ -125,7 +125,7 @@ public class ScaleAllPanel extends JComponent implements
                     oidbf.updateRedFlag(oi);
                     oidbf.updateContents(oi);
                     oidbf.updateResults(oi);
-                    oi.getRis().updateCountsOfApp("scale");
+                    oi.getRis().updateCountsOfApp(oi.getAppName());
                     curIndex++;
                     firePropertyChange("curIndex", curIndex - 1, curIndex);
                     if (curIndex < inputs.size()) {
@@ -137,7 +137,7 @@ public class ScaleAllPanel extends JComponent implements
                         oidbf.updateRedFlag(oi);
                         oidbf.updateContents(oi);
                         oidbf.updateResults(oi);
-                        oi.getRis().updateCountsOfApp("scale");
+                        oi.getRis().updateCountsOfApp(oi.getAppName());
                         firePropertyChange("curIndex", i, i + 1);
                     }
                 }

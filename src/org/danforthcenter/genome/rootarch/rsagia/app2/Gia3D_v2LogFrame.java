@@ -39,11 +39,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
-import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
-import org.danforthcenter.genome.rootarch.rsagia2.Gia3D_v2;
-import org.danforthcenter.genome.rootarch.rsagia2.Gia3D_v2Output;
-import org.danforthcenter.genome.rootarch.rsagia2.IOutputVolume3D;
-import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
+import org.danforthcenter.genome.rootarch.rsagia2.*;
 
 /**
  *
@@ -195,8 +191,25 @@ public class Gia3D_v2LogFrame extends javax.swing.JFrame implements
 			} else {
 				// report here DONE when Matlab NOT used,
 				s = (v == 0) ? "DONE" : "ERROR(" + v + ")";
+
+				if (v == 0)
+				{
+					Gia3D_v2Output oi = gw.getOutput();
+					OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+					oidbf.updateRedFlag(oi);
+					oidbf.updateContents(oi);
+					oidbf.updateDescriptors(oi);
+
+					File tsvFile = oi.getTsvFile();
+					String tsvJson = Gia3D_v2Output.readFormatTSVFile(tsvFile);
+					oi.setResults(tsvJson);
+					oidbf.updateResults(oi);
+
+					oi.getRis().updateCountsOfApp(oi.getAppName());
+				}
 			}
 			statusTable.setValueAt(s, i, 1);
+
 			doneCnt++;
 
 			if (cur < riss.size()) {
@@ -221,6 +234,23 @@ public class Gia3D_v2LogFrame extends javax.swing.JFrame implements
 
 			String s = (v == 0) ? "DONE" : "ERROR(" + v + ")";
 			statusTable.setValueAt(s, i, 1);
+
+			if (v == 0)
+			{
+				Gia3D_v2Output oi = gmtlw.getOutput();
+				OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+				oidbf.updateRedFlag(oi);
+				oidbf.updateContents(oi);
+				oidbf.updateDescriptors(oi);
+
+				File tsvFile = oi.getTsvFile();
+				String tsvJson = Gia3D_v2Output.readFormatTSVFile(tsvFile);
+				oi.setResults(tsvJson);
+				oidbf.updateResults(oi);
+
+				oi.getRis().updateCountsOfApp(oi.getAppName());
+			}
+
 			doneCnt2++;
 
 			if (cur2 < riss.size()) {
@@ -246,20 +276,6 @@ public class Gia3D_v2LogFrame extends javax.swing.JFrame implements
 			JOptionPane.showMessageDialog(this,
 					"Cannot close until all tasks are finished.");
 		} else {
-		    for(Gia3D_v2Output oi:outputs)
-            {
-                OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
-                oidbf.updateRedFlag(oi);
-                oidbf.updateContents(oi);
-                oidbf.updateDescriptors(oi);
-
-                File tsvFile = oi.getTsvFile();
-                String tsvJson = oi.readFormatTSVFile(tsvFile);
-				oi.setResults(tsvJson);
-				oidbf.updateResults(oi);
-
-                oi.getRis().updateCountsOfApp(oi.getAppName());
-            }
 			firePropertyChange("done", false, true);
 			// mlw.dispose();
 		}
