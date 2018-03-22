@@ -26,7 +26,6 @@ public class Import implements IApplication {
         Process ans = null;
 
         List<String> commandsList = new ArrayList<>(Arrays.asList(
-            "python",
             this.importScriptPath,
             organismsFile.getAbsolutePath(),
             importDirectory.getAbsolutePath(),
@@ -38,6 +37,10 @@ public class Import implements IApplication {
         if (deleteOriginals) {
             commandsList.add("--delete-originals");
         }
+        if (this.importScriptPath.endsWith(".py")) {
+            commandsList.add(0, "python");
+        }
+
         String[] cmd = commandsList.toArray(new String[0]);
 
         System.out.println("/t/t" + this.getClass().getSimpleName() + "\n");
