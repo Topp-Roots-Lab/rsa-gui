@@ -59,8 +59,7 @@ public class ImportWorker extends SwingWorker<Integer, String> {
 
 			BufferedReader br = null;
 			try {
-				br = new BufferedReader(new InputStreamReader(
-						p.getInputStream()));
+				br = new BufferedReader(new InputStreamReader(p.getInputStream()));
 
 				char[] cs = new char[1024];
 				int len;
@@ -70,8 +69,7 @@ public class ImportWorker extends SwingWorker<Integer, String> {
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
-				throw new ImportException(
-						"Error running Import process", e);
+				throw new ImportException("Error running Import process", e);
 			} finally {
 				try {
 					if (br != null) {
@@ -81,6 +79,8 @@ public class ImportWorker extends SwingWorker<Integer, String> {
 
 				}
 			}
+
+			p.waitFor();
 
 			exitValue = p.exitValue();
 

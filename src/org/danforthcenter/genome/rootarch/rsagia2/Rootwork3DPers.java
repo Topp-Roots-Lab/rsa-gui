@@ -254,7 +254,7 @@ public class Rootwork3DPers  implements IApplication {
 
         String[] cmd = getReconstruction3dCmd(rout);
 
-        System.out.println("/t/t" + this.getClass().getSimpleName() + "\n");
+        System.out.println("\t\t" + this.getClass().getSimpleName() + "\n");
         for (String subcmd : cmd) {
             System.out.print(subcmd + " ");
         }
