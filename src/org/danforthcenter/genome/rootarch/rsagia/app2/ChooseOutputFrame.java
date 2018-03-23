@@ -31,7 +31,7 @@ import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
  * 
  * @author bm93
  */
-public class ChooseOutputFrame extends javax.swing.JDialog implements
+public class ChooseOutputFrame extends javax.swing.JFrame implements
 		java.awt.event.ActionListener {
 	protected HashMap<RsaImageSet, ArrayList<OutputInfo>> originalMap;
 	protected boolean oneOutputOnly;
@@ -42,8 +42,6 @@ public class ChooseOutputFrame extends javax.swing.JDialog implements
 	public ChooseOutputFrame(HashMap<RsaImageSet, ArrayList<OutputInfo>> map,
 			boolean oneOutputOnly, ApplicationManager am, boolean moveSingles,
 			boolean skipCheckFinallist) {
-		super(null, "Choose Output Window", ModalityType.APPLICATION_MODAL);
-
 
 		this.oneOutputOnly = oneOutputOnly;
 
