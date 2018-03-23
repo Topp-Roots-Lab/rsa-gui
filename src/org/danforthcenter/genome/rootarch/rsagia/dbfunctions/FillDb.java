@@ -135,7 +135,7 @@ public class FillDb {
                                         if (imageTypes != null && imageTypes.length > 0) {
                                             for (File imageType : imageTypes) {
                                                 String imageTypeName = imageType.getName();
-                                                System.out.println(species_name + " " + experiment_name + " " + seed_name + " " + imageTypeName);
+                                                //System.out.println(species_name + " " + experiment_name + " " + seed_name + " " + imageTypeName);
 
                                                 dslContext.insertInto(DATASET_IMAGE_TYPE, DATASET_IMAGE_TYPE.DATASET_ID, DATASET_IMAGE_TYPE.IMAGE_TYPE)
                                                         .values(j, imageTypeName).execute();
@@ -352,14 +352,34 @@ public class FillDb {
                             e.printStackTrace();
                         }
                         String templateName = features.get(0);
-                        int savedConfigID = (int) mdf.findSavedTemplateFromName(templateName,appName).get(0).getValue("config_id");
+                        String savedConfigIDString = "NULL";
+                        String configContents = "NULL";
+                        Result<Record> savedTemplate = mdf.findSavedTemplateFromName(templateName,appName);
+                        if (savedTemplate.size() > 0) {
+                            Integer savedConfigID = (int) savedTemplate.get(0).getValue("config_id");
+                            savedConfigIDString = savedConfigID.toString();
+                        } else {
+                            String path = features.get(2);
+                            try {
+                                configContents = "'" + new String(Files.readAllBytes((Paths.get(path)))) + "'";
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
                         String descriptors = features.get(1);
-                        String cropProps = this.cropPropertyFileToJSONString(oi);
+
+                        String cropProps = "NULL";
+                        File cropResultFile = new File(oi.getDir() + File.separator
+                                + "crop.properties");
+                        if (cropResultFile.exists()) {
+                            cropProps = this.cropPropertyFileToJSONString(oi);
+                        }
 
                         String gia2DResult = GiaRoot2DOutput.readFormatCSVFile(new File(oi.getDir() + File.separator + "giaroot_2d.csv"));
                         String q = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
                                 "values(" + run_id + "," + userId + "," + appId + "," + datasetID + "," + doSaved +
-                                "," + 0 + ",'" + date_ + "'," +savedConfigID+",NULL," + cropProps + ",'"+descriptors+"','"+gia2DResult+"')";
+                                "," + 0 + ",'" + date_ + "'," + savedConfigIDString + "," + configContents + "," + cropProps + ",'" + descriptors + "','" + gia2DResult + "')";
                         dslContext.execute(q);
                         run_id = run_id + 1;
                     } else {
@@ -376,9 +396,9 @@ public class FillDb {
                         if (File.separator.equals("\\")) {
                             path = path.replaceAll("\\\\", "\\\\\\\\");
                         }
-                        String rootworkUnsavedConfigContents  = null;
+                        String rootworkUnsavedConfigContents  = "NULL";
                         try {
-                            rootworkUnsavedConfigContents = new String(Files.readAllBytes((Paths.get(path))));
+                            rootworkUnsavedConfigContents = "'" + new String(Files.readAllBytes((Paths.get(path)))) + "'";
                             rootworkUnsavedConfigContents = rootworkUnsavedConfigContents.replace("\\", "\\\\");
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -386,7 +406,7 @@ public class FillDb {
 
                         String q = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
                                 "values(" + run_id + "," + userId + "," + appId + "," + datasetID + "," + doSaved + "," + 0
-                                + ",'" + date_ + "',NULL,'" + rootworkUnsavedConfigContents+ "',NULL, NULL,NULL)";
+                                + ",'" + date_ + "',NULL,"+rootworkUnsavedConfigContents+",NULL, NULL,NULL)";
                         dslContext.execute(q);
                         run_id = run_id + 1;
                     } else {
@@ -404,9 +424,9 @@ public class FillDb {
                         if (File.separator.equals("\\")) {
                             path = path.replaceAll("\\\\", "\\\\\\\\");
                         }
-                        String rootworkPersUnsavedConfigContents  = null;
+                        String rootworkPersUnsavedConfigContents  = "NULL";
                         try {
-                            rootworkPersUnsavedConfigContents = new String(Files.readAllBytes((Paths.get(path))));
+                            rootworkPersUnsavedConfigContents = "'" + new String(Files.readAllBytes((Paths.get(path)))) + "'";
                             rootworkPersUnsavedConfigContents = rootworkPersUnsavedConfigContents.replace("\\", "\\\\");
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -414,7 +434,7 @@ public class FillDb {
 
                         String q = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
                                 "values(" + run_id + "," + userId + "," + appId + "," + datasetID + "," + doSaved + "," + 0
-                                + ",'" + date_ + "',NULL,'"+rootworkPersUnsavedConfigContents+"',NULL, NULL,NULL)";
+                                + ",'" + date_ + "',NULL,"+rootworkPersUnsavedConfigContents+",NULL, NULL,NULL)";
                         dslContext.execute(q);
                         run_id = run_id + 1;
                     } else {
@@ -616,8 +636,9 @@ public class FillDb {
                         if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
                             Element eElement = (Element) nNode;
-                            File configPath = new File(eElement.getAttribute("config"));
-                            String configFileName = configPath.getName();
+                            String configPath = eElement.getAttribute("config");
+                            File configFile = new File(configPath);
+                            String configFileName = configFile.getName();
                             template = configFileName.split("-gia-config")[0];
                             features.add(template);
                             NodeList nList2 = doc.getElementsByTagName("compute");
@@ -631,7 +652,7 @@ public class FillDb {
                                     features.add(descriptors);
                                 }
                             }
-
+                            features.add(configPath);
                         }
                     }
                 }
