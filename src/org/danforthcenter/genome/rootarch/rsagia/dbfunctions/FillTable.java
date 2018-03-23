@@ -22,8 +22,7 @@ public class FillTable {
     private DSLContext dslContext;
 
     public FillTable() {
-        ConnectDb dbConnection = new ConnectDb();
-        this.dslContext = dbConnection.getDslContext();
+        dslContext = ConnectDb.getDslContext();
     }
     public ArrayList<String> getProgramNames()
     {

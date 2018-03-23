@@ -8,8 +8,7 @@ public class UserDBFunctions {
     private DSLContext dslContext;
 
     public UserDBFunctions() {
-        ConnectDb dbConnection = new ConnectDb();
-        this.dslContext = dbConnection.getDslContext();
+        dslContext = ConnectDb.getDslContext();
     }
     public Result<Record> findUserFromName(String userName)
     {

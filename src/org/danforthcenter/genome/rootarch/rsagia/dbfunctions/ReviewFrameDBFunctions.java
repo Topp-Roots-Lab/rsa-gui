@@ -7,8 +7,7 @@ public class ReviewFrameDBFunctions {
 
     public ReviewFrameDBFunctions()
     {
-        ConnectDb dbConnection = new ConnectDb();
-        this.dslContext = dbConnection.getDslContext();
+        dslContext = ConnectDb.getDslContext();
     }
     public void changeToSavedinDB(int runID)
     {

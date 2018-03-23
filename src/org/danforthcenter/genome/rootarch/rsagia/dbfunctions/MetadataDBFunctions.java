@@ -14,8 +14,7 @@ public class MetadataDBFunctions {
 
     public MetadataDBFunctions()
     {
-        ConnectDb dbConnection = new ConnectDb();
-        dslContext = dbConnection.getDslContext();
+        dslContext = ConnectDb.getDslContext();
     }
     public boolean isAlpha(String name) {
         return name.matches("[a-zA-Z]+");

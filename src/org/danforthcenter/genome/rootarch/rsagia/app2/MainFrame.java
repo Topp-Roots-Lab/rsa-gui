@@ -66,7 +66,6 @@ public class MainFrame extends javax.swing.JFrame implements
         //                   + " " + riss.get(0));
 
 		///////////////////////////////
-		ConnectDb cdb = new ConnectDb();
 		FillDb cfdb = null;
 		try {
 			//cfdb = new FillDb(baseDir);

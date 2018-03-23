@@ -62,8 +62,7 @@ public class FillDb {
         );
         this.processedImagesPath = new File(this.baseDir.getAbsolutePath() + File.separator + "processed_images");
         this.rsaGiaTemplatesPath = new File(this.baseDir.getAbsolutePath() + File.separator + "rsa-gia-templates");
-        ConnectDb dbConnection = new ConnectDb();
-        dslContext = dbConnection.getDslContext();
+        dslContext = ConnectDb.getDslContext();
         this.mdf = new MetadataDBFunctions();
     }
 
@@ -365,7 +364,6 @@ public class FillDb {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
                         }
                         String descriptors = features.get(1);
 

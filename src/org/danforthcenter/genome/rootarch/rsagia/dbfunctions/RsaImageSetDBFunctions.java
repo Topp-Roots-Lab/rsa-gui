@@ -9,8 +9,7 @@ public class RsaImageSetDBFunctions {
 
     public RsaImageSetDBFunctions()
     {
-        ConnectDb dbConnection = new ConnectDb();
-        this.dslContext = dbConnection.getDslContext();
+        dslContext = ConnectDb.getDslContext();
     }
     public Result<Record> selectCountsOfAppForDatasetProgram(int datasetID,String programName)
     {

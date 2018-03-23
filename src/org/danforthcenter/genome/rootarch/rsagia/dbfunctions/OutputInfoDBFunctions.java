@@ -16,8 +16,7 @@ public class OutputInfoDBFunctions {
     private DSLContext dslContext;
 
     public OutputInfoDBFunctions() {
-        ConnectDb dbConnection = new ConnectDb();
-        this.dslContext = dbConnection.getDslContext();
+        dslContext = ConnectDb.getDslContext();
     }
 
     public Result<Record> getOutputsFromProgramRunTable(RsaImageSet ris, ArrayList<String> filters, boolean saved, boolean sandbox, boolean red) {
