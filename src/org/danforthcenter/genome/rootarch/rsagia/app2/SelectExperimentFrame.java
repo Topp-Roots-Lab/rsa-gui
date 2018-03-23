@@ -34,24 +34,30 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
         this.viewButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
 
+        loadExperiments();
+
+        expComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    loadOrganisms();
+                }
+            }
+        });
+    }
+
+    private void loadExperiments() {
+        expComboBox.removeAllItems();
         Result<Record> experimentRecord = this.mdf.selectAllExperiments();
         for (Record r : experimentRecord) {
             String experimentName = (String) r.getValue("experiment_code");
             expComboBox.addItem(experimentName);
         }
-        expComboBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String selectedExperiment = (String) expComboBox.getSelectedItem();
-                    Result<Record> expRecord = mdf.findOrganismByExperiment(selectedExperiment);
-                    orgComboBox.removeAllItems();
-                    for (Record r : expRecord) {
-                        orgComboBox.addItem((String) r.getValue("organism_name"));
-                    }
-                }
-            }
-        });
+        loadOrganisms();
+    }
+
+    private void loadOrganisms() {
+        orgComboBox.removeAllItems();
         String selectedExperiment = (String) expComboBox.getSelectedItem();
         Result<Record> expRecord = mdf.findOrganismByExperiment(selectedExperiment);
         for (Record r : expRecord) {
@@ -81,6 +87,7 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("getall")) {
             firePropertyChange("getall", null, null);
+            loadExperiments();
         }
 
     }

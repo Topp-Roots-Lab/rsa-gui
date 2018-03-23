@@ -32,6 +32,11 @@ public class SelectOrganismFrame extends JDialog implements
         editButton.addActionListener(this);
         viewButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
+        loadOrganisms();
+    }
+
+    private void loadOrganisms() {
+        comboBox1.removeAllItems();
         try {
             Result<Record> organismRecord = this.mdf.selectAllOrganism();
             for (Record r : organismRecord) {
@@ -39,7 +44,6 @@ public class SelectOrganismFrame extends JDialog implements
                 comboBox1.addItem(organism);
             }
         } catch (Exception e) {
-
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -64,6 +68,7 @@ public class SelectOrganismFrame extends JDialog implements
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName() == "getall") {
+            loadOrganisms();
             firePropertyChange("getall", null, null);
         }
 

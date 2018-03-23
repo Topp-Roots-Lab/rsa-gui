@@ -159,7 +159,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
           <text value=""/>
         </properties>
       </component>
@@ -172,7 +172,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="e36dd" class="javax.swing.JTextField" binding="seedField">
@@ -184,7 +184,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="9bce0" class="javax.swing.JTextField" binding="genotypeField">
@@ -196,7 +196,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="1f15b" class="javax.swing.JTextField" binding="dryshootField">
@@ -208,7 +208,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="1263a" class="javax.swing.JTextField" binding="dryrootField">
@@ -220,7 +220,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="f5ba0" class="javax.swing.JTextField" binding="wetshootField">
@@ -232,7 +232,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="504b4" class="javax.swing.JTextField" binding="wetrootField">
@@ -244,7 +244,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="404d2" class="javax.swing.JTextField" binding="schamberField">
@@ -256,8 +256,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
-          <text value=""/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="a54d3" class="javax.swing.JLabel">
@@ -306,6 +305,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
+          <minimumSize width="120" height="31"/>
           <preferredSize width="120" height="31"/>
           <text value="OK"/>
         </properties>
@@ -319,7 +319,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="8db84" class="javax.swing.JTextField" binding="descriptionField">
@@ -331,7 +331,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <component id="41a58" class="javax.swing.JTextField" binding="imagingStartDate">
@@ -343,7 +343,7 @@
         </constraints>
         <properties>
           <editable value="false"/>
-          <preferredSize width="12" height="25"/>
+          <preferredSize width="120" height="25"/>
         </properties>
       </component>
       <vspacer id="e5582">

@@ -131,6 +131,7 @@
         </constraints>
         <properties>
           <font size="14"/>
+          <preferredSize width="90" height="31"/>
           <text value="Cancel"/>
         </properties>
       </component>

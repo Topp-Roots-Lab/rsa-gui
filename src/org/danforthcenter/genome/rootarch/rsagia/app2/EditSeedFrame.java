@@ -88,10 +88,11 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         }
         imagingIntervalUnitComboBox.setSelectedItem(r.getValue("imaging_interval_unit"));
         descriptionField.setText((String) r.getValue("description"));
-        if (r.getValue("imaging_start_date") == null) {
+        Date imagingStart = (Date) r.getValue("imaging_start_date");
+        if (imagingStart == null) {
             imagingStartDateField.setText("");
         } else {
-            imagingStartDateField.setText((String) r.getValue("imaging_start_date"));
+            imagingStartDateField.setText(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(imagingStart));
         }
     }
 
@@ -118,11 +119,11 @@ public class EditSeedFrame extends JDialog implements ActionListener {
 
             boolean check = true;
             if ((!seedNew.substring(0, 1).equals("p")) ||
-                    !(this.mdf.isNumeric(dryshootNew) || dryshootNew.isEmpty() || dryshootNew.equals(null)) ||
-                    !(this.mdf.isNumeric(dryrootNew) || dryrootNew.isEmpty() || dryrootNew.equals(null)) ||
-                    !(this.mdf.isNumeric(wetshootNew) || wetshootNew.isEmpty() || wetshootNew.equals(null)) ||
-                    !(this.mdf.isNumeric(wetrootNew) || wetrootNew.isEmpty() || wetrootNew.equals(null)) ||
-                    !(this.mdf.isNumeric(strchamberNew) || strchamberNew.isEmpty() || strchamberNew.equals(null))) {
+                    !(this.mdf.isNumeric(dryshootNew) || dryshootNew.isEmpty() || dryshootNew == null) ||
+                    !(this.mdf.isNumeric(dryrootNew) || dryrootNew.isEmpty() || dryrootNew == null) ||
+                    !(this.mdf.isNumeric(wetshootNew) || wetshootNew.isEmpty() || wetshootNew == null) ||
+                    !(this.mdf.isNumeric(wetrootNew) || wetrootNew.isEmpty() || wetrootNew == null) ||
+                    !(this.mdf.isNumeric(strchamberNew) || strchamberNew.isEmpty() || strchamberNew == null)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Some values are not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
 
@@ -147,19 +148,19 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                     Double wetshootNewD = null;
                     Double wetrootNewD = null;
                     Double strchamberNewD = null;
-                    if (!dryshootField.getText().isEmpty() && !dryshootField.getText().equals(null)) {
+                    if (!dryshootField.getText().isEmpty() && dryshootField.getText() != null) {
                         dryshootNewD = Double.valueOf(dryshootField.getText());
                     }
-                    if (!dryrootField.getText().isEmpty() && !dryrootField.getText().equals(null)) {
+                    if (!dryrootField.getText().isEmpty() && dryrootField.getText() != null) {
                         dryrootNewD = Double.valueOf(dryrootField.getText());
                     }
-                    if (!wetshootField.getText().isEmpty() && !wetshootField.getText().equals(null)) {
+                    if (!wetshootField.getText().isEmpty() && wetshootField.getText() != null) {
                         wetshootNewD = Double.valueOf(wetshootField.getText());
                     }
-                    if (!wetrootField.getText().isEmpty() && !wetrootField.getText().equals(null)) {
+                    if (!wetrootField.getText().isEmpty() && wetrootField.getText() != null) {
                         wetrootNewD = Double.valueOf(wetrootField.getText());
                     }
-                    if (!schamberField.getText().isEmpty() && !schamberField.getText().equals(null)) {
+                    if (!schamberField.getText().isEmpty() && schamberField.getText() != null) {
                         strchamberNewD = Double.valueOf(schamberField.getText());
                     }
                     this.mdf.updateSeed(this.seedOld, this.selectedOrganism, this.selectedExperiment, this.seedNew, genotypeNew,

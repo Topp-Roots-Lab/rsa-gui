@@ -175,7 +175,7 @@ public class UploadImages extends JFrame implements ActionListener, PropertyChan
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.anchor = GridBagConstraints.EAST;
         panel1.add(statusLabel, gbc);
         final JPanel spacer3 = new JPanel();
         gbc = new GridBagConstraints();

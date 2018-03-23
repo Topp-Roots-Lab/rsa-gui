@@ -71,18 +71,8 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    seedComboBox.removeAllItems();
                     selectedExperiment = (String) e.getItem();
-
-                    Result<Record> expRecord6 = mdf.findExperiment(selectedExperiment, selectedOrganism);
-                    int selectedExpID = (int) expRecord6.get(0).getValue("experiment_id");
-                    Result<Record> seedRecord = mdf.findSeedFromExperimentID(selectedExpID);
-                    for (Record r7 : seedRecord) {
-                        seedComboBox.addItem(r7.getValue("seed_name"));
-                    }
-                    selectedSeed = (String) seedComboBox.getItemAt(0);
-                    seedComboBox.setSelectedItem(selectedSeed);
-
+                    loadSeeds();
                 }
             }
         });
@@ -95,6 +85,19 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
         }
         this.selectedSeed = (String) seedComboBox.getItemAt(0);
         seedComboBox.setSelectedItem(this.selectedSeed);
+    }
+
+    private void loadSeeds() {
+        seedComboBox.removeAllItems();
+
+        Result<Record> expRecord6 = mdf.findExperiment(selectedExperiment, selectedOrganism);
+        int selectedExpID = (int) expRecord6.get(0).getValue("experiment_id");
+        Result<Record> seedRecord = mdf.findSeedFromExperimentID(selectedExpID);
+        for (Record r7 : seedRecord) {
+            seedComboBox.addItem(r7.getValue("seed_name"));
+        }
+        selectedSeed = (String) seedComboBox.getItemAt(0);
+        seedComboBox.setSelectedItem(selectedSeed);
     }
 
     @Override
@@ -113,7 +116,7 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("getall")) {
             firePropertyChange("getall", null, null);
-            this.dispose();
+            loadSeeds();
         }
     }
 

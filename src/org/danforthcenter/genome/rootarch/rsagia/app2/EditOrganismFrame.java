@@ -232,6 +232,7 @@ public class EditOrganismFrame extends JDialog implements
         cancelButton = new JButton();
         Font cancelButtonFont = this.$$$getFont$$$(null, -1, 14, cancelButton.getFont());
         if (cancelButtonFont != null) cancelButton.setFont(cancelButtonFont);
+        cancelButton.setPreferredSize(new Dimension(90, 31));
         cancelButton.setText("Cancel");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;

@@ -190,7 +190,7 @@ public class MetadataDBFunctions {
                            Date imagingStartDate)
     {
         String imagingStartDateString ="NULL";
-        if(genotype.isEmpty()||genotype.equals(null))
+        if(genotype.isEmpty()||genotype == null)
         {
             genotype = "NULL";
         }
@@ -198,7 +198,7 @@ public class MetadataDBFunctions {
         {
             genotype = "'" + genotype + "'";
         }
-        if(description.isEmpty() || description.equals(null))
+        if(description.isEmpty() || description == null)
         {
             description = "NULL";
         }
@@ -206,7 +206,7 @@ public class MetadataDBFunctions {
         {
             description = "'" + description +"'";
         }
-        if(!imagingStartDate.equals(null))
+        if(imagingStartDate != null)
         {
             String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
             imagingStartDateString = new SimpleDateFormat(DATE_FORMAT).format(imagingStartDate);
@@ -303,7 +303,7 @@ public class MetadataDBFunctions {
     {
         int expID = (int) this.findExperiment(experiment,organism).get(0).getValue("experiment_id");
         String imagingStartDateString = "NULL";
-        if(genotype.isEmpty()||genotype.equals(null))
+        if(genotype.isEmpty()||genotype == null)
         {
             genotype = "NULL";
         }
@@ -311,7 +311,7 @@ public class MetadataDBFunctions {
         {
             genotype = "'" + genotype + "'";
         }
-        if(description.isEmpty() || description.equals(null))
+        if(description.isEmpty() || description == null)
         {
             description = "NULL";
         }
@@ -319,7 +319,7 @@ public class MetadataDBFunctions {
         {
             description = "'" + description +"'";
         }
-        if(!imagingStartDate.equals(null))
+        if(imagingStartDate != null)
         {
             String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
             imagingStartDateString = new SimpleDateFormat(DATE_FORMAT).format(imagingStartDate);
