@@ -197,7 +197,7 @@ public class UploadImages extends JFrame implements ActionListener, PropertyChan
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(processingField, gbc);
         jsp = new JScrollPane();
-        jsp.setPreferredSize(new Dimension(300, 105));
+        jsp.setPreferredSize(new Dimension(300, 150));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 6;
@@ -205,7 +205,6 @@ public class UploadImages extends JFrame implements ActionListener, PropertyChan
         panel1.add(jsp, gbc);
         printstextArea = new JTextArea();
         printstextArea.setColumns(80);
-        printstextArea.setPreferredSize(new Dimension(720, 210));
         printstextArea.setRows(10);
         jsp.setViewportView(printstextArea);
     }
