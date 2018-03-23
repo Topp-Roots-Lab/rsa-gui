@@ -18,6 +18,7 @@ public class ViewOrganismFrame extends JDialog implements ActionListener {
     private JTextField textField4;
     private JButton OKButton;
     private JPanel panel1;
+    private JTextField orgCodeField;
     private MetadataDBFunctions mdf;
 
     public ViewOrganismFrame(String selectedOrganism) {
@@ -36,6 +37,8 @@ public class ViewOrganismFrame extends JDialog implements ActionListener {
             textField2.setText((String) organismRecord.getValue(0, "species"));
             textField3.setText((String) organismRecord.getValue(0, "subspecies"));
             textField4.setText((String) organismRecord.getValue(0, "variety"));
+            orgCodeField.setText((String) organismRecord.getValue(0, "species_code"));
+
 
         } catch (Exception e) {
 
@@ -89,27 +92,27 @@ public class ViewOrganismFrame extends JDialog implements ActionListener {
         final JPanel spacer3 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 3;
+        gbc.gridy = 5;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer3, gbc);
         final JLabel label2 = new JLabel();
         label2.setText("Subspecies:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label2, gbc);
         final JPanel spacer4 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 7;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer4, gbc);
         final JLabel label3 = new JLabel();
         label3.setText("Variety:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 8;
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label3, gbc);
         textField1 = new JTextField();
@@ -125,7 +128,7 @@ public class ViewOrganismFrame extends JDialog implements ActionListener {
         textField2.setEditable(false);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 2;
+        gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(textField2, gbc);
@@ -133,7 +136,7 @@ public class ViewOrganismFrame extends JDialog implements ActionListener {
         textField3.setEditable(false);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(textField3, gbc);
@@ -141,7 +144,7 @@ public class ViewOrganismFrame extends JDialog implements ActionListener {
         textField4.setEditable(false);
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 6;
+        gbc.gridy = 8;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(textField4, gbc);
@@ -149,28 +152,49 @@ public class ViewOrganismFrame extends JDialog implements ActionListener {
         label4.setText("Species:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label4, gbc);
         final JPanel spacer5 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(spacer5, gbc);
         final JPanel spacer6 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 7;
+        gbc.gridy = 9;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer6, gbc);
         OKButton = new JButton();
         OKButton.setText("OK");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 8;
+        gbc.gridy = 10;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(OKButton, gbc);
+        final JLabel label5 = new JLabel();
+        label5.setText("Code:");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel1.add(label5, gbc);
+        final JPanel spacer7 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel1.add(spacer7, gbc);
+        orgCodeField = new JTextField();
+        orgCodeField.setEditable(false);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(orgCodeField, gbc);
     }
 
     /**

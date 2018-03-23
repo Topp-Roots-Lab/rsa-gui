@@ -236,10 +236,11 @@ public class MetadataDBFunctions {
             return true;
         }
     }
-    public boolean checkOrgCodeAndOrganismExists(String organism, String organismCode)
+    public boolean checkOrgCodeAndOrganismExists(String organism, String organismCode, String selectedOrganism)
     {
-        Result<Record> orgRecord = dslContext.fetch("select * from organism where organism_name='" + organism + "' or species_code='"+
-        organismCode + "'");
+        Result<Record> orgRecord = dslContext.fetch("select * from organism " +
+                "where (organism_name='" + organism + "' or species_code='" + organismCode + "') " +
+                "and organism_name <> '" + selectedOrganism + "'");
         if(orgRecord == null || orgRecord.size()==0)
         {
             return false;

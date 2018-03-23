@@ -136,8 +136,12 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator +
                         this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedNew);
                 try {
-                    Files.move(originalImagesOld.toPath(), originalImagesNew.toPath(), REPLACE_EXISTING);
-                    Files.move(processedImagesOld.toPath(), processedImagesNew.toPath(), REPLACE_EXISTING);
+                    if (originalImagesOld.exists()) {
+                        Files.move(originalImagesOld.toPath(), originalImagesNew.toPath(), REPLACE_EXISTING);
+                    }
+                    if (processedImagesOld.exists()) {
+                        Files.move(processedImagesOld.toPath(), processedImagesNew.toPath(), REPLACE_EXISTING);
+                    }
                     Double dryshootNewD = null;
                     Double dryrootNewD = null;
                     Double wetshootNewD = null;

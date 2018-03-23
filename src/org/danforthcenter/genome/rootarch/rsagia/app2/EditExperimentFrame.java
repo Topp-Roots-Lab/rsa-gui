@@ -96,8 +96,12 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
                         this.selectedOrganism + File.separator + File.separator + experimentNew);
 
                 try {
-                    Files.move(originalImagesOld.toPath(), originalImagesNew.toPath(), REPLACE_EXISTING);
-                    Files.move(processedImagesOld.toPath(), processedImagesNew.toPath(), REPLACE_EXISTING);
+                    if (originalImagesOld.exists()) {
+                        Files.move(originalImagesOld.toPath(), originalImagesNew.toPath(), REPLACE_EXISTING);
+                    }
+                    if (processedImagesOld.exists()) {
+                        Files.move(processedImagesOld.toPath(), processedImagesNew.toPath(), REPLACE_EXISTING);
+                    }
 
                     this.mdf.updateExperiment(selectedExperiment, experimentNew, desc);
                     firePropertyChange("getall", null, null);

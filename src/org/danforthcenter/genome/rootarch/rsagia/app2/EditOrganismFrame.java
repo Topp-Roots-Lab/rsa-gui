@@ -69,7 +69,7 @@ public class EditOrganismFrame extends JDialog implements
                     organismNameNew.length() == 0) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Organism name or organism code is not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else if (check == true && this.mdf.checkOrgCodeAndOrganismExists(organismNameNew, organismCodeNew)) {
+            } else if (check == true && this.mdf.checkOrgCodeAndOrganismExists(organismNameNew, organismCodeNew, this.selectedOrganism)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Organism already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
 
@@ -80,8 +80,12 @@ public class EditOrganismFrame extends JDialog implements
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator + organismNameNew);
 
                 try {
-                    Files.move(originalImagesOld.toPath(), originalImagesNew.toPath(), REPLACE_EXISTING);
-                    Files.move(processedImagesOld.toPath(), processedImagesNew.toPath(), REPLACE_EXISTING);
+                    if (originalImagesOld.exists()) {
+                        Files.move(originalImagesOld.toPath(), originalImagesNew.toPath(), REPLACE_EXISTING);
+                    }
+                    if (processedImagesOld.exists()) {
+                        Files.move(processedImagesOld.toPath(), processedImagesNew.toPath(), REPLACE_EXISTING);
+                    }
                     this.mdf.updateOrganism(organismNameNew, organismCodeNew, speciesNew, subspeciesNew, varietyNew, this.selectedOrganism);
                     firePropertyChange("getall", null, null);
                     JOptionPane.showMessageDialog(null, "Organism is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
