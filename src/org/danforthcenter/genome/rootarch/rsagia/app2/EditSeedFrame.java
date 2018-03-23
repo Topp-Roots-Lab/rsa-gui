@@ -351,7 +351,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         panel1.add(spacer13, gbc);
         saveButton = new JButton();
         saveButton.setHideActionText(false);
-        saveButton.setPreferredSize(new Dimension(50, 31));
+        saveButton.setPreferredSize(new Dimension(90, 35));
         saveButton.setText("Save");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;

@@ -151,6 +151,7 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label1, gbc);
         descField = new JTextField();
+        descField.setPreferredSize(new Dimension(90, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 4;
@@ -193,7 +194,7 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label3, gbc);
         expNameField = new JTextField();
-        expNameField.setPreferredSize(new Dimension(90, 31));
+        expNameField.setPreferredSize(new Dimension(90, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 2;

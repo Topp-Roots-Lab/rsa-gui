@@ -312,7 +312,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer13, gbc);
         seedField = new JTextField();
-        seedField.setPreferredSize(new Dimension(12, 31));
+        seedField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 4;
@@ -320,6 +320,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(seedField, gbc);
         genotypeField = new JTextField();
+        genotypeField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 6;
@@ -327,6 +328,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(genotypeField, gbc);
         dryshootField = new JTextField();
+        dryshootField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 8;
@@ -334,6 +336,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(dryshootField, gbc);
         dryrootField = new JTextField();
+        dryrootField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 10;
@@ -341,6 +344,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(dryrootField, gbc);
         wetshootField = new JTextField();
+        wetshootField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 12;
@@ -348,6 +352,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(wetshootField, gbc);
         wetrootField = new JTextField();
+        wetrootField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 14;
@@ -355,6 +360,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(wetrootField, gbc);
         schamberField = new JTextField();
+        schamberField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 16;
@@ -362,6 +368,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(schamberField, gbc);
         descriptionField = new JTextField();
+        descriptionField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 20;
@@ -369,6 +376,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(descriptionField, gbc);
         imagingStartField = new JTextField();
+        imagingStartField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 22;

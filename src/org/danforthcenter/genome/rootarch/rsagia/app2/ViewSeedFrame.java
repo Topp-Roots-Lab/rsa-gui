@@ -220,7 +220,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(spacer10, gbc);
         organismField = new JTextField();
         organismField.setEditable(false);
-        organismField.setPreferredSize(new Dimension(12, 31));
+        organismField.setPreferredSize(new Dimension(12, 25));
         organismField.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -230,6 +230,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(organismField, gbc);
         experimentField = new JTextField();
         experimentField.setEditable(false);
+        experimentField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 2;
@@ -238,6 +239,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(experimentField, gbc);
         seedField = new JTextField();
         seedField.setEditable(false);
+        seedField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 4;
@@ -246,6 +248,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(seedField, gbc);
         genotypeField = new JTextField();
         genotypeField.setEditable(false);
+        genotypeField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 6;
@@ -254,6 +257,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(genotypeField, gbc);
         dryshootField = new JTextField();
         dryshootField.setEditable(false);
+        dryshootField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 8;
@@ -262,6 +266,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(dryshootField, gbc);
         dryrootField = new JTextField();
         dryrootField.setEditable(false);
+        dryrootField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 10;
@@ -270,6 +275,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(dryrootField, gbc);
         wetshootField = new JTextField();
         wetshootField.setEditable(false);
+        wetshootField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 12;
@@ -278,6 +284,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(wetshootField, gbc);
         wetrootField = new JTextField();
         wetrootField.setEditable(false);
+        wetrootField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 14;
@@ -286,6 +293,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(wetrootField, gbc);
         schamberField = new JTextField();
         schamberField.setEditable(false);
+        schamberField.setPreferredSize(new Dimension(12, 25));
         schamberField.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -337,6 +345,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(OKButton, gbc);
         imagingIntervalUnitField = new JTextField();
         imagingIntervalUnitField.setEditable(false);
+        imagingIntervalUnitField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 18;
@@ -345,6 +354,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(imagingIntervalUnitField, gbc);
         descriptionField = new JTextField();
         descriptionField.setEditable(false);
+        descriptionField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 20;
@@ -353,6 +363,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         panel1.add(descriptionField, gbc);
         imagingStartDate = new JTextField();
         imagingStartDate.setEditable(false);
+        imagingStartDate.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 22;
