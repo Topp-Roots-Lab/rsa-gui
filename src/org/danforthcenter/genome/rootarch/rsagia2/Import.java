@@ -25,6 +25,9 @@ public class Import implements IApplication {
     public Process start(File importDirectory, boolean deleteOriginals, File organismsFile, File movedImagesetsFile) {
         Process ans = null;
 
+        this.ism.setPermissions(organismsFile, false);
+        this.ism.setPermissions(movedImagesetsFile, false);
+
         List<String> commandsList = new ArrayList<>(Arrays.asList(
             this.importScriptPath,
             organismsFile.getAbsolutePath(),
@@ -43,7 +46,7 @@ public class Import implements IApplication {
 
         String[] cmd = commandsList.toArray(new String[0]);
 
-        System.out.println("/t/t" + this.getClass().getSimpleName() + "\n");
+        System.out.println("\t\t" + this.getClass().getSimpleName() + "\n");
         for (String subcmd : cmd) {
             System.out.print(subcmd + " ");
         }
