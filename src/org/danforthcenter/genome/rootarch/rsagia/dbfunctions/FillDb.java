@@ -113,7 +113,7 @@ public class FillDb {
                         String experiment_name = exp.getName();
                         System.out.println(experiment_name);
                         dslContext.insertInto(EXPERIMENT, EXPERIMENT.EXPERIMENT_ID, EXPERIMENT.EXPERIMENT_CODE, EXPERIMENT.ORGANISM_NAME, EXPERIMENT.USER_ID, EXPERIMENT.DESCRIPTION)
-                                .values(e, experiment_name, species_name, 1, "").execute();
+                                .values(e, experiment_name, species_name, 3, "").execute();
                         File[] seeds = exp.listFiles();
                         if (seeds != null && seeds.length > 0) {
                             for (File seed : seeds) {

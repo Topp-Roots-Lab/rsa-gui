@@ -85,7 +85,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <preferredSize width="300" height="105"/>
+          <preferredSize width="300" height="150"/>
         </properties>
         <border type="none"/>
         <children>
@@ -93,7 +93,6 @@
             <constraints/>
             <properties>
               <columns value="80"/>
-              <preferredSize width="720" height="210"/>
               <rows value="10"/>
             </properties>
           </component>

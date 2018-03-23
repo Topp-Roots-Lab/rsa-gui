@@ -137,11 +137,7 @@ public class OutputInfo implements IProgramRun{
 				oi.setDescriptors(descs);
 				oi.setResults(results);
 
-				if (red && !oi.isValid()) {
-					ans.add(oi);
-				} else if (red == false) {
-					ans.add(oi);
-				}
+				ans.add(oi);
 			}
 		}
 		return ans;
