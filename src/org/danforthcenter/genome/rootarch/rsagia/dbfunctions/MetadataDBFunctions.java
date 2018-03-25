@@ -179,11 +179,6 @@ public class MetadataDBFunctions {
         String query = "insert experiment values(" + max +",'" + experimentCode +"','" + organism + "'," + userID + "," +description + ")";
         dslContext.execute(query);
     }
-    public Result<Record> findDistinctTimepointValues()
-    {
-        Result<Record> timepoints = dslContext.fetch("select distinct(imaging_interval_unit) from seed");
-        return timepoints;
-    }
 
     public void insertSeed(String organism,String experiment,String seed,String genotype,Double dryshoot,Double  dryroot,
                            Double wetshoot, Double wetroot,Double sterilizationChamber, String imagingIntervalUnit,String description,

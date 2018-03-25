@@ -105,7 +105,7 @@ public class FillDb {
             for (File s : ss) {
                 String species_name = s.getName();
                 dslContext.insertInto(ORGANISM, ORGANISM.ORGANISM_NAME, ORGANISM.SPECIES_CODE, ORGANISM.SPECIES, ORGANISM.SUBSPECIES, ORGANISM.VARIETY)
-                        .values(species_name, organismToOrgCodeMap.get(species_name), "", null, null).execute();
+                        .values(species_name, organismToOrgCodeMap.get(species_name), null, null, null).execute();
                 //dslContext.execute("insert into organism(organism_name,species,subspecies,variety) values('" + species + "','species',NULL,NULL)");
                 File[] exps = s.listFiles();
                 if (exps != null && exps.length > 0) {
@@ -113,13 +113,13 @@ public class FillDb {
                         String experiment_name = exp.getName();
                         System.out.println(experiment_name);
                         dslContext.insertInto(EXPERIMENT, EXPERIMENT.EXPERIMENT_ID, EXPERIMENT.EXPERIMENT_CODE, EXPERIMENT.ORGANISM_NAME, EXPERIMENT.USER_ID, EXPERIMENT.DESCRIPTION)
-                                .values(e, experiment_name, species_name, 3, "").execute();
+                                .values(e, experiment_name, species_name, 3, null).execute();
                         File[] seeds = exp.listFiles();
                         if (seeds != null && seeds.length > 0) {
                             for (File seed : seeds) {
                                 String seed_name = seed.getName();
                                 dslContext.insertInto(SEED, SEED.SEED_ID, SEED.EXPERIMENT_ID, SEED.SEED_NAME, SEED.GENOTYPE, SEED.DRY_SHOOT, SEED.DRY_ROOT, SEED.WET_SHOOT, SEED.WET_ROOT, SEED.STERILIZATION_CHAMBER, SEED.IMAGING_INTERVAL_UNIT, SEED.DESCRIPTION, SEED.IMAGING_START_DATE)
-                                        .values(i, e, seed_name, "", null, null, null, null, null, SeedImagingIntervalUnit.day, "", null).execute();
+                                        .values(i, e, seed_name, null, null, null, null, null, null, SeedImagingIntervalUnit.day, null, null).execute();
                                 File[] timeValues = seed.listFiles();
                                 if (timeValues != null && timeValues.length > 0) {
                                     for (File timeValue : timeValues) {

@@ -28,11 +28,17 @@ public class AddExperimentFrame extends JDialog implements ActionListener {
 
         addButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
-        Result<Record> organismRecord = mdf.selectAllOrganism();
+
+        loadOrganisms();
+    }
+
+    private void loadOrganisms() {
+        DefaultComboBoxModel organisms = new DefaultComboBoxModel();
+        Result<Record> organismRecord = this.mdf.selectAllOrganism();
         for (Record r : organismRecord) {
-            String organism = (String) r.getValue("organism_name");
-            organismComboBox.addItem(organism);
+            organisms.addElement((String) r.getValue("organism_name"));
         }
+        organismComboBox.setModel(organisms);
     }
 
     private void createUIComponents() {

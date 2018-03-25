@@ -42,34 +42,19 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
         this.viewButton.addActionListener(this);
         this.editButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
-        ArrayList<String> orgList = this.mdf.findOrgsHavingSeed();
-        for (String org : orgList) {
-            orgComboBox.addItem(org);
-        }
-        this.selectedOrganism = (String) orgComboBox.getItemAt(0);
-        orgComboBox.setSelectedItem(this.selectedOrganism);
+
+        loadOrganisms();
+
         orgComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    expComboBox.removeAllItems();
-                    seedComboBox.removeAllItems();
                     selectedOrganism = (String) e.getItem();
-                    Result<Record> expRecord3 = mdf.findExperimentFromOrganism((String) orgComboBox.getSelectedItem());
-                    for (Record r3 : expRecord3) {
-                        expComboBox.addItem((String) r3.getValue("experiment_code"));
-                    }
-                    expComboBox.setSelectedItem(expComboBox.getItemAt(0));
+                    loadExperiments();
                 }
             }
         });
 
-        Result<Record> expRecord2 = this.mdf.findExperimentFromOrganism((String) orgComboBox.getSelectedItem());
-        for (Record r2 : expRecord2) {
-            expComboBox.addItem((String) r2.getValue("experiment_code"));
-        }
-        this.selectedExperiment = (String) expComboBox.getItemAt(0);
-        expComboBox.setSelectedItem(this.selectedExperiment);
         expComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -79,28 +64,37 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
                 }
             }
         });
+    }
 
-        Result<Record> expRecord4 = this.mdf.findExperiment(selectedExperiment, selectedOrganism);
-        int selectedExpID = (int) expRecord4.get(0).getValue("experiment_id");
-        Result<Record> seedRecord = this.mdf.findSeedFromExperimentID(selectedExpID);
-        for (Record r5 : seedRecord) {
-            seedComboBox.addItem(r5.getValue("seed_name"));
+    private void loadOrganisms() {
+        ArrayList<String> orgList = this.mdf.findOrgsHavingSeed();
+        DefaultComboBoxModel organisms = new DefaultComboBoxModel(orgList.toArray());
+        this.selectedOrganism = (String) organisms.getElementAt(0);
+        orgComboBox.setModel(organisms);
+        loadExperiments();
+    }
+
+    private void loadExperiments() {
+        DefaultComboBoxModel experiments = new DefaultComboBoxModel();
+        Result<Record> expRecord = this.mdf.findExperimentFromOrganism(this.selectedOrganism);
+        for (Record r : expRecord) {
+            experiments.addElement((String) r.getValue("experiment_code"));
         }
-        this.selectedSeed = (String) seedComboBox.getItemAt(0);
-        seedComboBox.setSelectedItem(this.selectedSeed);
+        this.selectedExperiment = (String) experiments.getElementAt(0);
+        expComboBox.setModel(experiments);
+        loadSeeds();
     }
 
     private void loadSeeds() {
-        seedComboBox.removeAllItems();
-
-        Result<Record> expRecord6 = mdf.findExperiment(selectedExperiment, selectedOrganism);
-        int selectedExpID = (int) expRecord6.get(0).getValue("experiment_id");
+        DefaultComboBoxModel seeds = new DefaultComboBoxModel();
+        Result<Record> expRecord = mdf.findExperiment(selectedExperiment, selectedOrganism);
+        int selectedExpID = (int) expRecord.get(0).getValue("experiment_id");
         Result<Record> seedRecord = mdf.findSeedFromExperimentID(selectedExpID);
-        for (Record r7 : seedRecord) {
-            seedComboBox.addItem(r7.getValue("seed_name"));
+        for (Record r : seedRecord) {
+            seeds.addElement((String) r.getValue("seed_name"));
         }
-        selectedSeed = (String) seedComboBox.getItemAt(0);
-        seedComboBox.setSelectedItem(selectedSeed);
+        selectedSeed = (String) seeds.getElementAt(0);
+        seedComboBox.setModel(seeds);
     }
 
     @Override

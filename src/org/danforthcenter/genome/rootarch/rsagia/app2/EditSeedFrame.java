@@ -57,8 +57,6 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         this.seedOld = seed;
         this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
-        this.imagingIntervalUnitComboBox.addItem("hour");
-        this.imagingIntervalUnitComboBox.addItem("day");
         Result<Record> seedRecord = this.mdf.findSeedMetadataFromOrgExpSeed(organism, experiment, seed);
         Record r = seedRecord.get(0);
         organismField.setText(organism);
@@ -90,7 +88,9 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         } else {
             schamberField.setText(Double.toString((Double) r.getValue("sterilization_chamber")));
         }
-        imagingIntervalUnitComboBox.setSelectedItem(r.getValue("imaging_interval_unit"));
+        DefaultComboBoxModel units = new DefaultComboBoxModel(new String[]{"hour", "day"});
+        units.setSelectedItem(r.getValue("imaging_interval_unit"));
+        imagingIntervalUnitComboBox.setModel(units);
         descriptionField.setText((String) r.getValue("description"));
         Date imagingStart = (Date) r.getValue("imaging_start_date");
         if (imagingStart == null) {

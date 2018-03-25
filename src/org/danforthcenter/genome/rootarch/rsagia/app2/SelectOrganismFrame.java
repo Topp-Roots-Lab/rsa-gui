@@ -39,16 +39,12 @@ public class SelectOrganismFrame extends JDialog implements
     }
 
     private void loadOrganisms() {
-        comboBox1.removeAllItems();
-        try {
-            Result<Record> organismRecord = this.mdf.selectAllOrganism();
-            for (Record r : organismRecord) {
-                String organism = (String) r.getValue("organism_name");
-                comboBox1.addItem(organism);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+        DefaultComboBoxModel organisms = new DefaultComboBoxModel();
+        Result<Record> organismRecord = this.mdf.selectAllOrganism();
+        for (Record r : organismRecord) {
+            organisms.addElement((String) r.getValue("organism_name"));
         }
+        comboBox1.setModel(organisms);
     }
 
     @Override

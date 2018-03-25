@@ -12,6 +12,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class AddSeedFrame extends JDialog implements ActionListener {
@@ -30,6 +31,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
     private JButton addButton;
     private JPanel panel1;
     private MetadataDBFunctions mdf;
+    private String selectedOrganism;
 
     public AddSeedFrame() {
         super(null, "Add Seed", ModalityType.APPLICATION_MODAL);
@@ -40,35 +42,41 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         addButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
 
+        loadOrganisms();
+
+        DefaultComboBoxModel units = new DefaultComboBoxModel(new String[]{"hour", "day"});
+        units.setSelectedItem("day");
+        imagingIntervalUnitComboBox.setModel(units);
+
         organismComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
-                    experimentComboBox.removeAllItems();
-                    String selectedOrganism = (String) organismComboBox.getSelectedItem();
-                    Result<Record> experimentRecord = mdf.findExperimentFromOrganism(selectedOrganism);
-                    for (Record r : experimentRecord) {
-                        experimentComboBox.addItem((String) r.getValue("experiment_code"));
-                    }
+                    selectedOrganism = (String) e.getItem();
+                    loadExperiments();
                 }
             }
         });
+    }
+
+    private void loadOrganisms() {
+        DefaultComboBoxModel organisms = new DefaultComboBoxModel();
         Result<Record> organismRecord = this.mdf.selectAllOrganism();
         for (Record r : organismRecord) {
-            organismComboBox.addItem((String) r.getValue("organism_name"));
+            organisms.addElement((String) r.getValue("organism_name"));
         }
+        this.selectedOrganism = (String) organisms.getElementAt(0);
+        organismComboBox.setModel(organisms);
+        loadExperiments();
+    }
 
-        String selectedOrganism = (String) organismComboBox.getSelectedItem();
-        Result<Record> experimentRecord = mdf.findExperimentFromOrganism(selectedOrganism);
-        for (Record r : experimentRecord) {
-            experimentComboBox.addItem((String) r.getValue("experiment_code"));
+    private void loadExperiments() {
+        DefaultComboBoxModel experiments = new DefaultComboBoxModel();
+        Result<Record> expRecord = this.mdf.findExperimentFromOrganism(this.selectedOrganism);
+        for (Record r : expRecord) {
+            experiments.addElement((String) r.getValue("experiment_code"));
         }
-
-        Result<Record> timepointRecord = this.mdf.findDistinctTimepointValues();
-        for (Record r : timepointRecord) {
-            imagingIntervalUnitComboBox.addItem((String) r.getValue("imaging_interval_unit"));
-        }
-        imagingIntervalUnitComboBox.setSelectedIndex(1);
+        experimentComboBox.setModel(experiments);
     }
 
     @Override

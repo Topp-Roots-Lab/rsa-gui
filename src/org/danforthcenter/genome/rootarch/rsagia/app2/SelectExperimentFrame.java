@@ -24,6 +24,7 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
     private MetadataDBFunctions mdf;
     private DirRename dirRenameApp;
     private File baseDir;
+    private String selectedExperiment;
 
     public SelectExperimentFrame(DirRename dirRenameApp, File baseDir) {
         super(null, "Select Experiment", ModalityType.APPLICATION_MODAL);
@@ -43,6 +44,7 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
+                    selectedExperiment = (String) e.getItem();
                     loadOrganisms();
                 }
             }
@@ -50,22 +52,23 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
     }
 
     private void loadExperiments() {
-        expComboBox.removeAllItems();
-        Result<Record> experimentRecord = this.mdf.selectAllExperiments();
-        for (Record r : experimentRecord) {
-            String experimentName = (String) r.getValue("experiment_code");
-            expComboBox.addItem(experimentName);
+        DefaultComboBoxModel experiments = new DefaultComboBoxModel();
+        Result<Record> expRecord = this.mdf.selectAllExperiments();
+        for (Record r : expRecord) {
+            experiments.addElement((String) r.getValue("experiment_code"));
         }
+        selectedExperiment = (String) experiments.getElementAt(0);
+        expComboBox.setModel(experiments);
         loadOrganisms();
     }
 
     private void loadOrganisms() {
-        orgComboBox.removeAllItems();
-        String selectedExperiment = (String) expComboBox.getSelectedItem();
-        Result<Record> expRecord = mdf.findOrganismByExperiment(selectedExperiment);
-        for (Record r : expRecord) {
-            orgComboBox.addItem((String) r.getValue("organism_name"));
+        DefaultComboBoxModel organisms = new DefaultComboBoxModel();
+        Result<Record> organismRecord = mdf.findOrganismByExperiment(selectedExperiment);
+        for (Record r : organismRecord) {
+            organisms.addElement((String) r.getValue("organism_name"));
         }
+        orgComboBox.setModel(organisms);
     }
 
     @Override
