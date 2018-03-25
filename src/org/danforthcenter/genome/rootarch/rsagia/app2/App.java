@@ -192,9 +192,12 @@ public class App {
 			String importScriptPath = sysProps.getProperty("import_script_path");
 			Import importApp = new Import(importScriptPath, f1, ssm);
 
+			String renameScriptPath = sysProps.getProperty("rename_script_path");
+			DirRename dirRenameApp = new DirRename(renameScriptPath, ssm);
+
 			final ApplicationManager am = new ApplicationManager(ssm, scale,
 					crop, recrop, gia, export, rootwork3D, rootwork3Dpers, giaRoot3D,
-					gia3D_v2, importApp);
+					gia3D_v2, importApp, dirRenameApp);
 			giaRoot3D.setAm(am);
 			gia3D_v2.setAm(am);
 

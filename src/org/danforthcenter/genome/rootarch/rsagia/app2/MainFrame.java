@@ -239,19 +239,19 @@ public class MainFrame extends javax.swing.JFrame implements
 		}
 		else if(e.getSource() == this.editOrganism)
 		{
-			SelectOrganismFrame selOrg = new SelectOrganismFrame(baseDir);
+			SelectOrganismFrame selOrg = new SelectOrganismFrame(am.getDirRename(), baseDir);
 			selOrg.addPropertyChangeListener("getall",this);
 			selOrg.setVisible(true);
 		}
 		else if(e.getSource() == this.editExperiment)
 		{
-			SelectExperimentFrame selExp = new SelectExperimentFrame(baseDir);
+			SelectExperimentFrame selExp = new SelectExperimentFrame(am.getDirRename(), baseDir);
             selExp.addPropertyChangeListener("getall",this);
 			selExp.setVisible(true);
 		}
 		else if(e.getSource() == this.editSeed)
 		{
-            SelectSeedFrame selSeed = new SelectSeedFrame(baseDir);
+            SelectSeedFrame selSeed = new SelectSeedFrame(am.getDirRename(), baseDir);
             selSeed.addPropertyChangeListener("getall",this);
             selSeed.setVisible(true);
 		}

@@ -2,6 +2,8 @@ package org.danforthcenter.genome.rootarch.rsagia.app2;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.UserDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.DirRename;
+import org.danforthcenter.genome.rootarch.rsagia2.FileUtil;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -28,17 +30,19 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
     private MetadataDBFunctions mdf;
     private String selectedExperiment;
     private String user;
+    private DirRename dirRenameApp;
     private File baseDir;
     private String selectedOrganism;
 
 
-    public EditExperimentFrame(String selExperiment, String selOrganism, File baseDir) {
+    public EditExperimentFrame(String selExperiment, String selOrganism, DirRename dirRenameApp, File baseDir) {
         super(null, "Edit Experiment", ModalityType.APPLICATION_MODAL);
 
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
         pack();
+        this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
         this.saveButton.addActionListener(this);
         this.cancelButton.addActionListener(this);
@@ -88,8 +92,6 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
             } else if (check == true) {
                 File originalImagesOld = new File(this.baseDir + File.separator + "original_images" + File.separator +
                         this.selectedOrganism + File.separator + selectedExperiment);
-                File originalImagesNew = new File(this.baseDir + File.separator + "original_images" + File.separator +
-                        this.selectedOrganism + File.separator + experimentNew);
                 File processedImagesOld = new File(this.baseDir + File.separator + "processed_images" + File.separator +
                         this.selectedOrganism + File.separator + File.separator + selectedExperiment);
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator +
@@ -97,16 +99,16 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
 
                 try {
                     if (originalImagesOld.exists()) {
-                        Files.move(originalImagesOld.toPath(), originalImagesNew.toPath(), REPLACE_EXISTING);
+                        FileUtil.renameDirWithPrivileges(originalImagesOld, experimentNew, this.dirRenameApp);
                     }
                     if (processedImagesOld.exists()) {
-                        Files.move(processedImagesOld.toPath(), processedImagesNew.toPath(), REPLACE_EXISTING);
+                        FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
 
                     this.mdf.updateExperiment(selectedExperiment, experimentNew, desc);
                     firePropertyChange("getall", null, null);
                     JOptionPane.showMessageDialog(null, "This experiment is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException e1) {
+                } catch (Exception e1) {
                     e1.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Experiment is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }

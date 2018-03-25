@@ -1,6 +1,8 @@
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.DirRename;
+import org.danforthcenter.genome.rootarch.rsagia2.FileUtil;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -28,15 +30,17 @@ public class EditOrganismFrame extends JDialog implements
     private JTextField orgCodeField;
     private MetadataDBFunctions mdf;
     private String selectedOrganism;
+    private DirRename dirRenameApp;
     private File baseDir;
 
-    public EditOrganismFrame(String selectedOrganism, File baseDir) {
+    public EditOrganismFrame(String selectedOrganism, DirRename dirRenameApp, File baseDir) {
         super(null, "Edit Organism", ModalityType.APPLICATION_MODAL);
 
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
         pack();
+        this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
         this.saveButton.addActionListener(this);
         this.cancelButton.addActionListener(this);
@@ -75,22 +79,21 @@ public class EditOrganismFrame extends JDialog implements
 
             } else if (check == true) {
                 File originalImagesOld = new File(this.baseDir + File.separator + "original_images" + File.separator + selectedOrganism);
-                File originalImagesNew = new File(this.baseDir + File.separator + "original_images" + File.separator + organismNameNew);
                 File processedImagesOld = new File(this.baseDir + File.separator + "processed_images" + File.separator + selectedOrganism);
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator + organismNameNew);
 
                 try {
                     if (originalImagesOld.exists()) {
-                        Files.move(originalImagesOld.toPath(), originalImagesNew.toPath(), REPLACE_EXISTING);
+                        FileUtil.renameDirWithPrivileges(originalImagesOld, organismNameNew, this.dirRenameApp);
                     }
                     if (processedImagesOld.exists()) {
-                        Files.move(processedImagesOld.toPath(), processedImagesNew.toPath(), REPLACE_EXISTING);
+                        FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
                     this.mdf.updateOrganism(organismNameNew, organismCodeNew, speciesNew, subspeciesNew, varietyNew, this.selectedOrganism);
                     firePropertyChange("getall", null, null);
                     JOptionPane.showMessageDialog(null, "Organism is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
 
-                } catch (IOException e1) {
+                } catch (Exception e1) {
                     e1.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Organism is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }

@@ -29,13 +29,14 @@ public class ApplicationManager {
 	protected QualityControl qc2;
 	protected QualityControl qc3;
 	protected Import importApp;
+	protected DirRename dirRenameApp;
 
 	public ApplicationManager(ISecurityManager ism, Scale scale, Crop crop,
 			Crop recrop, GiaRoot2D giaRoot2D, Export export,
             // tw 2015jun29
 //			Rootwork3D rootwork3D, GiaRoot3D giaRoot3D,
             Rootwork3D rootwork3D, Rootwork3DPers rootwork3DPers, GiaRoot3D giaRoot3D,
-			Gia3D_v2 gia3D_v2, Import importApp) {
+			Gia3D_v2 gia3D_v2, Import importApp, DirRename dirRenameApp) {
 		this.ism = ism;
 		this.scale = scale;
 		this.crop = crop;
@@ -54,6 +55,7 @@ public class ApplicationManager {
 		this.qc2 = new QualityControl("qc2", giaRoot2D);
 		this.qc3 = new QualityControl("qc3", giaRoot2D);
 		this.importApp = importApp;
+		this.dirRenameApp = dirRenameApp;
 
 		nameToApp = new HashMap<String, IApplication>();
 		nameToApp.put(scale.getName(), scale);
@@ -68,6 +70,7 @@ public class ApplicationManager {
 		nameToApp.put(qc2.getName(), qc2);
 		nameToApp.put(qc3.getName(), qc3);
 		nameToApp.put(importApp.getName(), importApp);
+		nameToApp.put(dirRenameApp.getName(), dirRenameApp);
 
 	}
 
@@ -125,6 +128,10 @@ public class ApplicationManager {
 
 	public Import getImport() {
 		return importApp;
+	}
+
+	public DirRename getDirRename() {
+		return dirRenameApp;
 	}
 
 	public IApplication getApplicationByName(String n) {

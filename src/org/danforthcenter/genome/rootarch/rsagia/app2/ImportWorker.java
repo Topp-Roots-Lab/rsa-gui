@@ -80,9 +80,7 @@ public class ImportWorker extends SwingWorker<Integer, String> {
 				}
 			}
 
-			p.waitFor();
-
-			exitValue = p.exitValue();
+			exitValue = p.waitFor();
 
 			if (exitValue == 0) {
 				returnValue = importApp.postprocess(movedImagesetsFile);

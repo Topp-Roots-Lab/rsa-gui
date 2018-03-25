@@ -288,6 +288,17 @@ public class FileUtil {
 
 	}
 
+	/**
+	 * renames directory src to newName by using external application to obtain privileges
+	 *
+	 * @param src
+	 * @param newName
+	 * @param dirRenameApp
+	 */
+	public static void renameDirWithPrivileges(File src, String newName, DirRename dirRenameApp) {
+		dirRenameApp.start(src, newName);
+	}
+
 	// tw 2014nov11 This method does not appear to be used.
 	// permissions are platform dependent
 	// To obtain permissions, add variable or method to FileVisitorUtil

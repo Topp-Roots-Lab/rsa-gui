@@ -1,6 +1,7 @@
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.DirRename;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -21,14 +22,16 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
     private JButton viewButton;
     private JComboBox orgComboBox;
     private MetadataDBFunctions mdf;
+    private DirRename dirRenameApp;
     private File baseDir;
 
-    public SelectExperimentFrame(File baseDir) {
+    public SelectExperimentFrame(DirRename dirRenameApp, File baseDir) {
         super(null, "Select Experiment", ModalityType.APPLICATION_MODAL);
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
         pack();
+        this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
         this.editButton.addActionListener(this);
         this.viewButton.addActionListener(this);
@@ -70,7 +73,7 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
         if (e.getSource() == editButton) {
             String experiment = (String) expComboBox.getSelectedItem();
             String organism = (String) orgComboBox.getSelectedItem();
-            EditExperimentFrame editExp = new EditExperimentFrame(experiment, organism, this.baseDir);
+            EditExperimentFrame editExp = new EditExperimentFrame(experiment, organism, this.dirRenameApp, this.baseDir);
             editExp.addPropertyChangeListener("getall", this);
             editExp.setVisible(true);
 

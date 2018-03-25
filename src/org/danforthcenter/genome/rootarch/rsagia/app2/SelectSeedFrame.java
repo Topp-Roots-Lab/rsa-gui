@@ -1,6 +1,7 @@
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.DirRename;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -22,19 +23,21 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     private JButton viewButton;
     private JButton editButton;
     private JPanel panel1;
+    private DirRename dirRenameApp;
     private File baseDir;
     private MetadataDBFunctions mdf;
     private String selectedOrganism;
     private String selectedExperiment;
     private String selectedSeed;
 
-    public SelectSeedFrame(File baseDir) {
+    public SelectSeedFrame(DirRename dirRenameApp, File baseDir) {
         super(null, "Select Seed", ModalityType.APPLICATION_MODAL);
 
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
         pack();
+        this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
         this.viewButton.addActionListener(this);
         this.editButton.addActionListener(this);
@@ -106,7 +109,7 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
             ViewSeedFrame vsf = new ViewSeedFrame(this.selectedOrganism, this.selectedExperiment, this.selectedSeed);
             vsf.setVisible(true);
         } else if (e.getSource() == editButton) {
-            EditSeedFrame esf = new EditSeedFrame(selectedOrganism, selectedExperiment, selectedSeed, baseDir);
+            EditSeedFrame esf = new EditSeedFrame(selectedOrganism, selectedExperiment, selectedSeed, dirRenameApp, baseDir);
             esf.addPropertyChangeListener("getall", this);
             esf.setVisible(true);
         }

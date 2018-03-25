@@ -1,6 +1,8 @@
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.DirRename;
+import org.danforthcenter.genome.rootarch.rsagia2.FileUtil;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -38,9 +40,10 @@ public class EditSeedFrame extends JDialog implements ActionListener {
     private String selectedExperiment;
     private String seedNew;
     private String seedOld;
+    private DirRename dirRenameApp;
     private File baseDir;
 
-    public EditSeedFrame(String organism, String experiment, String seed, File baseDir) {
+    public EditSeedFrame(String organism, String experiment, String seed, DirRename dirRenameApp, File baseDir) {
         super(null, "Edit Seed", ModalityType.APPLICATION_MODAL);
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -52,6 +55,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         this.selectedOrganism = organism;
         this.selectedExperiment = experiment;
         this.seedOld = seed;
+        this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
         this.imagingIntervalUnitComboBox.addItem("hour");
         this.imagingIntervalUnitComboBox.addItem("day");
@@ -130,18 +134,16 @@ public class EditSeedFrame extends JDialog implements ActionListener {
             } else if (check == true) {
                 File originalImagesOld = new File(this.baseDir + File.separator + "original_images" + File.separator +
                         this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedOld);
-                File originalImagesNew = new File(this.baseDir + File.separator + "original_images" + File.separator +
-                        this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedNew);
                 File processedImagesOld = new File(this.baseDir + File.separator + "processed_images" + File.separator +
                         this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedOld);
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator +
                         this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedNew);
                 try {
                     if (originalImagesOld.exists()) {
-                        Files.move(originalImagesOld.toPath(), originalImagesNew.toPath(), REPLACE_EXISTING);
+                        FileUtil.renameDirWithPrivileges(originalImagesOld, seedNew, this.dirRenameApp);
                     }
                     if (processedImagesOld.exists()) {
-                        Files.move(processedImagesOld.toPath(), processedImagesNew.toPath(), REPLACE_EXISTING);
+                        FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
                     Double dryshootNewD = null;
                     Double dryrootNewD = null;
@@ -168,7 +170,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                             imagingStartDateNew);
                     firePropertyChange("getall", null, null);
                     JOptionPane.showMessageDialog(null, "This seed is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-                } catch (IOException e1) {
+                } catch (Exception e1) {
                     e1.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Seed is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }

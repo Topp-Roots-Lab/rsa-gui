@@ -1,6 +1,7 @@
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.DirRename;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -19,15 +20,17 @@ public class SelectOrganismFrame extends JDialog implements
     private JPanel panel1;
     private JButton viewButton;
     private MetadataDBFunctions mdf;
+    private DirRename dirRenameApp;
     private File baseDir;
 
-    public SelectOrganismFrame(File baseDir) {
+    public SelectOrganismFrame(DirRename dirRenameApp, File baseDir) {
         super(null, "Select Organism", ModalityType.APPLICATION_MODAL);
 
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
         pack();
+        this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
         editButton.addActionListener(this);
         viewButton.addActionListener(this);
@@ -53,7 +56,7 @@ public class SelectOrganismFrame extends JDialog implements
         if (e.getSource() == this.editButton) {
             int index = comboBox1.getSelectedIndex();
             String selectedOrganism = (String) comboBox1.getItemAt(index);
-            EditOrganismFrame editOrganism = new EditOrganismFrame(selectedOrganism, this.baseDir);
+            EditOrganismFrame editOrganism = new EditOrganismFrame(selectedOrganism, this.dirRenameApp, this.baseDir);
             editOrganism.addPropertyChangeListener("getall", this);
             editOrganism.setVisible(true);
 
