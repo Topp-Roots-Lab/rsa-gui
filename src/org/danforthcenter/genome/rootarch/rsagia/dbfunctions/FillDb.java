@@ -339,7 +339,7 @@ public class FillDb {
                         run_id = run_id + 1;
                     }
                 } else if (appName.equals("giaroot_2d") && oi.getAppName().equals("giaroot_2d")) {
-                    if (oi.isValid()) {
+                    if (oi.isValid() && oi.getDir().listFiles().length != 2) {
                         ArrayList<String> features = null;
                         try {
                             features = this.getgia2dJobConfigFeatures(oi);
