@@ -22,8 +22,6 @@ public class App {
 
 	public static void main(String[] args) {
 		try {
-			UserAccess.reducePrivileges();
-
 			if (args.length < 1) {
 				System.out.println("Usage: rsa-gia PROPERTIES_FILE");
 				System.exit(1);

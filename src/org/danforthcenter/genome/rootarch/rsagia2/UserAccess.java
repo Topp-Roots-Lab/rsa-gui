@@ -1,14 +1,10 @@
 package org.danforthcenter.genome.rootarch.rsagia2;
 
-import com.sun.jna.Platform;
 import java.lang.reflect.Method;
+import com.sun.javafx.PlatformUtil;
 
 public class UserAccess
 {
-    private static int originalUid = -1;
-
-    private static int privilegedUid = -1;
-
     private static String username = null;
 
     public static String getCurrentUser()
@@ -21,7 +17,7 @@ public class UserAccess
         String className = null;
         String methodName = null;
 
-        if (Platform.isWindows())
+        if (PlatformUtil.isWindows())
         {
             className = "com.sun.security.auth.module.NTSystem";
             methodName = "getName";
@@ -45,45 +41,6 @@ public class UserAccess
         }
 
         return username;
-    }
-
-    public static void elevatePrivileges()
-    {
-        if (Platform.isWindows())
-        {
-            return;
-        }
-
-        populateUids();
-        CLibrary.INSTANCE.seteuid(privilegedUid);
-    }
-
-    public static void reducePrivileges()
-    {
-        if (Platform.isWindows())
-        {
-            return;
-        }
-
-        populateUids();
-        CLibrary.INSTANCE.seteuid(originalUid);
-    }
-
-    private static void populateUids()
-    {
-        if (Platform.isWindows())
-        {
-            return;
-        }
-
-        if (originalUid < 0)
-        {
-            originalUid = CLibrary.INSTANCE.getuid();
-        }
-        if (privilegedUid < 0)
-        {
-            privilegedUid = CLibrary.INSTANCE.geteuid();
-        }
     }
 
     private static class UserAccessException extends RuntimeException

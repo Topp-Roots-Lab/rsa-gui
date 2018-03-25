@@ -57,13 +57,10 @@ public class Import implements IApplication {
         pb.redirectErrorStream(true);
 
         try {
-            UserAccess.elevatePrivileges();
             ans = pb.start();
         } catch (IOException e) {
             throw new ImportException("Error running cmd: "
                     + Arrays.toString(cmd), e);
-        } finally {
-            UserAccess.reducePrivileges();
         }
         System.out.println("Import process returns " + ans);
 
