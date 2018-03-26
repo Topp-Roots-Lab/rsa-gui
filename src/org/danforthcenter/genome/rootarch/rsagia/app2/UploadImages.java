@@ -43,7 +43,7 @@ public class UploadImages extends JFrame implements ActionListener, PropertyChan
         this.backFromBrowse = false;
         this.importApp = importApp;
         this.baseDir = baseDir;
-        this.defaultImageSetDir = new File(this.baseDir, "to_sort");
+        this.defaultImageSetDir = new File(this.baseDir, "to_sort" + File.separator + UserAccess.getCurrentUser());
         this.printstextArea.setVisible(false);
         this.statusLabel.setVisible(false);
         this.jsp.setVisible(false);
