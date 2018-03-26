@@ -76,11 +76,7 @@ public class MainFrame extends javax.swing.JFrame implements
 			riss = RsaImageSet_old.getAll(baseDir, ism, speciesFilter,
 					experimentFilter, plantFilter, imagingDayFilter,
 					imagingDayPlant_Filter);
-			cfdb.deleteAllTables();
-			cfdb.fillUserTable(riss,am);
-			cfdb.fillTables1();
-			cfdb.fillSavedConfigTable();
-			cfdb.fillProgramRunTable(riss,am);
+			cfdb.refillAllTables(riss, am);
    			System.exit(0);
 		}
 		////////////////////////////////////

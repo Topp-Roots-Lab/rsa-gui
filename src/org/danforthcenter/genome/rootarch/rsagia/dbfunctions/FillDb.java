@@ -1,6 +1,5 @@
 package org.danforthcenter.genome.rootarch.rsagia.dbfunctions;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.danforthcenter.genome.rootarch.rsagia.app2.App;
 import org.danforthcenter.genome.rootarch.rsagia.db.enums.SeedImagingIntervalUnit;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.SavedConfig;
@@ -64,6 +63,14 @@ public class FillDb {
         this.rsaGiaTemplatesPath = new File(this.baseDir.getAbsolutePath() + File.separator + "rsa-gia-templates");
         dslContext = ConnectDb.getDslContext();
         this.mdf = new MetadataDBFunctions();
+    }
+
+    public void refillAllTables(ArrayList<RsaImageSet> riss, ApplicationManager am) {
+        deleteAllTables();
+        fillUserTable(riss, am);
+        fillTables1();
+        fillSavedConfigTable();
+        fillProgramRunTable(riss, am);
     }
 
     public void fillUserTable(ArrayList<RsaImageSet> riss, ApplicationManager am) {

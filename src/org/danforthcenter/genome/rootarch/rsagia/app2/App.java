@@ -9,6 +9,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.ConnectDb;
 import org.danforthcenter.genome.rootarch.rsagia2.*;
 
 /**
@@ -80,6 +81,13 @@ public class App {
 				}
 			}
 
+			String dbServer = sysProps.getProperty("db_server");
+			String dbName = sysProps.getProperty("db_name");
+
+			ConnectDb instance = ConnectDb.getInstance();
+			instance.setDbServer(dbServer);
+			instance.setDbName(dbName);
+			instance.setDbCredentials("rsa-gia", "rsagia");
 
             String s3 = sysProps.getProperty("dir_group");
             String s4 = sysProps.getProperty("dir_permissions");
