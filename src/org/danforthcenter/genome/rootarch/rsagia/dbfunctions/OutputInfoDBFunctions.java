@@ -13,12 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class OutputInfoDBFunctions {
-    private DSLContext dslContext;
-
-    public OutputInfoDBFunctions() {
-        dslContext = ConnectDb.getDslContext();
-    }
-
     public Result<Record> getOutputsFromProgramRunTable(RsaImageSet ris, ArrayList<String> filters, boolean saved, boolean sandbox, boolean red) {
         int datasetID = ris.getDatasetID();
         String query = "select * from program_run pr inner join program p on pr.program_id = p.program_id inner join " +
@@ -43,20 +37,20 @@ public class OutputInfoDBFunctions {
                 }
             }
         }
-        Result<Record> datasetRecord = dslContext.fetch(query);
+        Result<Record> datasetRecord = ConnectDb.getDslContext().fetch(query);
 
         return datasetRecord;
     }
 
     public int findMaxRunID() {
         String query = "select max(run_id) max from program_run";
-        Result<Record> resultRecord = dslContext.fetch(query);
+        Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);
         return (int) resultRecord.getValue(0, "max");
     }
 
     public int findAppID(String appName) {
         String query = "select program_id from program where name = '" + appName + "'";
-        Result<Record> resultRecord = dslContext.fetch(query);
+        Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);
         return (int) resultRecord.getValue(0, "program_id");
     }
 
@@ -72,7 +66,7 @@ public class OutputInfoDBFunctions {
         String query = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
                 "values(" + runID + "," + userID + "," + appID + "," + datasetID + "," + 0 + ","
                 + 1 + ",'"+ date_ + "',NULL,NULL,NULL,NULL,NULL)";
-        dslContext.execute(query);
+        ConnectDb.getDslContext().execute(query);
         oi.setRunID(runID);
     }
     public void updateDescriptors(OutputInfo oi) {
@@ -86,7 +80,7 @@ public class OutputInfoDBFunctions {
             descs = "'" + descs + "'";
         }
         String query = "update program_run set descriptors=" + descs + " where run_id=" + oi.getRunID();
-        dslContext.execute(query);
+        ConnectDb.getDslContext().execute(query);
     }
     public void updateResults(OutputInfo oi)
     {
@@ -100,7 +94,7 @@ public class OutputInfoDBFunctions {
             results = "'" + results + "'";
         }
         String query = "update program_run set results=" + results +" where run_id=" + oi.getRunID();
-        dslContext.execute(query);
+        ConnectDb.getDslContext().execute(query);
     }
     public void updateContents(OutputInfo oi)
     {
@@ -132,13 +126,13 @@ public class OutputInfoDBFunctions {
         }
         String query = "update program_run set saved_config_id=" + configIDString + ",unsaved_config_contents=" + configContents +
                 ",input_runs=" + inputRuns + " where run_id=" + oi.getRunID();
-        dslContext.execute(query);
+        ConnectDb.getDslContext().execute(query);
     }
     public void updateRedFlag(OutputInfo oi)
     {
         boolean redFlag = !oi.isValid();
         String query = "update program_run set red_flag="+redFlag+ " where run_id=" +oi.getRunID();
-        dslContext.execute(query);
+        ConnectDb.getDslContext().execute(query);
     }
 
     public int findConfigID(String templateName, String appName)
@@ -149,7 +143,7 @@ public class OutputInfoDBFunctions {
     public Result<Record> findSavedTemplateFromName(String templateName, String appName)
     {
         int programID = this.findAppID(appName);
-        Result<Record> configRecord = dslContext.fetch("select * from saved_config where program_id=" + programID + " and name='"+
+        Result<Record> configRecord = ConnectDb.getDslContext().fetch("select * from saved_config where program_id=" + programID + " and name='"+
                 templateName + "'");
         return configRecord;
     }
@@ -158,7 +152,7 @@ public class OutputInfoDBFunctions {
         ArrayList<String> templates = new ArrayList();
         int appID = this.findAppID(appName);
         String query = "select name from saved_config where program_id=" + appID;
-        Result<Record> resultRecord = dslContext.fetch(query);
+        Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);
         for(Record r:resultRecord)
         {
             templates.add((String) r.getValue("name"));

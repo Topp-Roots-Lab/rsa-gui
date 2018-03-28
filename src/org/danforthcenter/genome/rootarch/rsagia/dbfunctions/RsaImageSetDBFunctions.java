@@ -11,17 +11,10 @@ import static org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet.getDayFilte
 import static org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet.getPlantFilter;
 
 public class RsaImageSetDBFunctions {
-    private DSLContext dslContext;
-
-    public RsaImageSetDBFunctions()
-    {
-        dslContext = ConnectDb.getDslContext();
-    }
-
     public ArrayList<String> getProgramNames()
     {
         String query = "select name from program";
-        Result<Record> records = dslContext.fetch(query);
+        Result<Record> records = ConnectDb.getDslContext().fetch(query);
         ArrayList<String> arr = new ArrayList<>();
         for(Record  r:records)
         {
@@ -43,7 +36,7 @@ public class RsaImageSetDBFunctions {
                 "  WHERE pr.red_flag=0" +
                 "  AND p.name='" + programName +"'"+
                 "  AND pr.dataset_id=" + datasetID +" group by program_id";
-        Result<Record> datasetRecord = dslContext.fetch(query);
+        Result<Record> datasetRecord = ConnectDb.getDslContext().fetch(query);
         return datasetRecord;
     }
 
@@ -173,7 +166,7 @@ public class RsaImageSetDBFunctions {
             }
         }
         query = query + " GROUP BY dit.dataset_id,dit.image_type,pr.program_id order by d.dataset_id;";
-        Result<Record> datasetRecord = dslContext.fetch(query);
+        Result<Record> datasetRecord = ConnectDb.getDslContext().fetch(query);
         return datasetRecord;
     }
 }
