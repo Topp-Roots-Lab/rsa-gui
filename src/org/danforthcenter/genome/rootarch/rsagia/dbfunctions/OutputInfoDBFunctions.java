@@ -55,15 +55,9 @@ public class OutputInfoDBFunctions {
     }
 
     public int findAppID(String appName) {
-        String query = "select * from program where name = '" + appName + "'";
+        String query = "select program_id from program where name = '" + appName + "'";
         Result<Record> resultRecord = dslContext.fetch(query);
         return (int) resultRecord.getValue(0, "program_id");
-    }
-    public int findConfigID(String templateName)
-    {
-        String query = "select * from saved_config where name='" + templateName +"'";
-        Result<Record> resultRecord = dslContext.fetch(query);
-        return (int) resultRecord.getValue(0,"config_id");
     }
 
     public void insertProgramRunTable(OutputInfo oi) {
@@ -147,18 +141,23 @@ public class OutputInfoDBFunctions {
         dslContext.execute(query);
     }
 
-    public String getTemplateContent(String appName, String templateName)
+    public int findConfigID(String templateName, String appName)
     {
-        int appID = this.findAppID(appName);
-        String query = "select * from saved_config where program_id=" + appID + " and name='" + templateName + "'";
-        Result<Record> resultRecord = dslContext.fetch(query);
-        return (String) resultRecord.getValue(0,"contents");
+        Result<Record> configRecord = this.findSavedTemplateFromName(templateName, appName);
+        return (int) configRecord.getValue(0, "config_id");
+    }
+    public Result<Record> findSavedTemplateFromName(String templateName, String appName)
+    {
+        int programID = this.findAppID(appName);
+        Result<Record> configRecord = dslContext.fetch("select * from saved_config where program_id=" + programID + " and name='"+
+                templateName + "'");
+        return configRecord;
     }
     public ArrayList<String> getTemplates(String appName)
     {
         ArrayList<String> templates = new ArrayList();
         int appID = this.findAppID(appName);
-        String query = "select * from saved_config where program_id=" + appID;
+        String query = "select name from saved_config where program_id=" + appID;
         Result<Record> resultRecord = dslContext.fetch(query);
         for(Record r:resultRecord)
         {

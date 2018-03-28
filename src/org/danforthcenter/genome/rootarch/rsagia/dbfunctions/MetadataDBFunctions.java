@@ -88,13 +88,7 @@ public class MetadataDBFunctions {
                 + " where organism_name='" + selectedOrganism + "'";
         dslContext.execute(query);
     }
-    public Result<Record> selectAllUsers()
-    {
-        Result<Record> userRecord = dslContext.fetch("select * from user");
-
-        return userRecord;
-    }
-    public Result<Record>  selectAllExperiments()
+    public Result<Record> selectAllExperiments()
     {
         Result<Record> experimentRecord = dslContext.fetch("select * from experiment");
         return experimentRecord;
@@ -341,19 +335,6 @@ public class MetadataDBFunctions {
             return true;
         }
     }
-    public Result<Record> findProgramID(String appName)
-    {
-        Result<Record> programRecord = dslContext.fetch("select * from program where name='" + appName + "'");
-        return  programRecord;
-    }
-    public Result<Record> findSavedTemplateFromName(String tempName,String appName)
-    {
-        Result<Record> prgRec = this.findProgramID(appName);
-        int programID = (int) prgRec.get(0).getValue("program_id");
-        Result<Record> configRecord = dslContext.fetch("select * from saved_config where program_id=" + programID + " and name='"+
-        tempName + "'");
-        return configRecord;
-    }
     public boolean checkSeedTimepointImageTypeExists(String organism,String experiment,String seed, String timepoint,String imageType){
         int seedID = (int) this.findSeedMetadataFromOrgExpSeed(organism,experiment,seed).get(0).getValue("seed_id");
         String query = "select * from dataset d inner join dataset_image_type dit on d.dataset_id = dit.dataset_id where d.seed_id=" +
@@ -490,10 +471,5 @@ public class MetadataDBFunctions {
 
         }
         return check;
-    }
-    public Result<Record> selectAllDatasetImageTypeTable()
-    {
-        Result<Record> ditRecord = dslContext.fetch("select * from dataset_image_type");
-        return ditRecord;
     }
 }

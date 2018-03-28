@@ -14,7 +14,6 @@ import java.util.*;
 
 import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
 import org.danforthcenter.genome.rootarch.rsagia.app2.App;
-import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.FillTable;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.RsaImageSetDBFunctions;
 import org.jooq.Record;
 import org.jooq.Result;
@@ -72,11 +71,11 @@ public class RsaImageSet {
 
         //////////////////////////////////////////////////////////////////////////////////////////
 
-        FillTable ft = new FillTable();
-        Result<Record> datasetRecord = ft.getDatasets(sps,exps,pls,ims,pls_ims);
+        RsaImageSetDBFunctions risDBFunctions = new RsaImageSetDBFunctions();
+        Result<Record> datasetRecord = risDBFunctions.getDatasets(sps,exps,pls,ims,pls_ims);
         int previousDatasetID=-1;
         RsaImageSet ris=null;
-        ArrayList<String> programNames = ft.getProgramNames();
+        ArrayList<String> programNames = risDBFunctions.getProgramNames();
         for (Record r:datasetRecord)
         {
             if(!r.getValue("dataset_id").equals(previousDatasetID))

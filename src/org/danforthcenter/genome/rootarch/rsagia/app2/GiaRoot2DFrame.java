@@ -85,7 +85,7 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 			jo.put(used,cropRunID);
 
 			oi.setInputRuns(jo.toString());
-            oi.setSavedConfigID(oidbf.findConfigID(templateString));
+            oi.setSavedConfigID(oidbf.findConfigID(templateString, oi.getAppName()));
             oi.setDescriptors(descriptorsString);
             oi.setUnsavedConfigContents(null);
 

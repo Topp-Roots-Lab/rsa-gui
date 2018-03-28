@@ -49,6 +49,7 @@ public class FillDb {
     protected static String[] spcname = App.getSpecieName();
     protected static String[] spccode = App.getSpecieCode();
     private MetadataDBFunctions mdf;
+    private OutputInfoDBFunctions oidbf;
 
     public FillDb(File baseDir) throws IOException {
         FileInputStream fis1 = null;
@@ -63,6 +64,7 @@ public class FillDb {
         this.rsaGiaTemplatesPath = new File(this.baseDir.getAbsolutePath() + File.separator + "rsa-gia-templates");
         dslContext = ConnectDb.getDslContext();
         this.mdf = new MetadataDBFunctions();
+        this.oidbf = new OutputInfoDBFunctions();
     }
 
     public void refillAllTables(ArrayList<RsaImageSet> riss, ApplicationManager am) {
@@ -360,7 +362,7 @@ public class FillDb {
                         String templateName = features.get(0);
                         String savedConfigIDString = "NULL";
                         String configContents = "NULL";
-                        Result<Record> savedTemplate = mdf.findSavedTemplateFromName(templateName,appName);
+                        Result<Record> savedTemplate = oidbf.findSavedTemplateFromName(templateName,appName);
                         if (savedTemplate.size() > 0) {
                             Integer savedConfigID = (int) savedTemplate.get(0).getValue("config_id");
                             savedConfigIDString = savedConfigID.toString();
@@ -453,7 +455,7 @@ public class FillDb {
                 } else if (appName.equals("gia3d_v2") && oi.getAppName().equals("gia3d_v2")) {
                     if (oi.isValid()) {
                         String inputConfig = this.gia3Dv2Config(oi);
-                        int configID = (int) mdf.findSavedTemplateFromName(inputConfig,oi.getAppName()).get(0).getValue("config_id");
+                        int configID = oidbf.findConfigID(inputConfig,oi.getAppName());
                         String scaleProp = this.scalePropertyFileToJSONString(oi);
                         String gia3dv2Result = Gia3D_v2Output.readFormatTSVFile(new File(oi.getDir() + File.separator + "gia_3d_v2.tsv"));
                         String q = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
