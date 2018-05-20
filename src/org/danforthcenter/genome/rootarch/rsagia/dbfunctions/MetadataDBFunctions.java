@@ -426,8 +426,6 @@ public class MetadataDBFunctions {
 
     public boolean addNewImageSet(String organism, String experiment,String seed,String timepoint,String imageType, String userName)
     {
-        boolean check = true;
-
         boolean expTableCheck = this.checkOrgandExpPairExists(organism,experiment);
         if(expTableCheck == true)
         {
@@ -450,19 +448,17 @@ public class MetadataDBFunctions {
                 else
                 {
                     this.insertDataset(organism,experiment,seed,timepoint,imageType);
-                 }
+                }
             }
             else
             {
                this.insertSeedFromUpload(organism,experiment,seed,timepoint,imageType);
-
             }
         }
         else
         {
             this.insertExperimentFromUpload(organism,experiment,seed,timepoint,imageType,userName);
-
         }
-        return check;
+        return true;
     }
 }

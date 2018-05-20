@@ -168,20 +168,22 @@ public class FillDb {
         int i = 1;
         for (File gia2dXmlFile : gia2dXmlFiles) {
             String configName = gia2dXmlFile.getName();
-            String path = gia2dXmlFile.getAbsolutePath();
-            if (File.separator.equals("\\")) {
-                path = path.replaceAll("\\\\", "\\\\\\\\");
+            if(configName.endsWith(".xml")||configName.endsWith(".XML")) {
+                String path = gia2dXmlFile.getAbsolutePath();
+                if (File.separator.equals("\\")) {
+                    path = path.replaceAll("\\\\", "\\\\\\\\");
+                }
+                String contents = null;
+                try {
+                    contents = new String(Files.readAllBytes((Paths.get(path))));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Query query2 = dslContext.query("insert into saved_config(config_id,program_id,name,contents) values("
+                        + i + ",3,'" + configName.substring(0, configName.length() - 4) + "','" + contents + "')");
+                dslContext.execute(query2);
+                i = i + 1;
             }
-            String contents = null;
-            try {
-                contents = new String(Files.readAllBytes((Paths.get(path))));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Query query2 = dslContext.query("insert into saved_config(config_id,program_id,name,contents) values("
-                    + i + ",3,'" + configName.substring(0, configName.length() - 4) + "','" + contents + "')");
-            dslContext.execute(query2);
-            i = i + 1;
         }
     }
 
