@@ -9,6 +9,7 @@ import javax.annotation.Generated;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Dataset;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImageType;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Experiment;
+import org.danforthcenter.genome.rootarch.rsagia.db.tables.Genotype;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Organism;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Program;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.ProgramDependency;
@@ -45,6 +46,11 @@ public class Tables {
      * The table <code>rsa_gia.experiment</code>.
      */
     public static final Experiment EXPERIMENT = org.danforthcenter.genome.rootarch.rsagia.db.tables.Experiment.EXPERIMENT;
+
+    /**
+     * The table <code>rsa_gia.genotype</code>.
+     */
+    public static final Genotype GENOTYPE = org.danforthcenter.genome.rootarch.rsagia.db.tables.Genotype.GENOTYPE;
 
     /**
      * The table <code>rsa_gia.organism</code>.

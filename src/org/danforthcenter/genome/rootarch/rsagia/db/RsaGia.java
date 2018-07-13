@@ -13,6 +13,7 @@ import javax.annotation.Generated;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Dataset;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.DatasetImageType;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Experiment;
+import org.danforthcenter.genome.rootarch.rsagia.db.tables.Genotype;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Organism;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.Program;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.ProgramDependency;
@@ -38,7 +39,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class RsaGia extends SchemaImpl {
 
-    private static final long serialVersionUID = 1789090039;
+    private static final long serialVersionUID = 1612413486;
 
     /**
      * The reference instance of <code>rsa_gia</code>
@@ -59,6 +60,11 @@ public class RsaGia extends SchemaImpl {
      * The table <code>rsa_gia.experiment</code>.
      */
     public final Experiment EXPERIMENT = org.danforthcenter.genome.rootarch.rsagia.db.tables.Experiment.EXPERIMENT;
+
+    /**
+     * The table <code>rsa_gia.genotype</code>.
+     */
+    public final Genotype GENOTYPE = org.danforthcenter.genome.rootarch.rsagia.db.tables.Genotype.GENOTYPE;
 
     /**
      * The table <code>rsa_gia.organism</code>.
@@ -123,6 +129,7 @@ public class RsaGia extends SchemaImpl {
             Dataset.DATASET,
             DatasetImageType.DATASET_IMAGE_TYPE,
             Experiment.EXPERIMENT,
+            Genotype.GENOTYPE,
             Organism.ORGANISM,
             Program.PROGRAM,
             ProgramDependency.PROGRAM_DEPENDENCY,

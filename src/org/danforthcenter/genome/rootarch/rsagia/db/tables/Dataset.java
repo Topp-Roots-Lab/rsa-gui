@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Dataset extends TableImpl<DatasetRecord> {
 
-    private static final long serialVersionUID = 410865930;
+    private static final long serialVersionUID = -421748938;
 
     /**
      * The reference instance of <code>rsa_gia.dataset</code>
@@ -111,7 +111,7 @@ public class Dataset extends TableImpl<DatasetRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.DATASET_DATASET_SEED_SEED_ID_FK, Indexes.DATASET_DATASET_TIMEPOINT_D_T_VALUE_INDEX, Indexes.DATASET_PRIMARY);
+        return Arrays.<Index>asList(Indexes.DATASET_DATASET_SEED_SEED_ID_FK, Indexes.DATASET_DATASET_TIMEPOINT_INDEX, Indexes.DATASET_PRIMARY);
     }
 
     /**

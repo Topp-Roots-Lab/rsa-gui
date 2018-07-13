@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Seed extends TableImpl<SeedRecord> {
 
-    private static final long serialVersionUID = 655019200;
+    private static final long serialVersionUID = 231020687;
 
     /**
      * The reference instance of <code>rsa_gia.seed</code>
@@ -72,9 +72,9 @@ public class Seed extends TableImpl<SeedRecord> {
     public final TableField<SeedRecord, String> SEED_NAME = createField("seed_name", org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
 
     /**
-     * The column <code>rsa_gia.seed.genotype</code>.
+     * The column <code>rsa_gia.seed.genotype_id</code>.
      */
-    public final TableField<SeedRecord, String> GENOTYPE = createField("genotype", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
+    public final TableField<SeedRecord, Integer> GENOTYPE_ID = createField("genotype_id", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>rsa_gia.seed.dry_shoot</code>.
@@ -97,9 +97,9 @@ public class Seed extends TableImpl<SeedRecord> {
     public final TableField<SeedRecord, Double> WET_ROOT = createField("wet_root", org.jooq.impl.SQLDataType.FLOAT, this, "");
 
     /**
-     * The column <code>rsa_gia.seed.sterilization_chamber</code>.
+     * The column <code>rsa_gia.seed.str_chamber_row_column</code>.
      */
-    public final TableField<SeedRecord, Double> STERILIZATION_CHAMBER = createField("sterilization_chamber", org.jooq.impl.SQLDataType.FLOAT, this, "");
+    public final TableField<SeedRecord, String> STR_CHAMBER_ROW_COLUMN = createField("str_chamber_row_column", org.jooq.impl.SQLDataType.VARCHAR(10), this, "");
 
     /**
      * The column <code>rsa_gia.seed.description</code>.
@@ -158,7 +158,7 @@ public class Seed extends TableImpl<SeedRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.SEED_PRIMARY, Indexes.SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX, Indexes.SEED_SEED_SEED_NAME_INDEX);
+        return Arrays.<Index>asList(Indexes.SEED_PRIMARY, Indexes.SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX, Indexes.SEED_SEED_GENOTYPE_ID_FK, Indexes.SEED_SEED_SEED_NAME_INDEX);
     }
 
     /**
@@ -190,7 +190,7 @@ public class Seed extends TableImpl<SeedRecord> {
      */
     @Override
     public List<ForeignKey<SeedRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<SeedRecord, ?>>asList(Keys.SEED_EXPERIMENT_EXPERIMENT_ID_FK);
+        return Arrays.<ForeignKey<SeedRecord, ?>>asList(Keys.SEED_EXPERIMENT_EXPERIMENT_ID_FK, Keys.SEED_GENOTYPE_ID_FK);
     }
 
     /**

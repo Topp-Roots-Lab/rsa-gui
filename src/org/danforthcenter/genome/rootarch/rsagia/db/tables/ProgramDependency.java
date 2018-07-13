@@ -38,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProgramDependency extends TableImpl<ProgramDependencyRecord> {
 
-    private static final long serialVersionUID = 704556052;
+    private static final long serialVersionUID = -1588237664;
 
     /**
      * The reference instance of <code>rsa_gia.program_dependency</code>
@@ -105,7 +105,7 @@ public class ProgramDependency extends TableImpl<ProgramDependencyRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PROGRAM_DEPENDENCY_PRIMARY, Indexes.PROGRAM_DEPENDENCY_PROGRAM_DEPENDENCY_PROGRAM_PROGRAM_ID_FK);
+        return Arrays.<Index>asList(Indexes.PROGRAM_DEPENDENCY_PRIMARY, Indexes.PROGRAM_DEPENDENCY_PROGRAM_DEPENDENCY_PROGRAM_PROGRAM_ID_FK_2);
     }
 
     /**
@@ -129,7 +129,7 @@ public class ProgramDependency extends TableImpl<ProgramDependencyRecord> {
      */
     @Override
     public List<ForeignKey<ProgramDependencyRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ProgramDependencyRecord, ?>>asList(Keys.PROGRAM_DEPENDENCY_PROGRAM_PROGRAM_ID_FK);
+        return Arrays.<ForeignKey<ProgramDependencyRecord, ?>>asList(Keys.PROGRAM_DEPENDENCY_PROGRAM_PROGRAM_ID_FK, Keys.PROGRAM_DEPENDENCY_PROGRAM_PROGRAM_ID_FK_2);
     }
 
     /**

@@ -38,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DatasetImageType extends TableImpl<DatasetImageTypeRecord> {
 
-    private static final long serialVersionUID = -1818299967;
+    private static final long serialVersionUID = -1026484189;
 
     /**
      * The reference instance of <code>rsa_gia.dataset_image_type</code>
@@ -129,7 +129,7 @@ public class DatasetImageType extends TableImpl<DatasetImageTypeRecord> {
      */
     @Override
     public List<ForeignKey<DatasetImageTypeRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<DatasetImageTypeRecord, ?>>asList(Keys.DATASET_IMAGE_PATHS_DATASET_DATASET_ID_FK);
+        return Arrays.<ForeignKey<DatasetImageTypeRecord, ?>>asList(Keys.DATASET_IMAGE_TYPE_DATASET_DATASET_ID_FK);
     }
 
     /**
