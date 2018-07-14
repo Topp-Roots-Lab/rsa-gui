@@ -103,7 +103,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
-        panel1.setPreferredSize(new Dimension(400, 440));
+        panel1.setPreferredSize(new Dimension(500, 440));
         final JLabel label1 = new JLabel();
         label1.setText("Organism:");
         GridBagConstraints gbc;
