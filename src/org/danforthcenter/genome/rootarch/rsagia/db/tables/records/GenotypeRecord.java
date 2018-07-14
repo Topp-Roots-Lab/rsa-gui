@@ -27,19 +27,19 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class GenotypeRecord extends UpdatableRecordImpl<GenotypeRecord> implements Record3<Integer, String, String> {
 
-    private static final long serialVersionUID = 114437832;
+    private static final long serialVersionUID = 270348447;
 
     /**
-     * Setter for <code>rsa_gia.genotype.id</code>.
+     * Setter for <code>rsa_gia.genotype.genotype_id</code>.
      */
-    public void setId(Integer value) {
+    public void setGenotypeId(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>rsa_gia.genotype.id</code>.
+     * Getter for <code>rsa_gia.genotype.genotype_id</code>.
      */
-    public Integer getId() {
+    public Integer getGenotypeId() {
         return (Integer) get(0);
     }
 
@@ -108,7 +108,7 @@ public class GenotypeRecord extends UpdatableRecordImpl<GenotypeRecord> implemen
      */
     @Override
     public Field<Integer> field1() {
-        return Genotype.GENOTYPE.ID;
+        return Genotype.GENOTYPE.GENOTYPE_ID;
     }
 
     /**
@@ -132,7 +132,7 @@ public class GenotypeRecord extends UpdatableRecordImpl<GenotypeRecord> implemen
      */
     @Override
     public Integer component1() {
-        return getId();
+        return getGenotypeId();
     }
 
     /**
@@ -156,7 +156,7 @@ public class GenotypeRecord extends UpdatableRecordImpl<GenotypeRecord> implemen
      */
     @Override
     public Integer value1() {
-        return getId();
+        return getGenotypeId();
     }
 
     /**
@@ -180,7 +180,7 @@ public class GenotypeRecord extends UpdatableRecordImpl<GenotypeRecord> implemen
      */
     @Override
     public GenotypeRecord value1(Integer value) {
-        setId(value);
+        setGenotypeId(value);
         return this;
     }
 
@@ -227,10 +227,10 @@ public class GenotypeRecord extends UpdatableRecordImpl<GenotypeRecord> implemen
     /**
      * Create a detached, initialised GenotypeRecord
      */
-    public GenotypeRecord(Integer id, String genotypeName, String organismName) {
+    public GenotypeRecord(Integer genotypeId, String genotypeName, String organismName) {
         super(Genotype.GENOTYPE);
 
-        set(0, id);
+        set(0, genotypeId);
         set(1, genotypeName);
         set(2, organismName);
     }

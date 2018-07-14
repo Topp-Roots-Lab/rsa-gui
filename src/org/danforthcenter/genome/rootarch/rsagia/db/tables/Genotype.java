@@ -15,6 +15,7 @@ import org.danforthcenter.genome.rootarch.rsagia.db.RsaGia;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.records.GenotypeRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
@@ -38,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Genotype extends TableImpl<GenotypeRecord> {
 
-    private static final long serialVersionUID = -1112701123;
+    private static final long serialVersionUID = 66856951;
 
     /**
      * The reference instance of <code>rsa_gia.genotype</code>
@@ -54,9 +55,9 @@ public class Genotype extends TableImpl<GenotypeRecord> {
     }
 
     /**
-     * The column <code>rsa_gia.genotype.id</code>.
+     * The column <code>rsa_gia.genotype.genotype_id</code>.
      */
-    public final TableField<GenotypeRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<GenotypeRecord, Integer> GENOTYPE_ID = createField("genotype_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>rsa_gia.genotype.genotype_name</code>.
@@ -111,6 +112,14 @@ public class Genotype extends TableImpl<GenotypeRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.GENOTYPE_GENOTYPE_GENOTYPE_NAME_ORGANISM_NAME_UINDEX, Indexes.GENOTYPE_GENOTYPE_ORGANISM_ORGANISM_NAME_FK, Indexes.GENOTYPE_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<GenotypeRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_GENOTYPE;
     }
 
     /**

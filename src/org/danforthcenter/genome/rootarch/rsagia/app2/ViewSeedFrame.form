@@ -141,7 +141,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Sterilization Chamber:"/>
+          <text value="Sterilization Chamber - RowColumn:"/>
         </properties>
       </component>
       <vspacer id="6398a">

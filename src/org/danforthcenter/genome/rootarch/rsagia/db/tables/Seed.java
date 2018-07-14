@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Seed extends TableImpl<SeedRecord> {
 
-    private static final long serialVersionUID = 231020687;
+    private static final long serialVersionUID = 402411795;
 
     /**
      * The reference instance of <code>rsa_gia.seed</code>
@@ -158,7 +158,7 @@ public class Seed extends TableImpl<SeedRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.SEED_PRIMARY, Indexes.SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX, Indexes.SEED_SEED_GENOTYPE_ID_FK, Indexes.SEED_SEED_SEED_NAME_INDEX);
+        return Arrays.<Index>asList(Indexes.SEED_PRIMARY, Indexes.SEED_SEED_EXPERIMENT_ID_SEED_NAME_UINDEX, Indexes.SEED_SEED_GENOTYPE_GENOTYPE_ID_FK, Indexes.SEED_SEED_SEED_NAME_INDEX);
     }
 
     /**
@@ -190,7 +190,7 @@ public class Seed extends TableImpl<SeedRecord> {
      */
     @Override
     public List<ForeignKey<SeedRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<SeedRecord, ?>>asList(Keys.SEED_EXPERIMENT_EXPERIMENT_ID_FK, Keys.SEED_GENOTYPE_ID_FK);
+        return Arrays.<ForeignKey<SeedRecord, ?>>asList(Keys.SEED_EXPERIMENT_EXPERIMENT_ID_FK, Keys.SEED_GENOTYPE_GENOTYPE_ID_FK);
     }
 
     /**

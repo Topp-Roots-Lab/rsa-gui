@@ -42,7 +42,14 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         organismField.setText(organism);
         experimentField.setText(experiment);
         seedField.setText(seed);
-        genotypeField.setText((String) r.getValue("genotype"));
+        if (r.getValue("genotype_id") != null) {
+            int genotypeID = (int) r.getValue("genotype_id");
+            Result<Record> genotypeRecord = this.mdf.findGenotypeFromID(genotypeID);
+            Record r2 = genotypeRecord.get(0);
+            genotypeField.setText((String) r2.getValue("genotype_name"));
+        } else {
+            genotypeField.setText("None");
+        }
         if (r.getValue("dry_shoot") == null) {
             dryshootField.setText("");
         } else {
@@ -63,10 +70,10 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         } else {
             wetrootField.setText(Double.toString((Double) r.getValue("wet_root")));
         }
-        if (r.getValue("sterilization_chamber") == null) {
+        if (r.getValue("str_chamber_row_column") == null) {
             schamberField.setText("");
         } else {
-            schamberField.setText(Double.toString((Double) r.getValue("sterilization_chamber")));
+            schamberField.setText(String.valueOf(r.getValue("str_chamber_row_column")));
         }
         imagingIntervalUnitField.setText((String) r.getValue("imaging_interval_unit"));
         descriptionField.setText((String) r.getValue("description"));
@@ -209,7 +216,7 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer9, gbc);
         final JLabel label9 = new JLabel();
-        label9.setText("Sterilization Chamber:");
+        label9.setText("Sterilization Chamber - RowColumn:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 16;

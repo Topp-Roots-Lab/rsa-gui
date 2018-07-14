@@ -15,6 +15,7 @@ import org.danforthcenter.genome.rootarch.rsagia.db.RsaGia;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.records.ExperimentRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
@@ -38,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Experiment extends TableImpl<ExperimentRecord> {
 
-    private static final long serialVersionUID = -1561575128;
+    private static final long serialVersionUID = -754437470;
 
     /**
      * The reference instance of <code>rsa_gia.experiment</code>
@@ -56,7 +57,7 @@ public class Experiment extends TableImpl<ExperimentRecord> {
     /**
      * The column <code>rsa_gia.experiment.experiment_id</code>.
      */
-    public final TableField<ExperimentRecord, Integer> EXPERIMENT_ID = createField("experiment_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ExperimentRecord, Integer> EXPERIMENT_ID = createField("experiment_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>rsa_gia.experiment.experiment_code</code>.
@@ -121,6 +122,14 @@ public class Experiment extends TableImpl<ExperimentRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX, Indexes.EXPERIMENT_EXPERIMENT_ORGANISM_ORGANISM_NAME_FK, Indexes.EXPERIMENT_EXPERIMENT_USER_USER_ID_FK, Indexes.EXPERIMENT_PRIMARY);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<ExperimentRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_EXPERIMENT;
     }
 
     /**

@@ -66,7 +66,7 @@ public class AddExperimentFrame extends JDialog implements ActionListener {
             } else if (check == true) {
                 mdf.insertExperiment(organism, newExperimentCode, description, user);
                 JOptionPane.showMessageDialog(null, newExperimentCode + " is added for organism " + organism + " successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-
+                this.dispose();
             }
         }
 

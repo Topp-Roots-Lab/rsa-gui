@@ -83,10 +83,10 @@ public class EditOrganismFrame extends JDialog implements
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator + organismNameNew);
 
                 try {
-                    if (originalImagesOld.exists()) {
+                    if (originalImagesOld.exists() && !selectedOrganism.equals(organismNameNew)) {
                         FileUtil.renameDirWithPrivileges(originalImagesOld, organismNameNew, this.dirRenameApp);
                     }
-                    if (processedImagesOld.exists()) {
+                    if (processedImagesOld.exists() && !selectedOrganism.equals(organismNameNew)) {
                         FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
                     this.mdf.updateOrganism(organismNameNew, organismCodeNew, speciesNew, subspeciesNew, varietyNew, this.selectedOrganism);

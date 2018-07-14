@@ -53,9 +53,13 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<DatasetRecord, Integer> IDENTITY_DATASET = Identities0.IDENTITY_DATASET;
+    public static final Identity<ExperimentRecord, Integer> IDENTITY_EXPERIMENT = Identities0.IDENTITY_EXPERIMENT;
+    public static final Identity<GenotypeRecord, Integer> IDENTITY_GENOTYPE = Identities0.IDENTITY_GENOTYPE;
     public static final Identity<ProgramRecord, Integer> IDENTITY_PROGRAM = Identities0.IDENTITY_PROGRAM;
+    public static final Identity<ProgramRunRecord, Integer> IDENTITY_PROGRAM_RUN = Identities0.IDENTITY_PROGRAM_RUN;
     public static final Identity<SavedConfigRecord, Integer> IDENTITY_SAVED_CONFIG = Identities0.IDENTITY_SAVED_CONFIG;
     public static final Identity<SeedRecord, Integer> IDENTITY_SEED = Identities0.IDENTITY_SEED;
+    public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -96,7 +100,7 @@ public class Keys {
     public static final ForeignKey<ProgramRunRecord, SavedConfigRecord> PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK = ForeignKeys0.PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK;
     public static final ForeignKey<SavedConfigRecord, ProgramRecord> SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = ForeignKeys0.SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK;
     public static final ForeignKey<SeedRecord, ExperimentRecord> SEED_EXPERIMENT_EXPERIMENT_ID_FK = ForeignKeys0.SEED_EXPERIMENT_EXPERIMENT_ID_FK;
-    public static final ForeignKey<SeedRecord, GenotypeRecord> SEED_GENOTYPE_ID_FK = ForeignKeys0.SEED_GENOTYPE_ID_FK;
+    public static final ForeignKey<SeedRecord, GenotypeRecord> SEED_GENOTYPE_GENOTYPE_ID_FK = ForeignKeys0.SEED_GENOTYPE_GENOTYPE_ID_FK;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -104,9 +108,13 @@ public class Keys {
 
     private static class Identities0 extends AbstractKeys {
         public static Identity<DatasetRecord, Integer> IDENTITY_DATASET = createIdentity(Dataset.DATASET, Dataset.DATASET.DATASET_ID);
+        public static Identity<ExperimentRecord, Integer> IDENTITY_EXPERIMENT = createIdentity(Experiment.EXPERIMENT, Experiment.EXPERIMENT.EXPERIMENT_ID);
+        public static Identity<GenotypeRecord, Integer> IDENTITY_GENOTYPE = createIdentity(Genotype.GENOTYPE, Genotype.GENOTYPE.GENOTYPE_ID);
         public static Identity<ProgramRecord, Integer> IDENTITY_PROGRAM = createIdentity(Program.PROGRAM, Program.PROGRAM.PROGRAM_ID);
+        public static Identity<ProgramRunRecord, Integer> IDENTITY_PROGRAM_RUN = createIdentity(ProgramRun.PROGRAM_RUN, ProgramRun.PROGRAM_RUN.RUN_ID);
         public static Identity<SavedConfigRecord, Integer> IDENTITY_SAVED_CONFIG = createIdentity(SavedConfig.SAVED_CONFIG, SavedConfig.SAVED_CONFIG.CONFIG_ID);
         public static Identity<SeedRecord, Integer> IDENTITY_SEED = createIdentity(Seed.SEED, Seed.SEED.SEED_ID);
+        public static Identity<UserRecord, Integer> IDENTITY_USER = createIdentity(User.USER, User.USER.USER_ID);
     }
 
     private static class UniqueKeys0 extends AbstractKeys {
@@ -114,7 +122,7 @@ public class Keys {
         public static final UniqueKey<DatasetImageTypeRecord> KEY_DATASET_IMAGE_TYPE_PRIMARY = createUniqueKey(DatasetImageType.DATASET_IMAGE_TYPE, "KEY_dataset_image_type_PRIMARY", DatasetImageType.DATASET_IMAGE_TYPE.DATASET_ID, DatasetImageType.DATASET_IMAGE_TYPE.IMAGE_TYPE);
         public static final UniqueKey<ExperimentRecord> KEY_EXPERIMENT_PRIMARY = createUniqueKey(Experiment.EXPERIMENT, "KEY_experiment_PRIMARY", Experiment.EXPERIMENT.EXPERIMENT_ID);
         public static final UniqueKey<ExperimentRecord> KEY_EXPERIMENT_EXPERIMENT_EXPERIMENT_CODE_ORGANISM_NAME_UINDEX = createUniqueKey(Experiment.EXPERIMENT, "KEY_experiment_experiment_experiment_code_organism_name_uindex", Experiment.EXPERIMENT.EXPERIMENT_CODE, Experiment.EXPERIMENT.ORGANISM_NAME);
-        public static final UniqueKey<GenotypeRecord> KEY_GENOTYPE_PRIMARY = createUniqueKey(Genotype.GENOTYPE, "KEY_genotype_PRIMARY", Genotype.GENOTYPE.ID);
+        public static final UniqueKey<GenotypeRecord> KEY_GENOTYPE_PRIMARY = createUniqueKey(Genotype.GENOTYPE, "KEY_genotype_PRIMARY", Genotype.GENOTYPE.GENOTYPE_ID);
         public static final UniqueKey<GenotypeRecord> KEY_GENOTYPE_GENOTYPE_GENOTYPE_NAME_ORGANISM_NAME_UINDEX = createUniqueKey(Genotype.GENOTYPE, "KEY_genotype_genotype_genotype_name_organism_name_uindex", Genotype.GENOTYPE.GENOTYPE_NAME, Genotype.GENOTYPE.ORGANISM_NAME);
         public static final UniqueKey<OrganismRecord> KEY_ORGANISM_PRIMARY = createUniqueKey(Organism.ORGANISM, "KEY_organism_PRIMARY", Organism.ORGANISM.ORGANISM_NAME);
         public static final UniqueKey<OrganismRecord> KEY_ORGANISM_ORGANISM_SPECIES_CODE_UINDEX = createUniqueKey(Organism.ORGANISM, "KEY_organism_organism_species_code_uindex", Organism.ORGANISM.SPECIES_CODE);
@@ -143,6 +151,6 @@ public class Keys {
         public static final ForeignKey<ProgramRunRecord, SavedConfigRecord> PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_SAVED_CONFIG_PRIMARY, ProgramRun.PROGRAM_RUN, "program_run_saved_config_config_id_fk", ProgramRun.PROGRAM_RUN.SAVED_CONFIG_ID);
         public static final ForeignKey<SavedConfigRecord, ProgramRecord> SAVED_CONFIG_PROGRAM_PROGRAM_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_PROGRAM_PRIMARY, SavedConfig.SAVED_CONFIG, "saved_config_program_program_id_fk", SavedConfig.SAVED_CONFIG.PROGRAM_ID);
         public static final ForeignKey<SeedRecord, ExperimentRecord> SEED_EXPERIMENT_EXPERIMENT_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_EXPERIMENT_PRIMARY, Seed.SEED, "seed_experiment_experiment_id_fk", Seed.SEED.EXPERIMENT_ID);
-        public static final ForeignKey<SeedRecord, GenotypeRecord> SEED_GENOTYPE_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_GENOTYPE_PRIMARY, Seed.SEED, "seed_genotype_id_fk", Seed.SEED.GENOTYPE_ID);
+        public static final ForeignKey<SeedRecord, GenotypeRecord> SEED_GENOTYPE_GENOTYPE_ID_FK = createForeignKey(org.danforthcenter.genome.rootarch.rsagia.db.Keys.KEY_GENOTYPE_PRIMARY, Seed.SEED, "seed_genotype_genotype_id_fk", Seed.SEED.GENOTYPE_ID);
     }
 }

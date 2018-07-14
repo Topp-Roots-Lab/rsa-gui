@@ -64,6 +64,15 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
                 }
             }
         });
+
+        seedComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    selectedSeed = (String) e.getItem();
+                }
+            }
+        });
     }
 
     private void loadOrganisms() {

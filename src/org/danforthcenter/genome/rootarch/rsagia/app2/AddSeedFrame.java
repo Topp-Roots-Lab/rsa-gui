@@ -17,7 +17,6 @@ import java.util.Date;
 
 public class AddSeedFrame extends JDialog implements ActionListener {
     private JTextField seedField;
-    private JTextField genotypeField;
     private JTextField dryshootField;
     private JTextField dryrootField;
     private JTextField wetshootField;
@@ -30,6 +29,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
     private JComboBox imagingIntervalUnitComboBox;
     private JButton addButton;
     private JPanel panel1;
+    private JComboBox genotypeComboBox;
     private MetadataDBFunctions mdf;
     private String selectedOrganism;
 
@@ -54,9 +54,20 @@ public class AddSeedFrame extends JDialog implements ActionListener {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     selectedOrganism = (String) e.getItem();
                     loadExperiments();
+                    loadGenotypes();
                 }
             }
         });
+    }
+
+    private void loadGenotypes() {
+        DefaultComboBoxModel genotypes = new DefaultComboBoxModel();
+        genotypes.addElement("None");
+        Result<Record> genotypeRecord = this.mdf.findGenotypesFromOrganism(this.selectedOrganism);
+        for (Record r : genotypeRecord) {
+            genotypes.addElement((String) r.getValue("genotype_name"));
+        }
+        genotypeComboBox.setModel(genotypes);
     }
 
     private void loadOrganisms() {
@@ -68,6 +79,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         this.selectedOrganism = (String) organisms.getElementAt(0);
         organismComboBox.setModel(organisms);
         loadExperiments();
+        loadGenotypes();
     }
 
     private void loadExperiments() {
@@ -85,7 +97,14 @@ public class AddSeedFrame extends JDialog implements ActionListener {
             String organism = (String) organismComboBox.getSelectedItem();
             String experiment = (String) experimentComboBox.getSelectedItem();
             String seed = seedField.getText();
-            String genotype = genotypeField.getText();
+            String genotypeName = (String) genotypeComboBox.getSelectedItem();
+            int genotypeID = -1;
+            if (!genotypeName.equals("None")) {
+                Result<Record> genotypeRecord = this.mdf.findGenotypeID(genotypeName, organism);
+                Record r = genotypeRecord.get(0);
+                genotypeID = (int) r.getValue("genotype_id");
+            }
+
             Double dryshoot = null;
             if (!dryshootField.getText().isEmpty()) {
                 dryshoot = Double.valueOf(dryshootField.getText());
@@ -102,9 +121,9 @@ public class AddSeedFrame extends JDialog implements ActionListener {
             if (!wetrootField.getText().isEmpty()) {
                 wetroot = Double.valueOf(wetrootField.getText());
             }
-            Double schamber = null;
+            String schamber = "";
             if (!schamberField.getText().isEmpty()) {
-                schamber = Double.valueOf(schamberField.getText());
+                schamber = schamberField.getText();
             }
             String imagingIntervalUnit = (String) imagingIntervalUnitComboBox.getSelectedItem();
             String description = descriptionField.getText();
@@ -117,9 +136,9 @@ public class AddSeedFrame extends JDialog implements ActionListener {
             }
 
             boolean check = true;
-            if (organism == null || experiment == null || seed == null) {
+            if (organism.isEmpty() || experiment.isEmpty() || seed.isEmpty()) {
                 check = false;
-                JOptionPane.showMessageDialog(null, "You must have entered a wrong organism value or experiment value or seed value.", null, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You must have entered a wrong organism or experiment or seed value.", null, JOptionPane.ERROR_MESSAGE);
             } else if (check == true && !seed.substring(0, 1).equals("p")) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Seed should start with letter 'p'.", null, JOptionPane.ERROR_MESSAGE);
@@ -127,9 +146,10 @@ public class AddSeedFrame extends JDialog implements ActionListener {
                 check = false;
                 JOptionPane.showMessageDialog(null, "This seed is already added.", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else if (check == true) {
-                this.mdf.insertSeed(organism, experiment, seed, genotype, dryshoot, dryroot, wetshoot, wetroot, schamber, imagingIntervalUnit, description,
+                this.mdf.insertSeed(organism, experiment, seed, genotypeID, dryshoot, dryroot, wetshoot, wetroot, schamber, imagingIntervalUnit, description,
                         imagingStartDate);
                 JOptionPane.showMessageDialog(null, "The seed is added to database successfully.", null, JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
             }
         }
 
@@ -259,7 +279,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer9, gbc);
         final JLabel label9 = new JLabel();
-        label9.setText("Sterilization Chamber:");
+        label9.setText("Sterilization Chamber - RowColumn: (eg: 1-C2)");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 16;
@@ -305,7 +325,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label12, gbc);
         addButton = new JButton();
-        addButton.setPreferredSize(new Dimension(95, 31));
+        addButton.setPreferredSize(new Dimension(120, 31));
         addButton.setRolloverEnabled(false);
         addButton.setText("Add");
         gbc = new GridBagConstraints();
@@ -327,14 +347,6 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(seedField, gbc);
-        genotypeField = new JTextField();
-        genotypeField.setPreferredSize(new Dimension(12, 25));
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 6;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(genotypeField, gbc);
         dryshootField = new JTextField();
         dryshootField.setPreferredSize(new Dimension(12, 25));
         gbc = new GridBagConstraints();
@@ -412,6 +424,13 @@ public class AddSeedFrame extends JDialog implements ActionListener {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(imagingIntervalUnitComboBox, gbc);
+        genotypeComboBox = new JComboBox();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 6;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(genotypeComboBox, gbc);
     }
 
     /**

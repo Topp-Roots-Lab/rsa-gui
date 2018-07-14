@@ -29,7 +29,7 @@ public class MetadataDBFunctions {
     }
     public Result<Record> findGenotypeFromID(int genotypeID)
     {
-        Result<Record> genotypeRecord = ConnectDb.getDslContext().fetch("select * from genotype where id=" + genotypeID);
+        Result<Record> genotypeRecord = ConnectDb.getDslContext().fetch("select * from genotype where genotype_id=" + genotypeID);
         return genotypeRecord;
     }
     public Result<Record> findExperimentFromOrganism(String organism)
@@ -185,7 +185,7 @@ public class MetadataDBFunctions {
 
     public void insertGenotype(String organism,String genotypeName)
     {
-        Result<Record> record= ConnectDb.getDslContext().fetch("select max(id) max from genotype;");
+        Result<Record> record= ConnectDb.getDslContext().fetch("select max(genotype_id) max from genotype;");
         int max = (int) record.get(0).get("max");
         max= max +1;
         String query = "insert into genotype values(" + max + ",'" + genotypeName + "','" + organism + "')";

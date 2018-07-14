@@ -25,7 +25,6 @@ public class EditSeedFrame extends JDialog implements ActionListener {
     private JTextField organismField;
     private JTextField experimentField;
     private JTextField seedField;
-    private JTextField genotypeField;
     private JTextField dryshootField;
     private JTextField dryrootField;
     private JTextField wetshootField;
@@ -35,6 +34,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
     private JTextField imagingStartDateField;
     private JPanel panel1;
     private JComboBox imagingIntervalUnitComboBox;
+    private JComboBox genotypeComboBox;
     private MetadataDBFunctions mdf;
     private String selectedOrganism;
     private String selectedExperiment;
@@ -62,7 +62,27 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         organismField.setText(organism);
         experimentField.setText(experiment);
         seedField.setText(seed);
-        genotypeField.setText(String.valueOf(r.getValue("genotype")));
+
+        int selectedGenotypeID = -1;
+        String selectedGenotype = "None";
+        Object seedGenotypeID = r.getValue("genotype_id");
+        if (seedGenotypeID != null) {
+            selectedGenotypeID = (int) seedGenotypeID;
+        }
+        DefaultComboBoxModel genotypes = new DefaultComboBoxModel();
+        genotypes.addElement("None");
+        Result<Record> genotypeRecord1 = this.mdf.findGenotypesFromOrganism(this.selectedOrganism);
+        for (Record r1 : genotypeRecord1) {
+            int genotypeId = (int) r1.getValue("genotype_id");
+            String genotypeName = (String) r1.getValue("genotype_name");
+            genotypes.addElement(genotypeName);
+            if (genotypeId == selectedGenotypeID) {
+                selectedGenotype = genotypeName;
+            }
+        }
+        genotypeComboBox.setModel(genotypes);
+        genotypeComboBox.setSelectedItem(selectedGenotype);
+
         if (r.getValue("dry_shoot") == null) {
             dryshootField.setText("");
         } else {
@@ -83,10 +103,10 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         } else {
             wetrootField.setText(Double.toString((Double) r.getValue("wet_root")));
         }
-        if (r.getValue("sterilization_chamber") == null) {
+        if (r.getValue("str_chamber_row_column") == null) {
             schamberField.setText("");
         } else {
-            schamberField.setText(Double.toString((Double) r.getValue("sterilization_chamber")));
+            schamberField.setText((String) r.getValue("str_chamber_row_column"));
         }
         DefaultComboBoxModel units = new DefaultComboBoxModel(new String[]{"hour", "day"});
         units.setSelectedItem(r.getValue("imaging_interval_unit"));
@@ -104,12 +124,11 @@ public class EditSeedFrame extends JDialog implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == saveButton) {
             this.seedNew = seedField.getText();
-            String genotypeNew = genotypeField.getText();
+            String genotypeNew = (String) genotypeComboBox.getSelectedItem();
             String dryshootNew = dryshootField.getText();
             String dryrootNew = dryrootField.getText();
             String wetshootNew = wetshootField.getText();
             String wetrootNew = wetrootField.getText();
-            String strchamberNew = schamberField.getText();
             String imagingIntervalUnitNew = (String) imagingIntervalUnitComboBox.getSelectedItem();
             String descriptionNew = descriptionField.getText();
             String dateNew = imagingStartDateField.getText();
@@ -120,14 +139,12 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                 e1.printStackTrace();
             }
 
-
             boolean check = true;
             if ((!seedNew.substring(0, 1).equals("p")) ||
                     !(this.mdf.isNumeric(dryshootNew) || dryshootNew.isEmpty() || dryshootNew == null) ||
                     !(this.mdf.isNumeric(dryrootNew) || dryrootNew.isEmpty() || dryrootNew == null) ||
                     !(this.mdf.isNumeric(wetshootNew) || wetshootNew.isEmpty() || wetshootNew == null) ||
-                    !(this.mdf.isNumeric(wetrootNew) || wetrootNew.isEmpty() || wetrootNew == null) ||
-                    !(this.mdf.isNumeric(strchamberNew) || strchamberNew.isEmpty() || strchamberNew == null)) {
+                    !(this.mdf.isNumeric(wetrootNew) || wetrootNew.isEmpty() || wetrootNew == null)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Some values are not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
 
@@ -139,17 +156,17 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator +
                         this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedNew);
                 try {
-                    if (originalImagesOld.exists()) {
+                    if (originalImagesOld.exists() && !seedOld.equals(seedNew)) {
                         FileUtil.renameDirWithPrivileges(originalImagesOld, seedNew, this.dirRenameApp);
                     }
-                    if (processedImagesOld.exists()) {
+                    if (processedImagesOld.exists() && !seedOld.equals(seedNew)) {
                         FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
                     Double dryshootNewD = null;
                     Double dryrootNewD = null;
                     Double wetshootNewD = null;
                     Double wetrootNewD = null;
-                    Double strchamberNewD = null;
+                    String strchamberNewD = "";
                     if (!dryshootField.getText().isEmpty() && dryshootField.getText() != null) {
                         dryshootNewD = Double.valueOf(dryshootField.getText());
                     }
@@ -163,9 +180,17 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                         wetrootNewD = Double.valueOf(wetrootField.getText());
                     }
                     if (!schamberField.getText().isEmpty() && schamberField.getText() != null) {
-                        strchamberNewD = Double.valueOf(schamberField.getText());
+                        strchamberNewD = schamberField.getText();
                     }
-                    this.mdf.updateSeed(this.seedOld, this.selectedOrganism, this.selectedExperiment, this.seedNew, genotypeNew,
+
+                    int genotypeNewID = -1;
+                    if (!genotypeNew.equals("None")) {
+                        Result<Record> genotypeRecord3 = this.mdf.findGenotypeID(genotypeNew, this.selectedOrganism);
+                        Record r3 = genotypeRecord3.get(0);
+                        genotypeNewID = (int) r3.getValue("genotype_id");
+                    }
+
+                    this.mdf.updateSeed(this.seedOld, this.selectedOrganism, this.selectedExperiment, this.seedNew, genotypeNewID,
                             dryshootNewD, dryrootNewD, wetshootNewD, wetrootNewD, strchamberNewD, imagingIntervalUnitNew, descriptionNew,
                             imagingStartDateNew);
                     firePropertyChange("getall", null, null);
@@ -305,7 +330,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer9, gbc);
         final JLabel label9 = new JLabel();
-        label9.setText("Sterilization Chamber:");
+        label9.setText("Sterilization Chamber - RowColumn: (eg: 1-C2)");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 16;
@@ -397,13 +422,6 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(seedField, gbc);
-        genotypeField = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 6;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(genotypeField, gbc);
         dryshootField = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
@@ -462,6 +480,13 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(imagingIntervalUnitComboBox, gbc);
+        genotypeComboBox = new JComboBox();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 6;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(genotypeComboBox, gbc);
     }
 
     /**

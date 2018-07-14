@@ -16,6 +16,7 @@ import org.danforthcenter.genome.rootarch.rsagia.db.RsaGia;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.records.ProgramRunRecord;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
@@ -39,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProgramRun extends TableImpl<ProgramRunRecord> {
 
-    private static final long serialVersionUID = 451809923;
+    private static final long serialVersionUID = -1272533692;
 
     /**
      * The reference instance of <code>rsa_gia.program_run</code>
@@ -57,7 +58,7 @@ public class ProgramRun extends TableImpl<ProgramRunRecord> {
     /**
      * The column <code>rsa_gia.program_run.run_id</code>.
      */
-    public final TableField<ProgramRunRecord, Integer> RUN_ID = createField("run_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<ProgramRunRecord, Integer> RUN_ID = createField("run_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>rsa_gia.program_run.user_id</code>.
@@ -157,6 +158,14 @@ public class ProgramRun extends TableImpl<ProgramRunRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PROGRAM_RUN_PRIMARY, Indexes.PROGRAM_RUN_PROGRAM_RUN_DATASET_DATASET_ID_FK, Indexes.PROGRAM_RUN_PROGRAM_RUN_PROGRAM_PROGRAM_ID_FK, Indexes.PROGRAM_RUN_PROGRAM_RUN_RED_FLAG_INDEX, Indexes.PROGRAM_RUN_PROGRAM_RUN_SAVED_CONFIG_CONFIG_ID_FK, Indexes.PROGRAM_RUN_PROGRAM_RUN_USER_USER_ID_FK);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Identity<ProgramRunRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_PROGRAM_RUN;
     }
 
     /**

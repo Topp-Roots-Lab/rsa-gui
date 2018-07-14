@@ -104,12 +104,15 @@ public class MainFrame extends javax.swing.JFrame implements
 		this.addOrganism.addActionListener(this);
 		this.addExperiment.addActionListener(this);
 		this.addSeed.addActionListener(this);
+		this.addGenotype.addActionListener(this);
 		this.editOrganism.addActionListener(this);
 		this.editExperiment.addActionListener(this);
 		this.editSeed.addActionListener(this);
 		this.uploadImages.addActionListener(this);
+		this.uploadSeedsCSV.addActionListener(this);
 		this.jMenu1.addActionListener(this);
 		this.jMenu2.addActionListener(this);
+		this.jMenu3.addActionListener(this);
 		this.jMenu4.addActionListener(this);
 
 		rff = new RisFilterFrame(StringPairFilter.toString(speciesFilter),
@@ -272,6 +275,16 @@ public class MainFrame extends javax.swing.JFrame implements
 			AddSeedFrame asf = new AddSeedFrame();
 			asf.setVisible(true);
 		}
+		else if(e.getSource() == this.addGenotype)
+		{
+			AddGenotypeFrame agf = new AddGenotypeFrame();
+			agf.setVisible(true);
+		}
+		else if(e.getSource() == this.uploadSeedsCSV)
+		{
+			BatchSeedImport bsi = new BatchSeedImport();
+			bsi.setVisible(true);
+		}
 	}
 
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -387,12 +400,15 @@ public class MainFrame extends javax.swing.JFrame implements
 		addOrganism = new javax.swing.JMenuItem();
 		addExperiment = new javax.swing.JMenuItem();
 		addSeed = new javax.swing.JMenuItem();
+		addGenotype = new javax.swing.JMenuItem();
 		jMenu2 = new javax.swing.JMenu();
 		editOrganism = new javax.swing.JMenuItem();
 		editExperiment = new javax.swing.JMenuItem();
 		editSeed = new javax.swing.JMenuItem();
+		jMenu3 = new javax.swing.JMenu();
 		jMenu4 = new javax.swing.JMenu();
 		uploadImages = new javax.swing.JMenuItem();
+		uploadSeedsCSV = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("rsa-gia 4.0.0");
@@ -530,6 +546,8 @@ public class MainFrame extends javax.swing.JFrame implements
 		jMenu1.add(addExperiment);
 		addSeed.setText("Add Seed");
 		jMenu1.add(addSeed);
+		addGenotype.setText("Add Genotype");
+		jMenu1.add(addGenotype);
 
 		jMenu2.setText("Edit Metadata");
 		jMenu2.setEnabled(true);
@@ -540,6 +558,12 @@ public class MainFrame extends javax.swing.JFrame implements
 		jMenu2.add(editExperiment);
 		editSeed.setText("Edit/View Seed");
 		jMenu2.add(editSeed);
+
+		jMenu3.setText("Import Seed Metadata");
+		jMenu3.setEnabled(true);
+		jMenuBar1.add(jMenu3);
+		uploadSeedsCSV.setText("Upload CSV File");
+		jMenu3.add(uploadSeedsCSV);
 
 		jMenu4.setText("Add Dataset");
 		jMenu4.setEnabled(true);
@@ -663,14 +687,17 @@ public class MainFrame extends javax.swing.JFrame implements
 	private javax.swing.JToggleButton gia3D_v2Toggle;
 	private javax.swing.JMenu jMenu1;
 	private javax.swing.JMenu jMenu2;
+	private javax.swing.JMenu jMenu3;
 	private javax.swing.JMenu jMenu4;
 	private javax.swing.JMenuItem addOrganism;
 	private javax.swing.JMenuItem addExperiment;
 	private javax.swing.JMenuItem addSeed;
+	private javax.swing.JMenuItem addGenotype;
 	private javax.swing.JMenuItem editOrganism;
 	private javax.swing.JMenuItem editExperiment;
 	private javax.swing.JMenuItem editSeed;
 	private javax.swing.JMenuItem uploadImages;
+	private javax.swing.JMenuItem uploadSeedsCSV;
 	private javax.swing.JMenuBar jMenuBar1;
 	private javax.swing.JToolBar jToolBar1;
 	private javax.swing.JToolBar jToolBar2;

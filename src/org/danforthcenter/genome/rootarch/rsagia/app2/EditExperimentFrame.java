@@ -98,10 +98,10 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
                         this.selectedOrganism + File.separator + File.separator + experimentNew);
 
                 try {
-                    if (originalImagesOld.exists()) {
+                    if (originalImagesOld.exists() && !selectedExperiment.equals(experimentNew)) {
                         FileUtil.renameDirWithPrivileges(originalImagesOld, experimentNew, this.dirRenameApp);
                     }
-                    if (processedImagesOld.exists()) {
+                    if (processedImagesOld.exists() && !selectedExperiment.equals(experimentNew)) {
                         FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
 
