@@ -1,5 +1,6 @@
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
+import org.danforthcenter.genome.rootarch.rsagia.db.enums.UserAccessLevel;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.UserDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.UserAccess;
 import org.jooq.Record;
@@ -59,7 +60,7 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
             ViewUserFrame vuf = new ViewUserFrame(selectedUser);
             vuf.setVisible(true);
         } else if (e.getSource() == this.editButton) {
-            if (UserAccess.getCurrentAccessLevel().equals("Admin")) {
+            if (UserAccess.getCurrentAccessLevel() == UserAccessLevel.Admin) {
                 EditUserFrame euf = new EditUserFrame(selectedUser);
                 euf.addPropertyChangeListener(this);
                 euf.setVisible(true);

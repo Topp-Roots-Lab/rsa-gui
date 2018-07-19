@@ -12,6 +12,7 @@ import javax.annotation.Generated;
 import org.danforthcenter.genome.rootarch.rsagia.db.Indexes;
 import org.danforthcenter.genome.rootarch.rsagia.db.Keys;
 import org.danforthcenter.genome.rootarch.rsagia.db.RsaGia;
+import org.danforthcenter.genome.rootarch.rsagia.db.enums.UserAccessLevel;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.records.UserRecord;
 import org.jooq.Field;
 import org.jooq.Identity;
@@ -38,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 165683407;
+    private static final long serialVersionUID = 1866445954;
 
     /**
      * The reference instance of <code>rsa_gia.user</code>
@@ -81,7 +82,7 @@ public class User extends TableImpl<UserRecord> {
     /**
      * The column <code>rsa_gia.user.access_level</code>.
      */
-    public final TableField<UserRecord, String> ACCESS_LEVEL = createField("access_level", org.jooq.impl.SQLDataType.VARCHAR(20), this, "");
+    public final TableField<UserRecord, UserAccessLevel> ACCESS_LEVEL = createField("access_level", org.jooq.util.mysql.MySQLDataType.VARCHAR.asEnumDataType(org.danforthcenter.genome.rootarch.rsagia.db.enums.UserAccessLevel.class), this, "");
 
     /**
      * Create a <code>rsa_gia.user</code> table reference

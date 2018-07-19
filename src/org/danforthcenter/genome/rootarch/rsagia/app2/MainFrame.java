@@ -22,6 +22,7 @@ import java.util.Properties;
 
 import javax.swing.*;
 
+import org.danforthcenter.genome.rootarch.rsagia.db.enums.UserAccessLevel;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.FillDb;
 import org.danforthcenter.genome.rootarch.rsagia2.*;
 
@@ -272,7 +273,7 @@ public class MainFrame extends javax.swing.JFrame implements
             bsi.addPropertyChangeListener(this);
             bsi.setVisible(true);
         } else if (e.getSource() == this.addUser) {
-            if (UserAccess.getCurrentAccessLevel().equals("Admin")) {
+            if (UserAccess.getCurrentAccessLevel() == UserAccessLevel.Admin) {
                 AddUserFrame auf = new AddUserFrame();
                 auf.setVisible(true);
             } else {

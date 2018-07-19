@@ -2,6 +2,7 @@ package org.danforthcenter.genome.rootarch.rsagia.dbfunctions;
 
 import org.danforthcenter.genome.rootarch.rsagia.app2.App;
 import org.danforthcenter.genome.rootarch.rsagia.db.enums.SeedImagingIntervalUnit;
+import org.danforthcenter.genome.rootarch.rsagia.db.enums.UserAccessLevel;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.SavedConfig;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.User;
 import org.danforthcenter.genome.rootarch.rsagia2.*;
@@ -89,7 +90,7 @@ public class FillDb {
                 String username = oi.getUser();
                 Result<Record> userRecord = dslContext.fetch("select * from user where user_name='" + username + "'");
                 if (userRecord.size() == 0) {
-                    String query = "insert into user values(" + i + ",'" + username + "','','','topplab','Researcher')";
+                    String query = "insert into user values(" + i + ",'" + username + "','','','topplab','" + UserAccessLevel.Researcher.toString() + "')";
                     dslContext.execute(query);
                     i = i + 1;
                 }

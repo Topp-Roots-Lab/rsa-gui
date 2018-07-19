@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import com.sun.javafx.PlatformUtil;
 import org.jooq.Record;
 import org.jooq.Result;
+import org.danforthcenter.genome.rootarch.rsagia.db.enums.UserAccessLevel;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.UserDBFunctions;
 
 public class UserAccess
@@ -47,7 +48,7 @@ public class UserAccess
         return username;
     }
 
-    public static String getCurrentAccessLevel()
+    public static UserAccessLevel getCurrentAccessLevel()
     {
         Result<Record> userRecord = udf.findUserFromName(getCurrentUser());
         if (userRecord.size() == 0)
@@ -56,7 +57,7 @@ public class UserAccess
         }
         else
         {
-            return (String) userRecord.getValue(0, "access_level");
+            return UserAccessLevel.valueOf((String) userRecord.getValue(0, "access_level"));
         }
     }
 

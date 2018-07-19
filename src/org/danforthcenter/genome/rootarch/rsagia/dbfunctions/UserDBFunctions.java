@@ -1,6 +1,6 @@
 package org.danforthcenter.genome.rootarch.rsagia.dbfunctions;
 
-import org.jooq.DSLContext;
+import org.danforthcenter.genome.rootarch.rsagia.db.enums.UserAccessLevel;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -41,7 +41,7 @@ public class UserDBFunctions {
 
     public String[] getAccessLevels()
     {
-        return new String[] {"Researcher", "Admin"};
+        return new String[] {UserAccessLevel.Researcher.toString(), UserAccessLevel.Admin.toString()};
     }
 
     public void updateUser(String newUserName, String oldUserName, String newAccessLevel, String newFirstName, String newLastName,
