@@ -12,6 +12,8 @@ import java.util.Properties;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.ConnectDb;
 import org.danforthcenter.genome.rootarch.rsagia2.*;
 
+import javax.swing.*;
+
 /**
  *
  * @author bm93, vp23
@@ -230,13 +232,17 @@ public class App {
 
 //            final File f11 = new File("/data/rsa/");
 
-
-			java.awt.EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					new MainFrame(f1, ssm, am, spf1, spf2, spf3, spf4, spf5,
-							uf, cols).setVisible(true);
-				}
-			});
+			if (UserAccess.getCurrentAccessLevel() != null) {
+				java.awt.EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						new MainFrame(f1, ssm, am, spf1, spf2, spf3, spf4, spf5,
+								uf, cols).setVisible(true);
+					}
+				});
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "You don't have access to use the tool. Please contact an admin.", null, JOptionPane.ERROR_MESSAGE);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			// return 3;

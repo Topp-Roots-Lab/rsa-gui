@@ -2,10 +2,14 @@ package org.danforthcenter.genome.rootarch.rsagia2;
 
 import java.lang.reflect.Method;
 import com.sun.javafx.PlatformUtil;
+import org.jooq.Record;
+import org.jooq.Result;
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.UserDBFunctions;
 
 public class UserAccess
 {
     private static String username = null;
+    private static UserDBFunctions udf = new UserDBFunctions();
 
     public static String getCurrentUser()
     {
@@ -41,6 +45,19 @@ public class UserAccess
         }
 
         return username;
+    }
+
+    public static String getCurrentAccessLevel()
+    {
+        Result<Record> userRecord = udf.findUserFromName(getCurrentUser());
+        if (userRecord.size() == 0)
+        {
+            return null;
+        }
+        else
+        {
+            return (String) userRecord.getValue(0, "access_level");
+        }
     }
 
     private static class UserAccessException extends RuntimeException

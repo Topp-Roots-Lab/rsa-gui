@@ -89,7 +89,7 @@ public class FillDb {
                 String username = oi.getUser();
                 Result<Record> userRecord = dslContext.fetch("select * from user where user_name='" + username + "'");
                 if (userRecord.size() == 0) {
-                    String query = "insert into user values(" + i + ",'" + username + "','','','topplab','Submitter')";
+                    String query = "insert into user values(" + i + ",'" + username + "','','','topplab','Researcher')";
                     dslContext.execute(query);
                     i = i + 1;
                 }
