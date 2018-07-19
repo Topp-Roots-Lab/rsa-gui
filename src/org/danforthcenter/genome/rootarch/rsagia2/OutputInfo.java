@@ -375,7 +375,7 @@ public class OutputInfo implements IProgramRun{
 /*	protected String getUserFromSystem() {
 		String ans = System.getProperty("user.name");
 		if (ans == null) {
-			throw new OutputInfoException("Could not get user name from system");
+			throw new OutputInfoException("Could not get username from system");
 		}
 		return ans;
 	}*/

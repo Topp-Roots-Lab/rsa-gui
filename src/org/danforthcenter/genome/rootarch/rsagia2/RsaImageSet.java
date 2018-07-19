@@ -99,7 +99,6 @@ public class RsaImageSet {
                     countArray[1] = ((BigInteger)r.getValue("saved_count")).intValue();
                 }
 
-
                 ris = new RsaImageSet(dir, species, experiment, plant, imagingDay, ism);
                 ris.setInputTypesSet(imageTypes);
                 ris.setCountsApps(countsApps);
@@ -117,9 +116,12 @@ public class RsaImageSet {
                 imageTypes.add(imageType);
 
                 HashMap<String, int[]> countsApps = ris.getCounts();
-                int[] countArray = countsApps.get(programName);
-                countArray[0] = ((BigInteger)r.getValue("sandbox_count")).intValue();
-                countArray[1] = ((BigInteger)r.getValue("saved_count")).intValue();
+                if (programName != null)
+                {
+                    int[] countArray = countsApps.get(programName);
+                    countArray[0] = ((BigInteger) r.getValue("sandbox_count")).intValue();
+                    countArray[1] = ((BigInteger) r.getValue("saved_count")).intValue();
+                }
             }
         }
         return ans;

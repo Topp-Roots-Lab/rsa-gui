@@ -215,12 +215,6 @@ public class EditOrganismFrame extends JDialog implements
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(varietyField, gbc);
-        final JPanel spacer6 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 11;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer6, gbc);
         saveButton = new JButton();
         Font saveButtonFont = this.$$$getFont$$$(null, -1, 14, saveButton.getFont());
         if (saveButtonFont != null) saveButton.setFont(saveButtonFont);
@@ -229,7 +223,7 @@ public class EditOrganismFrame extends JDialog implements
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 11;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(20, 0, 0, 0);
         panel1.add(saveButton, gbc);
         cancelButton = new JButton();
@@ -257,12 +251,12 @@ public class EditOrganismFrame extends JDialog implements
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(orgCodeField, gbc);
-        final JPanel spacer7 = new JPanel();
+        final JPanel spacer6 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 5;
         gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer7, gbc);
+        panel1.add(spacer6, gbc);
         final JLabel label5 = new JLabel();
         label5.setText("Code:");
         gbc = new GridBagConstraints();

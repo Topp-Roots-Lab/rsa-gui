@@ -175,8 +175,7 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 6;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(0, 50, 0, 0);
+        gbc.anchor = GridBagConstraints.EAST;
         panel1.add(saveButton, gbc);
         cancelButton = new JButton();
         cancelButton.setText("Cancel");

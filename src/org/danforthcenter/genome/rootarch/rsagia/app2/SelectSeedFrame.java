@@ -23,11 +23,13 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     private JButton viewButton;
     private JButton editButton;
     private JPanel panel1;
+    private JComboBox genotypeComboBox;
     private DirRename dirRenameApp;
     private File baseDir;
     private MetadataDBFunctions mdf;
     private String selectedOrganism;
     private String selectedExperiment;
+    private String selectedGenotype;
     private String selectedSeed;
 
     public SelectSeedFrame(DirRename dirRenameApp, File baseDir) {
@@ -60,6 +62,16 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     selectedExperiment = (String) e.getItem();
+                    loadGenotypes();
+                }
+            }
+        });
+
+        genotypeComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    selectedGenotype = (String) e.getItem();
                     loadSeeds();
                 }
             }
@@ -91,14 +103,27 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
         }
         this.selectedExperiment = (String) experiments.getElementAt(0);
         expComboBox.setModel(experiments);
+        loadGenotypes();
+    }
+
+    private void loadGenotypes() {
+        DefaultComboBoxModel genotypes = new DefaultComboBoxModel();
+        Result<Record> genotypeRecord = this.mdf.findDistinctGenotypesOfExperiment(selectedExperiment, selectedOrganism);
+        for (Record r : genotypeRecord) {
+            Object genotypeName = r.getValue("genotype_name");
+            if (genotypeName == null) {
+                genotypeName = "None";
+            }
+            genotypes.addElement(genotypeName);
+        }
+        this.selectedGenotype = (String) genotypes.getElementAt(0);
+        genotypeComboBox.setModel(genotypes);
         loadSeeds();
     }
 
     private void loadSeeds() {
         DefaultComboBoxModel seeds = new DefaultComboBoxModel();
-        Result<Record> expRecord = mdf.findExperiment(selectedExperiment, selectedOrganism);
-        int selectedExpID = (int) expRecord.get(0).getValue("experiment_id");
-        Result<Record> seedRecord = mdf.findSeedFromExperimentID(selectedExpID);
+        Result<Record> seedRecord = this.mdf.findSeedsFromOrganismExperimentGenotype(selectedOrganism, selectedExperiment, selectedGenotype);
         for (Record r : seedRecord) {
             seeds.addElement((String) r.getValue("seed_name"));
         }
@@ -122,6 +147,7 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("getall")) {
             firePropertyChange("getall", null, null);
+            loadGenotypes();
             loadSeeds();
         }
     }
@@ -188,27 +214,27 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
         label3.setText("Select Seed:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label3, gbc);
         seedComboBox = new JComboBox();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 4;
+        gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(seedComboBox, gbc);
         final JPanel spacer4 = new JPanel();
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 7;
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer4, gbc);
         viewButton = new JButton();
         viewButton.setText("View");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 8;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(0, 70, 0, 0);
         panel1.add(viewButton, gbc);
@@ -216,9 +242,29 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
         editButton.setText("Edit");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 6;
+        gbc.gridy = 8;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(editButton, gbc);
+        final JLabel label4 = new JLabel();
+        label4.setText("Select Genotype:");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel1.add(label4, gbc);
+        genotypeComboBox = new JComboBox();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        panel1.add(genotypeComboBox, gbc);
+        final JPanel spacer5 = new JPanel();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        panel1.add(spacer5, gbc);
     }
 
     /**

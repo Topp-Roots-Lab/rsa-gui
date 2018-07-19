@@ -104,22 +104,42 @@ public class AddSeedFrame extends JDialog implements ActionListener {
                 Record r = genotypeRecord.get(0);
                 genotypeID = (int) r.getValue("genotype_id");
             }
-
+            boolean check = true;
             Double dryshoot = null;
             if (!dryshootField.getText().isEmpty()) {
-                dryshoot = Double.valueOf(dryshootField.getText());
+                try {
+                    dryshoot = Double.parseDouble(dryshootField.getText());
+                } catch (NumberFormatException nfe) {
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "Dryshoot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
+                }
             }
             Double dryroot = null;
-            if (!dryrootField.getText().isEmpty()) {
-                dryroot = Double.valueOf(dryrootField.getText());
+            if (!dryrootField.getText().isEmpty() && check == true) {
+                try {
+                    dryroot = Double.parseDouble(dryrootField.getText());
+                } catch (NumberFormatException nfe) {
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "Dryroot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
+                }
             }
             Double wetshoot = null;
-            if (!wetshootField.getText().isEmpty()) {
-                wetshoot = Double.valueOf(wetshootField.getText());
+            if (!wetshootField.getText().isEmpty() && check == true) {
+                try {
+                    wetshoot = Double.parseDouble(wetshootField.getText());
+                } catch (NumberFormatException nfe) {
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "Wetshoot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
+                }
             }
             Double wetroot = null;
-            if (!wetrootField.getText().isEmpty()) {
-                wetroot = Double.valueOf(wetrootField.getText());
+            if (!wetrootField.getText().isEmpty() && check == true) {
+                try {
+                    wetroot = Double.parseDouble(wetrootField.getText());
+                } catch (NumberFormatException nfe) {
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "Wetroot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
+                }
             }
             String schamber = "";
             if (!schamberField.getText().isEmpty()) {
@@ -129,30 +149,35 @@ public class AddSeedFrame extends JDialog implements ActionListener {
             String description = descriptionField.getText();
             String date = imagingStartField.getText();
             Date imagingStartDate = null;
-            try {
-                imagingStartDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
-            } catch (ParseException e1) {
-                e1.printStackTrace();
+            if (!date.isEmpty() && check == true) {
+                try {
+                    imagingStartDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "You must have entered a wrong date value.", null, JOptionPane.ERROR_MESSAGE);
+                }
             }
 
-            boolean check = true;
-            if (organism.isEmpty() || experiment.isEmpty() || seed.isEmpty()) {
+            if (check == true && (organism.isEmpty() || experiment.isEmpty() || seed.isEmpty())) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "You must have entered a wrong organism or experiment or seed value.", null, JOptionPane.ERROR_MESSAGE);
-            } else if (check == true && !seed.substring(0, 1).equals("p")) {
+            }
+            if (check == true && !seed.substring(0, 1).equals("p")) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Seed should start with letter 'p'.", null, JOptionPane.ERROR_MESSAGE);
-            } else if (check == true && this.mdf.checkSeedExists(organism, experiment, seed) == true) {
+            }
+            if (check == true && this.mdf.checkSeedExists(organism, experiment, seed) == true) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "This seed is already added.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else if (check == true) {
+            }
+            if (check == true) {
                 this.mdf.insertSeed(organism, experiment, seed, genotypeID, dryshoot, dryroot, wetshoot, wetroot, schamber, imagingIntervalUnit, description,
                         imagingStartDate);
                 JOptionPane.showMessageDialog(null, "The seed is added to database successfully.", null, JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             }
         }
-
     }
 
     /**

@@ -133,76 +133,108 @@ public class EditSeedFrame extends JDialog implements ActionListener {
             String descriptionNew = descriptionField.getText();
             String dateNew = imagingStartDateField.getText();
             Date imagingStartDateNew = null;
-            try {
-                imagingStartDateNew = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateNew);
-            } catch (ParseException e1) {
-                e1.printStackTrace();
+
+            int genotypeNewID = -1;
+            if (!genotypeNew.equals("None")) {
+                Result<Record> genotypeRecord3 = this.mdf.findGenotypeID(genotypeNew, this.selectedOrganism);
+                Record r3 = genotypeRecord3.get(0);
+                genotypeNewID = (int) r3.getValue("genotype_id");
+            }
+            boolean check = true;
+
+            if (seedNew.isEmpty()) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "Seed value should not be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
 
-            boolean check = true;
-            if ((!seedNew.substring(0, 1).equals("p")) ||
-                    !(this.mdf.isNumeric(dryshootNew) || dryshootNew.isEmpty() || dryshootNew == null) ||
-                    !(this.mdf.isNumeric(dryrootNew) || dryrootNew.isEmpty() || dryrootNew == null) ||
-                    !(this.mdf.isNumeric(wetshootNew) || wetshootNew.isEmpty() || wetshootNew == null) ||
-                    !(this.mdf.isNumeric(wetrootNew) || wetrootNew.isEmpty() || wetrootNew == null)) {
+            if (check == true && !seedNew.substring(0, 1).equals("p")) {
                 check = false;
-                JOptionPane.showMessageDialog(null, "Some values are not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Seed value should start with 'p'.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
 
-            } else if (check == true) {
+            if (check == true && !dateNew.isEmpty()) {
+                try {
+                    imagingStartDateNew = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateNew);
+                } catch (ParseException e1) {
+                    e1.printStackTrace();
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "Date value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+            Double dryshootNewD = null;
+            Double dryrootNewD = null;
+            Double wetshootNewD = null;
+            Double wetrootNewD = null;
+            String strchamberNewD = "";
+
+            if (check == true && !dryshootNew.isEmpty() && dryshootNew != null) {
+                try {
+                    dryshootNewD = Double.parseDouble(dryshootNew);
+                } catch (NumberFormatException nfe) {
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "Dryshoot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if (check == true && !dryrootNew.isEmpty() && dryrootNew != null) {
+                try {
+                    dryrootNewD = Double.parseDouble(dryrootNew);
+                } catch (NumberFormatException nfe) {
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "Dryroot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if (check == true && !wetshootNew.isEmpty() && wetshootNew != null) {
+                try {
+                    wetshootNewD = Double.parseDouble(wetshootNew);
+                } catch (NumberFormatException nfe) {
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "Wetshoot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if (check == true && !wetrootNew.isEmpty() && wetrootNew != null) {
+                try {
+                    wetrootNewD = Double.parseDouble(wetrootNew);
+                } catch (NumberFormatException nfe) {
+                    check = false;
+                    JOptionPane.showMessageDialog(null, "Wetroot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if (check == true && !schamberField.getText().isEmpty() && schamberField.getText() != null) {
+                strchamberNewD = schamberField.getText();
+            }
+
+            if (check == true) {
                 File originalImagesOld = new File(this.baseDir + File.separator + "original_images" + File.separator +
                         this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedOld);
                 File processedImagesOld = new File(this.baseDir + File.separator + "processed_images" + File.separator +
-                        this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedOld);
+                            this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedOld);
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator +
-                        this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedNew);
+                            this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedNew);
                 try {
-                    if (originalImagesOld.exists() && !seedOld.equals(seedNew)) {
+                    if (originalImagesOld.exists() && !seedOld.equals(seedNew))
+                    {
                         FileUtil.renameDirWithPrivileges(originalImagesOld, seedNew, this.dirRenameApp);
                     }
-                    if (processedImagesOld.exists() && !seedOld.equals(seedNew)) {
+                    if (processedImagesOld.exists() && !seedOld.equals(seedNew))
+                    {
                         FileUtil.renameFile(processedImagesOld, processedImagesNew);
-                    }
-                    Double dryshootNewD = null;
-                    Double dryrootNewD = null;
-                    Double wetshootNewD = null;
-                    Double wetrootNewD = null;
-                    String strchamberNewD = "";
-                    if (!dryshootField.getText().isEmpty() && dryshootField.getText() != null) {
-                        dryshootNewD = Double.valueOf(dryshootField.getText());
-                    }
-                    if (!dryrootField.getText().isEmpty() && dryrootField.getText() != null) {
-                        dryrootNewD = Double.valueOf(dryrootField.getText());
-                    }
-                    if (!wetshootField.getText().isEmpty() && wetshootField.getText() != null) {
-                        wetshootNewD = Double.valueOf(wetshootField.getText());
-                    }
-                    if (!wetrootField.getText().isEmpty() && wetrootField.getText() != null) {
-                        wetrootNewD = Double.valueOf(wetrootField.getText());
-                    }
-                    if (!schamberField.getText().isEmpty() && schamberField.getText() != null) {
-                        strchamberNewD = schamberField.getText();
-                    }
-
-                    int genotypeNewID = -1;
-                    if (!genotypeNew.equals("None")) {
-                        Result<Record> genotypeRecord3 = this.mdf.findGenotypeID(genotypeNew, this.selectedOrganism);
-                        Record r3 = genotypeRecord3.get(0);
-                        genotypeNewID = (int) r3.getValue("genotype_id");
                     }
 
                     this.mdf.updateSeed(this.seedOld, this.selectedOrganism, this.selectedExperiment, this.seedNew, genotypeNewID,
-                            dryshootNewD, dryrootNewD, wetshootNewD, wetrootNewD, strchamberNewD, imagingIntervalUnitNew, descriptionNew,
-                            imagingStartDateNew);
+                                dryshootNewD, dryrootNewD, wetshootNewD, wetrootNewD, strchamberNewD, imagingIntervalUnitNew,
+                            descriptionNew, imagingStartDateNew);
                     firePropertyChange("getall", null, null);
                     JOptionPane.showMessageDialog(null, "This seed is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Seed is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    } catch (Exception e1)
+                    {
+                        e1.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Seed is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                    this.dispose();
                 }
-
-                this.dispose();
             }
-        } else if (e.getSource() == cancelButton) {
+            else if (e.getSource() == cancelButton) {
             this.dispose();
         }
     }
@@ -382,17 +414,13 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer13, gbc);
         saveButton = new JButton();
-        saveButton.setHideActionText(false);
-        saveButton.setPreferredSize(new Dimension(90, 35));
         saveButton.setText("Save");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 24;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.insets = new Insets(0, 110, 0, 110);
+        gbc.anchor = GridBagConstraints.EAST;
         panel1.add(saveButton, gbc);
         cancelButton = new JButton();
-        cancelButton.setPreferredSize(new Dimension(90, 35));
         cancelButton.setText("Cancel");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;

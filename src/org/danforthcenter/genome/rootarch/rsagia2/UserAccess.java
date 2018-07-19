@@ -37,7 +37,7 @@ public class UserAccess
         }
         catch (Exception e)
         {
-            throw new UserAccessException("Could not get user name from system");
+            throw new UserAccessException("Could not get username from system");
         }
 
         return username;
