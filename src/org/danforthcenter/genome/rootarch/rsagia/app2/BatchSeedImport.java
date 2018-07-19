@@ -9,6 +9,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -24,10 +26,11 @@ public class BatchSeedImport extends JFrame implements ActionListener {
     private JButton browseButton;
     private JButton uploadCSVFileButton;
     private JPanel panel1;
+    private JLabel clickableLabel;
     private JFileChooser fileChooser;
     private MetadataDBFunctions mdf;
 
-    public BatchSeedImport() {
+    public BatchSeedImport(final File baseDir) {
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
@@ -38,6 +41,21 @@ public class BatchSeedImport extends JFrame implements ActionListener {
         FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV File", "csv");
         fileChooser.addChoosableFileFilter(filter);
         fileChooser.setFileFilter(filter);
+
+        clickableLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        clickableLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                try {
+                    Desktop.getDesktop().open(
+                            new File(baseDir + File.separator + "rsa_gia_seed.csv"));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+
         this.browseButton.addActionListener(this);
         this.uploadCSVFileButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
@@ -156,15 +174,15 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                             try {
                                                 imagingStartDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
                                                 if (imagingStartDate.equals(null)) {
+                                                    check = false;
                                                     JOptionPane.showMessageDialog(null, "The date you entered should be in yyyy-MM-dd_HH:mm:ss format.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                                     this.dispose();
-                                                    check = false;
                                                 }
                                             } catch (ParseException e1) {
+                                                e1.printStackTrace();
+                                                check = false;
                                                 JOptionPane.showMessageDialog(null, "The date you entered should be in yyyy-MM-dd_HH:mm:ss format.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                                 this.dispose();
-                                                check = false;
-                                                e1.printStackTrace();
                                             }
                                         }
                                         if (!mdf.checkSeedExists(organism, experiment, seed)) {
@@ -172,7 +190,6 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                                 if (check == true) {
                                                     mdf.insertSeed(organism, experiment, seed, genotypeID, dry_shoot, dry_root, wet_shoot, wet_root,
                                                             str_chamber, imagingUnit, description, imagingStartDate);
-                                                    //firePropertyChange("getall", false, true);
                                                 }
                                             } catch (Exception e2) {
                                                 JOptionPane.showMessageDialog(null, "The values you entered are in wrong format.", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -185,7 +202,6 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                                 if (check == true) {
                                                     mdf.updateSeed(seed, organism, experiment, seed, genotypeID, dry_shoot, dry_root, wet_shoot, wet_root,
                                                             str_chamber, imagingUnit, description, imagingStartDate);
-                                                    //firePropertyChange("getall", false, true);
                                                 }
                                             } catch (Exception e2) {
                                                 JOptionPane.showMessageDialog(null, "The values you entered are in wrong format.", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -194,9 +210,9 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                             }
                                         }
                                     } else {
+                                        check = false;
                                         JOptionPane.showMessageDialog(null, "The organism and experiment pair you entered is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                         this.dispose();
-                                        check = false;
                                     }
                                 } else {
                                     if (organism.isEmpty()) {
@@ -204,20 +220,21 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                         JOptionPane.showMessageDialog(null, "The organism value should not be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                         this.dispose();
                                     } else {
+                                        check = false;
                                         JOptionPane.showMessageDialog(null, "The organism you entered is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                         this.dispose();
-                                        check = false;
                                     }
                                 }
                             } else {
+                                check = false;
                                 JOptionPane.showMessageDialog(null, "There should be headings in first row.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                 this.dispose();
-                                check = false;
                             }
                         }
                     }
                     if (check == true) {
                         JOptionPane.showMessageDialog(null, "The seeds are saved", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                        firePropertyChange("getall", null, null);
                         this.dispose();
                     }
                 } catch (IOException e1) {
@@ -271,6 +288,14 @@ public class BatchSeedImport extends JFrame implements ActionListener {
         gbc.gridy = 1;
         gbc.insets = new Insets(10, 0, 10, 0);
         panel1.add(uploadCSVFileButton, gbc);
+        clickableLabel = new JLabel();
+        clickableLabel.setForeground(new Color(-16776961));
+        clickableLabel.setText("Example CSV file");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel1.add(clickableLabel, gbc);
     }
 
     /**
