@@ -76,9 +76,10 @@ public class MainFrame extends javax.swing.JFrame implements
             e.printStackTrace();
         }
         if (cfdb != null) {
-            riss = RsaImageSet_old.getAll(baseDir, ism, speciesFilter,
-                    experimentFilter, plantFilter, imagingDayFilter,
-                    imagingDayPlant_Filter);
+            ArrayList<StringPairFilter> emptyFilter = new ArrayList<>();
+            riss = RsaImageSet_old.getAll(baseDir, ism, emptyFilter,
+                    emptyFilter, emptyFilter, emptyFilter,
+                    emptyFilter);
             cfdb.refillAllTables(riss, am);
             System.exit(0);
         }
