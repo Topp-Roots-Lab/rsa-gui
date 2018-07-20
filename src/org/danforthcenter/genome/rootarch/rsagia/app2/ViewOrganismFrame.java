@@ -36,7 +36,7 @@ public class ViewOrganismFrame extends JDialog implements ActionListener {
             textField1.setText((String) organismRecord.getValue(0, "organism_name"));
             textField2.setText((String) organismRecord.getValue(0, "species"));
             textField3.setText((String) organismRecord.getValue(0, "subspecies"));
-            textField4.setText((String) organismRecord.getValue(0, "notes"));
+            textField4.setText((String) organismRecord.getValue(0, "description"));
             orgCodeField.setText((String) organismRecord.getValue(0, "species_code"));
 
 
@@ -109,7 +109,7 @@ public class ViewOrganismFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer4, gbc);
         final JLabel label3 = new JLabel();
-        label3.setText("Notes:");
+        label3.setText("Description:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 8;

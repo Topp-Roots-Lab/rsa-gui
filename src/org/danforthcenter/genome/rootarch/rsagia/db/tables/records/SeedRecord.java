@@ -30,7 +30,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SeedRecord extends UpdatableRecordImpl<SeedRecord> implements Record12<Integer, Integer, String, Integer, Double, Double, Double, Double, String, String, SeedImagingIntervalUnit, Timestamp> {
 
-    private static final long serialVersionUID = 364023265;
+    private static final long serialVersionUID = 918621513;
 
     /**
      * Setter for <code>rsa_gia.seed.seed_id</code>.
@@ -145,16 +145,16 @@ public class SeedRecord extends UpdatableRecordImpl<SeedRecord> implements Recor
     }
 
     /**
-     * Setter for <code>rsa_gia.seed.str_chamber_row_column</code>.
+     * Setter for <code>rsa_gia.seed.sterilization_chamber</code>.
      */
-    public void setStrChamberRowColumn(String value) {
+    public void setSterilizationChamber(String value) {
         set(8, value);
     }
 
     /**
-     * Getter for <code>rsa_gia.seed.str_chamber_row_column</code>.
+     * Getter for <code>rsa_gia.seed.sterilization_chamber</code>.
      */
-    public String getStrChamberRowColumn() {
+    public String getSterilizationChamber() {
         return (String) get(8);
     }
 
@@ -301,7 +301,7 @@ public class SeedRecord extends UpdatableRecordImpl<SeedRecord> implements Recor
      */
     @Override
     public Field<String> field9() {
-        return Seed.SEED.STR_CHAMBER_ROW_COLUMN;
+        return Seed.SEED.STERILIZATION_CHAMBER;
     }
 
     /**
@@ -397,7 +397,7 @@ public class SeedRecord extends UpdatableRecordImpl<SeedRecord> implements Recor
      */
     @Override
     public String component9() {
-        return getStrChamberRowColumn();
+        return getSterilizationChamber();
     }
 
     /**
@@ -493,7 +493,7 @@ public class SeedRecord extends UpdatableRecordImpl<SeedRecord> implements Recor
      */
     @Override
     public String value9() {
-        return getStrChamberRowColumn();
+        return getSterilizationChamber();
     }
 
     /**
@@ -597,7 +597,7 @@ public class SeedRecord extends UpdatableRecordImpl<SeedRecord> implements Recor
      */
     @Override
     public SeedRecord value9(String value) {
-        setStrChamberRowColumn(value);
+        setSterilizationChamber(value);
         return this;
     }
 
@@ -662,7 +662,7 @@ public class SeedRecord extends UpdatableRecordImpl<SeedRecord> implements Recor
     /**
      * Create a detached, initialised SeedRecord
      */
-    public SeedRecord(Integer seedId, Integer experimentId, String seedName, Integer genotypeId, Double dryShoot, Double dryRoot, Double wetShoot, Double wetRoot, String strChamberRowColumn, String description, SeedImagingIntervalUnit imagingIntervalUnit, Timestamp imagingStartDate) {
+    public SeedRecord(Integer seedId, Integer experimentId, String seedName, Integer genotypeId, Double dryShoot, Double dryRoot, Double wetShoot, Double wetRoot, String sterilizationChamber, String description, SeedImagingIntervalUnit imagingIntervalUnit, Timestamp imagingStartDate) {
         super(Seed.SEED);
 
         set(0, seedId);
@@ -673,7 +673,7 @@ public class SeedRecord extends UpdatableRecordImpl<SeedRecord> implements Recor
         set(5, dryRoot);
         set(6, wetShoot);
         set(7, wetRoot);
-        set(8, strChamberRowColumn);
+        set(8, sterilizationChamber);
         set(9, description);
         set(10, imagingIntervalUnit);
         set(11, imagingStartDate);

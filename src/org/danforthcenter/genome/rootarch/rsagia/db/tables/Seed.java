@@ -41,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Seed extends TableImpl<SeedRecord> {
 
-    private static final long serialVersionUID = 402411795;
+    private static final long serialVersionUID = -596280839;
 
     /**
      * The reference instance of <code>rsa_gia.seed</code>
@@ -97,9 +97,9 @@ public class Seed extends TableImpl<SeedRecord> {
     public final TableField<SeedRecord, Double> WET_ROOT = createField("wet_root", org.jooq.impl.SQLDataType.FLOAT, this, "");
 
     /**
-     * The column <code>rsa_gia.seed.str_chamber_row_column</code>.
+     * The column <code>rsa_gia.seed.sterilization_chamber</code>.
      */
-    public final TableField<SeedRecord, String> STR_CHAMBER_ROW_COLUMN = createField("str_chamber_row_column", org.jooq.impl.SQLDataType.VARCHAR(10), this, "");
+    public final TableField<SeedRecord, String> STERILIZATION_CHAMBER = createField("sterilization_chamber", org.jooq.impl.SQLDataType.VARCHAR(10), this, "");
 
     /**
      * The column <code>rsa_gia.seed.description</code>.

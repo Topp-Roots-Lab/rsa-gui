@@ -70,10 +70,10 @@ public class ViewSeedFrame extends JDialog implements ActionListener {
         } else {
             wetrootField.setText(Double.toString((Double) r.getValue("wet_root")));
         }
-        if (r.getValue("str_chamber_row_column") == null) {
+        if (r.getValue("sterilization_chamber") == null) {
             schamberField.setText("");
         } else {
-            schamberField.setText(String.valueOf(r.getValue("str_chamber_row_column")));
+            schamberField.setText(String.valueOf(r.getValue("sterilization_chamber")));
         }
         imagingIntervalUnitField.setText((String) r.getValue("imaging_interval_unit"));
         descriptionField.setText((String) r.getValue("description"));

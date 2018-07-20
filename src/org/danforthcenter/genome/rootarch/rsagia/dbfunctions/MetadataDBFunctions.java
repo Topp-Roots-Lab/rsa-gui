@@ -76,7 +76,7 @@ public class MetadataDBFunctions {
         return organismRecord;
     }
 
-    public void updateOrganism(String organismNameNew, String code, String speciesNew, String subspeciesNew, String notesNew,
+    public void updateOrganism(String organismNameNew, String code, String speciesNew, String subspeciesNew, String descriptionNew,
                                String selectedOrganism) {
         if (speciesNew.isEmpty()) {
             speciesNew = "NULL";
@@ -88,13 +88,13 @@ public class MetadataDBFunctions {
         } else {
             subspeciesNew = "'" + subspeciesNew + "'";
         }
-        if (notesNew.isEmpty()) {
-            notesNew = "NULL";
+        if (descriptionNew.isEmpty()) {
+            descriptionNew = "NULL";
         } else {
-            notesNew = "'" + notesNew + "'";
+            descriptionNew = "'" + descriptionNew + "'";
         }
         String query = "update organism set organism_name='" + organismNameNew + "',species_code='" + code +
-                "',species=" + speciesNew + ",subspecies=" + subspeciesNew + ",notes=" + notesNew
+                "',species=" + speciesNew + ",subspecies=" + subspeciesNew + ",description=" + descriptionNew
                 + " where organism_name='" + selectedOrganism + "'";
         ConnectDb.getDslContext().execute(query);
     }
@@ -104,7 +104,7 @@ public class MetadataDBFunctions {
         return experimentRecord;
     }
 
-    public void insertNewOrganism(String organism, String speciesCode, String species, String subspecies, String notes) {
+    public void insertNewOrganism(String organism, String speciesCode, String species, String subspecies, String description) {
         if (species.isEmpty()) {
             species = "NULL";
         } else {
@@ -115,13 +115,13 @@ public class MetadataDBFunctions {
         } else {
             subspecies = "'" + subspecies + "'";
         }
-        if (notes.isEmpty()) {
-            notes = "NULL";
+        if (description.isEmpty()) {
+            description = "NULL";
         } else {
-            notes = "'" + notes + "'";
+            description = "'" + description + "'";
         }
 
-        String query = "insert into organism values ('" + organism + "','" + speciesCode + "'," + species + "," + subspecies + "," + notes + ")";
+        String query = "insert into organism values ('" + organism + "','" + speciesCode + "'," + species + "," + subspecies + "," + description + ")";
         ConnectDb.getDslContext().execute(query);
     }
 
@@ -311,7 +311,7 @@ public class MetadataDBFunctions {
         }
 
         String query = "update seed set seed_name='" + seed + "',genotype_id=" + genotypeString + ",dry_shoot=" + dryshoot + ",dry_root=" + dryroot +
-                ",wet_shoot=" + wetshoot + ",wet_root=" + wetroot + ",str_chamber_row_column=" + sterilizationChamber +
+                ",wet_shoot=" + wetshoot + ",wet_root=" + wetroot + ",sterilization_chamber=" + sterilizationChamber +
                 ",imaging_interval_unit='" + imagingIntervalUnit + "',description=" + description + ",imaging_start_date=" + imagingStartDateString +
                 " where experiment_id =" + expID + " and seed_name ='" + oldSeed + "'";
         ConnectDb.getDslContext().execute(query);

@@ -21,7 +21,7 @@ public class EditOrganismFrame extends JDialog implements
     private JPanel panel1;
     private JTextField speciesField;
     private JTextField subspeciesField;
-    private JTextField notesField;
+    private JTextField descriptionField;
     private JButton cancelButton;
     private JTextField orgCodeField;
     private MetadataDBFunctions mdf;
@@ -50,8 +50,8 @@ public class EditOrganismFrame extends JDialog implements
         speciesField.setText(species);
         String subspecies = (String) organismRecord.getValue(0, "subspecies");
         subspeciesField.setText(subspecies);
-        String notes = (String) organismRecord.getValue(0, "notes");
-        notesField.setText(notes);
+        String description = (String) organismRecord.getValue(0, "description");
+        descriptionField.setText(description);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class EditOrganismFrame extends JDialog implements
             String organismCodeNew = orgCodeField.getText();
             String speciesNew = speciesField.getText();
             String subspeciesNew = subspeciesField.getText();
-            String notesNew = notesField.getText();
+            String descriptionNew = descriptionField.getText();
             boolean check = true;
             if (organismCodeNew.length() != 2 || !organismCodeNew.substring(0, 1).toUpperCase().equals(organismCodeNew.substring(0, 1)) ||
                     !organismCodeNew.substring(1, 2).toLowerCase().equals(organismCodeNew.substring(1, 2)) || mdf.isAlpha(organismNameNew) == false ||
@@ -85,7 +85,7 @@ public class EditOrganismFrame extends JDialog implements
                     if (processedImagesOld.exists() && !selectedOrganism.equals(organismNameNew)) {
                         FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
-                    this.mdf.updateOrganism(organismNameNew, organismCodeNew, speciesNew, subspeciesNew, notesNew, this.selectedOrganism);
+                    this.mdf.updateOrganism(organismNameNew, organismCodeNew, speciesNew, subspeciesNew, descriptionNew, this.selectedOrganism);
                     firePropertyChange("getall", null, null);
                     JOptionPane.showMessageDialog(null, "Organism is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
 
@@ -191,7 +191,7 @@ public class EditOrganismFrame extends JDialog implements
         final JLabel label4 = new JLabel();
         Font label4Font = this.$$$getFont$$$(null, -1, 14, label4.getFont());
         if (label4Font != null) label4.setFont(label4Font);
-        label4.setText("Notes:");
+        label4.setText("Description:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 10;
@@ -204,13 +204,13 @@ public class EditOrganismFrame extends JDialog implements
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(subspeciesField, gbc);
-        notesField = new JTextField();
+        descriptionField = new JTextField();
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 10;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(notesField, gbc);
+        panel1.add(descriptionField, gbc);
         saveButton = new JButton();
         Font saveButtonFont = this.$$$getFont$$$(null, -1, 14, saveButton.getFont());
         if (saveButtonFont != null) saveButton.setFont(saveButtonFont);

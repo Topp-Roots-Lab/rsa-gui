@@ -14,7 +14,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
     private JButton addButton;
     private JTextField speciesField;
     private JTextField subspeciesField;
-    private JTextField notesField;
+    private JTextField descriptionField;
     private MetadataDBFunctions mdf;
 
     public AddOrganismFrame() {
@@ -41,7 +41,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
             String organismCode = organismCodeField.getText();
             String species = speciesField.getText();
             String subspecies = subspeciesField.getText();
-            String notes = notesField.getText();
+            String description = descriptionField.getText();
             boolean check = true;
             if (organismCode.length() != 2 || !organismCode.substring(0, 1).toUpperCase().equals(organismCode.substring(0, 1)) ||
                     !organismCode.substring(1, 2).toLowerCase().equals(organismCode.substring(1, 2)) || mdf.isAlpha(organismName) == false ||
@@ -55,7 +55,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
                 check = false;
                 JOptionPane.showMessageDialog(null, "This species code is already added.", "ERROR", JOptionPane.ERROR_MESSAGE);
             } else if (check == true) {
-                this.mdf.insertNewOrganism(organismName, organismCode, species, subspecies, notes);
+                this.mdf.insertNewOrganism(organismName, organismCode, species, subspecies, description);
                 JOptionPane.showMessageDialog(null, "Organism " + organismName + " is added successfully.", null, JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             }
@@ -129,14 +129,14 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(subspeciesField, gbc);
-        notesField = new JTextField();
-        notesField.setPreferredSize(new Dimension(120, 25));
+        descriptionField = new JTextField();
+        descriptionField.setPreferredSize(new Dimension(120, 25));
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(notesField, gbc);
+        panel1.add(descriptionField, gbc);
         final JLabel label3 = new JLabel();
         label3.setText("Species:");
         gbc = new GridBagConstraints();
@@ -154,7 +154,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         gbc.insets = new Insets(10, 0, 10, 0);
         panel1.add(label4, gbc);
         final JLabel label5 = new JLabel();
-        label5.setText("Notes:");
+        label5.setText("Description:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;

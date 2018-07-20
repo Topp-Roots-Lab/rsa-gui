@@ -27,7 +27,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OrganismRecord extends UpdatableRecordImpl<OrganismRecord> implements Record5<String, String, String, String, String> {
 
-    private static final long serialVersionUID = -1883655126;
+    private static final long serialVersionUID = 417570464;
 
     /**
      * Setter for <code>rsa_gia.organism.organism_name</code>.
@@ -86,16 +86,16 @@ public class OrganismRecord extends UpdatableRecordImpl<OrganismRecord> implemen
     }
 
     /**
-     * Setter for <code>rsa_gia.organism.notes</code>.
+     * Setter for <code>rsa_gia.organism.description</code>.
      */
-    public void setNotes(String value) {
+    public void setDescription(String value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>rsa_gia.organism.notes</code>.
+     * Getter for <code>rsa_gia.organism.description</code>.
      */
-    public String getNotes() {
+    public String getDescription() {
         return (String) get(4);
     }
 
@@ -168,7 +168,7 @@ public class OrganismRecord extends UpdatableRecordImpl<OrganismRecord> implemen
      */
     @Override
     public Field<String> field5() {
-        return Organism.ORGANISM.NOTES;
+        return Organism.ORGANISM.DESCRIPTION;
     }
 
     /**
@@ -208,7 +208,7 @@ public class OrganismRecord extends UpdatableRecordImpl<OrganismRecord> implemen
      */
     @Override
     public String component5() {
-        return getNotes();
+        return getDescription();
     }
 
     /**
@@ -248,7 +248,7 @@ public class OrganismRecord extends UpdatableRecordImpl<OrganismRecord> implemen
      */
     @Override
     public String value5() {
-        return getNotes();
+        return getDescription();
     }
 
     /**
@@ -292,7 +292,7 @@ public class OrganismRecord extends UpdatableRecordImpl<OrganismRecord> implemen
      */
     @Override
     public OrganismRecord value5(String value) {
-        setNotes(value);
+        setDescription(value);
         return this;
     }
 
@@ -323,13 +323,13 @@ public class OrganismRecord extends UpdatableRecordImpl<OrganismRecord> implemen
     /**
      * Create a detached, initialised OrganismRecord
      */
-    public OrganismRecord(String organismName, String speciesCode, String species, String subspecies, String notes) {
+    public OrganismRecord(String organismName, String speciesCode, String species, String subspecies, String description) {
         super(Organism.ORGANISM);
 
         set(0, organismName);
         set(1, speciesCode);
         set(2, species);
         set(3, subspecies);
-        set(4, notes);
+        set(4, description);
     }
 }

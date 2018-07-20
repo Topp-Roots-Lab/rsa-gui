@@ -114,9 +114,9 @@ public class FillDb {
         if (ss != null && ss.length > 0) {
             for (File s : ss) {
                 String species_name = s.getName();
-                dslContext.insertInto(ORGANISM, ORGANISM.ORGANISM_NAME, ORGANISM.SPECIES_CODE, ORGANISM.SPECIES, ORGANISM.SUBSPECIES, ORGANISM.NOTES)
+                dslContext.insertInto(ORGANISM, ORGANISM.ORGANISM_NAME, ORGANISM.SPECIES_CODE, ORGANISM.SPECIES, ORGANISM.SUBSPECIES, ORGANISM.DESCRIPTION)
                         .values(species_name, organismToOrgCodeMap.get(species_name), null, null, null).execute();
-                //dslContext.execute("insert into organism(organism_name,species,subspecies,notes) values('" + species + "','species',NULL,NULL)");
+                //dslContext.execute("insert into organism(organism_name,species,subspecies,description) values('" + species + "','species',NULL,NULL)");
                 File[] exps = s.listFiles();
                 if (exps != null && exps.length > 0) {
                     for (File exp : exps) {
@@ -128,7 +128,7 @@ public class FillDb {
                         if (seeds != null && seeds.length > 0) {
                             for (File seed : seeds) {
                                 String seed_name = seed.getName();
-                                dslContext.insertInto(SEED, SEED.SEED_ID, SEED.EXPERIMENT_ID, SEED.SEED_NAME, SEED.GENOTYPE_ID, SEED.DRY_SHOOT, SEED.DRY_ROOT, SEED.WET_SHOOT, SEED.WET_ROOT, SEED.STR_CHAMBER_ROW_COLUMN, SEED.IMAGING_INTERVAL_UNIT, SEED.DESCRIPTION, SEED.IMAGING_START_DATE)
+                                dslContext.insertInto(SEED, SEED.SEED_ID, SEED.EXPERIMENT_ID, SEED.SEED_NAME, SEED.GENOTYPE_ID, SEED.DRY_SHOOT, SEED.DRY_ROOT, SEED.WET_SHOOT, SEED.WET_ROOT, SEED.STERILIZATION_CHAMBER, SEED.IMAGING_INTERVAL_UNIT, SEED.DESCRIPTION, SEED.IMAGING_START_DATE)
                                         .values(i, e, seed_name, null, null, null, null, null, null, SeedImagingIntervalUnit.day, null, null).execute();
                                 File[] timeValues = seed.listFiles();
                                 if (timeValues != null && timeValues.length > 0) {

@@ -103,10 +103,10 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         } else {
             wetrootField.setText(Double.toString((Double) r.getValue("wet_root")));
         }
-        if (r.getValue("str_chamber_row_column") == null) {
+        if (r.getValue("sterilization_chamber") == null) {
             schamberField.setText("");
         } else {
-            schamberField.setText((String) r.getValue("str_chamber_row_column"));
+            schamberField.setText((String) r.getValue("sterilization_chamber"));
         }
         DefaultComboBoxModel units = new DefaultComboBoxModel(new String[]{"hour", "day"});
         units.setSelectedItem(r.getValue("imaging_interval_unit"));
