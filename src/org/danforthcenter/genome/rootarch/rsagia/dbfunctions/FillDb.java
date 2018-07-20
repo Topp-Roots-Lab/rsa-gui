@@ -114,9 +114,9 @@ public class FillDb {
         if (ss != null && ss.length > 0) {
             for (File s : ss) {
                 String species_name = s.getName();
-                dslContext.insertInto(ORGANISM, ORGANISM.ORGANISM_NAME, ORGANISM.SPECIES_CODE, ORGANISM.SPECIES, ORGANISM.SUBSPECIES, ORGANISM.VARIETY)
+                dslContext.insertInto(ORGANISM, ORGANISM.ORGANISM_NAME, ORGANISM.SPECIES_CODE, ORGANISM.SPECIES, ORGANISM.SUBSPECIES, ORGANISM.NOTES)
                         .values(species_name, organismToOrgCodeMap.get(species_name), null, null, null).execute();
-                //dslContext.execute("insert into organism(organism_name,species,subspecies,variety) values('" + species + "','species',NULL,NULL)");
+                //dslContext.execute("insert into organism(organism_name,species,subspecies,notes) values('" + species + "','species',NULL,NULL)");
                 File[] exps = s.listFiles();
                 if (exps != null && exps.length > 0) {
                     for (File exp : exps) {

@@ -86,7 +86,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text value="Variety:"/>
+          <text value="Notes:"/>
         </properties>
       </component>
       <component id="2b6ea" class="javax.swing.JTextField" binding="subspeciesField">
@@ -98,7 +98,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="f6655" class="javax.swing.JTextField" binding="varietyField">
+      <component id="f6655" class="javax.swing.JTextField" binding="notesField">
         <constraints>
           <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -159,6 +159,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
+          <font size="14"/>
           <text value="Code:"/>
         </properties>
       </component>

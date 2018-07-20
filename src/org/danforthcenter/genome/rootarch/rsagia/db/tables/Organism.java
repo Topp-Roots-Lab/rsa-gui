@@ -37,7 +37,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Organism extends TableImpl<OrganismRecord> {
 
-    private static final long serialVersionUID = -2000350650;
+    private static final long serialVersionUID = 642048863;
 
     /**
      * The reference instance of <code>rsa_gia.organism</code>
@@ -73,9 +73,9 @@ public class Organism extends TableImpl<OrganismRecord> {
     public final TableField<OrganismRecord, String> SUBSPECIES = createField("subspecies", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>rsa_gia.organism.variety</code>.
+     * The column <code>rsa_gia.organism.notes</code>.
      */
-    public final TableField<OrganismRecord, String> VARIETY = createField("variety", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
+    public final TableField<OrganismRecord, String> NOTES = createField("notes", org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
      * Create a <code>rsa_gia.organism</code> table reference

@@ -57,7 +57,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Variety:"/>
+          <text value="Notes:"/>
         </properties>
       </component>
       <component id="cbb05" class="javax.swing.JTextField" binding="textField1" default-binding="true">

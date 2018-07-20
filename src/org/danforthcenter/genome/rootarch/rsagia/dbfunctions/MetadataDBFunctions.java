@@ -76,7 +76,7 @@ public class MetadataDBFunctions {
         return organismRecord;
     }
 
-    public void updateOrganism(String organismNameNew, String code, String speciesNew, String subspeciesNew, String varietyNew,
+    public void updateOrganism(String organismNameNew, String code, String speciesNew, String subspeciesNew, String notesNew,
                                String selectedOrganism) {
         if (speciesNew.isEmpty()) {
             speciesNew = "NULL";
@@ -88,13 +88,13 @@ public class MetadataDBFunctions {
         } else {
             subspeciesNew = "'" + subspeciesNew + "'";
         }
-        if (varietyNew.isEmpty()) {
-            varietyNew = "NULL";
+        if (notesNew.isEmpty()) {
+            notesNew = "NULL";
         } else {
-            varietyNew = "'" + varietyNew + "'";
+            notesNew = "'" + notesNew + "'";
         }
         String query = "update organism set organism_name='" + organismNameNew + "',species_code='" + code +
-                "',species=" + speciesNew + ",subspecies=" + subspeciesNew + ",variety=" + varietyNew
+                "',species=" + speciesNew + ",subspecies=" + subspeciesNew + ",notes=" + notesNew
                 + " where organism_name='" + selectedOrganism + "'";
         ConnectDb.getDslContext().execute(query);
     }
@@ -104,7 +104,7 @@ public class MetadataDBFunctions {
         return experimentRecord;
     }
 
-    public void insertNewOrganism(String organism, String speciesCode, String species, String subspecies, String variety) {
+    public void insertNewOrganism(String organism, String speciesCode, String species, String subspecies, String notes) {
         if (species.isEmpty()) {
             species = "NULL";
         } else {
@@ -115,13 +115,13 @@ public class MetadataDBFunctions {
         } else {
             subspecies = "'" + subspecies + "'";
         }
-        if (variety.isEmpty()) {
-            variety = "NULL";
+        if (notes.isEmpty()) {
+            notes = "NULL";
         } else {
-            variety = "'" + variety + "'";
+            notes = "'" + notes + "'";
         }
 
-        String query = "insert into organism values ('" + organism + "','" + speciesCode + "'," + species + "," + subspecies + "," + variety + ")";
+        String query = "insert into organism values ('" + organism + "','" + speciesCode + "'," + species + "," + subspecies + "," + notes + ")";
         ConnectDb.getDslContext().execute(query);
     }
 
