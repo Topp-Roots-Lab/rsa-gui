@@ -40,6 +40,7 @@ public class MainFrame extends javax.swing.JFrame implements
     protected AdminFrameNew admin;
 
     protected static File baseDir;
+    protected File csvTemplateDir;
     protected File userFile;
 
     protected static final String PROCESSED_IMAGES = "processed_images";
@@ -47,7 +48,7 @@ public class MainFrame extends javax.swing.JFrame implements
     /**
      * Creates new form MainFrame
      */
-    public MainFrame(File baseDir, ISecurityManager ism, ApplicationManager am,
+    public MainFrame(File baseDir, File csvTemplateDir, ISecurityManager ism, ApplicationManager am,
                      ArrayList<StringPairFilter> speciesFilter,
                      ArrayList<StringPairFilter> experimentFilter,
                      ArrayList<StringPairFilter> plantFilter,
@@ -58,6 +59,7 @@ public class MainFrame extends javax.swing.JFrame implements
 
         // System.out.println(this.getClass() + " " + baseDir);
         this.baseDir = baseDir;
+        this.csvTemplateDir = csvTemplateDir;
         this.ism = ism;
         this.am = am;
         riss = RsaImageSet.getAll(baseDir, ism, speciesFilter,
@@ -269,7 +271,7 @@ public class MainFrame extends javax.swing.JFrame implements
             AddGenotypeFrame agf = new AddGenotypeFrame();
             agf.setVisible(true);
         } else if (e.getSource() == this.uploadSeedsCSV) {
-            BatchSeedImport bsi = new BatchSeedImport(baseDir);
+            BatchSeedImport bsi = new BatchSeedImport(csvTemplateDir);
             bsi.addPropertyChangeListener(this);
             bsi.setVisible(true);
         } else if (e.getSource() == this.addUser) {

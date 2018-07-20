@@ -30,7 +30,7 @@ public class BatchSeedImport extends JFrame implements ActionListener {
     private JFileChooser fileChooser;
     private MetadataDBFunctions mdf;
 
-    public BatchSeedImport(final File baseDir) {
+    public BatchSeedImport(final File csvTemplateDir) {
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
@@ -39,8 +39,8 @@ public class BatchSeedImport extends JFrame implements ActionListener {
         this.fileChooser.setDialogTitle("Select CSV File");
         this.fileChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
         FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV File", "csv");
-        fileChooser.addChoosableFileFilter(filter);
-        fileChooser.setFileFilter(filter);
+        this.fileChooser.addChoosableFileFilter(filter);
+        this.fileChooser.setFileFilter(filter);
 
         clickableLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         clickableLabel.addMouseListener(new MouseAdapter() {
@@ -48,8 +48,7 @@ public class BatchSeedImport extends JFrame implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 try {
-                    Desktop.getDesktop().open(
-                            new File(baseDir + File.separator + "rsa_gia_seed.csv"));
+                    Desktop.getDesktop().open(new File(csvTemplateDir, "rsa_gia_seed.csv"));
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

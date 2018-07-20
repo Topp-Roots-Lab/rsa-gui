@@ -232,10 +232,12 @@ public class App {
 
 //            final File f11 = new File("/data/rsa/");
 
+			final File csvTemplateDir = new File(sysProps.getProperty("csv_template_dir"));
+
 			if (UserAccess.getCurrentAccessLevel() != null) {
 				java.awt.EventQueue.invokeLater(new Runnable() {
 					public void run() {
-						new MainFrame(f1, ssm, am, spf1, spf2, spf3, spf4, spf5,
+						new MainFrame(f1, csvTemplateDir, ssm, am, spf1, spf2, spf3, spf4, spf5,
 								uf, cols).setVisible(true);
 					}
 				});
