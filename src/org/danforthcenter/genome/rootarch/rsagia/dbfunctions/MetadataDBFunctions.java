@@ -166,10 +166,7 @@ public class MetadataDBFunctions {
     }
 
     public void insertGenotype(String organism, String genotypeName) {
-        Result<Record> record = ConnectDb.getDslContext().fetch("select max(genotype_id) max from genotype;");
-        int max = (int) record.get(0).get("max");
-        max = max + 1;
-        String query = "insert into genotype values(" + max + ",'" + genotypeName + "','" + organism + "')";
+        String query = "insert into genotype (genotype_name, organism_name) values ('" + genotypeName + "', '" + organism + "')";
         ConnectDb.getDslContext().execute(query);
     }
 
