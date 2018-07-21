@@ -11,6 +11,7 @@ import org.jooq.tools.json.JSONObject;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -370,9 +371,10 @@ public class FillDb {
                             Integer savedConfigID = (int) savedTemplate.get(0).getValue("config_id");
                             savedConfigIDString = savedConfigID.toString();
                         } else {
-                            String path = features.get(2);
+                            String configFileName = features.get(2);
+                            Path configPath = Paths.get(oi.getDir().getAbsolutePath(), configFileName);
                             try {
-                                configContents = "'" + new String(Files.readAllBytes((Paths.get(path)))) + "'";
+                                configContents = "'" + new String(Files.readAllBytes(configPath)) + "'";
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -662,7 +664,7 @@ public class FillDb {
                                     features.add(descriptors);
                                 }
                             }
-                            features.add(configPath);
+                            features.add(configFileName);
                         }
                     }
                 }
