@@ -81,20 +81,20 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                     boolean check = true;
                     for (int i = 1; i < contentsLines.length && check == true; i++) {
                         if (contentsLines.length > 1) {
-                            if (headingArray[0].equals("Order")) {
+                            if (headingArray[0].equals("Organism Name")) {
                                 contentsArray = contentsLines[i].split(",", -1);
-                                String organism = contentsArray[1];
+                                String organism = contentsArray[0];
 
                                 if (mdf.checkOrganismExists(organism)) {
-                                    String experiment = contentsArray[2];
+                                    String experiment = contentsArray[1];
                                     if (experiment.isEmpty()) {
                                         check = false;
                                         JOptionPane.showMessageDialog(null, "The experiment value should not be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                         this.dispose();
                                     } else if (mdf.checkOrgandExpPairExists(organism, experiment)) {
-                                        String seed = contentsArray[3];
+                                        String seed = contentsArray[2];
                                         int genotypeID = -1;
-                                        String genotypeName = contentsArray[4];
+                                        String genotypeName = contentsArray[3];
                                         if (!seed.substring(0, 1).equals("p")) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The seed value should start with 'p'.", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -125,49 +125,49 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                         String str_chamber = null;
 
                                         try {
-                                            dry_shoot = Double.parseDouble(contentsArray[5]);
+                                            dry_shoot = Double.parseDouble(contentsArray[4]);
                                         } catch (Exception e1) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The dry shoot value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
                                         }
                                         try {
-                                            dry_root = Double.parseDouble(contentsArray[6]);
+                                            dry_root = Double.parseDouble(contentsArray[5]);
                                         } catch (Exception e1) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The dry root value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
                                         }
                                         try {
-                                            wet_shoot = Double.parseDouble(contentsArray[7]);
+                                            wet_shoot = Double.parseDouble(contentsArray[6]);
                                         } catch (Exception e1) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The wet shoot value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
                                         }
                                         try {
-                                            wet_root = Double.parseDouble(contentsArray[8]);
+                                            wet_root = Double.parseDouble(contentsArray[7]);
                                         } catch (Exception e1) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The wet root value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
                                         }
                                         try {
-                                            str_chamber = contentsArray[9];
+                                            str_chamber = contentsArray[8];
                                         } catch (Exception e1) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The sterilization chamber value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
                                         }
-                                        String imagingUnit = contentsArray[10];
+                                        String imagingUnit = contentsArray[9];
                                         if (!imagingUnit.equals("day") && !imagingUnit.equals("hour")) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The imaging time point should be either day or hour.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
                                         }
-                                        String description = contentsArray[11];
+                                        String description = contentsArray[10];
                                         Date imagingStartDate = null;
-                                        String date = contentsArray[12];
+                                        String date = contentsArray[11];
                                         if (!date.equals("")) {
                                             date = date.replace("_", " ");
                                             try {
