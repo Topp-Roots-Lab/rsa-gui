@@ -89,7 +89,8 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
             if (check == true && this.mdf.checkOrgandExpPairExists(experimentNew, selectedOrganism)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "This experiment and organism pair already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else if (check == true) {
+            }
+            if (check == true) {
                 File originalImagesOld = new File(this.baseDir + File.separator + "original_images" + File.separator +
                         this.selectedOrganism + File.separator + selectedExperiment);
                 File processedImagesOld = new File(this.baseDir + File.separator + "processed_images" + File.separator +
@@ -105,7 +106,7 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
                         FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
 
-                    this.mdf.updateExperiment(selectedExperiment, experimentNew, desc);
+                    this.mdf.updateExperiment(selectedExperiment, selectedOrganism, experimentNew, desc);
                     firePropertyChange("getall", null, null);
                     JOptionPane.showMessageDialog(null, "This experiment is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e1) {

@@ -55,22 +55,19 @@ public class SelectOrganismFrame extends JDialog implements
             EditOrganismFrame editOrganism = new EditOrganismFrame(selectedOrganism, this.dirRenameApp, this.baseDir);
             editOrganism.addPropertyChangeListener("getall", this);
             editOrganism.setVisible(true);
-
         } else if (e.getSource() == this.viewButton) {
             String selectedOrganism = (String) comboBox1.getSelectedItem();
             ViewOrganismFrame viewOrganism = new ViewOrganismFrame(selectedOrganism);
             viewOrganism.setVisible(true);
-
         }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if (evt.getPropertyName() == "getall") {
+        if (evt.getPropertyName().equals("getall")) {
             loadOrganisms();
             firePropertyChange("getall", null, null);
         }
-
     }
 
     private void createUIComponents() {

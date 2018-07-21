@@ -14,8 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 
-public class EditOrganismFrame extends JDialog implements
-        ActionListener, PropertyChangeListener {
+public class EditOrganismFrame extends JDialog implements ActionListener {
     private JTextField nameField;
     private JButton saveButton;
     private JPanel panel1;
@@ -69,11 +68,12 @@ public class EditOrganismFrame extends JDialog implements
                     organismNameNew.length() == 0) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Organism name or organism code is not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else if (check == true && this.mdf.checkOrgCodeAndOrganismExists(organismNameNew, organismCodeNew, this.selectedOrganism)) {
+            }
+            if (check == true && this.mdf.checkOrgCodeAndOrganismExists(organismNameNew, organismCodeNew, this.selectedOrganism)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Organism already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
-
-            } else if (check == true) {
+            }
+            if (check == true) {
                 File originalImagesOld = new File(this.baseDir + File.separator + "original_images" + File.separator + selectedOrganism);
                 File processedImagesOld = new File(this.baseDir + File.separator + "processed_images" + File.separator + selectedOrganism);
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator + organismNameNew);
@@ -99,15 +99,6 @@ public class EditOrganismFrame extends JDialog implements
         } else if (e.getSource() == cancelButton) {
             this.dispose();
         }
-    }
-
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-
-    }
-
-    private void closeWindow() {
-        dispose();
     }
 
     /**

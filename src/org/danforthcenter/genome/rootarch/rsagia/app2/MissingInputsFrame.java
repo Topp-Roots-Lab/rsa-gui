@@ -68,22 +68,22 @@ public class MissingInputsFrame extends JDialog implements ActionListener, Windo
         ArrayList<RsaImageSet> inputData = this.rsaTable.getInputData();
         for (int i : rowIndexes) {
             RsaImageSet ris = inputData.get(i);
-            if (s == "export") {
+            if (s.equals("export")) {
                 if (!am.getExport().hasRequiredInput(ris, am)) {
                     this.badIndexes.add(i);
                     this.badImageSets.add(ris);
                 }
-            } else if (s == "qc") {
+            } else if (s.equals("qc")) {
                 if (!am.getQc().hasRequiredInput(ris, am)) {
                     this.badIndexes.add(i);
                     this.badImageSets.add(ris);
                 }
-            } else if (s == "qc2") {
+            } else if (s.equals("qc2")) {
                 if (!am.getQc2().hasRequiredInput(ris, am)) {
                     this.badIndexes.add(i);
                     this.badImageSets.add(ris);
                 }
-            } else if (s == "qc3") {
+            } else if (s.equals("qc3")) {
                 if (!am.getQc3().hasRequiredInput(ris, am)) {
                     this.badIndexes.add(i);
                     this.badImageSets.add(ris);

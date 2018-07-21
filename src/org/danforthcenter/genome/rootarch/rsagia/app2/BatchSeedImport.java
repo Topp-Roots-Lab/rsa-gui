@@ -79,9 +79,9 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                     String[] contentsLines = contents.split(System.lineSeparator());
                     String[] headingArray = contentsLines[0].split(",");
                     boolean check = true;
-                    for (int i = 1; i < contentsLines.length && check == true; i++) {
-                        if (contentsLines.length > 1) {
-                            if (headingArray[0].equals("Organism Name")) {
+                    if (headingArray[0].equals("Organism Name")) {
+                        for (int i = 1; i < contentsLines.length && check == true; i++) {
+                            if (!contentsLines[i].isEmpty()) {
                                 contentsArray = contentsLines[i].split(",", -1);
                                 String organism = contentsArray[0];
 
@@ -91,7 +91,8 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                         check = false;
                                         JOptionPane.showMessageDialog(null, "The experiment value should not be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                         this.dispose();
-                                    } else if (mdf.checkOrgandExpPairExists(organism, experiment)) {
+                                    }
+                                    if (check == true && mdf.checkOrgandExpPairExists(organism, experiment)) {
                                         String seed = contentsArray[2];
                                         int genotypeID = -1;
                                         String genotypeName = contentsArray[3];
@@ -99,15 +100,18 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The seed value should start with 'p'.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
-                                        } else if (seed.isEmpty()) {
+                                        }
+                                        if (check == true && seed.isEmpty()) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The seed value should not be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
-                                        } else if (genotypeName.isEmpty()) {
+                                        }
+                                        if (check == true && genotypeName.isEmpty()) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The genotype value should not be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
-                                        } else if (!genotypeName.equals("None")) {
+                                        }
+                                        if (check == true && !genotypeName.equals("None")) {
                                             Result<Record> genotypeRecord = this.mdf.findGenotypeID(genotypeName, organism);
                                             try {
                                                 Record r = genotypeRecord.get(0);
@@ -123,44 +127,53 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                         double wet_shoot = 0;
                                         double wet_root = 0;
                                         String str_chamber = null;
-
-                                        try {
-                                            dry_shoot = Double.parseDouble(contentsArray[4]);
-                                        } catch (Exception e1) {
-                                            check = false;
-                                            JOptionPane.showMessageDialog(null, "The dry shoot value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                            this.dispose();
+                                        if (check == true) {
+                                            try {
+                                                dry_shoot = Double.parseDouble(contentsArray[4]);
+                                            } catch (Exception e1) {
+                                                check = false;
+                                                JOptionPane.showMessageDialog(null, "The dry shoot value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                                this.dispose();
+                                            }
                                         }
-                                        try {
-                                            dry_root = Double.parseDouble(contentsArray[5]);
-                                        } catch (Exception e1) {
-                                            check = false;
-                                            JOptionPane.showMessageDialog(null, "The dry root value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                            this.dispose();
+                                        if (check == true) {
+                                            try {
+                                                dry_root = Double.parseDouble(contentsArray[5]);
+                                            } catch (Exception e1) {
+                                                check = false;
+                                                JOptionPane.showMessageDialog(null, "The dry root value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                                this.dispose();
+                                            }
                                         }
-                                        try {
-                                            wet_shoot = Double.parseDouble(contentsArray[6]);
-                                        } catch (Exception e1) {
-                                            check = false;
-                                            JOptionPane.showMessageDialog(null, "The wet shoot value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                            this.dispose();
+                                        if (check == true) {
+                                            try {
+                                                wet_shoot = Double.parseDouble(contentsArray[6]);
+                                            } catch (Exception e1) {
+                                                check = false;
+                                                JOptionPane.showMessageDialog(null, "The wet shoot value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                                this.dispose();
+                                            }
                                         }
-                                        try {
-                                            wet_root = Double.parseDouble(contentsArray[7]);
-                                        } catch (Exception e1) {
-                                            check = false;
-                                            JOptionPane.showMessageDialog(null, "The wet root value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                            this.dispose();
+                                        if (check == true) {
+                                            try {
+                                                wet_root = Double.parseDouble(contentsArray[7]);
+                                            } catch (Exception e1) {
+                                                check = false;
+                                                JOptionPane.showMessageDialog(null, "The wet root value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                                this.dispose();
+                                            }
                                         }
-                                        try {
-                                            str_chamber = contentsArray[8];
-                                        } catch (Exception e1) {
-                                            check = false;
-                                            JOptionPane.showMessageDialog(null, "The sterilization chamber value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                            this.dispose();
+                                        if (check == true) {
+                                            try {
+                                                str_chamber = contentsArray[8];
+                                            } catch (Exception e1) {
+                                                check = false;
+                                                JOptionPane.showMessageDialog(null, "The sterilization chamber value is wrong.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                                                this.dispose();
+                                            }
                                         }
                                         String imagingUnit = contentsArray[9];
-                                        if (!imagingUnit.equals("day") && !imagingUnit.equals("hour")) {
+                                        if (check == true && !imagingUnit.equals("day") && !imagingUnit.equals("hour")) {
                                             check = false;
                                             JOptionPane.showMessageDialog(null, "The imaging time point should be either day or hour.", "ERROR", JOptionPane.ERROR_MESSAGE);
                                             this.dispose();
@@ -168,7 +181,7 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                         String description = contentsArray[10];
                                         Date imagingStartDate = null;
                                         String date = contentsArray[11];
-                                        if (!date.equals("")) {
+                                        if (check == true && !date.equals("")) {
                                             date = date.replace("_", " ");
                                             try {
                                                 imagingStartDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
@@ -224,12 +237,12 @@ public class BatchSeedImport extends JFrame implements ActionListener {
                                         this.dispose();
                                     }
                                 }
-                            } else {
-                                check = false;
-                                JOptionPane.showMessageDialog(null, "There should be headings in first row.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                                this.dispose();
                             }
                         }
+                    } else {
+                        check = false;
+                        JOptionPane.showMessageDialog(null, "There should be headings in first row.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                        this.dispose();
                     }
                     if (check == true) {
                         JOptionPane.showMessageDialog(null, "The seeds are saved", "INFO", JOptionPane.INFORMATION_MESSAGE);

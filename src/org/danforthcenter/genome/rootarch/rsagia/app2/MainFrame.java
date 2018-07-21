@@ -43,6 +43,12 @@ public class MainFrame extends javax.swing.JFrame implements
     protected File csvTemplateDir;
     protected File userFile;
 
+    protected ArrayList<StringPairFilter> speciesFilter;
+    protected ArrayList<StringPairFilter> experimentFilter;
+    protected ArrayList<StringPairFilter> plantFilter;
+    protected ArrayList<StringPairFilter> imagingDayFilter;
+    protected ArrayList<StringPairFilter> imagingDayPlant_Filter;
+
     protected static final String PROCESSED_IMAGES = "processed_images";
 
     /**
@@ -53,7 +59,8 @@ public class MainFrame extends javax.swing.JFrame implements
                      ArrayList<StringPairFilter> experimentFilter,
                      ArrayList<StringPairFilter> plantFilter,
                      ArrayList<StringPairFilter> imagingDayFilter,
-                     ArrayList<StringPairFilter> imagingDayPlant_Filter, File userFile,
+                     ArrayList<StringPairFilter> imagingDayPlant_Filter,
+                     File userFile,
                      ArrayList<String> userCols) {
         initComponents();
 
@@ -62,6 +69,12 @@ public class MainFrame extends javax.swing.JFrame implements
         this.csvTemplateDir = csvTemplateDir;
         this.ism = ism;
         this.am = am;
+        this.speciesFilter = speciesFilter;
+        this.experimentFilter = experimentFilter;
+        this.plantFilter = plantFilter;
+        this.imagingDayFilter = imagingDayFilter;
+        this.imagingDayPlant_Filter = imagingDayPlant_Filter;
+
         riss = RsaImageSet.getAll(baseDir, ism, speciesFilter,
                 experimentFilter, plantFilter, imagingDayFilter,
                 imagingDayPlant_Filter);
@@ -293,18 +306,23 @@ public class MainFrame extends javax.swing.JFrame implements
             rsaTable.updateRows(rsaTable.getCheckedRowIndexes());
         }
         if (evt.getPropertyName().equals("getall")) {
-            riss = RsaImageSet.getAll(baseDir, ism, rff.getSpeciesFilter(),
-                    rff.getExperimentFilter(), rff.getPlantFilter(),
-                    rff.getImagingDayFilter(), rff.getImagingDay_PlantFilter());
+            riss = RsaImageSet.getAll(baseDir, ism, this.speciesFilter,
+                    this.experimentFilter, this.plantFilter,
+                    this.imagingDayFilter, this.imagingDayPlant_Filter);
             rsaTable.setData(riss);
         }
 
         if (evt.getSource() == rff && evt.getPropertyName().equals("done")
                 && (Boolean) evt.getNewValue()) {
             rff.setVisible(false);
-            riss = RsaImageSet.getAll(baseDir, ism, rff.getSpeciesFilter(),
-                    rff.getExperimentFilter(), rff.getPlantFilter(),
-                    rff.getImagingDayFilter(), rff.getImagingDay_PlantFilter());
+            this.speciesFilter = rff.getSpeciesFilter();
+            this.experimentFilter = rff.getExperimentFilter();
+            this.plantFilter = rff.getPlantFilter();
+            this.imagingDayFilter = rff.getImagingDayFilter();
+            this.imagingDayPlant_Filter = rff.getImagingDay_PlantFilter();
+            riss = RsaImageSet.getAll(baseDir, ism, this.speciesFilter,
+                    this.experimentFilter, this.plantFilter,
+                    this.imagingDayFilter, this.imagingDayPlant_Filter);
             rsaTable.setData(riss);
             Properties props = new Properties();
             FileInputStream fis = null;
@@ -325,15 +343,15 @@ public class MainFrame extends javax.swing.JFrame implements
             }
 
             props.setProperty("species_filter",
-                    StringPairFilter.toString(rff.getSpeciesFilter()));
+                    StringPairFilter.toString(this.speciesFilter));
             props.setProperty("experiment_filter",
-                    StringPairFilter.toString(rff.getExperimentFilter()));
+                    StringPairFilter.toString(this.experimentFilter));
             props.setProperty("plant_filter",
-                    StringPairFilter.toString(rff.getPlantFilter()));
+                    StringPairFilter.toString(this.plantFilter));
             props.setProperty("imaging_day_filter",
-                    StringPairFilter.toString(rff.getImagingDayFilter()));
+                    StringPairFilter.toString(this.imagingDayFilter));
             props.setProperty("imaging_plant_day_filter",
-                    StringPairFilter.toString(rff.getImagingDay_PlantFilter()));
+                    StringPairFilter.toString(this.imagingDayPlant_Filter));
 
             FileOutputStream fos = null;
             try {

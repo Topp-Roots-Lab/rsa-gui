@@ -100,7 +100,7 @@ public class MetadataDBFunctions {
     }
 
     public Result<Record> selectAllExperiments() {
-        Result<Record> experimentRecord = ConnectDb.getDslContext().fetch("select * from experiment");
+        Result<Record> experimentRecord = ConnectDb.getDslContext().fetch("select distinct experiment_code from experiment");
         return experimentRecord;
     }
 
@@ -244,14 +244,14 @@ public class MetadataDBFunctions {
         return expRECORD;
     }
 
-    public void updateExperiment(String experimentOld, String experimentNew, String desc) {
+    public void updateExperiment(String experimentOld, String organism, String experimentNew, String desc) {
         if (desc == null) {
             desc = "NULL";
         } else {
             desc = "'" + desc + "'";
         }
         String query = "update experiment set experiment_code='" + experimentNew + "',description=" + desc
-                + " where experiment_code='" + experimentOld + "'";
+                + " where experiment_code='" + experimentOld + "' and organism_name='" + organism + "'";
         ConnectDb.getDslContext().execute(query);
     }
 

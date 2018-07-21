@@ -60,10 +60,11 @@ public class AddExperimentFrame extends JDialog implements ActionListener {
                     JOptionPane.showMessageDialog(null, "This experiment is already added for organism " + organism, "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            if (check == true && !(newExperimentCode.length() == 3 && newExperimentCode.toUpperCase() == newExperimentCode && mdf.isAlpha(newExperimentCode) == true)) {
+            if (check == true && !(newExperimentCode.length() == 3 && newExperimentCode.toUpperCase().equals(newExperimentCode) && mdf.isAlpha(newExperimentCode) == true)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "This experiment is not in valid format. The valid format is upper case 3 letter code.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else if (check == true) {
+            }
+            if (check == true) {
                 mdf.insertExperiment(organism, newExperimentCode, description, user);
                 JOptionPane.showMessageDialog(null, newExperimentCode + " is added for organism " + organism + " successfully.", null, JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
