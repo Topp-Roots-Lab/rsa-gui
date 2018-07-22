@@ -323,7 +323,7 @@ public class FillDb {
 
                 if (appName.equals("scale") && oi.getAppName().equals("scale")) {
                     if (oi.isValid()) {
-                        String scaleResult = this.scalePropertyFileToJSONString(oi);
+                        String scaleResult = this.scalePropertyFileToJSONString(oi, false);
                         String q = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
                                 "values(" + run_id + "," + userId + "," + appId + "," + datasetID + "," + doSaved +
                                 "," + 0 + ",'" + date_ + "',NULL,NULL,NULL, NULL,"+scaleResult+")";
@@ -338,7 +338,7 @@ public class FillDb {
                     }
                 } else if (appName.equals("crop") && oi.getAppName().equals("crop")) {
                     if (oi.isValid()) {
-                        String cropResult = this.cropPropertyFileToJSONString(oi);
+                        String cropResult = this.cropPropertyFileToJSONString(oi, false);
                         String q = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
                                 "values(" + run_id + "," + userId + "," + appId + "," + datasetID + "," + doSaved +
                                 "," + 0 + ",'" + date_ + "',NULL,NULL,NULL, NULL," + cropResult + ")";
@@ -385,7 +385,7 @@ public class FillDb {
                         File cropResultFile = new File(oi.getDir() + File.separator
                                 + "crop.properties");
                         if (cropResultFile.exists()) {
-                            cropProps = this.cropPropertyFileToJSONString(oi);
+                            cropProps = this.cropPropertyFileToJSONString(oi, true);
                         }
 
                         String gia2DResult = GiaRoot2DOutput.readFormatCSVFile(new File(oi.getDir() + File.separator + "giaroot_2d.csv"));
@@ -461,7 +461,7 @@ public class FillDb {
                     if (oi.isValid()) {
                         String inputConfig = this.gia3Dv2Config(oi);
                         int configID = oidbf.findConfigID(inputConfig,oi.getAppName());
-                        String scaleProp = this.scalePropertyFileToJSONString(oi);
+                        String scaleProp = this.scalePropertyFileToJSONString(oi, true);
                         String gia3dv2Result = Gia3D_v2Output.readFormatTSVFile(new File(oi.getDir() + File.separator + "gia_3d_v2.tsv"));
                         String q = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
                                 "values(" + run_id + "," + userId + "," + appId + "," + datasetID + "," + doSaved + "," + 0
@@ -530,13 +530,15 @@ public class FillDb {
         return run_id;
     }
 
-    public String cropPropertyFileToJSONString(OutputInfo oi)
+    public String cropPropertyFileToJSONString(OutputInfo oi, boolean inputRun)
     {
         File cropResultFile = new File(oi.getDir() + File.separator
                 + "crop.properties");
         BufferedReader br = null;
         JSONObject jo = new JSONObject();
-        jo.put("legacy",true);
+        if (inputRun) {
+            jo.put("legacy", true);
+        }
         String cropResult = "NULL";
         try {
             br = new BufferedReader(new FileReader(cropResultFile));
@@ -595,13 +597,15 @@ public class FillDb {
 
         return gia3DScaleConfig;
     }
-    public String scalePropertyFileToJSONString(OutputInfo oi)
+    public String scalePropertyFileToJSONString(OutputInfo oi, boolean inputRun)
     {
         File scaleResultFile = new File(oi.getDir().getAbsolutePath() + File.separator
                 + SCALE_FILE);
         BufferedReader br = null;
         JSONObject jo = new JSONObject();
-        jo.put("legacy",true);
+        if (inputRun) {
+            jo.put("legacy", true);
+        }
         String scaleResult = "NULL";
         try {
             br = new BufferedReader(new FileReader(scaleResultFile));
