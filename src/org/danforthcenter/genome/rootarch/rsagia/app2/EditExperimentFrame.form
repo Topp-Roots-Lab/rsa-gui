@@ -80,7 +80,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Selected  Organism:"/>
+          <text value="Selected Organism:"/>
         </properties>
       </component>
       <component id="9cf" class="javax.swing.JTextField" binding="expNameField">

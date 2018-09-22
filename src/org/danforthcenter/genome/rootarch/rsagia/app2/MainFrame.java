@@ -125,6 +125,7 @@ public class MainFrame extends javax.swing.JFrame implements
         this.editOrganism.addActionListener(this);
         this.editExperiment.addActionListener(this);
         this.editSeed.addActionListener(this);
+        this.editGenotype.addActionListener(this);
         this.uploadImages.addActionListener(this);
         this.uploadSeedsCSV.addActionListener(this);
         this.addUser.addActionListener(this);
@@ -268,7 +269,12 @@ public class MainFrame extends javax.swing.JFrame implements
             SelectSeedFrame selSeed = new SelectSeedFrame(am.getDirRename(), baseDir);
             selSeed.addPropertyChangeListener("getall", this);
             selSeed.setVisible(true);
-        } else if (e.getSource() == this.uploadImages) {
+        }else if (e.getSource() == this.editGenotype) {
+            SelectGenotypeFrame selGenotype = new SelectGenotypeFrame();
+            selGenotype.addPropertyChangeListener("getall", this);
+            selGenotype.setVisible(true);
+        }
+        else if (e.getSource() == this.uploadImages) {
             UploadImages ui = new UploadImages(am.getImport(), baseDir);
             ui.addPropertyChangeListener("getall", this);
             ui.setVisible(true);
@@ -423,6 +429,7 @@ public class MainFrame extends javax.swing.JFrame implements
         editOrganism = new javax.swing.JMenuItem();
         editExperiment = new javax.swing.JMenuItem();
         editSeed = new javax.swing.JMenuItem();
+        editGenotype = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -578,6 +585,8 @@ public class MainFrame extends javax.swing.JFrame implements
         jMenu2.add(editExperiment);
         editSeed.setText("Edit/View Seed");
         jMenu2.add(editSeed);
+        editGenotype.setText("Edit/View Genotype");
+        jMenu2.add(editGenotype);
 
         jMenu3.setText("Import Seed Metadata");
         jMenu3.setEnabled(true);
@@ -728,6 +737,7 @@ public class MainFrame extends javax.swing.JFrame implements
     private javax.swing.JMenuItem editOrganism;
     private javax.swing.JMenuItem editExperiment;
     private javax.swing.JMenuItem editSeed;
+    private javax.swing.JMenuItem editGenotype;
     private javax.swing.JMenuItem uploadImages;
     private javax.swing.JMenuItem uploadSeedsCSV;
     private javax.swing.JMenuItem addUser;

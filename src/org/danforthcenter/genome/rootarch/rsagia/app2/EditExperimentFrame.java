@@ -21,7 +21,6 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class EditExperimentFrame extends JDialog implements ActionListener, PropertyChangeListener {
     private JTextField expNameField;
-    private JComboBox orgComboBox;
     private JTextField descField;
     private JButton cancelButton;
     private JPanel panel1;
@@ -193,7 +192,7 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
         gbc.anchor = GridBagConstraints.WEST;
         panel1.add(label2, gbc);
         final JLabel label3 = new JLabel();
-        label3.setText("Selected  Organism:");
+        label3.setText("Selected Organism:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;

@@ -40,13 +40,22 @@ public class MetadataDBFunctions {
     }
 
     public Result<Record> findGenotypesFromOrganism(String organism) {
-        Result<Record> genotypeRecord = ConnectDb.getDslContext().fetch("select * from genotype where organism_name='" + organism + "'");
+        Result<Record> genotypeRecord = ConnectDb.getDslContext().fetch("select * from genotype where organism_name='" + organism + "' order by genotype_name");
         return genotypeRecord;
+    }
+
+    public ArrayList<String> findOrganismsWithGenotypes() {
+        Result<Record> orgRecord = ConnectDb.getDslContext().fetch("select distinct(organism_name) from genotype");
+        ArrayList<String> organismList = new ArrayList<>();
+        for (Record r : orgRecord) {
+            organismList.add((String) r.getValue("organism_name"));
+        }
+        return organismList;
     }
 
     public Result<Record> findGenotypeID(String genotypeName, String organism) {
         Result<Record> genotypeRecord = ConnectDb.getDslContext().fetch("select * from genotype where " +
-                "genotype_name='" + genotypeName + "' and organism_name='" + organism + "'");
+                "genotype_name = '" + genotypeName + "' and organism_name = '" + organism + "'");
         return genotypeRecord;
     }
 
@@ -71,9 +80,24 @@ public class MetadataDBFunctions {
     }
 
     public Result<Record> findOrganism(String organismName) {
-        Result<Record> organismRecord = ConnectDb.getDslContext().fetch("select * from organism where organism_name='" +
-                organismName + "'");
+        Result<Record> organismRecord = ConnectDb.getDslContext().fetch("select * from organism where organism_name = '" + organismName + "'");
         return organismRecord;
+    }
+
+    public boolean checkGenotypeExists(String organism, String genotype) {
+        Result<Record> genotypeRecord = this.findGenotypeID(genotype, organism);
+        if (genotypeRecord == null || genotypeRecord.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void updateGenotype(String organism, String oldGenotype, String newGenotype)
+    {
+        String query = "update genotype set genotype_name = '" + newGenotype + "' where organism_name = '" + organism +
+                "' and genotype_name = '" + oldGenotype + "'";
+        ConnectDb.getDslContext().execute(query);
     }
 
     public void updateOrganism(String organismNameNew, String code, String speciesNew, String subspeciesNew, String descriptionNew,
@@ -333,7 +357,7 @@ public class MetadataDBFunctions {
         String query = "select * from dataset d inner join dataset_image_type dit on d.dataset_id = dit.dataset_id where d.seed_id=" +
                 seedID + " and d.timepoint'" + timepoint + "' and dit.image_type='" + imageType + "'";
         Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);
-        if (resultRecord != null || resultRecord.size() == 0) {
+        if (resultRecord == null || resultRecord.size() == 0) {
             return false;
         } else {
             return true;
@@ -344,7 +368,7 @@ public class MetadataDBFunctions {
         int seedID = (int) this.findSeedMetadataFromOrgExpSeed(organism, experiment, seed).get(0).getValue("seed_id");
         Result<Record> datasetRecord = ConnectDb.getDslContext().fetch("select * from dataset where seed_id=" + seedID + " and timepoint='" + timepoint +
                 "'");
-        if (datasetRecord != null || datasetRecord.size() == 0) {
+        if (datasetRecord == null || datasetRecord.size() == 0) {
             return false;
         } else {
             return true;
