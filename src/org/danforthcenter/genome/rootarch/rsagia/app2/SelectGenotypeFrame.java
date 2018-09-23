@@ -29,7 +29,6 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        pack();
         this.editButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
 
@@ -62,6 +61,7 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
             genotypes.addElement(genotypeName);
         }
         genotypeComboBox.setModel(genotypes);
+        pack();
     }
 
     @Override
@@ -100,63 +100,49 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
-        panel1.setPreferredSize(new Dimension(250, 200));
         final JLabel label1 = new JLabel();
         label1.setText("Select Genotype:");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(10, 10, 10, 0);
         panel1.add(label1, gbc);
-        final JPanel spacer1 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer1, gbc);
-        final JPanel spacer2 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer2, gbc);
         genotypeComboBox = new JComboBox();
         final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
         genotypeComboBox.setModel(defaultComboBoxModel1);
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 2;
+        gbc.gridx = 1;
+        gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 10);
         panel1.add(genotypeComboBox, gbc);
         editButton = new JButton();
         editButton.setPreferredSize(new Dimension(90, 31));
         editButton.setText("Edit");
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 4;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 10);
         panel1.add(editButton, gbc);
-        final JPanel spacer3 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer3, gbc);
         final JLabel label2 = new JLabel();
         label2.setText("Select Organism:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(10, 10, 10, 10);
         panel1.add(label2, gbc);
         organismComboBox = new JComboBox();
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
+        gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(10, 0, 10, 10);
         panel1.add(organismComboBox, gbc);
     }
 
