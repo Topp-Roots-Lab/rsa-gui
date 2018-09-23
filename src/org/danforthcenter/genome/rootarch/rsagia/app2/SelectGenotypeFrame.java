@@ -34,6 +34,8 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
 
         loadOrganisms();
 
+        pack();
+
         organismComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -61,7 +63,6 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
             genotypes.addElement(genotypeName);
         }
         genotypeComboBox.setModel(genotypes);
-        pack();
     }
 
     @Override
@@ -107,11 +108,9 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(10, 10, 10, 0);
+        gbc.insets = new Insets(10, 10, 10, 10);
         panel1.add(label1, gbc);
         genotypeComboBox = new JComboBox();
-        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
-        genotypeComboBox.setModel(defaultComboBoxModel1);
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -120,7 +119,6 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
         gbc.insets = new Insets(10, 0, 10, 10);
         panel1.add(genotypeComboBox, gbc);
         editButton = new JButton();
-        editButton.setPreferredSize(new Dimension(90, 31));
         editButton.setText("Edit");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
@@ -140,6 +138,7 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
+        gbc.weightx = 1.0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 10, 10);
