@@ -5,6 +5,9 @@
 
 package org.danforthcenter.genome.rootarch.rsagia2;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
+import org.jooq.tools.json.JSONObject;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -77,19 +80,31 @@ public class Scale implements IApplication {
 		return Double.parseDouble(props.getProperty(SCALE_PROP));
 	}
 
-	public void writeScale(boolean toSaved, RsaImageSet ris, double scale,
-			ApplicationManager am) {
-		OutputInfo oi = new OutputInfo("scale", ris, toSaved);
+	public OutputInfo writeScale(boolean toSaved, RsaImageSet ris, double scale,
+								 ApplicationManager am, OutputInfoDBFunctions oidbf) {
+		ScaleOutput oi = new ScaleOutput("scale", ris, toSaved);
 		OutputInfo.createDirectory(oi, am);
+
+		oidbf.insertProgramRunTable(oi);
+
 		File f = new File(oi.getDir().getAbsolutePath() + File.separator
 				+ SCALE_FILE);
 		Properties props = new Properties();
 		props.setProperty(SCALE_PROP, Double.toString(scale));
 
+		oi.setSavedConfigID(null);
+		oi.setUnsavedConfigContents(null);
+
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(f);
 			props.store(fos, SCALE_FILE);
+
+			JSONObject jo = new JSONObject();
+			jo.put(SCALE_PROP,scale);
+			oi.setResults(jo.toString());
+            oi.setInputRuns(null);
+
 		} catch (Exception e) {
 			throw new ScaleException("Could not write to file: "
 					+ f.getAbsolutePath(), e);
@@ -106,6 +121,7 @@ public class Scale implements IApplication {
 		// // tw 2014nov13
 		// am.getIsm().setFilePermissions(f);
 		am.getIsm().setPermissions(f, false);
+		return oi;
 	}
 
 	public String getName() {

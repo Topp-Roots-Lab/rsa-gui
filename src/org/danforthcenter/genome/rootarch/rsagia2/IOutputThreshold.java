@@ -11,7 +11,7 @@ import java.io.File;
  * 
  * @author bm93
  */
-public interface IOutputThreshold {
+public interface IOutputThreshold extends IProgramRun{
 	public File[] getThresholdedImages();
 
     // tw 2015july15

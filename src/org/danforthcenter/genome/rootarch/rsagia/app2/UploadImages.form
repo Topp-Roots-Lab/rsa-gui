@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.danforthcenter.genome.rootarch.rsagia.app2.UploadImages">
+  <grid id="27dc6" binding="panel1" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="20" y="20" width="831" height="523"/>
+    </constraints>
+    <properties>
+      <preferredSize width="600" height="300"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <scrollpane id="56efd" binding="jsp">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="10" bottom="10" right="10" weightx="0.0" weighty="1.0"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="4a7a5" class="javax.swing.JTextArea" binding="printstextArea">
+            <constraints/>
+            <properties>
+              <editable value="false"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="24e8b" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="10" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Imageset directory path:"/>
+        </properties>
+      </component>
+      <component id="8b497" class="javax.swing.JTextField" binding="selectedPathField">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+          <gridbag weightx="1.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="38033" class="javax.swing.JButton" binding="browseButton" default-binding="true">
+        <constraints>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="10" bottom="0" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Browse..."/>
+        </properties>
+      </component>
+      <component id="9da8c" class="javax.swing.JButton" binding="importButton">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <font style="1"/>
+          <text value="Import"/>
+        </properties>
+      </component>
+      <component id="cda3f" class="javax.swing.JLabel" binding="processingField">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="8b02f" class="javax.swing.JLabel" binding="statusLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="10" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Import status:"/>
+        </properties>
+      </component>
+      <component id="f5d7a" class="javax.swing.JLabel" binding="directoryInfo">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="0" bottom="0" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <toolTipText value="&lt;html&gt;&#10;The rsa-data user (which is a member of the rootarch group) needs &lt;strong&gt;read&lt;/strong&gt; and &lt;strong&gt;execute&lt;/strong&gt; permissions on the directory, and &lt;strong&gt;read&lt;/strong&gt; permissions on every file in the directory.&lt;br /&gt;&#10;A couple of alternative ways to do this:&#10;&lt;ol&gt;&#10;&lt;li&gt;For the directory and the files in it, change the owner to rsa-data and give these permissions to the owner.&lt;/li&gt;&#10;&lt;li&gt;For the directory and the files in it, change the group to rootarch and give these permissions to the group.&lt;/li&gt;&#10;&lt;/ol&gt;&#10;&lt;/html&gt;" noi18n="true"/>
+        </properties>
+      </component>
+      <component id="6619b" class="javax.swing.JLabel" binding="deletionInfo">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="0" bottom="0" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <toolTipText value="&lt;html&gt;&#10;The rsa-data user (which is a member of the rootarch group) needs &lt;strong&gt;write&lt;/strong&gt; permissions on the directory, in addition to the permissions above.&lt;br /&gt;&#10;A couple of alternative ways to do this:&#10;&lt;ol&gt;&#10;&lt;li&gt;For the directory, change the owner to rsa-data and give these permissions to the owner.&lt;/li&gt;&#10;&lt;li&gt;For the directory, change the group to rootarch and give these permissions to the group.&lt;/li&gt;&#10;&lt;/ol&gt;&#10;&lt;/html&gt;" noi18n="true"/>
+        </properties>
+      </component>
+      <component id="e30ec" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="10" left="10" bottom="10" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="Delete source files after moving:"/>
+        </properties>
+      </component>
+      <component id="fb920" class="javax.swing.JCheckBox" binding="checkBoxDelete">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <selected value="true"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

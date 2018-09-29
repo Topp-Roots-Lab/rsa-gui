@@ -403,25 +403,31 @@ public class RsaInputTable extends javax.swing.JTable implements
 		return ans;
 	}
 
-	protected int getAppCount(RsaImageSet ris, IApplication app,
-			boolean doSaved, boolean doSandbox) {
-		ArrayList<OutputInfo> ois = OutputInfo.getInstances(am, ris, doSaved,
-				doSandbox, null, false);
-		int v = 0;
-		for (OutputInfo oi : ois) {
-			if (oi.isValid() && oi.getAppName().equals(app.getName())) {
-				v++;
-			}
+	protected int getAppCount(RsaImageSet ris, IApplication app, boolean doSaved, boolean doSandbox)
+	{
+		HashMap<String, int[]> countApps= ris.getCounts();
+		String appName= app.getName();
+		int[] arr = countApps.get(appName);
+		int saved=0;
+		int sandbox=0;
+		if(doSandbox==true)
+		{
+			sandbox = arr[0];
 		}
-
-		return v;
+		if(doSaved == true)
+		{
+			saved = arr[1];
+		}
+		int total = saved+sandbox;
+		return total;
 	}
 
 	public ArrayList<RsaImageSet> getInputData() {
 		return this.inputData;
 	}
 
-	public void updateRows(ArrayList<Integer> rowIndexes) {
+	public void updateRows(ArrayList<Integer> rowIndexes)
+	{
 		int colCount = this.getColumnCount();
 		for (int i : rowIndexes) {
 			for (int j = savedCols.size(); j < colCount; j++) {
@@ -504,13 +510,10 @@ public class RsaInputTable extends javax.swing.JTable implements
 		dtm.setRowCount(0);
 		this.inputData = inputData;
 
-        System.out.println("setData inputData.size " + inputData.size());
-
 		ArrayList<String[]> types = new ArrayList<String[]>();
 		for (int i = 0; i < inputData.size(); i++) {
 			// RsaImageSet ris = inputData.get(i);
 			types.add(inputData.get(i).getInputTypes());
-            System.out.println("setData types.size " + types.size() + " " + types.get(0).length);
 			Object[] nr = new Object[dtm.getColumnCount()];
 			for (int j = 0; j < nr.length; j++) {
 				nr[j] = computeCellData(i, dtm.getColumnName(j));

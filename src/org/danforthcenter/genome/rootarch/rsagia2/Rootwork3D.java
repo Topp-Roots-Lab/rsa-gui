@@ -96,10 +96,10 @@ public class Rootwork3D implements IApplication {
 	}
 
 	public Process start(OutputInfo out, IOutputThreshold iot, int reconOpt,
-                         int reconLowerThresh, int numNodesOctree, int numImagesUsed,
-                         int reconUpperThreshold, int distortionRadius,
-                         int numberOfComponents, int resolution, int refImage,
-                         double refRatio, boolean doAdd) {
+						 int reconLowerThresh, int numNodesOctree, int numImagesUsed,
+						 int reconUpperThreshold, int distortionRadius,
+						 int numberOfComponents, int resolution, int refImage,
+						 double refRatio, boolean doAdd) {
 		Process ans = null;
 		Rootwork3DOutput rout = new Rootwork3DOutput(out);
 		//
@@ -114,6 +114,8 @@ public class Rootwork3D implements IApplication {
 		preprocess(rout, iot, reconOpt, reconLowerThresh, numNodesOctree,
 				numImagesUsed, reconUpperThreshold, distortionRadius,
 				numberOfComponents, resolution, refImage, refRatio, doAdd);
+
+		out.setUnsavedConfigContents(rout.getUnsavedConfigContents());
 
 		boolean isSTL = false;
 		String[] cmd = getReconstruction3dCmd(useMatlab, rout, isSTL);
@@ -723,6 +725,7 @@ public class Rootwork3D implements IApplication {
 				ext, pref, reconUpperThreshold, distortionRadius,
 				numberOfComponents, resolution, refImage, refRatio, doAdd);
 		rxml.save(rout.getConfigFile());
+		rout.setUnsavedConfigContents(rxml.toString());
 
 		// // tw 2014nov12
 		// ism.setFilePermissions(rout.getConfigFile());

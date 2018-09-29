@@ -26,8 +26,10 @@ package org.danforthcenter.genome.rootarch.rsagia2;
 //
 //}
 
-import java.io.File;
-import java.io.FileReader;
+import org.jooq.tools.json.JSONArray;
+import org.jooq.tools.json.JSONObject;
+
+import java.io.*;
 import java.util.Properties;
 
 /**
@@ -73,6 +75,47 @@ public class Gia3D_v2Output extends OutputInfo implements
 	@Override
 	public File getTsvFile() {
 		return new File(dir.getAbsoluteFile() + File.separator + TSV_FILE);
+	}
+
+	public static String readFormatTSVFile(File tsvFile)
+	{
+		String results = null;
+		BufferedReader br = null;
+		JSONObject tsvJsonObject = new JSONObject();
+		//JSONArray tsvJsonArray = new JSONArray();
+		String[] headerArray = null;
+		boolean firstLine = true;
+		try {
+			br = new BufferedReader(new FileReader(tsvFile));
+			String line = null;
+			try {
+				while(br.ready()) {
+					line = br.readLine();
+					if(line.isEmpty())
+					{
+						continue;
+					}
+					String[] dataArray = null;
+					if (firstLine == true) {
+						headerArray = line.split("\t");
+						firstLine = false;
+					} else {
+						dataArray = line.split("\t");
+						for (int i = 0; i < headerArray.length; i++) {
+							tsvJsonObject.put(headerArray[i], dataArray[i]);
+						}
+						//tsvJsonArray.add(csvJsonObject);
+					}
+				}
+				results = tsvJsonObject.toString();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return results;
+
 	}
 
 	@Override
@@ -124,6 +167,21 @@ public class Gia3D_v2Output extends OutputInfo implements
 		wrlSkFile = new File(dir.getAbsolutePath() + File.separator
 				+ getPrefix() + "_sk." + OUTPUT_TYPE_2);
 	}
+	public Gia3D_v2Output(String appName, RsaImageSet ris, boolean toSaved)
+	{
+		super(appName, ris, toSaved);
+		outputs = InputOutputTypes.DESCRIPTORS_GIA_3D_V2;
+		ivOrFile = new File(dir.getAbsolutePath() + File.separator
+				+ getPrefix() + "_or." + OUTPUT_TYPE);
+		ivSkFile = new File(dir.getAbsolutePath() + File.separator
+				+ getPrefix() + "_sk." + OUTPUT_TYPE);
+
+		wrlOrFile = new File(dir.getAbsolutePath() + File.separator
+				+ getPrefix() + "_or." + OUTPUT_TYPE_2);
+		wrlSkFile = new File(dir.getAbsolutePath() + File.separator
+				+ getPrefix() + "_sk." + OUTPUT_TYPE_2);
+
+	}
 
 	public File getVolumeFile() {
 		return volumeFile;
@@ -155,7 +213,7 @@ public class Gia3D_v2Output extends OutputInfo implements
 
 	@Override
 	public boolean isValid() {
-		return true;
+		return getTsvFile().exists();
 	}
 
 	protected class GiaRoot3D_v2OutputException extends RuntimeException {

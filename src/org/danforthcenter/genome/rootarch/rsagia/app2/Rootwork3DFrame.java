@@ -28,10 +28,10 @@ import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
  */
 public class Rootwork3DFrame extends javax.swing.JFrame implements
 		java.awt.event.ActionListener, java.beans.PropertyChangeListener {
-	protected ApplicationManager am;
-	protected ArrayList<RsaImageSet> riss;
-	protected ChooseOutputFrame cof;
-	protected Rootwork3DLogFrame rlf;
+	private ApplicationManager am;
+	private ArrayList<RsaImageSet> riss;
+	private ChooseOutputFrame cof;
+	private Rootwork3DLogFrame rlf;
 
 	/** Creates new form Rootwork3DFrame */
 	public Rootwork3DFrame(ApplicationManager am, ArrayList<RsaImageSet> riss) {
@@ -94,18 +94,18 @@ public class Rootwork3DFrame extends javax.swing.JFrame implements
 			cof = null;
 			int maxProcesses = AdminFrameNew.AdminSettings.getMaxProcesses();
 			rlf = new Rootwork3DLogFrame(maxProcesses, am.getRootwork3D(), am,
-					                     inputs, thresholds,
+					inputs, thresholds,
 //                            Integer.parseInt(reconLowerThreshold.getText()),
-                            Integer.parseInt(nodesOctreeField.getText()),
-                            Integer.parseInt(imagesUsedField.getText()),
-                            Integer.parseInt(reconOptionField.getText()),
+					Integer.parseInt(nodesOctreeField.getText()),
+					Integer.parseInt(imagesUsedField.getText()),
+					Integer.parseInt(reconOptionField.getText()),
 //                            Integer.parseInt(reconUpperField.getText()),
-                            Integer.parseInt(distortionRadiusField.getText()),
-                            Integer.parseInt(numComponentsField.getText()),
-                            Integer.parseInt(resolutionField.getText()),
-                            Integer.parseInt(refImageField.getText()),
-                            Double.parseDouble(refRatioField.getText()),
-                            "F");
+					Integer.parseInt(distortionRadiusField.getText()),
+					Integer.parseInt(numComponentsField.getText()),
+					Integer.parseInt(resolutionField.getText()),
+					Integer.parseInt(refImageField.getText()),
+					Double.parseDouble(refRatioField.getText()),
+					"F");
 			rlf.addPropertyChangeListener("done", this);
 			rlf.setVisible(true);
 		} else if (evt.getSource() == rlf
@@ -491,9 +491,9 @@ public class Rootwork3DFrame extends javax.swing.JFrame implements
 	private javax.swing.JButton nextButton;
 	private javax.swing.JTextField nodesOctreeField;
 	private javax.swing.JTextField numComponentsField;
-//	private javax.swing.JTextField reconLowerThreshold;
+	//	private javax.swing.JTextField reconLowerThreshold;
 	private javax.swing.JTextField reconOptionField;
-//	private javax.swing.JTextField reconUpperField;
+	//	private javax.swing.JTextField reconUpperField;
 	private javax.swing.JTextField refImageField;
 	private javax.swing.JTextField refRatioField;
 	private javax.swing.JTextField resolutionField;

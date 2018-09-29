@@ -288,6 +288,17 @@ public class FileUtil {
 
 	}
 
+	/**
+	 * renames directory src to newName by using external application to obtain privileges
+	 *
+	 * @param src
+	 * @param newName
+	 * @param dirRenameApp
+	 */
+	public static void renameDirWithPrivileges(File src, String newName, DirRename dirRenameApp) {
+		dirRenameApp.start(src, newName);
+	}
+
 	// tw 2014nov11 This method does not appear to be used.
 	// permissions are platform dependent
 	// To obtain permissions, add variable or method to FileVisitorUtil
@@ -323,7 +334,7 @@ public class FileUtil {
 	 * return ps[3]; }
 	 */
 
-	public static String getUser(File f) {
+/*	public static String getUser(File f) {
 
 		// 2014oct13 tw
 		// This method is not used, so goal is not clear
@@ -360,8 +371,7 @@ public class FileUtil {
 		 * = 0; while (cnt < 2) { cnt += (ss[i].length() > 0) ? 1 : 0; i++; }
 		 * 
 		 * return ss[cnt];
-		 */
-	}
+	}*/
 
 	// tw 2014nov11 This method does not appear to be used.
 	// platform independent recursion uses the the file visitor methods as in

@@ -23,11 +23,9 @@ import javax.swing.SwingWorker;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 
-import org.danforthcenter.genome.rootarch.rsagia2.ApplicationManager;
-import org.danforthcenter.genome.rootarch.rsagia2.GiaRoot2D;
-import org.danforthcenter.genome.rootarch.rsagia2.GiaRoot2DInput;
-import org.danforthcenter.genome.rootarch.rsagia2.OutputInfo;
-import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
+import org.danforthcenter.genome.rootarch.rsagia2.*;
+import org.jooq.tools.json.JSONObject;
 
 /**
  *
@@ -41,23 +39,23 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 	protected GiaRoot2D gia;
 	protected ArrayList<GiaRoot2DInput> inputs;
 	protected ApplicationManager am;
-	protected ArrayList<OutputInfo> outputs;
+	protected ArrayList<GiaRoot2DOutput> outputs;
 
-	protected ArrayList<JTextArea> outputTextAreas;
-	protected ArrayList<JScrollPane> outputPanels;
-	protected int cur;
-	protected int doneCnt;
+	private ArrayList<JTextArea> outputTextAreas;
+	private ArrayList<JScrollPane> outputPanels;
+	private int cur;
+	private int doneCnt;
 
 	/** Creates new form MultiLogWindow */
 	public GiaRoot2DFrame(int maxProcesses, GiaRoot2D gia,
-			ArrayList<GiaRoot2DInput> inputs, ApplicationManager am) {
+						  ArrayList<GiaRoot2DInput> inputs, ApplicationManager am) {
 		initComponents();
 
 		this.maxProcesses = maxProcesses;
 		this.gia = gia;
 		this.inputs = inputs;
 		this.am = am;
-		this.outputs = new ArrayList<OutputInfo>();
+		this.outputs = new ArrayList<GiaRoot2DOutput>();
 
 		outputTextAreas = new ArrayList<JTextArea>();
 		outputPanels = new ArrayList<JScrollPane>();
@@ -71,9 +69,26 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 		cur = 0;
 		doneCnt = 0;
 		for (int i = 0; i < inputs.size(); i++) {
-			OutputInfo oi = new OutputInfo(gia.getName(), inputs.get(i)
+			GiaRoot2DOutput oi = new GiaRoot2DOutput(gia.getName(), inputs.get(i)
 					.getRis(), false);
 			OutputInfo.createDirectory(oi, am);
+
+			OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+			oidbf.insertProgramRunTable(oi);
+
+			String descriptorsString = this.inputs.get(i).getDescriptors();
+			String templateString = this.inputs.get(i).getTemplateString();
+			OutputInfo cropOutput = this.inputs.get(i).getCrop();
+			int cropRunID = cropOutput.getRunID();
+			JSONObject jo = new JSONObject();
+			String used = "Used " + cropOutput.getAppName() + " Run ID";
+			jo.put(used,cropRunID);
+
+			oi.setInputRuns(jo.toString());
+            oi.setSavedConfigID(oidbf.findConfigID(templateString, oi.getAppName()));
+            oi.setDescriptors(descriptorsString);
+            oi.setUnsavedConfigContents(null);
+
 			outputs.add(oi);
 			add(inputs.get(i).getRis());
 		}
@@ -99,7 +114,7 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 		dtm.addRow(row);
 	}
 
-	protected void doNext() {
+	private void doNext() {
 		GiaRoot2DWorker grw = new GiaRoot2DWorker(gia, inputs.get(cur),
 				outputs.get(cur), outputTextAreas.get(cur), cur, am);
 		grw.addPropertyChangeListener(this);
@@ -139,6 +154,20 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 
 			String s = (v == 0) ? "DONE" : "ERROR(" + v + ")";
 			statusTable.setValueAt(s, i, 1);
+
+			if (v == 0)
+			{
+				OutputInfo oi = grw.getOutput();
+				OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+				oidbf.updateRedFlag(oi);
+				oidbf.updateContents(oi);
+				oidbf.updateDescriptors(oi);
+				String csvJson = GiaRoot2DOutput.readFormatCSVFile(this.gia.getCsvFile(oi));
+				oi.setResults(csvJson);
+				oidbf.updateResults(oi);
+				oi.getRis().updateCountsOfApp(oi.getAppName());
+			}
+
 			doneCnt++;
 
 			if (cur < inputs.size()) {
@@ -204,7 +233,7 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 		statusTable.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] { { null, null }, { null, null },
 						{ null, null }, { null, null } }, new String[] {
-						"Image Set", "Status" }) {
+				"Image Set", "Status" }) {
 			Class[] types = new Class[] { java.lang.String.class,
 					java.lang.String.class };
 			boolean[] canEdit = new boolean[] { false, false };

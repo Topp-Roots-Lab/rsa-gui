@@ -5,15 +5,14 @@
 
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.ConnectDb;
 import org.danforthcenter.genome.rootarch.rsagia2.*;
+
+import javax.swing.*;
 
 /**
  *
@@ -30,6 +29,18 @@ public class App {
 				System.out.println("Usage: rsa-gia PROPERTIES_FILE");
 				System.exit(1);
 			}
+
+			System.getProperties().setProperty("org.jooq.no-logo", "true");
+
+			///////////////
+			//String user = System.getProperty("user.name");
+			//String os = System.getProperty("os.name");
+
+			//UserManagement um = new UserManagement();
+			//ArrayList<String> userGroups = null;
+			//userGroups = um.findUserGroups(user,os);
+
+			///////////////
 
 			final Properties sysProps = new Properties();
 			FileInputStream fis1 = null;
@@ -72,6 +83,13 @@ public class App {
 				}
 			}
 
+			String dbServer = sysProps.getProperty("db_server");
+			String dbName = sysProps.getProperty("db_name");
+
+			ConnectDb instance = ConnectDb.getInstance();
+			instance.setDbServer(dbServer);
+			instance.setDbName(dbName);
+			instance.setDbCredentials("rsa-gia", "rsagia");
 
             String s3 = sysProps.getProperty("dir_group");
             String s4 = sysProps.getProperty("dir_permissions");
@@ -179,9 +197,15 @@ public class App {
 			File f7 = new File(sysProps.getProperty("gia3d_v2_template_dir"));
 			Gia3D_v2 gia3D_v2 = new Gia3D_v2(s11, s12, s14, s15, f7, s72);
 
+			String importScriptPath = sysProps.getProperty("import_script_path");
+			Import importApp = new Import(importScriptPath, f1, ssm);
+
+			String renameScriptPath = sysProps.getProperty("rename_script_path");
+			DirRename dirRenameApp = new DirRename(renameScriptPath, ssm);
+
 			final ApplicationManager am = new ApplicationManager(ssm, scale,
 					crop, recrop, gia, export, rootwork3D, rootwork3Dpers, giaRoot3D,
-					gia3D_v2);
+					gia3D_v2, importApp, dirRenameApp);
 			giaRoot3D.setAm(am);
 			gia3D_v2.setAm(am);
 
@@ -208,13 +232,19 @@ public class App {
 
 //            final File f11 = new File("/data/rsa/");
 
+			final File csvTemplateDir = new File(sysProps.getProperty("csv_template_dir"));
 
-			java.awt.EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					new MainFrame(f1, ssm, am, spf1, spf2, spf3, spf4, spf5,
-							uf, cols).setVisible(true);
-				}
-			});
+			if (UserAccess.getCurrentAccessLevel() != null) {
+				java.awt.EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						new MainFrame(f1, csvTemplateDir, ssm, am, spf1, spf2, spf3, spf4, spf5,
+								uf, cols).setVisible(true);
+					}
+				});
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "You don't have access to use the tool. Please contact an admin.", null, JOptionPane.ERROR_MESSAGE);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			// return 3;

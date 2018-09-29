@@ -47,6 +47,19 @@ public class Rootwork3DOutput extends OutputInfo implements IOutputVolume3D {
 		outputs = InputOutputTypes.VOLUME_3D;
 	}
 
+	public Rootwork3DOutput(String appName, RsaImageSet ris, boolean toSaved)
+	{
+		super(appName, ris, toSaved);
+		thresholdDir = new File(dir.getAbsolutePath() + File.separator
+				+ "silhouette" + File.separator + "thresholding");
+		configFile = new File(dir.getAbsolutePath() + File.separator
+				+ "config.xml");
+		volumeFile = new File(dir.getAbsolutePath() + File.separator
+				+ getPrefix() + "_rootwork.out");
+
+		outputs = InputOutputTypes.VOLUME_3D;
+
+	}
 	@Override
 	public double getScale() {
 		double ans = 0.0;

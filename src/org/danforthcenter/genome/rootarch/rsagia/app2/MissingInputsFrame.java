@@ -9,13 +9,15 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /**
  * Created by Feray Demirci on 5/9/2017.
  */
-public class MissingInputsFrame extends JDialog implements ActionListener {
+public class MissingInputsFrame extends JDialog implements ActionListener, WindowListener {
     private boolean cancel;
     private RsaInputTable rsaTable;
     private ArrayList<Integer> badIndexes;
@@ -27,6 +29,7 @@ public class MissingInputsFrame extends JDialog implements ActionListener {
     private JButton closeButton;
 
     public MissingInputsFrame(RsaInputTable rsaTable, String s, ApplicationManager am) {
+        super(null, "Bad Datasets", ModalityType.APPLICATION_MODAL);
         this.cancel = false;
         this.rsaTable = rsaTable;
         this.badIndexes = new ArrayList<Integer>();
@@ -51,11 +54,10 @@ public class MissingInputsFrame extends JDialog implements ActionListener {
 
             removeAllButton.addActionListener(this);
             closeButton.addActionListener(this);
+            addWindowListener(this);
 
             pack();
-            this.setTitle("Bad Datasets");
             this.setResizable(false);
-            this.setModal(true);
             this.setVisible(true);
         }
     }
@@ -66,22 +68,22 @@ public class MissingInputsFrame extends JDialog implements ActionListener {
         ArrayList<RsaImageSet> inputData = this.rsaTable.getInputData();
         for (int i : rowIndexes) {
             RsaImageSet ris = inputData.get(i);
-            if (s == "export") {
+            if (s.equals("export")) {
                 if (!am.getExport().hasRequiredInput(ris, am)) {
                     this.badIndexes.add(i);
                     this.badImageSets.add(ris);
                 }
-            } else if (s == "qc") {
+            } else if (s.equals("qc")) {
                 if (!am.getQc().hasRequiredInput(ris, am)) {
                     this.badIndexes.add(i);
                     this.badImageSets.add(ris);
                 }
-            } else if (s == "qc2") {
+            } else if (s.equals("qc2")) {
                 if (!am.getQc2().hasRequiredInput(ris, am)) {
                     this.badIndexes.add(i);
                     this.badImageSets.add(ris);
                 }
-            } else if (s == "qc3") {
+            } else if (s.equals("qc3")) {
                 if (!am.getQc3().hasRequiredInput(ris, am)) {
                     this.badIndexes.add(i);
                     this.badImageSets.add(ris);
@@ -107,6 +109,41 @@ public class MissingInputsFrame extends JDialog implements ActionListener {
             this.cancel = true;
             dispose();
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        this.cancel = true;
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 
     public boolean getCancel() {

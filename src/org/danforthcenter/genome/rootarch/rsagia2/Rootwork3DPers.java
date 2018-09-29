@@ -180,7 +180,6 @@ public class Rootwork3DPers  implements IApplication {
         System.out.println(this.getClass().getSimpleName() + " has Required Input ans " + ans);
         return ans;
     }
-
     @Override
     public int getOptionalInputs() {
         return InputOutputTypes.NONE;
@@ -251,10 +250,11 @@ public class Rootwork3DPers  implements IApplication {
                 roll, translation, focusOffset, doAdd
                 );
 
+        out.setUnsavedConfigContents(rout.getUnsavedConfigContents());
 
         String[] cmd = getReconstruction3dCmd(rout);
 
-        System.out.println("/t/t" + this.getClass().getSimpleName() + "\n");
+        System.out.println("\t\t" + this.getClass().getSimpleName() + "\n");
         for (String subcmd : cmd) {
             System.out.print(subcmd + " ");
         }
@@ -692,6 +692,7 @@ public class Rootwork3DPers  implements IApplication {
                 camDist, rotDir, doFindRotAxis, doCalib, pitch,
                 roll, translation, focusOffset, doAdd);
         rxml.save(rout.getConfigFile());
+        rout.setUnsavedConfigContents(rxml.toString());
 
         // // tw 2014nov12
         // ism.setFilePermissions(rout.getConfigFile());
@@ -753,8 +754,8 @@ public class Rootwork3DPers  implements IApplication {
 		 */
     }
 
-    protected static class Rootwork3DException extends RuntimeException {
-        public Rootwork3DException(String msg, Throwable th) {
+    private static class Rootwork3DException extends RuntimeException {
+        private Rootwork3DException(String msg, Throwable th) {
             super(msg, th);
         }
     }

@@ -17,14 +17,14 @@ import java.util.HashMap;
  */
 public class Rootwork3DPersFrame_new extends JFrame implements
         ActionListener, PropertyChangeListener {
-    protected ApplicationManager am;
-    protected ArrayList<RsaImageSet> riss;
-    protected ChooseOutputFrame cofScale;
-    protected ChooseOutputFrame cofGia;
-    protected Rootwork3DPersLogFrame rlf;
+    private ApplicationManager am;
+    private ArrayList<RsaImageSet> riss;
+    private ChooseOutputFrame cofScale;
+    private ChooseOutputFrame cofGia;
+    private Rootwork3DPersLogFrame rlf;
 
-    protected ArrayList<OutputInfo> scales = new ArrayList<OutputInfo>();
-    protected ArrayList<RsaImageSet> scaleInputs = new ArrayList<RsaImageSet>();
+    private ArrayList<OutputInfo> scales = new ArrayList<OutputInfo>();
+    private ArrayList<RsaImageSet> scaleInputs = new ArrayList<RsaImageSet>();
 
 
     private JTextField nodesOctreeField;
@@ -232,25 +232,6 @@ public class Rootwork3DPersFrame_new extends JFrame implements
 
     private void createUIComponents() {
         // TODO: place custom component creation code here
-    }
-
-    /**
-     * @noinspection ALL
-     */
-    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
-        if (currentFont == null) return null;
-        String resultName;
-        if (fontName == null) {
-            resultName = currentFont.getName();
-        } else {
-            Font testFont = new Font(fontName, Font.PLAIN, 10);
-            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
-                resultName = fontName;
-            } else {
-                resultName = currentFont.getName();
-            }
-        }
-        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**
@@ -593,6 +574,25 @@ public class Rootwork3DPersFrame_new extends JFrame implements
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(focusOffsetField, gbc);
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**

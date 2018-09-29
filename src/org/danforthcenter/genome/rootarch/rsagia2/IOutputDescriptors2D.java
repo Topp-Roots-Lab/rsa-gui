@@ -11,6 +11,6 @@ import java.io.File;
  * 
  * @author bm93
  */
-public interface IOutputDescriptors2D {
+public interface IOutputDescriptors2D extends IProgramRun {
 	public File getDescriptorFile();
 }
