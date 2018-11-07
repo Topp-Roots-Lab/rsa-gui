@@ -24,6 +24,12 @@ public class UserDBFunctions {
         return userRecord;
     }
 
+    public Result<Record> getActiveUsers()
+    {
+        Result<Record> userRecord = ConnectDb.getDslContext().fetch("select * from user where active=1");
+        return userRecord;
+    }
+
     public int findMax()
     {
         Result<Record> record = ConnectDb.getDslContext().fetch("select max(user_id) max from user");

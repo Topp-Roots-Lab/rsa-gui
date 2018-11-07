@@ -20,8 +20,10 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
     private JButton viewButton;
     private JButton editButton;
     private JPanel panel1;
+    private JCheckBox activeUsersCheckBox;
     private UserDBFunctions udf;
     private String selectedUser;
+    private boolean checked;
 
     public SelectUserFrame() {
         super(null, "Select User", ModalityType.APPLICATION_MODAL);
@@ -29,6 +31,10 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
         pack();
+
+        activeUsersCheckBox.setSelected(true);
+        this.checked = true;
+        activeUsersCheckBox.addActionListener(this);
         viewButton.addActionListener(this);
         editButton.addActionListener(this);
         this.udf = new UserDBFunctions();
@@ -45,28 +51,52 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
     }
 
     public void loadUsers() {
-        Result<Record> userRecord = this.udf.getAllUsers();
-        DefaultComboBoxModel users = new DefaultComboBoxModel();
-        for (Record r : userRecord) {
-            users.addElement((String) r.getValue("user_name"));
+        Result<Record> userRecord = null;
+        if (this.checked == true) {
+            userRecord = this.udf.getActiveUsers();
+        } else {
+            userRecord = this.udf.getAllUsers();
         }
-        this.selectedUser = (String) users.getElementAt(0);
+        DefaultComboBoxModel users = new DefaultComboBoxModel();
+        if (userRecord != null && userRecord.size() != 0) {
+            for (Record r : userRecord) {
+                users.addElement((String) r.getValue("user_name"));
+            }
+            this.selectedUser = (String) users.getElementAt(0);
+        } else {
+            this.selectedUser = null;
+        }
         userComboBox.setModel(users);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.viewButton) {
-            ViewUserFrame vuf = new ViewUserFrame(selectedUser);
-            vuf.setVisible(true);
+            if (this.selectedUser != null) {
+                ViewUserFrame vuf = new ViewUserFrame(selectedUser);
+                vuf.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "You don't have a user to view.", null, JOptionPane.ERROR_MESSAGE);
+            }
         } else if (e.getSource() == this.editButton) {
             if (UserAccess.getCurrentAccessLevel() == UserAccessLevel.Admin) {
-                EditUserFrame euf = new EditUserFrame(selectedUser);
-                euf.addPropertyChangeListener(this);
-                euf.setVisible(true);
+                if (this.selectedUser != null) {
+                    EditUserFrame euf = new EditUserFrame(selectedUser);
+                    euf.addPropertyChangeListener(this);
+                    euf.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "You don't have a user to edit.", null, JOptionPane.ERROR_MESSAGE);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "You don't have the permission to edit user.", null, JOptionPane.ERROR_MESSAGE);
             }
+        } else if (e.getSource() == this.activeUsersCheckBox) {
+            if (activeUsersCheckBox.isSelected()) {
+                this.checked = true;
+            } else {
+                this.checked = false;
+            }
+            loadUsers();
         }
     }
 
@@ -93,14 +123,14 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(10, 0, 10, 0);
         panel1.add(label1, gbc);
         userComboBox = new JComboBox();
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(userComboBox, gbc);
@@ -108,7 +138,7 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
         viewButton.setText("View");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(10, 0, 10, 10);
         panel1.add(viewButton, gbc);
@@ -116,9 +146,24 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
         editButton.setText("Edit");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(editButton, gbc);
+        final JLabel label2 = new JLabel();
+        label2.setText("Only active users:");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(10, 0, 10, 10);
+        panel1.add(label2, gbc);
+        activeUsersCheckBox = new JCheckBox();
+        activeUsersCheckBox.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel1.add(activeUsersCheckBox, gbc);
     }
 
     /**
