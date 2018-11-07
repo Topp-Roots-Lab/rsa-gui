@@ -1,7 +1,9 @@
 package org.danforthcenter.genome.rootarch.rsagia.app2;
 
+import org.danforthcenter.genome.rootarch.rsagia.db.enums.UserAccessLevel;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.DirRename;
+import org.danforthcenter.genome.rootarch.rsagia2.UserAccess;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -50,11 +52,16 @@ public class SelectOrganismFrame extends JDialog implements
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.editButton) {
-            int index = comboBox1.getSelectedIndex();
-            String selectedOrganism = (String) comboBox1.getItemAt(index);
-            EditOrganismFrame editOrganism = new EditOrganismFrame(selectedOrganism, this.dirRenameApp, this.baseDir);
-            editOrganism.addPropertyChangeListener("getall", this);
-            editOrganism.setVisible(true);
+            if (UserAccess.getCurrentAccessLevel() == UserAccessLevel.Admin) {
+                int index = comboBox1.getSelectedIndex();
+                String selectedOrganism = (String) comboBox1.getItemAt(index);
+                EditOrganismFrame editOrganism = new EditOrganismFrame(selectedOrganism, this.dirRenameApp, this.baseDir);
+                editOrganism.addPropertyChangeListener("getall", this);
+                editOrganism.setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "You don't have the permission to edit organism.", null, JOptionPane.ERROR_MESSAGE);
+            }
         } else if (e.getSource() == this.viewButton) {
             String selectedOrganism = (String) comboBox1.getSelectedItem();
             ViewOrganismFrame viewOrganism = new ViewOrganismFrame(selectedOrganism);

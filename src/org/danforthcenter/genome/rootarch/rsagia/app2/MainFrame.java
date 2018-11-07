@@ -279,8 +279,13 @@ public class MainFrame extends javax.swing.JFrame implements
             ui.addPropertyChangeListener("getall", this);
             ui.setVisible(true);
         } else if (e.getSource() == this.addOrganism) {
-            AddOrganismFrame aof = new AddOrganismFrame();
-            aof.setVisible(true);
+            if (UserAccess.getCurrentAccessLevel() == UserAccessLevel.Admin) {
+                AddOrganismFrame aof = new AddOrganismFrame();
+                aof.setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "You don't have the permission to add organism.", null, JOptionPane.ERROR_MESSAGE);
+            }
         } else if (e.getSource() == this.addExperiment) {
             AddExperimentFrame aef = new AddExperimentFrame();
             aef.setVisible(true);
