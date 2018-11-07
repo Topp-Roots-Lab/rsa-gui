@@ -158,6 +158,7 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer4, gbc);
         speciesField = new JTextField();
+        speciesField.setToolTipText("Scientific name of the organism: e.g. \"Oryza sativa\" for rice");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 6;
@@ -225,6 +226,7 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         gbc.insets = new Insets(20, 0, 0, 0);
         panel1.add(cancelButton, gbc);
         nameField = new JTextField();
+        nameField.setToolTipText("Common name of the organism, in lowercase: e.g. \"rice\" or \"rice_glab\"");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 2;
@@ -232,6 +234,7 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(nameField, gbc);
         orgCodeField = new JTextField();
+        orgCodeField.setToolTipText("Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name: e.g. \"Os\" for rice");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 4;

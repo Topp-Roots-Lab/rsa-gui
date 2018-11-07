@@ -88,6 +88,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         panel1.add(label2, gbc);
         organismNameField = new JTextField();
         organismNameField.setPreferredSize(new Dimension(120, 25));
+        organismNameField.setToolTipText("Common name of the organism, in lowercase: e.g. \"rice\" or \"rice_glab\"");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -95,6 +96,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         panel1.add(organismNameField, gbc);
         organismCodeField = new JTextField();
         organismCodeField.setPreferredSize(new Dimension(120, 25));
+        organismCodeField.setToolTipText("Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name: e.g. \"Os\" for rice");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -111,6 +113,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         panel1.add(addButton, gbc);
         speciesField = new JTextField();
         speciesField.setPreferredSize(new Dimension(120, 25));
+        speciesField.setToolTipText("Scientific name of the organism: e.g. \"Oryza sativa\" for rice");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 2;

@@ -36,6 +36,7 @@
         </constraints>
         <properties>
           <preferredSize width="120" height="25"/>
+          <toolTipText value="Common name of the organism, in lowercase: e.g. &quot;rice&quot; or &quot;rice_glab&quot;"/>
         </properties>
       </component>
       <component id="860ab" class="javax.swing.JTextField" binding="organismCodeField">
@@ -47,6 +48,7 @@
         </constraints>
         <properties>
           <preferredSize width="120" height="25"/>
+          <toolTipText value="Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name: e.g. &quot;Os&quot; for rice"/>
         </properties>
       </component>
       <component id="5a34a" class="javax.swing.JButton" binding="addButton" default-binding="true">
@@ -67,6 +69,7 @@
         </constraints>
         <properties>
           <preferredSize width="120" height="25"/>
+          <toolTipText value="Scientific name of the organism: e.g. &quot;Oryza sativa&quot; for rice"/>
         </properties>
       </component>
       <component id="27efd" class="javax.swing.JTextField" binding="subspeciesField">

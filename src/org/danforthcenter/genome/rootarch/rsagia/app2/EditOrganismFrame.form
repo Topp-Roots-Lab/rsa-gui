@@ -61,7 +61,9 @@
           </grid>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="Scientific name of the organism: e.g. &quot;Oryza sativa&quot; for rice"/>
+        </properties>
       </component>
       <component id="f79e" class="javax.swing.JLabel">
         <constraints>
@@ -136,7 +138,9 @@
           </grid>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="Common name of the organism, in lowercase: e.g. &quot;rice&quot; or &quot;rice_glab&quot;"/>
+        </properties>
       </component>
       <component id="8f76a" class="javax.swing.JTextField" binding="orgCodeField">
         <constraints>
@@ -145,7 +149,9 @@
           </grid>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
-        <properties/>
+        <properties>
+          <toolTipText value="Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name: e.g. &quot;Os&quot; for rice"/>
+        </properties>
       </component>
       <vspacer id="33c48">
         <constraints>
