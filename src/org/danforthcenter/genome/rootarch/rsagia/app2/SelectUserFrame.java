@@ -23,7 +23,6 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
     private JCheckBox activeUsersCheckBox;
     private UserDBFunctions udf;
     private String selectedUser;
-    private boolean checked;
 
     public SelectUserFrame() {
         super(null, "Select User", ModalityType.APPLICATION_MODAL);
@@ -33,7 +32,6 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
         pack();
 
         activeUsersCheckBox.setSelected(true);
-        this.checked = true;
         activeUsersCheckBox.addActionListener(this);
         viewButton.addActionListener(this);
         editButton.addActionListener(this);
@@ -52,7 +50,7 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
 
     public void loadUsers() {
         Result<Record> userRecord = null;
-        if (this.checked == true) {
+        if (activeUsersCheckBox.isSelected()) {
             userRecord = this.udf.getActiveUsers();
         } else {
             userRecord = this.udf.getAllUsers();
@@ -91,11 +89,6 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
                 JOptionPane.showMessageDialog(null, "You don't have the permission to edit user.", null, JOptionPane.ERROR_MESSAGE);
             }
         } else if (e.getSource() == this.activeUsersCheckBox) {
-            if (activeUsersCheckBox.isSelected()) {
-                this.checked = true;
-            } else {
-                this.checked = false;
-            }
             loadUsers();
         }
     }

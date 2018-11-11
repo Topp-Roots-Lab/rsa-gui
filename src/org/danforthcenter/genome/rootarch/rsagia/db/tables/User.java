@@ -39,7 +39,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 1561085116;
+    private static final long serialVersionUID = -473961165;
 
     /**
      * The reference instance of <code>rsa_gia.user</code>
@@ -87,7 +87,7 @@ public class User extends TableImpl<UserRecord> {
     /**
      * The column <code>rsa_gia.user.active</code>.
      */
-    public final TableField<UserRecord, Byte> ACTIVE = createField("active", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
+    public final TableField<UserRecord, Boolean> ACTIVE = createField("active", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
 
     /**
      * Create a <code>rsa_gia.user</code> table reference

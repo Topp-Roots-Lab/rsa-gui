@@ -19,6 +19,7 @@ public class ViewUserFrame extends JDialog implements ActionListener {
     private JTextField lastNameField;
     private JTextField labNameField;
     private JPanel panel1;
+    private JCheckBox activeCheckBox;
     private UserDBFunctions udf;
 
     public ViewUserFrame(String selectedUserName) {
@@ -38,6 +39,7 @@ public class ViewUserFrame extends JDialog implements ActionListener {
         firstNameField.setText((String) r.getValue("first_name"));
         lastNameField.setText((String) r.getValue("last_name"));
         labNameField.setText((String) r.getValue("lab_name"));
+        activeCheckBox.setSelected(((Byte) r.getValue("active")) == 1);
     }
 
     @Override
@@ -73,7 +75,7 @@ public class ViewUserFrame extends JDialog implements ActionListener {
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.insets = new Insets(10, 0, 10, 0);
+        gbc.insets = new Insets(10, 0, 10, 10);
         panel1.add(label2, gbc);
         final JLabel label3 = new JLabel();
         label3.setText("First Name:");
@@ -111,7 +113,7 @@ public class ViewUserFrame extends JDialog implements ActionListener {
         okButton.setText("OK");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(10, 0, 10, 0);
         panel1.add(okButton, gbc);
@@ -147,6 +149,21 @@ public class ViewUserFrame extends JDialog implements ActionListener {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(labNameField, gbc);
+        final JLabel label6 = new JLabel();
+        label6.setText("Active:");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(10, 0, 10, 0);
+        panel1.add(label6, gbc);
+        activeCheckBox = new JCheckBox();
+        activeCheckBox.setEnabled(false);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel1.add(activeCheckBox, gbc);
     }
 
     /**

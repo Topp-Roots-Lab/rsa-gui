@@ -40,7 +40,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ProgramRun extends TableImpl<ProgramRunRecord> {
 
-    private static final long serialVersionUID = -1272533692;
+    private static final long serialVersionUID = -1180117944;
 
     /**
      * The reference instance of <code>rsa_gia.program_run</code>
@@ -78,12 +78,12 @@ public class ProgramRun extends TableImpl<ProgramRunRecord> {
     /**
      * The column <code>rsa_gia.program_run.saved</code>.
      */
-    public final TableField<ProgramRunRecord, Byte> SAVED = createField("saved", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
+    public final TableField<ProgramRunRecord, Boolean> SAVED = createField("saved", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
 
     /**
      * The column <code>rsa_gia.program_run.red_flag</code>.
      */
-    public final TableField<ProgramRunRecord, Byte> RED_FLAG = createField("red_flag", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
+    public final TableField<ProgramRunRecord, Boolean> RED_FLAG = createField("red_flag", org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
 
     /**
      * The column <code>rsa_gia.program_run.run_date</code>.

@@ -18,6 +18,7 @@ public class EditUserFrame extends JDialog implements ActionListener {
     private JPanel panel1;
     private JTextField userNameField;
     private JButton cancelButton;
+    private JCheckBox activeCheckBox;
     private UserDBFunctions udf;
     private String selectedUser;
 
@@ -39,6 +40,7 @@ public class EditUserFrame extends JDialog implements ActionListener {
         firstNameField.setText((String) r.getValue("first_name"));
         lastNameField.setText((String) r.getValue("last_name"));
         labNameField.setText((String) r.getValue("lab_name"));
+        activeCheckBox.setSelected(((Byte) r.getValue("active")) == 1);
 
         DefaultComboBoxModel levels = new DefaultComboBoxModel();
         String[] accessLevelList = this.udf.getAccessLevels();
@@ -57,7 +59,8 @@ public class EditUserFrame extends JDialog implements ActionListener {
             String newFirstName = firstNameField.getText();
             String newLastName = lastNameField.getText();
             String newLabName = labNameField.getText();
-            this.udf.updateUser(newUserName, this.selectedUser, newAccessLevel, newFirstName, newLastName, newLabName);
+            boolean newActive = activeCheckBox.isSelected();
+            this.udf.updateUser(newUserName, this.selectedUser, newAccessLevel, newFirstName, newLastName, newLabName, newActive);
             JOptionPane.showMessageDialog(null, "User is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
             firePropertyChange("getall", null, null);
             this.dispose();
@@ -157,7 +160,7 @@ public class EditUserFrame extends JDialog implements ActionListener {
         editUserButton.setText("Save");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.anchor = GridBagConstraints.EAST;
         gbc.insets = new Insets(10, 0, 10, 10);
         panel1.add(editUserButton, gbc);
@@ -165,9 +168,23 @@ public class EditUserFrame extends JDialog implements ActionListener {
         cancelButton.setText("Cancel");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(cancelButton, gbc);
+        final JLabel label6 = new JLabel();
+        label6.setText("Active:");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(10, 0, 10, 0);
+        panel1.add(label6, gbc);
+        activeCheckBox = new JCheckBox();
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 5;
+        gbc.anchor = GridBagConstraints.WEST;
+        panel1.add(activeCheckBox, gbc);
     }
 
     /**

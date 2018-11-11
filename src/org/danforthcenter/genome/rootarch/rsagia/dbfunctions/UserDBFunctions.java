@@ -40,8 +40,8 @@ public class UserDBFunctions {
     public void insertUser(String userName, String accessLevel, String firstName, String lastName, String labName)
     {
         int count = findMax() + 1;
-        String query = "insert into user (user_id, user_name, first_name, last_name, lab_name, access_level) " +
-                "values (" + count + ",'" + userName +"','" + firstName + "','" + lastName + "','" + labName + "','" + accessLevel + "')";
+        String query = "insert into user (user_id, user_name, first_name, last_name, lab_name, access_level, active) " +
+                "values (" + count + ",'" + userName +"','" + firstName + "','" + lastName + "','" + labName + "','" + accessLevel + "', true)";
         ConnectDb.getDslContext().execute(query);
     }
 
@@ -51,10 +51,10 @@ public class UserDBFunctions {
     }
 
     public void updateUser(String newUserName, String oldUserName, String newAccessLevel, String newFirstName, String newLastName,
-                           String newLabName)
+                           String newLabName, Boolean newActive)
     {
         String query = "update user set user_name='" + newUserName + "',first_name='" +newFirstName + "',last_name='"+newLastName+ "',lab_name='"+
-                newLabName + "',access_level='"+newAccessLevel+"' where user_name='" + oldUserName + "'";
+                newLabName + "',access_level='"+newAccessLevel+"', active=" + newActive + " where user_name='" + oldUserName + "'";
         ConnectDb.getDslContext().execute(query);
     }
 }
