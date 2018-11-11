@@ -34,6 +34,7 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
+        ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
         pack();
         this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
@@ -124,7 +125,7 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         final JLabel label1 = new JLabel();
         Font label1Font = this.$$$getFont$$$(null, -1, 14, label1.getFont());
         if (label1Font != null) label1.setFont(label1Font);
-        label1.setText("Name:");
+        label1.setText("Name:*");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -158,7 +159,7 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.VERTICAL;
         panel1.add(spacer4, gbc);
         speciesField = new JTextField();
-        speciesField.setToolTipText("Scientific name of the organism: e.g. \"Oryza sativa\" for rice");
+        speciesField.setToolTipText("<html> Scientific name of the organism:<br /> e.g. \"Oryza sativa\" for rice<br /> (The combination of species and subspecies is unique for each organism.) </html>");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 6;
@@ -226,7 +227,7 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         gbc.insets = new Insets(20, 0, 0, 0);
         panel1.add(cancelButton, gbc);
         nameField = new JTextField();
-        nameField.setToolTipText("Common name of the organism, in lowercase: e.g. \"rice\" or \"rice_glab\"");
+        nameField.setToolTipText("<html> Common name of the organism, in lowercase:<br /> e.g. \"rice\" or \"rice_glab\"<br /> (This value is unique for each organism.) </html>");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 2;
@@ -234,7 +235,7 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         panel1.add(nameField, gbc);
         orgCodeField = new JTextField();
-        orgCodeField.setToolTipText("Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name: e.g. \"Os\" for rice");
+        orgCodeField.setToolTipText("<html> Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name:<br />e.g. \"Os\" for rice<br /> (This value is unique for each organism.) </html>");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 4;
@@ -250,7 +251,7 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         final JLabel label5 = new JLabel();
         Font label5Font = this.$$$getFont$$$(null, -1, 14, label5.getFont());
         if (label5Font != null) label5.setFont(label5Font);
-        label5.setText("Code:");
+        label5.setText("Code:*");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;

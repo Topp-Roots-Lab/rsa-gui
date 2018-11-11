@@ -23,7 +23,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text value="Name:"/>
+          <text value="Name:*"/>
         </properties>
       </component>
       <vspacer id="11bfd">
@@ -62,7 +62,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <toolTipText value="Scientific name of the organism: e.g. &quot;Oryza sativa&quot; for rice"/>
+          <toolTipText value="&lt;html&gt; Scientific name of the organism:&lt;br /&gt; e.g. &quot;Oryza sativa&quot; for rice&lt;br /&gt; (The combination of species and subspecies is unique for each organism.) &lt;/html&gt;"/>
         </properties>
       </component>
       <component id="f79e" class="javax.swing.JLabel">
@@ -139,7 +139,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <toolTipText value="Common name of the organism, in lowercase: e.g. &quot;rice&quot; or &quot;rice_glab&quot;"/>
+          <toolTipText value="&lt;html&gt; Common name of the organism, in lowercase:&lt;br /&gt; e.g. &quot;rice&quot; or &quot;rice_glab&quot;&lt;br /&gt; (This value is unique for each organism.) &lt;/html&gt;"/>
         </properties>
       </component>
       <component id="8f76a" class="javax.swing.JTextField" binding="orgCodeField">
@@ -150,7 +150,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <toolTipText value="Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name: e.g. &quot;Os&quot; for rice"/>
+          <toolTipText value="&lt;html&gt; Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name:&lt;br /&gt;e.g. &quot;Os&quot; for rice&lt;br /&gt; (This value is unique for each organism.) &lt;/html&gt;"/>
         </properties>
       </component>
       <vspacer id="33c48">
@@ -166,7 +166,7 @@
         </constraints>
         <properties>
           <font size="14"/>
-          <text value="Code:"/>
+          <text value="Code:*"/>
         </properties>
       </component>
     </children>

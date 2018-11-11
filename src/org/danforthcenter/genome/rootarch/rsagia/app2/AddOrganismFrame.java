@@ -22,6 +22,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
+        ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
         pack();
         addButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
@@ -70,7 +71,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         panel1.setLayout(new GridBagLayout());
         panel1.setPreferredSize(new Dimension(340, 256));
         final JLabel label1 = new JLabel();
-        label1.setText("Organism Name:");
+        label1.setText("Organism Name:*");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -79,7 +80,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         gbc.insets = new Insets(10, 0, 10, 10);
         panel1.add(label1, gbc);
         final JLabel label2 = new JLabel();
-        label2.setText("Organism Code:");
+        label2.setText("Organism Code:*");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -88,7 +89,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         panel1.add(label2, gbc);
         organismNameField = new JTextField();
         organismNameField.setPreferredSize(new Dimension(120, 25));
-        organismNameField.setToolTipText("Common name of the organism, in lowercase: e.g. \"rice\" or \"rice_glab\"");
+        organismNameField.setToolTipText("<html>\nCommon name of the organism, in lowercase:<br />\ne.g. \"rice\" or \"rice_glab\"<br />\n(This value is unique for each organism.)\n</html>");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
@@ -96,7 +97,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         panel1.add(organismNameField, gbc);
         organismCodeField = new JTextField();
         organismCodeField.setPreferredSize(new Dimension(120, 25));
-        organismCodeField.setToolTipText("Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name: e.g. \"Os\" for rice");
+        organismCodeField.setToolTipText("<html>\nTwo letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name:<br />e.g. \"Os\" for rice<br />\n(This value is unique for each organism.)\n</html>");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
@@ -113,7 +114,7 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         panel1.add(addButton, gbc);
         speciesField = new JTextField();
         speciesField.setPreferredSize(new Dimension(120, 25));
-        speciesField.setToolTipText("Scientific name of the organism: e.g. \"Oryza sativa\" for rice");
+        speciesField.setToolTipText("<html>\nScientific name of the organism:<br />\ne.g. \"Oryza sativa\" for rice<br />\n(The combination of species and subspecies is unique for each organism.)\n</html>");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 2;

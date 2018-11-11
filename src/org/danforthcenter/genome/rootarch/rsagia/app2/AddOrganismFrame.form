@@ -15,7 +15,7 @@
           <gridbag top="10" left="0" bottom="10" right="10" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Organism Name:"/>
+          <text value="Organism Name:*"/>
         </properties>
       </component>
       <component id="a8fad" class="javax.swing.JLabel">
@@ -24,7 +24,7 @@
           <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Organism Code:"/>
+          <text value="Organism Code:*"/>
         </properties>
       </component>
       <component id="ce3b" class="javax.swing.JTextField" binding="organismNameField">
@@ -36,7 +36,7 @@
         </constraints>
         <properties>
           <preferredSize width="120" height="25"/>
-          <toolTipText value="Common name of the organism, in lowercase: e.g. &quot;rice&quot; or &quot;rice_glab&quot;"/>
+          <toolTipText value="&lt;html&gt;&#10;Common name of the organism, in lowercase:&lt;br /&gt;&#10;e.g. &quot;rice&quot; or &quot;rice_glab&quot;&lt;br /&gt;&#10;(This value is unique for each organism.)&#10;&lt;/html&gt;"/>
         </properties>
       </component>
       <component id="860ab" class="javax.swing.JTextField" binding="organismCodeField">
@@ -48,7 +48,7 @@
         </constraints>
         <properties>
           <preferredSize width="120" height="25"/>
-          <toolTipText value="Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name: e.g. &quot;Os&quot; for rice"/>
+          <toolTipText value="&lt;html&gt;&#10;Two letter code, first letter uppercase, second letter lowercase, usually abbreviation of scientific name:&lt;br /&gt;e.g. &quot;Os&quot; for rice&lt;br /&gt;&#10;(This value is unique for each organism.)&#10;&lt;/html&gt;"/>
         </properties>
       </component>
       <component id="5a34a" class="javax.swing.JButton" binding="addButton" default-binding="true">
@@ -69,7 +69,7 @@
         </constraints>
         <properties>
           <preferredSize width="120" height="25"/>
-          <toolTipText value="Scientific name of the organism: e.g. &quot;Oryza sativa&quot; for rice"/>
+          <toolTipText value="&lt;html&gt;&#10;Scientific name of the organism:&lt;br /&gt;&#10;e.g. &quot;Oryza sativa&quot; for rice&lt;br /&gt;&#10;(The combination of species and subspecies is unique for each organism.)&#10;&lt;/html&gt;"/>
         </properties>
       </component>
       <component id="27efd" class="javax.swing.JTextField" binding="subspeciesField">
