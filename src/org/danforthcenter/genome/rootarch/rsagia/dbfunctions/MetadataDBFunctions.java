@@ -197,8 +197,34 @@ public class MetadataDBFunctions {
     public void insertSeed(String organism, String experiment, String seed, int genotypeID, Double dryshoot, Double dryroot,
                            Double wetshoot, Double wetroot, String sterilizationChamber, String imagingIntervalUnit, String description,
                            Date imagingStartDate) {
-        String imagingStartDateString = "NULL";
         String genotypeString = "NULL";
+        if (genotypeID > 0) {
+            genotypeString = String.valueOf(genotypeID);
+        }
+
+        String dryShootString = "NULL";
+        if (dryshoot >= 0) {
+            dryShootString = String.valueOf(dryshoot);
+        }
+        String dryRootString = "NULL";
+        if (dryroot >= 0) {
+            dryRootString = String.valueOf(dryroot);
+        }
+        String wetShootString = "NULL";
+        if (wetshoot >= 0) {
+            wetShootString = String.valueOf(wetshoot);
+        }
+        String wetRootString = "NULL";
+        if (wetroot >= 0) {
+            wetRootString = String.valueOf(wetroot);
+        }
+
+        String imagingStartDateString = "NULL";
+        if (imagingStartDate != null) {
+            String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+            imagingStartDateString = new SimpleDateFormat(DATE_FORMAT).format(imagingStartDate);
+            imagingStartDateString = "'" + imagingStartDateString + "'";
+        }
 
         if (sterilizationChamber.isEmpty() || sterilizationChamber == null) {
             sterilizationChamber = "NULL";
@@ -206,18 +232,10 @@ public class MetadataDBFunctions {
             sterilizationChamber = "'" + sterilizationChamber + "'";
         }
 
-        if (genotypeID > 0) {
-            genotypeString = "'" + String.valueOf(genotypeID) + "'";
-        }
         if (description.isEmpty() || description == null) {
             description = "NULL";
         } else {
             description = "'" + description + "'";
-        }
-        if (imagingStartDate != null) {
-            String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-            imagingStartDateString = new SimpleDateFormat(DATE_FORMAT).format(imagingStartDate);
-            imagingStartDateString = "'" + imagingStartDateString + "'";
         }
 
         Result<Record> seedRecord = ConnectDb.getDslContext().fetch("select max(seed_id) max from seed");
@@ -225,8 +243,8 @@ public class MetadataDBFunctions {
         max = max + 1;
         Result<Record> expRecord = findExperiment(experiment, organism);
         int expID = (int) expRecord.get(0).getValue("experiment_id");
-        String query = "insert into seed values(" + max + "," + expID + ",'" + seed + "'," + genotypeString + "," + dryshoot + "," + dryroot +
-                "," + wetshoot + "," + wetroot + "," + sterilizationChamber + "," + description + ",'" + imagingIntervalUnit + "'," + imagingStartDateString + ")";
+        String query = "insert into seed values(" + max + "," + expID + ",'" + seed + "'," + genotypeString + "," + dryShootString + "," + dryRootString +
+                "," + wetShootString + "," + wetRootString + "," + sterilizationChamber + "," + description + ",'" + imagingIntervalUnit + "'," + imagingStartDateString + ")";
         ConnectDb.getDslContext().execute(query);
     }
 
@@ -299,6 +317,26 @@ public class MetadataDBFunctions {
         return seedRecord;
     }
 
+    public Result<Record> findSeedFromDatasetID(int datasetID)
+    {
+        String query = "select g.genotype_name,s.dry_shoot,s.dry_root,s.wet_shoot,s.wet_root,s.sterilization_chamber," +
+                "s.description,s.imaging_interval_unit,s.imaging_start_date from seed s inner join dataset d on" +
+                " s.seed_id=d.seed_id left outer join genotype g " +
+                "on s.genotype_id=g.genotype_id where d.dataset_id=" + datasetID ;
+        Result<Record> seedRecord = ConnectDb.getDslContext().fetch(query);
+        return seedRecord;
+    }
+
+    public Result<Record> findSeedInfoFromRunID(int runID)
+    {
+        String query = "select * from program_run where run_id=" + runID;
+        Result<Record> datasetRecord = ConnectDb.getDslContext().fetch(query);
+        Record r = datasetRecord.get(0);
+        int datasetID = (int) r.getValue("dataset_id");
+        Result<Record> seedRecord = this.findSeedFromDatasetID(datasetID);
+        return seedRecord;
+    }
+
     public Result<Record> findSeedMetadataFromOrgExpSeed(String organism, String experiment, String seed) {
         Result<Record> expRecord = this.findExperiment(experiment, organism);
         int expID = (int) expRecord.get(0).getValue("experiment_id");
@@ -310,9 +348,34 @@ public class MetadataDBFunctions {
                            Double dryroot,
                            Double wetshoot, Double wetroot, String sterilizationChamber, String imagingIntervalUnit, String description,
                            Date imagingStartDate) {
-        int expID = (int) this.findExperiment(experiment, organism).get(0).getValue("experiment_id");
-        String imagingStartDateString = "NULL";
         String genotypeString = "NULL";
+        if (genotypeID > 0) {
+            genotypeString = String.valueOf(genotypeID);
+        }
+
+        String dryShootString = "NULL";
+        if (dryshoot >= 0) {
+            dryShootString = String.valueOf(dryshoot);
+        }
+        String dryRootString = "NULL";
+        if (dryroot >= 0) {
+            dryRootString = String.valueOf(dryroot);
+        }
+        String wetShootString = "NULL";
+        if (wetshoot >= 0) {
+            wetShootString = String.valueOf(wetshoot);
+        }
+        String wetRootString = "NULL";
+        if (wetroot >= 0) {
+            wetRootString = String.valueOf(wetroot);
+        }
+
+        String imagingStartDateString = "NULL";
+        if (imagingStartDate != null) {
+            String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+            imagingStartDateString = new SimpleDateFormat(DATE_FORMAT).format(imagingStartDate);
+            imagingStartDateString = "'" + imagingStartDateString + "'";
+        }
 
         if (sterilizationChamber.isEmpty() || sterilizationChamber == null) {
             sterilizationChamber = "NULL";
@@ -320,22 +383,15 @@ public class MetadataDBFunctions {
             sterilizationChamber = "'" + sterilizationChamber + "'";
         }
 
-        if (genotypeID > 0) {
-            genotypeString = "'" + String.valueOf(genotypeID) + "'";
-        }
         if (description.isEmpty() || description == null) {
             description = "NULL";
         } else {
             description = "'" + description + "'";
         }
-        if (imagingStartDate != null) {
-            String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-            imagingStartDateString = new SimpleDateFormat(DATE_FORMAT).format(imagingStartDate);
-            imagingStartDateString = "'" + imagingStartDateString + "'";
-        }
 
-        String query = "update seed set seed_name='" + seed + "',genotype_id=" + genotypeString + ",dry_shoot=" + dryshoot + ",dry_root=" + dryroot +
-                ",wet_shoot=" + wetshoot + ",wet_root=" + wetroot + ",sterilization_chamber=" + sterilizationChamber +
+        int expID = (int) this.findExperiment(experiment, organism).get(0).getValue("experiment_id");
+        String query = "update seed set seed_name='" + seed + "',genotype_id=" + genotypeString + ",dry_shoot=" + dryShootString + ",dry_root=" + dryRootString +
+                ",wet_shoot=" + wetShootString + ",wet_root=" + wetRootString + ",sterilization_chamber=" + sterilizationChamber +
                 ",imaging_interval_unit='" + imagingIntervalUnit + "',description=" + description + ",imaging_start_date=" + imagingStartDateString +
                 " where experiment_id =" + expID + " and seed_name ='" + oldSeed + "'";
         ConnectDb.getDslContext().execute(query);

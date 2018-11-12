@@ -50,14 +50,20 @@ public class UserAccess
 
     public static UserAccessLevel getCurrentAccessLevel()
     {
-        Result<Record> userRecord = udf.findUserFromName(getCurrentUser());
-        if (userRecord.size() == 0)
+        Result<Record> userRecordResult = udf.findUserFromName(getCurrentUser());
+        if (userRecordResult.size() == 0)
         {
             return null;
         }
         else
         {
-            return UserAccessLevel.valueOf((String) userRecord.getValue(0, "access_level"));
+            Record userRecord = userRecordResult.get(0);
+            boolean active = ((Byte) userRecord.getValue("active")) == 1;
+            if (!active)
+            {
+                return null;
+            }
+            return UserAccessLevel.valueOf((String) userRecord.getValue("access_level"));
         }
     }
 

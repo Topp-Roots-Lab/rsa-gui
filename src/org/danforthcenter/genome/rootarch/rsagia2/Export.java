@@ -5,16 +5,18 @@
 
 package org.danforthcenter.genome.rootarch.rsagia2;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions;
+import org.jooq.Record;
+import org.jooq.Result;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * This class is responsible for creating spreadsheets from multiple runs of
@@ -41,6 +43,7 @@ public class Export {
 	protected HashMap<String, IScale> scaleGia3d_v2Map;
 	protected HashMap<String, String> synonymGia3d_v2Map;
 	protected ArrayList<String> descGia3d_v2List;
+	protected MetadataDBFunctions mdf;
 
 	public Export(File idFile, Scale scale, GiaRoot2D gia, String configString,
 			String config3dString,
@@ -48,7 +51,7 @@ public class Export {
 		this.idFile = idFile;
 		this.scale = scale;
 		this.gia = gia;
-
+		mdf = new MetadataDBFunctions();
 		scaleMap = new HashMap<String, IScale>();
 		synonymMap = new HashMap<String, String>();
 		scale3dMap = new HashMap<String, IScale>();
@@ -316,7 +319,7 @@ public class Export {
 			HashMap<RsaImageSet, IOutputDescriptorsSkeleton3D> descGia3d_v2Map,
 			File outFile) {
 		ArrayList<String[]> sheet = new ArrayList<String[]>();
-		int jOffset = 6;
+		int jOffset = 16;
 		String[] ss1 = new String[descGia3d_v2List.size() + jOffset];
 		ss1[0] = "Species";
 		ss1[1] = "Experiment";
@@ -324,6 +327,17 @@ public class Export {
 		ss1[3] = "ImagingDay";
 		ss1[4] = "source_id";
 		ss1[5] = "Scale";
+		ss1[6] = "Genotype";
+		ss1[7] = "Dry Shoot";
+		ss1[8] = "Dry Root";
+		ss1[9] = "Wet Shoot";
+		ss1[10] = "Wet Root";
+		ss1[11] = "Sterilization Chamber";
+		ss1[12] = "RowColumn";
+		ss1[13] = "Imaging Interval Unit";
+		ss1[14] = "Description";
+		ss1[15] = "Imaging Start Date";
+
 		for (int i = 0; i < descGia3d_v2List.size(); i++) {
 			ss1[jOffset + i] = descGia3d_v2List.get(i);
 		}
@@ -358,6 +372,73 @@ public class Export {
 					row[3] = ris.getImagingDay();
 					row[4] = vals[0];
 					row[5] = Double.toString(scale2);
+
+					int datasetID = ris.getDatasetID();
+					Result<Record> seedRecord = this.mdf.findSeedFromDatasetID(datasetID);
+					Record r = seedRecord.get(0);
+					String genotype_name = "";
+					String dry_shoot = "";
+					String dry_root = "";
+					String wet_shoot = "";
+					String wet_root = "";
+					String sterilization = "";
+					String rowcolumn = "";
+					String img_interval_unit = "";
+					String description = "";
+					String img_start_date = "";
+
+					if(r.getValue("genotype_name")!=null)
+					{
+						genotype_name = (String) r.getValue("genotype_name");
+					}
+					if(r.getValue("dry_shoot")!=null)
+					{
+						dry_shoot = Double.toString((Double) r.getValue("dry_shoot"));
+					}
+					if(r.getValue("dry_root")!=null)
+					{
+						dry_root = Double.toString((Double) r.getValue("dry_root"));
+					}
+					if(r.getValue("wet_shoot")!=null)
+					{
+						wet_shoot = Double.toString((Double) r.getValue("wet_shoot"));
+					}
+					if(r.getValue("wet_root")!=null)
+					{
+						wet_root = Double.toString((Double) r.getValue("wet_root"));
+					}
+
+					String strChamberRowColumn = (String) r.getValue("sterilization_chamber");
+
+					if(strChamberRowColumn!=null)
+					{
+						sterilization = strChamberRowColumn.split("-")[0];
+						rowcolumn = strChamberRowColumn.split("-")[1];
+					}
+					if(r.getValue("imaging_interval_unit")!=null)
+					{
+						img_interval_unit =  (String) r.getValue("imaging_interval_unit");
+					}
+					if(r.getValue("description")!=null)
+					{
+						description = (String) r.getValue("description");
+					}
+					if(r.getValue("imaging_start_date")!=null)
+					{
+						Date imagingStart = (Date) r.getValue("imaging_start_date");
+						img_start_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(imagingStart);
+					}
+
+					row[6] = genotype_name;
+					row[7] = dry_shoot;
+					row[8] = dry_root;
+					row[9] = wet_shoot;
+					row[10] = wet_root;
+					row[11] = sterilization;
+					row[12] = rowcolumn;
+					row[13] = img_interval_unit;
+					row[14] = description;
+					row[15] = img_start_date;
 
 					for (int j = jOffset; j < ss1.length; j++) {
 						String v = "";
@@ -719,6 +800,10 @@ public class Export {
 				fileHeader.add(s2);
 			}
 
+			int runID = oi.getRunID();
+			Result<Record> seedRecord = this.mdf.findSeedInfoFromRunID(runID);
+			Record r = seedRecord.get(0);
+
 			int n = 0;
 			double[] means = new double[fileHeader.size()];
 			while ((s = br.readLine()) != null) {
@@ -730,6 +815,70 @@ public class Export {
 				row1[rawHeader.get("imaging_day")] = ris.getImagingDay();
 				row1[rawHeader.get("scale")] = Double.toString(scale);
 				// row1[rawHeader.get("image_number")] = parseImageNumber()
+
+				String genotype_name = "";
+				String dry_shoot = "";
+				String dry_root = "";
+				String wet_shoot = "";
+				String wet_root = "";
+				String sterilization = "";
+				String rowcolumn = "";
+				String img_interval_unit = "";
+				String description = "";
+				String img_start_date = "";
+
+				if(r.getValue("genotype_name")!=null)
+				{
+					genotype_name = (String) r.getValue("genotype_name");
+				}
+				if(r.getValue("dry_shoot")!=null)
+				{
+					dry_shoot = Double.toString((Double) r.getValue("dry_shoot"));
+				}
+				if(r.getValue("dry_root")!=null)
+				{
+					dry_root = Double.toString((Double) r.getValue("dry_root"));
+				}
+				if(r.getValue("wet_shoot")!=null)
+				{
+					wet_shoot = Double.toString((Double) r.getValue("wet_shoot"));
+				}
+				if(r.getValue("wet_root")!=null)
+				{
+					wet_root = Double.toString((Double) r.getValue("wet_root"));
+				}
+
+				String strChamberRowColumn = (String) r.getValue("sterilization_chamber");
+
+				if(strChamberRowColumn!=null)
+				{
+					sterilization = strChamberRowColumn.split("-")[0];
+					rowcolumn = strChamberRowColumn.split("-")[1];
+				}
+				if(r.getValue("imaging_interval_unit")!=null)
+				{
+					img_interval_unit =  (String) r.getValue("imaging_interval_unit");
+				}
+				if(r.getValue("description")!=null)
+				{
+					description = (String) r.getValue("description");
+				}
+				if(r.getValue("imaging_start_date")!=null)
+				{
+					Date imagingStart = (Date) r.getValue("imaging_start_date");
+					img_start_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(imagingStart);
+				}
+
+				row1[rawHeader.get("genotype")] = genotype_name;
+				row1[rawHeader.get("dry_shoot")] = dry_shoot;
+				row1[rawHeader.get("dry_root")] = dry_root;
+				row1[rawHeader.get("wet_shoot")] = wet_shoot;
+				row1[rawHeader.get("wet_root")] = wet_root;
+				row1[rawHeader.get("sterilization_chamber")] = sterilization;
+				row1[rawHeader.get("rowcolumn")] = rowcolumn;
+				row1[rawHeader.get("imaging_interval_unit")] = img_interval_unit;
+				row1[rawHeader.get("description")] = description;
+				row1[rawHeader.get("imaging_start_date")] = img_start_date;
 
 				ss = s.split(delim);
 				for (int i = 0; i < ss.length; i++) {
@@ -770,6 +919,71 @@ public class Export {
 			row2[aggrHeader.get("imaging_day")] = ris.getImagingDay();
 			row2[aggrHeader.get("scale")] = Double.toString(scale);
 			row2[aggrHeader.get("image_count")] = Integer.toString(n);
+
+			String genotype_name = "";
+			String dry_shoot = "";
+			String dry_root = "";
+			String wet_shoot = "";
+			String wet_root = "";
+			String sterilization = "";
+			String rowcolumn = "";
+			String img_interval_unit = "";
+			String description = "";
+			String img_start_date = "";
+
+			if(r.getValue("genotype_name")!=null)
+			{
+				genotype_name = (String) r.getValue("genotype_name");
+			}
+			if(r.getValue("dry_shoot")!=null)
+			{
+				dry_shoot = Double.toString((Double) r.getValue("dry_shoot"));
+			}
+			if(r.getValue("dry_root")!=null)
+			{
+				dry_root = Double.toString((Double) r.getValue("dry_root"));
+			}
+			if(r.getValue("wet_shoot")!=null)
+			{
+				wet_shoot = Double.toString((Double) r.getValue("wet_shoot"));
+			}
+			if(r.getValue("wet_root")!=null)
+			{
+				wet_root = Double.toString((Double) r.getValue("wet_root"));
+			}
+
+			String strChamberRowColumn = (String) r.getValue("sterilization_chamber");
+
+			if(strChamberRowColumn!=null)
+			{
+				sterilization = strChamberRowColumn.split("-")[0];
+				rowcolumn = strChamberRowColumn.split("-")[1];
+			}
+			if(r.getValue("imaging_interval_unit")!=null)
+			{
+				img_interval_unit =  (String) r.getValue("imaging_interval_unit");
+			}
+			if(r.getValue("description")!=null)
+			{
+				description = (String) r.getValue("description");
+			}
+			if(r.getValue("imaging_start_date")!=null)
+			{
+				Date imagingStart = (Date) r.getValue("imaging_start_date");
+				img_start_date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(imagingStart);
+			}
+
+			row2[aggrHeader.get("genotype")] = genotype_name;
+			row2[aggrHeader.get("dry_shoot")] = dry_shoot;
+			row2[aggrHeader.get("dry_root")] = dry_root;
+			row2[aggrHeader.get("wet_shoot")] = wet_shoot;
+			row2[aggrHeader.get("wet_root")] = wet_root;
+			row2[aggrHeader.get("sterilization_chamber")] = sterilization;
+			row2[aggrHeader.get("rowcolumn")] = rowcolumn;
+			row2[aggrHeader.get("imaging_interval_unit")] = img_interval_unit;
+			row2[aggrHeader.get("description")] = description;
+			row2[aggrHeader.get("imaging_start_date")] = img_start_date;
+
 			for (int i = 0; i < fileHeader.size(); i++) {
 				String h = fileHeader.get(i);
 				if (scaleMap.containsKey(h)) {
@@ -820,6 +1034,17 @@ public class Export {
 		ans.put("imaging_day", i++);
 		ans.put("image_count", i++);
 
+		ans.put("genotype",i++);
+		ans.put("dry_shoot",i++);
+		ans.put("dry_root",i++);
+		ans.put("wet_shoot",i++);
+		ans.put("wet_root",i++);
+		ans.put("sterilization_chamber",i++);
+		ans.put("rowcolumn",i++);
+		ans.put("imaging_interval_unit",i++);
+		ans.put("description",i++);
+		ans.put("imaging_start_date",i++);
+
 		for (String s : descriptors) {
 			ans.put(s, i);
 			i++;
@@ -840,6 +1065,17 @@ public class Export {
 		ans.put("plant", i++);
 		ans.put("imaging_day", i++);
 		ans.put("image_number", i++);
+
+		ans.put("genotype",i++);
+		ans.put("dry_shoot",i++);
+		ans.put("dry_root",i++);
+		ans.put("wet_shoot",i++);
+		ans.put("wet_root",i++);
+		ans.put("sterilization_chamber",i++);
+		ans.put("rowcolumn",i++);
+		ans.put("imaging_interval_unit",i++);
+		ans.put("description",i++);
+		ans.put("imaging_start_date",i++);
 
 		for (String s : descriptors) {
 			ans.put(s, i);
