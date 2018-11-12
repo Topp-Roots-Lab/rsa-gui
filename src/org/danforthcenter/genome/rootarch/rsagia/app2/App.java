@@ -234,6 +234,8 @@ public class App {
 
 			final File csvTemplateDir = new File(sysProps.getProperty("csv_template_dir"));
 
+			ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
+
 			if (UserAccess.getCurrentAccessLevel() != null) {
 				java.awt.EventQueue.invokeLater(new Runnable() {
 					public void run() {

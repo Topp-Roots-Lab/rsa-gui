@@ -22,7 +22,6 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
         pack();
         addButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();

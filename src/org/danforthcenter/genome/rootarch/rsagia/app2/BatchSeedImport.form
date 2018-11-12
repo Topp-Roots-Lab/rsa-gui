@@ -20,7 +20,7 @@
       </component>
       <component id="65915" class="javax.swing.JTextField" binding="selectedPathField">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
           <gridbag weightx="1.0" weighty="0.0"/>
@@ -29,7 +29,7 @@
       </component>
       <component id="b5190" class="javax.swing.JButton" binding="browseButton" default-binding="true">
         <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag top="0" left="10" bottom="0" right="10" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
@@ -38,7 +38,7 @@
       </component>
       <component id="a1780" class="javax.swing.JButton" binding="uploadCSVFileButton" default-binding="true">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag top="10" left="0" bottom="10" right="0" weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
@@ -47,12 +47,21 @@
       </component>
       <component id="5ee70" class="javax.swing.JLabel" binding="clickableLabel">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
           <foreground color="-16776961"/>
           <text value="Example CSV file"/>
+        </properties>
+      </component>
+      <component id="d0478" class="javax.swing.JLabel" binding="csvInfo">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag top="0" left="0" bottom="0" right="10" weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <toolTipText value="&lt;html&gt;&#10;&lt;ul&gt;&#10;&#9;&lt;li&gt;The first row should contain headings.&lt;/li&gt;&#10;&#9;&lt;li&gt;The order of columns is important.&lt;/li&gt;&#10;&#9;&lt;li&gt;The organism and experiment names should not be empty.&lt;/li&gt;&#10;&#9;&lt;li&gt;The organism, experiment and genotype names should already be in database. If not, you should add them to database first.&lt;/li&gt;&#10;&#9;&lt;li&gt;The seed name should not be empty. It should start with letter &quot;p&quot;.&lt;/li&gt;&#10;&#9;&lt;li&gt;The date should be in yyyy-MM-dd_HH:mm:ss format.&lt;/li&gt;&#10;&#9;&lt;li&gt;The imaging interval unit should be either &quot;day&quot; or &quot;hour&quot;.&lt;/li&gt;&#10;&#9;&lt;li&gt;The sterilization chamber should have &quot;-&quot; between chamber number and row/column (e.g. &quot;3-C4&quot;).&lt;/li&gt;&#10;&#9;&lt;li&gt;The dry shoot, dry root, wet shoot and wet root values should be decimal numbers.&lt;/li&gt;&#10;&lt;/ul&gt;&#10;&lt;/html&gt;"/>
         </properties>
       </component>
     </children>

@@ -37,7 +37,6 @@ public class UploadImages extends JFrame implements ActionListener, PropertyChan
         this.fileChooser = new JFileChooser();
         this.fileChooser.setDialogTitle("Select Imageset Directory");
         this.fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
 
         ImageIcon questionIcon = (ImageIcon) UIManager.getIcon("OptionPane.questionIcon");
         Image scaledImage = questionIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);

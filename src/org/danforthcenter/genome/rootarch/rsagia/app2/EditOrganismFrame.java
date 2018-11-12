@@ -34,7 +34,6 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        ToolTipManager.sharedInstance().setDismissDelay(Integer.MAX_VALUE);
         pack();
         this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
