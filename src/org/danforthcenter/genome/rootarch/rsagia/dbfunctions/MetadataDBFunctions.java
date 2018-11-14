@@ -150,8 +150,18 @@ public class MetadataDBFunctions {
     }
 
     public Result<Record> findOrganismByCode(String code) {
-        Result<Record> organismRecord = ConnectDb.getDslContext().fetch("select * from organism where species_code='" +
-                code + "'");
+        Result<Record> organismRecord = ConnectDb.getDslContext().fetch("select * from organism where species_code='" + code + "'");
+        return organismRecord;
+    }
+
+    public Result<Record> findOrganismBySpecies(String species, String subspecies) {
+        String subspeciesString;
+        if (subspecies.isEmpty()) {
+            subspeciesString = " is null";
+        } else {
+            subspeciesString = "='" + subspecies + "'";
+        }
+        Result<Record> organismRecord = ConnectDb.getDslContext().fetch("select * from organism where species='" + species + "' and subspecies" + subspeciesString);
         return organismRecord;
     }
 
@@ -166,6 +176,15 @@ public class MetadataDBFunctions {
 
     public boolean checkOrganismCodeExists(String code) {
         Result<Record> organismRecord = this.findOrganismByCode(code);
+        if (organismRecord == null || organismRecord.size() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public boolean checkSpeciesExists(String species, String subspecies) {
+        Result<Record> organismRecord = this.findOrganismBySpecies(species, subspecies);
         if (organismRecord == null || organismRecord.size() == 0) {
             return false;
         } else {
@@ -259,9 +278,17 @@ public class MetadataDBFunctions {
         }
     }
 
-    public boolean checkOrgCodeAndOrganismExists(String organism, String organismCode, String selectedOrganism) {
+    public boolean checkOrganismIdentifiersExist(String organism, String organismCode, String species, String subspecies, String selectedOrganism) {
+        String subspeciesString;
+        if (subspecies.isEmpty()) {
+            subspeciesString = " is null";
+        } else {
+            subspeciesString = "='" + subspecies + "'";
+        }
         Result<Record> orgRecord = ConnectDb.getDslContext().fetch("select * from organism " +
-                "where (organism_name='" + organism + "' or species_code='" + organismCode + "') " +
+                "where (organism_name='" + organism + "' " +
+                "or species_code='" + organismCode + "' " +
+                "or (species='" + species + "' and subspecies" + subspeciesString + ")) " +
                 "and organism_name <> '" + selectedOrganism + "'");
         if (orgRecord == null || orgRecord.size() == 0) {
             return false;

@@ -36,11 +36,16 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
             String subspecies = subspeciesField.getText();
             String description = descriptionField.getText();
             boolean check = true;
-            if (organismCode.length() != 2 || !organismCode.substring(0, 1).toUpperCase().equals(organismCode.substring(0, 1)) ||
-                    !organismCode.substring(1, 2).toLowerCase().equals(organismCode.substring(1, 2)) || mdf.isAlpha(organismName) == false ||
-                    mdf.isAlpha(organismCode) == false || !organismName.toLowerCase().equals(organismName) || organismName.length() == 0) {
+            if (organismName.length() == 0 || mdf.isAlpha(organismName) == false
+                    || !organismName.toLowerCase().equals(organismName)) {
                 check = false;
-                JOptionPane.showMessageDialog(null, "Organism name or organism code is not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Organism name is not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            if (check == true && (organismCode.length() != 2 || mdf.isAlpha(organismCode) == false
+                    || !organismCode.substring(0, 1).toUpperCase().equals(organismCode.substring(0, 1))
+                    || !organismCode.substring(1, 2).toLowerCase().equals(organismCode.substring(1, 2)))) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "Organism code is not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
             if (check == true && mdf.checkOrganismExists(organismName)) {
                 check = false;
@@ -49,6 +54,10 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
             if (check == true && mdf.checkOrganismCodeExists(organismCode)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "This species code is already added.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            if (check == true && mdf.checkSpeciesExists(species, subspecies)) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "This combination of species and subspecies is already added.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
             if (check == true) {
                 this.mdf.insertNewOrganism(organismName, organismCode, species, subspecies, description);

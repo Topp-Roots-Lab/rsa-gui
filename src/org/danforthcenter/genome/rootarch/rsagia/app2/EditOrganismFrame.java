@@ -62,14 +62,18 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
             String subspeciesNew = subspeciesField.getText();
             String descriptionNew = descriptionField.getText();
             boolean check = true;
-            if (organismCodeNew.length() != 2 || !organismCodeNew.substring(0, 1).toUpperCase().equals(organismCodeNew.substring(0, 1)) ||
-                    !organismCodeNew.substring(1, 2).toLowerCase().equals(organismCodeNew.substring(1, 2)) || mdf.isAlpha(organismNameNew) == false ||
-                    mdf.isAlpha(organismCodeNew) == false || !organismNameNew.toLowerCase().equals(organismNameNew) ||
-                    organismNameNew.length() == 0) {
+            if (organismNameNew.length() == 0 || mdf.isAlpha(organismNameNew) == false
+                    || !organismNameNew.toLowerCase().equals(organismNameNew)) {
                 check = false;
-                JOptionPane.showMessageDialog(null, "Organism name or organism code is not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Organism name is not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-            if (check == true && this.mdf.checkOrgCodeAndOrganismExists(organismNameNew, organismCodeNew, this.selectedOrganism)) {
+            if (check == true && (organismCodeNew.length() != 2 || mdf.isAlpha(organismCodeNew) == false
+                    || !organismCodeNew.substring(0, 1).toUpperCase().equals(organismCodeNew.substring(0, 1))
+                    || !organismCodeNew.substring(1, 2).toLowerCase().equals(organismCodeNew.substring(1, 2)))) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "Organism code is not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            if (check == true && mdf.checkOrganismIdentifiersExist(organismNameNew, organismCodeNew, speciesNew, subspeciesNew, this.selectedOrganism)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Organism already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
