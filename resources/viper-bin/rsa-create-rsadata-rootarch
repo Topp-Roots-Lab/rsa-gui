@@ -1,0 +1,86 @@
+#!/bin/sh
+################################################################################
+##
+## This script does the following:
+##
+## 1 creates directory: /localhome and sets default permissions for the created directory.
+## 2. creates user rsa-data
+## 3. creates group rootarch 
+## 4. adds the rsa-data user to the group rootarch
+##
+## NOTE: one might choose other options, when creating user and group, if needed.
+##       For instance, we prefer to keep all users data in the /localhome instead of /home.
+##       Below are the options that we have on our system at Duke.
+##
+##
+##
+## Fri May 31 2013 Vladimir Popov <vladimir.popov@duke.edu> 
+##
+################################################################################
+
+echo
+echo "=== Starting the $0 script =="
+echo
+
+if [ $USER != "root" ]; then
+    echo "ERROR: this script must be executed under 'root' account."
+    echo
+    exit 1
+fi
+
+echo
+echo "=== Creating and setting default permissions for directory /localhome ==="
+echo
+
+# /data
+if [ -d "/localhome" ]
+then
+    echo "Directory /localhome exists.  Continue ..."
+else
+    echo "Directory /localhome does not exist. Creating ... Continue ..."
+    mkdir /localhome
+    chown root:root /localhome
+    chmod 755 /localhome     
+fi
+
+echo
+echo "=== Creating the rsa-data user ==="
+echo
+#
+# to create user rsa-data do the following
+useradd -d /localhome/rsa-data -m -u 551 -c "rsa-data" rsa-data
+# where 
+# 551 - is a user identifier (can be any positive integer, which is not already used for another user)
+# rsa-data - is user name (cannot be changed)
+#
+
+echo
+echo "=== Setting password for the rsa-data user ==="
+echo
+#
+# to set password for the rsa-data user do the following - skip it for now - do it later
+# passwd username
+# this will prompt to enter a password and to confirm the password
+#
+
+echo
+echo "=== Creating the rootarch group ==="
+echo
+#
+# to create group rootarch do the following
+groupadd -g 502 rootarch
+# where 
+# 502 - is a group identifier (can be any positive integer, which is not already used for another group)
+# rootarch - is group name (cannot be changed)
+#
+
+echo
+echo "=== Adding the rsa-data user to the rootarch group ==="
+echo
+#
+# to add the rsa-data user to the rootarch group do the following
+usermod -a -G rootarch rsa-data
+#
+echo
+echo "=== Done ==="
+echo

@@ -1,0 +1,196 @@
+0+000000#DBG@loader::23 libraries to check
+0+000000#DBG@loader::Loading [./algorithms//libtransform_manual.so]
+0+000000#DBG@loader::Library (./algorithms//libtransform_manual.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libfeature_components.so]
+0+000000#DBG@loader::Library (./algorithms//libfeature_components.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libcropping_skip.so]
+0+000000#DBG@loader::Library (./algorithms//libcropping_skip.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libpreparation_color2gray.so]
+0+000000#DBG@loader::Library (./algorithms//libpreparation_color2gray.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libthresholding_adaptive.so]
+0+000000#DBG@loader::Library (./algorithms//libthresholding_adaptive.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libtransform_setscale.so]
+0+000000#DBG@loader::Library (./algorithms//libtransform_setscale.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libtransform_scaling.so]
+0+000000#DBG@loader::Library (./algorithms//libtransform_scaling.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libthinning_binary.so]
+0+000000#DBG@loader::Library (./algorithms//libthinning_binary.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libcleaning_skip.so]
+0+000000#DBG@loader::Library (./algorithms//libcleaning_skip.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libcleaning_agg.so]
+0+000000#DBG@loader::Library (./algorithms//libcleaning_agg.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libfeature_perimeter.so]
+0+000000#DBG@loader::Library (./algorithms//libfeature_perimeter.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libfeatures_skeleton.so]
+0+000000#DBG@loader::Library (./algorithms//libfeatures_skeleton.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libfeature_networkareas.so]
+0+000000#DBG@loader::Library (./algorithms//libfeature_networkareas.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libcropping_manual.so]
+0+000000#DBG@loader::Library (./algorithms//libcropping_manual.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libtransform_aggregate.so]
+0+000000#DBG@loader::Library (./algorithms//libtransform_aggregate.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libtransform_rotation.so]
+0+000000#DBG@loader::Library (./algorithms//libtransform_rotation.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libolga-medial-axis.so]
+0+000000#DBG@loader::Library (./algorithms//libolga-medial-axis.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libthresholding_global.so]
+0+000000#DBG@loader::Library (./algorithms//libthresholding_global.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libtransform_aggregate2.so]
+0+000000#DBG@loader::Library (./algorithms//libtransform_aggregate2.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libfeatures_vertical_sweep.so]
+0+000000#DBG@loader::Library (./algorithms//libfeatures_vertical_sweep.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libfeature_numberofroots.so]
+0+000000#DBG@loader::Library (./algorithms//libfeature_numberofroots.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libthresholding_doubleadaptive.so]
+0+000000#DBG@loader::Library (./algorithms//libthresholding_doubleadaptive.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [./algorithms//libfeature_ellipseaxes.so]
+0+000000#DBG@loader::Library (./algorithms//libfeature_ellipseaxes.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#REP@loader::(0)total; known types: 
+0+000000#DBG@loader::23 libraries to check
+0+000000#DBG@loader::Loading [algorithms//libtransform_manual.so]
+0+000000#DBG@loader::Library (algorithms//libtransform_manual.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libfeature_components.so]
+0+000000#DBG@loader::Library (algorithms//libfeature_components.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libcropping_skip.so]
+0+000000#DBG@loader::Library (algorithms//libcropping_skip.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libpreparation_color2gray.so]
+0+000000#DBG@loader::Library (algorithms//libpreparation_color2gray.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libthresholding_adaptive.so]
+0+000000#DBG@loader::Library (algorithms//libthresholding_adaptive.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libtransform_setscale.so]
+0+000000#DBG@loader::Library (algorithms//libtransform_setscale.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libtransform_scaling.so]
+0+000000#DBG@loader::Library (algorithms//libtransform_scaling.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libthinning_binary.so]
+0+000000#DBG@loader::Library (algorithms//libthinning_binary.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libcleaning_skip.so]
+0+000000#DBG@loader::Library (algorithms//libcleaning_skip.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libcleaning_agg.so]
+0+000000#DBG@loader::Library (algorithms//libcleaning_agg.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libfeature_perimeter.so]
+0+000000#DBG@loader::Library (algorithms//libfeature_perimeter.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libfeatures_skeleton.so]
+0+000000#DBG@loader::Library (algorithms//libfeatures_skeleton.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libfeature_networkareas.so]
+0+000000#DBG@loader::Library (algorithms//libfeature_networkareas.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libcropping_manual.so]
+0+000000#DBG@loader::Library (algorithms//libcropping_manual.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libtransform_aggregate.so]
+0+000000#DBG@loader::Library (algorithms//libtransform_aggregate.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libtransform_rotation.so]
+0+000000#DBG@loader::Library (algorithms//libtransform_rotation.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libolga-medial-axis.so]
+0+000000#DBG@loader::Library (algorithms//libolga-medial-axis.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libthresholding_global.so]
+0+000000#DBG@loader::Library (algorithms//libthresholding_global.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libtransform_aggregate2.so]
+0+000000#DBG@loader::Library (algorithms//libtransform_aggregate2.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libfeatures_vertical_sweep.so]
+0+000000#DBG@loader::Library (algorithms//libfeatures_vertical_sweep.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libfeature_numberofroots.so]
+0+000000#DBG@loader::Library (algorithms//libfeature_numberofroots.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libthresholding_doubleadaptive.so]
+0+000000#DBG@loader::Library (algorithms//libthresholding_doubleadaptive.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#DBG@loader::Loading [algorithms//libfeature_ellipseaxes.so]
+0+000000#DBG@loader::Library (algorithms//libfeature_ellipseaxes.so) doesn't have a factory function. See documentation. (libcv.so.2.0: cannot open shared object file: No such file or directory)
+0+000000#REP@loader::(0)total; known types: 
+0+000000#DBG@xml_storage::Connecting to (/data/rsa/processed_images/insilico/test/paul/p001/d01/sandbox/giaroot_3d/vp23_2011-19-09_09-00-00/project.xml)...
+0+000000#REP@::Begin of {algorithm_manager_defaults}
+0+000000#REP@::[averagerootwidthx2feature] = {features_skeleton_v2}
+0+000000#REP@::[bushinessfeature] = {feature_roots_number}
+0+000000#REP@::[ccomponentscountfeature] = {feature_components}
+0+000000#REP@::[cleanedimage] = {cleaning_skip}
+0+000000#REP@::[croppedimage] = {cropping_manual}
+0+000000#REP@::[depthfeature] = {features_skeleton_v2}
+0+000000#REP@::[ellipseaxesaspectratiofeature] = {feature_ellipse_axes}
+0+000000#REP@::[grayimage] = {preparation_color_2_gray}
+0+000000#REP@::[lengthdistrfeature] = {features_skeleton_v2}
+0+000000#REP@::[majorellipseaxesfeature] = {feature_ellipse_axes}
+0+000000#REP@::[maximumnumberofrootsfeature] = {feature_roots_number}
+0+000000#REP@::[maxwidthfeature] = {features_skeleton_v2}
+0+000000#REP@::[mediannumberofrootsfeature] = {feature_roots_number}
+0+000000#REP@::[minorellipseaxesfeature] = {feature_ellipse_axes}
+0+000000#REP@::[networkareafeature] = {feature_network_areas}
+0+000000#REP@::[networkconvexareafeature] = {feature_network_areas}
+0+000000#REP@::[o3rf_av_edge_length] = {olga_medial_axis}
+0+000000#REP@::[o3rf_av_size_bif_cl] = {olga_medial_axis}
+0+000000#REP@::[o3rf_edge_num] = {olga_medial_axis}
+0+000000#REP@::[o3rf_number_bif_cl] = {olga_medial_axis}
+0+000000#REP@::[o3rf_srl] = {olga_medial_axis}
+0+000000#REP@::[o3rf_surfarea] = {olga_medial_axis}
+0+000000#REP@::[o3rf_totallength] = {olga_medial_axis}
+0+000000#REP@::[o3rf_volume] = {olga_medial_axis}
+0+000000#REP@::[perimeterfeature] = {feature_perimeter}
+0+000000#REP@::[solidityfeature] = {feature_network_areas}
+0+000000#REP@::[specificrootlengthfeature] = {features_skeleton_v2}
+0+000000#REP@::[surfaceareafeature] = {features_skeleton_v2}
+0+000000#REP@::[t3rf_bushiness] = {vertical_sweep_3d}
+0+000000#REP@::[t3rf_convex_volume] = {vertical_sweep_3d}
+0+000000#REP@::[t3rf_maxr] = {vertical_sweep_3d}
+0+000000#REP@::[t3rf_medr] = {vertical_sweep_3d}
+0+000000#REP@::[t3rf_solidity] = {vertical_sweep_3d}
+0+000000#REP@::[t3rf_surfarea] = {vertical_sweep_3d}
+0+000000#REP@::[t3rf_volume] = {vertical_sweep_3d}
+0+000000#REP@::[thinnedimage] = {thinning_binary}
+0+000000#REP@::[thresholdedimage] = {thresholding_double_adaptive}
+0+000000#REP@::[totallengthfeature] = {features_skeleton_v2}
+0+000000#REP@::[volumefeature] = {features_skeleton_v2}
+0+000000#REP@::[widthdepthratiofeature] = {features_skeleton_v2}
+0+000000#REP@::End of {algorithm_manager_defaults}
+0+000000#REP@::Begin of {core}
+0+000000#REP@::[image_format] = {TIFF}
+0+000000#REP@::[serialize_image_format] = {tiff}
+0+000000#REP@::[serialize_to] = {/data/rsa/processed_images/insilico/test/paul/p001/d01/sandbox/giaroot_3d/vp23_2011-19-09_09-00-00}
+0+000000#REP@::[thread_pool_size] = {2}
+0+000000#REP@::End of {core}
+0+000000#REP@::Begin of {experimental_cleaning_agg}
+0+000000#REP@::[add_scalar] = {0}
+0+000000#REP@::[dark_root] = {true}
+0+000000#REP@::End of {experimental_cleaning_agg}
+0+000000#REP@::Begin of {gui}
+0+000000#REP@::[targets] = {o3rf_av_edge_length;o3rf_av_size_bif_cl;o3rf_edge_num;o3rf_number_bif_cl;o3rf_srl;o3rf_surfarea;o3rf_totallength;o3rf_volume;t3rf_bushiness;t3rf_convex_volume;t3rf_maxr;t3rf_medr;t3rf_solidity;t3rf_surfarea;t3rf_volume}
+0+000000#REP@::End of {gui}
+0+000000#REP@::Begin of {preparation_color_2_gray}
+0+000000#REP@::[reverse] = {true}
+0+000000#REP@::[simple] = {true}
+0+000000#REP@::End of {preparation_color_2_gray}
+0+000000#REP@::Begin of {thresholding_adaptive}
+0+000000#REP@::[adaptive_method] = {CV_ADAPTIVE_THRESH_MEAN_C}
+0+000000#REP@::[block_size] = {19}
+0+000000#REP@::[max_component_size_to_ignore] = {4000}
+0+000000#REP@::[subtract_constant] = {-1.25}
+0+000000#REP@::[threshold_type] = {CV_THRESH_BINARY}
+0+000000#REP@::End of {thresholding_adaptive}
+0+000000#REP@::Begin of {thresholding_double_adaptive}
+0+000000#REP@::[block_size] = {150}
+0+000000#REP@::[drop_value] = {5}
+0+000000#REP@::[max_component_size_to_ignore] = {50}
+0+000000#REP@::End of {thresholding_double_adaptive}
+0+000000#REP@::Begin of {thresholding_global}
+0+000000#REP@::[max_component_size_to_ignore] = {4000}
+0+000000#REP@::[threshold] = {150}
+0+000000#REP@::[threshold_type] = {CV_THRESH_BINARY}
+0+000000#REP@::End of {thresholding_global}
+0+000000#REP@::Begin of {transform_manual_cropping}
+0+000000#REP@::[cropping_height] = {0}
+0+000000#REP@::[cropping_left] = {0}
+0+000000#REP@::[cropping_top] = {0}
+0+000000#REP@::[cropping_width] = {0}
+0+000000#REP@::End of {transform_manual_cropping}
+0+000000#REP@::Begin of {transform_rotation}
+0+000000#REP@::[flip] = {none}
+0+000000#REP@::[rotate] = {0}
+0+000000#REP@::End of {transform_rotation}
+0+000000#REP@::Begin of {transform_setscale}
+0+000000#REP@::[metric_scale] = {1}
+0+000000#REP@::End of {transform_setscale}
+0+000000#DBG@csv_exporter::Writing (/data/rsa/processed_images/insilico/test/paul/p001/d01/sandbox/giaroot_3d/vp23_2011-19-09_09-00-00/giaroot_3d.csv)
+0+000000#DBG@algorithm_manager::Algorithm manager received inputs: {}; goals: [o3rf_av_edge_length;o3rf_av_size_bif_cl;o3rf_edge_num;o3rf_number_bif_cl;o3rf_srl;o3rf_surfarea;o3rf_totallength;o3rf_volume;t3rf_bushiness;t3rf_convex_volume;t3rf_maxr;t3rf_medr;t3rf_surfarea;t3rf_volume];
+0+000000#WRN@algorithm_manager::No input provided
+0+000000#ERR@runtime::Execution path can't be determined: algorithm {olga_medial_axis} doesn't exist (specified as default for smthng)
+0+000000#DBG@csv_exporter::Writing (/data/rsa/processed_images/insilico/test/paul/p001/d01/sandbox/giaroot_3d/vp23_2011-19-09_09-00-00/giaroot_3d.csv)
+0+000000#INF@xml_storage::Writing (/data/rsa/processed_images/insilico/test/paul/p001/d01/sandbox/giaroot_3d/vp23_2011-19-09_09-00-00/project.xml)
+0+000000#REP@unloader::Algorithm libraries unloaded successfully.
+0+000000#INF@core::Core freed successfully
+0+000000#INF@interpreter::Thanks for using the Gia Roots Framework®! If you can read this run was successful.  Use 'www.giaroots.org' for information and questions.
+0+000000#REP@core::C'est fini ---Startup time (Tue Sep 20 09:08:22 2011 ), using {LINUX} OS

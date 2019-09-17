@@ -1,0 +1,16 @@
+#!/bin/sh
+
+################################################################################
+##
+## Start the Skeleton3D application
+##
+## Fri May 31 2013 Vladimir Popov <vladimir.popov@duke.edu> 
+##
+################################################################################
+#newgrp rootarch
+#umask 0007
+
+f=`readlink -f "$0"`
+dir=`dirname "$f"`
+
+${dir}/skeleton3D/Skeleton $@

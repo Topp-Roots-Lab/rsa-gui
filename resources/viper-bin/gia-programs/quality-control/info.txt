@@ -1,0 +1,14 @@
+################################################################
+#
+# Quality Control program 
+#
+# Fri June 6 2013 Vladimir Popov <vladimir.popov@duke.edu>
+#
+################################################################
+#
+# Original Python code was developed by Paul Zurek, prz@duke.edu
+#
+# All further modifications and additions, 
+# including integration with the Root System Architecture pipeline on Unix Server, 
+# made by Vladimir Popov, vladimir.popov@duke.edu
+# 

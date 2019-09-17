@@ -1,0 +1,84 @@
+#!/bin/sh
+
+################################################################################
+## Check ownership and permissions for files and directories inside
+##          /data/rsa/original_images
+##  
+## Originally created by Mikhail Kovtun <mikhail.kovtun@duke.edu> 
+##
+## Fri May 31 2013  Vladimir Popov <vladimir.popov@duke.edu> 
+##
+################################################################################
+
+workdir='/data/rsa/original_images/'
+if [ -n "$1" ]; then workdir="$1"; fi
+if [ ! -d "$workdir" ]; then
+    echo "ERROR: argument must be a directory name."
+    exit 1
+fi
+
+echo
+echo "=== Checking ownership and permissions for $workdir ==="
+
+#-------------------------------------------------------------------------------
+# Test whether the current user is member of 'rootarch' group (or is 'root')
+
+# Function: test whether the current user is a member of specified group
+function isMember {
+    groupname=$1
+    usergroups=(`groups`)
+    for g in ${usergroups[@]}; do
+        if [ "$groupname" = "$g" ]; then return 0; fi
+    done
+    return 1
+}
+
+if ! isMember "rootarch" && [ "$USER" != "root" ]; then
+    echo "ERROR: This script can be executed only by memebers of 'rootarch' group."
+    exit 1
+fi
+#-------------------------------------------------------------------------------
+
+
+dirs_unreadable=`find $workdir -mindepth 1 -false 2>&1 | wc -l`
+objects_wrong_group=`find $workdir -mindepth 1 ! -group rootarch 2>/dev/null | wc -l`
+objects_wrong_user=`find $workdir -mindepth 1 ! -user rsa-data 2>/dev/null | wc -l`
+dirs_wrong_perms=`find $workdir -mindepth 1 -type d ! \( -perm 2750 -o -perm 750 \) 2>/dev/null | wc -l`
+files_wrong_perms=`find $workdir -mindepth 1 -type f ! -perm 640 2>/dev/null | wc -l`
+
+let fatal_errors=$dirs_unreadable+$objects_wrong_user
+#echo "fatal_errors = $fatal_errors"
+
+let other_errors=$objects_wrong_group+$dirs_wrong_perms+$files_wrong_perms
+#echo "other_errors = $other_errors"
+
+if [ $dirs_unreadable -gt 0 ]; then
+    echo "    $dirs_unreadable directories cannot be read by you"
+fi
+
+if [ $objects_wrong_user -gt 0 ]; then
+    echo "    $objects_wrong_user files/directories are owned by user other than 'rsa-data'"
+fi
+
+if [ $objects_wrong_group -gt 0 ]; then
+    echo "    $objects_wrong_group files/directories are owned by group other than 'rootarch'"
+fi
+
+if [ $dirs_wrong_perms -gt 0 ]; then
+    echo "    $dirs_wrong_perms directories have wrong permissions"
+fi
+
+if [ $files_wrong_perms -gt 0 ]; then
+    echo "    $files_wrong_perms files have wrong permissions"
+fi
+
+if [ $fatal_errors -gt 0 ]; then
+    echo "--- To correct these problems, run 'rsa-setrights-orig' under 'root' account"
+else
+    if [ $other_errors -gt 0 ]; then
+        echo "--- To correct these problems, run 'rsa-setrights-orig' under 'rsa-data' account"
+    else
+        echo "Everything is OK."
+    fi
+fi
+echo

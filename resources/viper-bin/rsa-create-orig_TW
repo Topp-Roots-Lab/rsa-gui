@@ -1,0 +1,129 @@
+#!/bin/sh
+#################################################################################################
+##
+## Creates directories: /home/data, /home/data/rsa, /home/data/rsa/original_images, and /home/data/rsa/processed_images
+## and sets default permissions for all created directories.
+## 
+##
+## NOTE: Before using this script,make sure that 
+##       you already ran the rsa-create-rsadata-rootarch script,
+##       which creates:
+##
+## 1. User rsa-data
+## 2. Group rootarch
+## 3. And adds rsa-data user to the group rootarch
+##
+##
+## Fri May 31 2013 Vladimir Popov <vladimir.popov@duke.edu> 
+## 
+################################################################################################
+
+echo
+echo "=== Starting the $0 script =="
+echo
+
+if [ $USER != "root" ]; then
+    echo "ERROR: this script must be executed under 'root' account."
+    echo
+    exit 1
+fi
+
+
+echo
+echo "=== Creating and setting default permissions for directory /home/data ==="
+echo
+# /home/data
+if [ -d "/home/data" ]
+then
+    echo "Directory /home/data exists. Continue ..."
+else
+    echo "Directory /home/data does not exist. Creating ... Continue ..."
+    mkdir /home/data
+    chown root:root /home/data 
+    chmod 755 /home/data     
+fi
+
+echo
+echo "=== Creating and setting default permissions for directory /home/data/rsa ==="
+echo
+if [ -d "/home/data/rsa" ]
+then
+    echo "Directory /home/data/rsa exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /home/data/rsa does not exist. Creating ... Continue ..."
+   # /home/data/rsa
+   mkdir /home/data/rsa
+   chown root:rootarch /home/data/rsa
+   chmod 2770 /home/data/rsa    
+fi
+
+
+echo
+echo "=== Creating and setting default permissions for directory /home/data/rsa/original_images ==="
+echo
+if [ -d "/home/data/rsa/original_images" ]
+then
+    echo "Directory /home/data/rsa/original_images exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /home/data/rsa/original_images does not exists. Creating ... Continue ..."
+   # /home/data/rsa/original_images
+   mkdir /home/data/rsa/original_images
+   chown rsa-data:rootarch /home/data/rsa/original_images
+   chmod 2750 /home/data/rsa/original_images
+fi
+
+echo
+echo "=== Creating and setting default permissions for directory /home/data/rsa/processed_images ==="
+echo
+if [ -d "/home/data/rsa/processed_images" ]
+then
+    echo "Directory /home/data/rsa/processed_images exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /home/data/rsa/processed_images does not exists. Creating ... Continue ..."
+   # /home/data/rsa/processed_images
+   mkdir /home/data/rsa/processed_images
+   chown rsa-data:rootarch /home/data/rsa/processed_images
+   chmod 2770 /home/data/rsa/processed_images
+fi
+
+echo
+echo "=== Creating and setting default permissions for directory /home/data/rsa/rsa-gia-templates ==="
+echo
+if [ -d "/home/data/rsa/rsa-gia-templates" ]
+then
+    echo "Directory /home/data/rsa/rsa-gia-templates exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /home/data/rsa/rsa-gia-templates does not exists. Creating ... Continue ..."
+   # /home/data/rsa/rsa-gia-templates
+   mkdir /home/data/rsa/rsa-gia-templates
+   chown rsa-data:rootarch /home/data/rsa/rsa-gia-templates
+   chmod 2750 /home/data/rsa/rsa-gia-templates
+fi
+
+echo
+echo "=== Creating and setting default permissions for directory /home/data/to_sort ==="
+echo
+if [ -d "/home/data/rsa/to_sort" ]
+then
+    echo "Directory /home/data/rsa/to_sort exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /home/data/to_sort does not exist. Creating ... Continue ..."
+   # /home/data/rsa/to_sort
+   mkdir /home/data/rsa/to_sort
+   chown rsa-data:rootarch /home/data/rsa/to_sort
+   chmod 2770 /home/data/rsa/to_sort
+fi
+
+echo
+echo "=== Script finished ==="
+echo

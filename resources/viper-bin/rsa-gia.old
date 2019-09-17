@@ -1,0 +1,31 @@
+#!/bin/sh
+
+################################################################################
+##
+## Start the Gia Gui application
+##
+## Fri May 31 2013 Vladimir Popov <vladimir.popov@duke.edu> 
+##
+## Mon August 12 2013 Vladimir Popov <vladimir.popov@duke.edu> 
+##     Added the full Class Path, including all dependency jars, - just in case.
+##     (the LD_LIBRARY_PATH does not seem to be working as expected)
+################################################################################
+
+#newgrp rootarch
+#umask 0007
+
+f=`readlink -f "$0"`
+dir=`dirname "$f"`
+
+export LD_LIBRARY_PATH=${dir}/gia-java/lib:$LD_LIBRARY_PATH
+
+classpath=${dir}/gia-java/lib/AbsoluteLayout-1.0.0.jar:${dir}/gia-java/lib/Ij-1.0.0.jar:${dir}/gia-java/lib/JaiCore-1.0.0.jar:${dir}/gia-java/lib/JaiImageio-1.0.0.jar:${dir}/gia-java/lib/activation-1.1.jar:${dir}/gia-java/lib/commons-lang-2.1.jar:${dir}/gia-java/lib/jaxb-api-2.1.jar:${dir}/gia-java/lib/jaxb-impl-2.1.3.jar:${dir}/gia-java/lib/junit-4.4.jar:${dir}/gia-java/lib/plexus-utils-1.1.jar:${dir}/gia-java/lib/stax-api-1.0-2.jar:${dir}/gia-java/lib-2/clibwrapper_jiio.jar:${dir}/gia-java/lib-2/jai_imageio.jar
+
+java -cp $classpath:${dir}/gia-java/rsa-gia.jar edu.duke.genome.rootarch.rsagia.app2.App ${dir}/gia-java/default.properties
+
+
+###########################################################################
+## taken from buffer var when running rsa-pipeline-admin.spec
+###########################################################################
+#classpath=:${dir}/gia-java/lib/AbsoluteLayout-1.0.0.jar:${dir}/gia-java/lib/Ij-1.0.0.jar:${dir}/gia-java/lib/JaiCore-1.0.0.jar:${dir}/gia-java/lib/JaiImageio-1.0.0.jar:${dir}/gia-java/lib/activation-1.1.jar:${dir}/gia-java/lib/commons-lang-2.1.jar:${dir}/gia-java/lib/jaxb-api-2.1.jar:${dir}/gia-java/lib/jaxb-impl-2.1.3.jar:${dir}/gia-java/lib/junit-4.4.jar:${dir}/gia-java/lib/plexus-utils-1.1.jar:${dir}/gia-java/lib/stax-api-1.0-2.jar:${dir}/gia-java/lib-2/clibwrapper_jiio.jar:${dir}/gia-java/lib-2/jai_imageio.jar
+
