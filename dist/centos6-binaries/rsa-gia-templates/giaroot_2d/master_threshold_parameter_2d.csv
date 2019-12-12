@@ -1,0 +1,17 @@
+"template";"type";"neighborhood block";"drop";"max_comp_size_to_ignore";"threshold"
+"CNT_1_30-4000-5";"double adaptive";30;5;4000;
+"CNT_corn_spottytank_300mmjar";"double adaptive";59;5;100;
+"CNT_corn_100-5-1000";"double adaptive";100;5;1000;
+"CNT_corn_100-5-2500";"double adaptive";100;5;2500;
+"CNT_corn_100-5-3500";"double adaptive";100;5;3500;
+"corn";"double adaptive";300;5;50;
+"insilico_test";"global";;;3726;92
+"old_threshold_newGiA_103111";"global";;;4000;50
+"old_vlad_thr_newGiA_103111";"global";;;4000;50
+"prz_corn_dat_clean";"double adaptive";300;5;1000;
+"prz_corn_dat_clean_v2";"double adaptive";300;5;3000;
+"prz_corn_dat_clean_v3";"double adaptive";300;5;5000;
+"prz_corn_dat_ragged";"double adaptive";300;2;1500;
+"prz_FkPTT_1_thresh";"double adaptive";;;35000;47
+"rice";"double adaptive";150;5;50;
+"CNT_rice_150-5-550_110711";"double adaptive";150;5;550;

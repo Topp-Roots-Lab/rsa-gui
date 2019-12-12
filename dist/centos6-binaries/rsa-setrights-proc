@@ -1,0 +1,67 @@
+#!/bin/sh
+
+################################################################################
+##
+## Set default permissions for all files and directories owned by the current
+## user
+## within directory /data/rsa/processed_images 
+##
+## Originally created by Mikhail Kovtun <mikhail.kovtun@duke.edu> 
+##
+## Fri May 31 2013  Vladimir Popov <vladimir.popov@duke.edu> 
+##
+################################################################################
+
+echo
+echo "=== Setting access rights for /data/rsa/processed_images/ ==="
+echo
+
+workdir="/data/rsa/processed_images"
+
+#-------------------------------------------------------------------------------
+# Test whether the current user is member of 'rootarch' group (or is 'root')
+
+# Function: test whether the current user is a member of specified group
+function isMember {
+    groupname=$1
+    usergroups=(`groups`)
+    for g in ${usergroups[@]}; do
+        if [ "$groupname" = "$g" ]; then return 0; fi
+    done
+    return 1
+}
+
+if ! isMember "rootarch" && [ "$USER" != "root" ]; then
+    echo "ERROR: This script can be executed only by memebers of 'rootarch' group."
+    echo
+    exit 1
+fi
+#-------------------------------------------------------------------------------
+
+echo "NOTE: this script will affect only files and directories owned by you ($USER)"
+echo
+echo "1) Group of all files and directories will be set to 'rootarch'."
+echo "2) Permissions for all subdirectories will be set to 2770"
+echo "   (you and members of 'rootarch' groups can read from and write to subdirectories)."
+echo "3) Permissions for all files will be set to 0660"
+echo "   (you and members of 'rootarch' group can read and write files)."
+echo
+
+echo -n "Continue? (yes/no): "
+read ANSWER
+if [ "$ANSWER" = "y" -o "$ANSWER" = "yes" ]; then
+    # set user test (empty for root)
+    user_test=""
+    if [ "$USER" != "root" ]; then user_test="-user $USER"; fi
+
+    # directories
+    find $workdir -type d $user_test -exec chgrp rootarch '{}' \;
+    find $workdir -type d $user_test -exec chmod 2770 '{}' \;
+    # files
+    find $workdir -type f $user_test -exec chgrp rootarch '{}' \;
+    find $workdir -type f $user_test -exec chmod 660 '{}' \;
+    echo "Permissions are changed."
+else
+    echo "Command aborted."
+fi
+echo

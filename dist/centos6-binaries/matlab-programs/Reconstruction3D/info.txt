@@ -1,0 +1,18 @@
+######################################
+#
+# 3D reconstruction program
+#
+# Fri June 6 2013 Vladimir Popov <vladimir.popov@duke.edu>
+#
+######################################
+#
+# Original matlab code and algorithms used in rootwork program 
+# are developed by Ying Zheng, yuanqi@cs.duke.edu
+#
+# All further modifications and additions, 
+# including integration with the Root System Architecture pipeline on Unix Server, 
+# made by Vladimir Popov, vladimir.popov@duke.edu
+# 
+# See more detail information in the rootwork.m file.
+#
+

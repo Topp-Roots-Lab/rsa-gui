@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<params>
+  <do-crop>0</do-crop>
+  <use-giaroots-crop>0</use-giaroots-crop>
+  <do-likelihood-img>1</do-likelihood-img>
+  <do-silhouette-hysteresis>1</do-silhouette-hysteresis>
+  <use-giaroots-thresholding>0</use-giaroots-thresholding>
+  <do-silhouette-harmonic>0</do-silhouette-harmonic>
+  <do-axis>1</do-axis>
+  <do-reconstruct-hysteresis>1</do-reconstruct-hysteresis>
+  <extension-root-images>jpg</extension-root-images>
+  <extension-giaroots-crop-images>jpg</extension-giaroots-crop-images>
+  <extension-giaroots-thresh-images>jpg</extension-giaroots-thresh-images>
+  <data-dir></data-dir>
+  <file-prefix>file_prefix</file-prefix>
+  <silhouette-for-do-axis>1</silhouette-for-do-axis>
+  <num-imgs>40</num-imgs>
+  <num-img-used>20</num-img-used>
+  <resolution>4</resolution>
+  <num-nodes-on-octree>10000000</num-nodes-on-octree>
+  <sil-upper-threshold>0.99</sil-upper-threshold>
+  <sil-lower-threshold>0.9</sil-lower-threshold>
+  <distortion-radius>3</distortion-radius>
+  <number-of-components>1</number-of-components>  
+  <harmonic-threshold>0.3</harmonic-threshold>
+  <recon-lower-threshold>19</recon-lower-threshold>
+  <recon-option>2</recon-option>
+  <output-file-name>[RootworkDir]/root_voxels.out</output-file-name>
+  <output-file-stl>[RootworkDir]/root_voxels.out.stl</output-file-stl>
+  <extra-info>0.15</extra-info>
+  <!-- these setting should be changed -->
+  <pixel-expansion>1</pixel-expansion>  
+  <ref-image>ref-image</ref-image>
+  <ref-index>1</ref-index> 
+  <ref-ratio>1</ref-ratio>  
+</params>
