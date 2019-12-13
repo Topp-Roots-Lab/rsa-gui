@@ -150,7 +150,7 @@ chown -v rsa-data:rootarch "$dest_tmplt"
 chmod -v 2750 "$dest_tmplt"
 cp -Rv $src_tmplt $dest_tmplt
 # Add in extra templates
-yes | cp -Rvf rsa-gui/dist/rsa-gia-templates/* "$dest_tmplt"
+yes | cp -Rvf rsa-gui/dist/centos6-binaries/rsa-gia-templates/* "$dest_tmplt"
 # directories
 find $dest_tmplt -mindepth 1 -type d -exec chown -v rsa-data:rootarch '{}' \;
 find $dest_tmplt -mindepth 1 -type d -exec chmod -v 2750 '{}' \;
