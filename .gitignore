@@ -20,6 +20,9 @@
 *.tar.gz
 *.rar
 
+# Keep the rsa-gia package
+!dist/centos6-binaries/gia-java/rsa-gia.jar
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 

@@ -58,7 +58,7 @@ compiling sub-components.
 Use the following commands to update the system and install dependencies
 ```bash
 # Clone this repo for distribution files
-git clone https://github.com/tparkerd/rsa-gia.git --branch master --single-branch
+git clone https://github.com/Topp-Roots-Lab/rsa-gui.git
 
 # Install dependencies for RSA-GiA
 dnf install -y ImageMagick
@@ -107,7 +107,7 @@ chown -Rv :rootarch /var/log/rsa-gia
 chmod 775 /var/log/rsa-gia
 
 # Copies of binaries from CentOS 6 instance of Viper
-cp -Rv rsa-gia/dist/centos6-binaries/* /opt/rsa-gia/bin
+cp -Rv rsa-gui/dist/centos6-binaries/* /opt/rsa-gia/bin
 
 # Add java to system path in /etc/profile.d
 echo 'export PATH="$PATH:/opt/java/java_default/bin:/opt/rsa-gia/bin"' > /etc/profile.d/rsagia.sh
@@ -150,7 +150,7 @@ chown -v rsa-data:rootarch "$dest_tmplt"
 chmod -v 2750 "$dest_tmplt"
 cp -Rv $src_tmplt $dest_tmplt
 # Add in extra templates
-cp -Rvf rsa-gia/dist/rsa-gia-templates/* "$dest_tmplt"
+cp -Rvf rsa-gui/dist/rsa-gia-templates/* "$dest_tmplt"
 # directories
 find $dest_tmplt -mindepth 1 -type d -exec chown -v rsa-data:rootarch '{}' \;
 find $dest_tmplt -mindepth 1 -type d -exec chmod -v 2750 '{}' \;
@@ -160,13 +160,13 @@ find $dest_tmplt -mindepth 1 -type f -exec chmod -v 640 '{}' \;
 rm -rvf /opt/rsa-gia/bin/rsa-gia-templates /opt/rsa-gia/bin/rsa-install-rsagiatemplates rsa-create-rsadata-rootarchrsa-mv2orig
 
 # Create rsa-gia application shortcut
-cp -Rv rsa-gia/dist/rsa-gia.desktop /usr/share/applications/
+cp -Rv rsa-gui/dist/rsa-gia.desktop /usr/share/applications/
 
 # Move configuration files
 mv -v /opt/rsa-gia/bin/gia-java/default.properties /etc/opt/rsa-gia
 
 # Copy application icons to pixmaps folder
-cp -Rv rsa-gia/dist/rsa-gia.png /usr/share/pixmaps/
+cp -Rv rsa-gui/src/main/resources/img/rsa-gia.png /usr/share/pixmaps/
 ```
 
 **Done!** RSA-GiA is not installed onto the system. Make sure to review the guides below on adding new users and overall administration of the software.
