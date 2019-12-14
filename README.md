@@ -160,13 +160,13 @@ find $dest_tmplt -mindepth 1 -type f -exec chmod -v 640 '{}' \;
 rm -rvf /opt/rsa-gia/bin/rsa-gia-templates /opt/rsa-gia/bin/rsa-install-rsagiatemplates rsa-create-rsadata-rootarchrsa-mv2orig
 
 # Create rsa-gia application shortcut
-cp -Rv rsa-gui/dist/rsa-gia.desktop /usr/share/applications/
+find rsa-gui/ -type f -iname "rsa-gia.desktop" -exec cp -v {} /usr/share/applications/ \;
 
 # Move configuration files
 mv -v /opt/rsa-gia/bin/gia-java/default.properties /etc/opt/rsa-gia
 
 # Copy application icons to pixmaps folder
-cp -Rv rsa-gui/src/main/resources/img/rsa-gia.png /usr/share/pixmaps/
+find rsa-gia/ -type f -iname "rsa-gia.png" -exec cp -v {} /usr/share/pixmaps/ \;
 ```
 
 **Done!** RSA-GiA is not installed onto the system. Make sure to review the guides below on adding new users and overall administration of the software.
