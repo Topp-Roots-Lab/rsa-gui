@@ -104,7 +104,7 @@ cd ..
 # Create installation folder
 mkdir -pv /opt/rsa-gia/bin /etc/opt/rsa-gia /var/log/rsa-gia
 chown -Rv :rootarch /var/log/rsa-gia
-chmod 775 /var/log/rsa-gia
+chmod -Rv 775 /var/log/rsa-gia
 
 # Copies of binaries from CentOS 6 instance of Viper
 cp -Rv rsa-gui/dist/centos6-binaries/* /opt/rsa-gia/bin
@@ -163,10 +163,10 @@ rm -rvf /opt/rsa-gia/bin/rsa-gia-templates /opt/rsa-gia/bin/rsa-install-rsagiate
 find rsa-gui/ -type f -iname "rsa-gia.desktop" -exec cp -v {} /usr/share/applications/ \;
 
 # Move configuration files
-mv -v /opt/rsa-gia/bin/gia-java/default.properties /etc/opt/rsa-gia
+find rsa-gui/ -type f -iname "default.*properties" -exec mv -v {} /etc/opt/rsa-gia \;
 
 # Copy application icons to pixmaps folder
-find rsa-gia/ -type f -iname "rsa-gia.png" -exec cp -v {} /usr/share/pixmaps/ \;
+find rsa-gui/ -type f -iname "rsa-gia.png" -exec cp -v {} /usr/share/pixmaps/ \;
 ```
 
 **Done!** RSA-GiA is not installed onto the system. Make sure to review the guides below on adding new users and overall administration of the software.
