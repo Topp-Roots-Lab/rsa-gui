@@ -163,7 +163,7 @@ rm -rvf /opt/rsa-gia/bin/rsa-gia-templates /opt/rsa-gia/bin/rsa-install-rsagiate
 find rsa-gui/ -type f -iname "rsa-gia.desktop" -exec cp -v {} /usr/share/applications/ \;
 
 # Move configuration files
-find rsa-gui/ -type f -iname "default.*properties" -exec mv -v {} /etc/opt/rsa-gia \;
+find rsa-gui/ -type f -iname "default.*properties" -exec cp -v {} /etc/opt/rsa-gia \;
 
 # Copy application icons to pixmaps folder
 find rsa-gui/ -type f -iname "rsa-gia.png" -exec cp -v {} /usr/share/pixmaps/ \;
