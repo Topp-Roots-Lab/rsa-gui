@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<configuration>
-   <property name="configname" value="scale_2.25"/>
-   <property name="serialize_image_formatvalue" value="iv,wrl"/>
-   <property name="scale" value="2.25"/>
-</configuration>

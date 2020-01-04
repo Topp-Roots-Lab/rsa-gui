@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<job config="/Users/tarasgalkovskyi/dev/gia/dist/jobs/config-corn-azu.xml" driver="xml"
+    connection_string="/Users/tarasgalkovskyi/dev/gia/dist/test-proj/">
+    <export driver="csv" connection_string="./test1-job.csv"/>
+    <upload connection_string="./test-data/" />
+    <compute types="o3rf_av_edge_length;o3rf_av_size_bif_cl;o3rf_edge_num;o3rf_number_bif_cl;o3rf_srl;o3rf_surfarea;o3rf_totallength;o3rf_volume;t3rf_bushiness;t3rf_convex_volume;t3rf_maxr;t3rf_medr;t3rf_surfarea;t3rf_volume" />
+</job>

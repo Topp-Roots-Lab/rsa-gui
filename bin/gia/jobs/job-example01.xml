@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<job config="jobs/config-example01.xml" driver="xml" connection_string="./test_project">
+    <export driver="csv" connection_string="results.csv" delim="tab" />
+    <upload connection_string="./test_data" />
+    <compute transform="transform_rotation" type="rawimage" />
+    <compute transform="transform_autocropping_duke" type="rawimage" />
+    <compute transform="transform_setscale" type="rawimage" />
+    <compute types="averagerootwidthfeature;bushinessfeature;ccomponentscountfeature;depthfeature;ellipseaxesaspectratiofeature;grayimage;lengthdistrfeature;majorellipseaxesfeature;maximumnumberofrootsfeature;maxwidthfeature;mediannumberofrootsfeature;minorellipseaxesfeature;networkareafeature;networkconvexareafeature;perimeterfeature;solidityfeature;specificrootlengthfeature;surfaceareafeature;thinnedimage;thresholdedimage;totallengthfeature;volumefeature;widthdepthratiofeature" />
+</job>

@@ -1,0 +1,5 @@
+Copyright (c) 2010 Georgia Tech Research Corporation and Duke University.
+All rights reserved.
+
+This software is currently in beta testing mode.  All users must abide
+by the beta license testing agreement.
