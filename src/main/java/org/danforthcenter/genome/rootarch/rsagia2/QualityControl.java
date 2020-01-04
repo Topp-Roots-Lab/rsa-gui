@@ -259,10 +259,7 @@ public class QualityControl implements IApplication {
 			String template_name) {
 
         System.out.println("QualityControl.java doQc " + src + " " + dest);
-
-
-		String QC_PATH = sysProps.getProperty("qc_dir");
-		System.out.println(String.format("DEBUG: QC_PATH: %s", QC_PATH.toString()));
+		String QC_PATH="/opt/rsa-gia/bin/gia-programs/quality-control/qc/all_qc_folder.py";
         File QCScript = new File(QC_PATH);
         if ( QCScript.exists() ) {
 
@@ -322,7 +319,7 @@ public class QualityControl implements IApplication {
         // standard linux configuration
 		//String QC3_PATH = "/usr/local/bin/gia-programs/quality-control/qc-3/QC3D.py";
         // for viper
-		String QC3_PATH = sysProps.getProperty("qc3d_dir");
+		String QC3_PATH = "/opt/rsa-gia/bin/gia-programs/quality-control/qc-3/QC3D.py";
 
 		// example
 		// ./QC3D.py
