@@ -6,7 +6,7 @@
 
     <groupId>org.danforthcenter.genome.rootarch</groupId>
     <artifactId>rsa-gia</artifactId>
-    <version>4.0.0</version>
+    <version>4.0.1</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>

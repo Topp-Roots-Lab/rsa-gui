@@ -18,4 +18,4 @@
 f=`readlink -f "$0"`
 dir=`dirname "$f"`
 
-java -jar ${dir}/gia-java/rsa-gia.jar /etc/opt/rsa-gia/default.properties
+java -jar ${dir}/gia-java/rsa-gia-4.0.1-jar-with-dependencies.jar /etc/opt/rsa-gia/default.properties
