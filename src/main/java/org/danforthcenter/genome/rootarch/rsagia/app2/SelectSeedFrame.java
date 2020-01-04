@@ -135,10 +135,12 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == viewButton) {
             ViewSeedFrame vsf = new ViewSeedFrame(this.selectedOrganism, this.selectedExperiment, this.selectedSeed);
+            vsf.setLocationRelativeTo(null);
             vsf.setVisible(true);
         } else if (e.getSource() == editButton) {
             EditSeedFrame esf = new EditSeedFrame(selectedOrganism, selectedExperiment, selectedSeed, dirRenameApp, baseDir);
             esf.addPropertyChangeListener("getall", this);
+            esf.setLocationRelativeTo(null);
             esf.setVisible(true);
         }
     }

@@ -46,6 +46,7 @@ public class ChooseOutputFrame extends javax.swing.JFrame implements
 		this.oneOutputOnly = oneOutputOnly;
 
 		initComponents();
+		this.setLocationRelativeTo(null);
 
 		this.setLayout(new BorderLayout());
 		this.add(textLabel, BorderLayout.NORTH);

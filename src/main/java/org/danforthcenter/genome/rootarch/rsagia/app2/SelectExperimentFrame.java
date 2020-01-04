@@ -78,12 +78,14 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
             String organism = (String) orgComboBox.getSelectedItem();
             EditExperimentFrame editExp = new EditExperimentFrame(experiment, organism, this.dirRenameApp, this.baseDir);
             editExp.addPropertyChangeListener("getall", this);
+            editExp.setLocationRelativeTo(null);
             editExp.setVisible(true);
 
         } else if (e.getSource() == viewButton) {
             String selectedExperiment = (String) expComboBox.getSelectedItem();
             String organism = (String) orgComboBox.getSelectedItem();
             ViewExperimentFrame viewExperiment = new ViewExperimentFrame(selectedExperiment, organism);
+            viewExperiment.setLocationRelativeTo(null);
             viewExperiment.setVisible(true);
         }
 

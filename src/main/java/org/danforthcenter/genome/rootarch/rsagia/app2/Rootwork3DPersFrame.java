@@ -179,6 +179,7 @@ public class Rootwork3DPersFrame extends javax.swing.JFrame implements
                     Integer.parseInt(focusOffsetField.getText()),
 					"F");
 			rlf.addPropertyChangeListener("done", this);
+			rlf.setLocationRelativeTo(null);
 			rlf.setVisible(true);
 		} else if (evt.getSource() == rlf
 				&& evt.getPropertyName().equals("done")

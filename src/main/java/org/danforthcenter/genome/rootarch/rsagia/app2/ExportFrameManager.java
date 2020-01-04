@@ -83,6 +83,7 @@ public class ExportFrameManager implements java.beans.PropertyChangeListener {
 		// doScales();
 		edf = new ExportDispatcherFrame();
 		edf.addPropertyChangeListener("done", this);
+		edf.setLocationRelativeTo(null);
 		edf.setVisible(true);
 
 	}
@@ -356,7 +357,7 @@ public class ExportFrameManager implements java.beans.PropertyChangeListener {
 						null, descQc3s, f8);
 			}
 
-			JOptionPane.showMessageDialog(null, "DONE!");
+			JOptionPane.showMessageDialog(null, "Export Complete!");
 		}
 	}
 

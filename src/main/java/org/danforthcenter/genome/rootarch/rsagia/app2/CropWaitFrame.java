@@ -23,7 +23,7 @@ public class CropWaitFrame extends javax.swing.JFrame {
 	}
 
 	public void setLabel(int cur, int max) {
-		waitLabel.setText("Please waiting: saving " + cur + " of " + max
+		waitLabel.setText("Please wait: saving " + cur + " of " + max
 				+ " cropped image sets.");
 	}
 

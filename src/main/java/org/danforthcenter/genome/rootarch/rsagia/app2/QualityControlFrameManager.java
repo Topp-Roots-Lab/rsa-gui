@@ -403,7 +403,8 @@ public class QualityControlFrameManager implements
 				&& (Boolean) evt.getNewValue()) {
 			cofQc2.dispose();
 			cofQc2 = null;
-			doQc2SaveCsv();
+			 // doQc2SaveCsv(); // NOTE(tparker): Disabled for now because workflow states to cancel this action
+
 		} else if (evt.getSource() == cofQc3
 				&& evt.getPropertyName().equals("done")
 				&& (Boolean) evt.getNewValue()) {
@@ -462,6 +463,7 @@ public class QualityControlFrameManager implements
 
 		// Display the window.
 		dialog.pack();
+		dialog.setLocationRelativeTo(null);
 		dialog.setVisible(true);
 
 		// does not work as it might be expected

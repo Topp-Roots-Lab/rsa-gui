@@ -50,7 +50,7 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 	public GiaRoot2DFrame(int maxProcesses, GiaRoot2D gia,
 						  ArrayList<GiaRoot2DInput> inputs, ApplicationManager am) {
 		initComponents();
-
+		this.setLocationRelativeTo(null);
 		this.maxProcesses = maxProcesses;
 		this.gia = gia;
 		this.inputs = inputs;
@@ -229,7 +229,6 @@ public class GiaRoot2DFrame extends javax.swing.JFrame implements
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 		setTitle("RootArch Compute - Multi Log");
-		this.setLocationRelativeTo(null);
 
 		statusTable.setModel(new javax.swing.table.DefaultTableModel(
 				new Object[][] { { null, null }, { null, null },

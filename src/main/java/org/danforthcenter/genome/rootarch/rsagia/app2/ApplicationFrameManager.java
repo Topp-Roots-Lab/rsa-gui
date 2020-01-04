@@ -99,6 +99,7 @@ public class ApplicationFrameManager extends JComponent implements
 			} else if (s.equals(crop.getName())) {
 				cif = new CompositeImageFrame(inputs, null, crop, am);
 				cif.addPropertyChangeListener("done", this);
+				cif.setLocationRelativeTo(null);
 				cif.setVisible(true);
 			} else if (s.equals(recrop.getName())) {
 				chooseCrop(am.getRecrop().getRecrop());
@@ -110,14 +111,17 @@ public class ApplicationFrameManager extends JComponent implements
 			} else if (s.equals(rootwork3D.getName())) {
 				rootf = new Rootwork3DFrame_new(am, inputs);
 				rootf.addPropertyChangeListener("done", this);
+				rootf.setLocationRelativeTo(null);
 				rootf.setVisible(true);
             } else if (s.equals(rootwork3DPers.getName())) {
                 rootfpers = new Rootwork3DPersFrame_new(am, inputs);
+                rootfpers.setLocationRelativeTo(null);
                 rootfpers.addPropertyChangeListener("done", this);
                 rootfpers.setVisible(true);
 			} else if (s.equals("review")) {
 				rf = new ReviewFrame2(inputs, am);
 				rf.addPropertyChangeListener("done", this);
+				rf.setLocationRelativeTo(null);
 				rf.setVisible(true);
 			} else if (s.equals("export")) {
 				efm = new ExportFrameManager(am.getExport(), am.getScale(),
@@ -318,6 +322,7 @@ public class ApplicationFrameManager extends JComponent implements
 			gia3DLogFrame = new GiaRoot3DLogFrame(maxProcesses,
 					am.getGiaRoot3D(), am, riss, vols, descriptors, config);
 			gia3DLogFrame.addPropertyChangeListener("done", this);
+			gia3DLogFrame.setLocationRelativeTo(null);
 			gia3DLogFrame.setVisible(true);
 		} else if (evt.getSource() == gia3DLogFrame) {
 			gia3DLogFrame.dispose();
@@ -346,6 +351,7 @@ public class ApplicationFrameManager extends JComponent implements
 					.getDescriptorsView(), am.getGia3D_v2().getConfigs());
 
 			gia3D_v2Frame.addPropertyChangeListener("done", this);
+			gia3D_v2Frame.setLocationRelativeTo(null);
 			gia3D_v2Frame.setVisible(true);
 		} else if (evt.getSource() == gia3D_v2Frame) {
 			String descriptors = gia3D_v2Frame.getDescriptors();
@@ -365,6 +371,7 @@ public class ApplicationFrameManager extends JComponent implements
 			gia3D_v2LogFrame = new Gia3D_v2LogFrame(maxProcesses,
 					am.getGia3D_v2(), am, riss, vols, descriptors, config);
 			gia3D_v2LogFrame.addPropertyChangeListener("done", this);
+			gia3D_v2LogFrame.setLocationRelativeTo(null);
 			gia3D_v2LogFrame.setVisible(true);
 		} else if (evt.getSource() == gia3D_v2LogFrame) {
 			gia3D_v2LogFrame.dispose();
@@ -395,6 +402,7 @@ public class ApplicationFrameManager extends JComponent implements
 		giaFrame = new GiaRoot2DFrame(maxProcesses, am.getGiaRoot2D(),
 				giaInputs, am);
 		giaFrame.addPropertyChangeListener("done", this);
+		giaFrame.setLocationRelativeTo(null);
 		giaFrame.setVisible(true);
 	}
 
@@ -417,6 +425,7 @@ public class ApplicationFrameManager extends JComponent implements
 		cof = new ChooseOutputFrame(hm, !recrop, am, true, false);
 		cof.setInfoText("Per image set, choose a cropped image to use: ");
 		cof.addPropertyChangeListener("done", this);
+		cof.setLocationRelativeTo(null);
 		cof.setVisible(true);
 	}
 

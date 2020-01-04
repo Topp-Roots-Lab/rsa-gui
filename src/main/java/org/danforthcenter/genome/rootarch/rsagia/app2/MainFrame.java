@@ -563,6 +563,7 @@ public class MainFrame extends javax.swing.JFrame implements
         qcToggle.setFocusable(false);
         qcToggle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         qcToggle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        // qcToggle.setEnabled(false);
         jToolBar1.add(qcToggle);
 
         qc2Toggle.setText("QC2");
@@ -575,7 +576,7 @@ public class MainFrame extends javax.swing.JFrame implements
         qc3Toggle.setFocusable(false);
         qc3Toggle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         qc3Toggle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        qc3Toggle.setEnabled(false);
+        // qc3Toggle.setEnabled(false);
         jToolBar1.add(qc3Toggle);
 
         jToolBar2.setFloatable(false);

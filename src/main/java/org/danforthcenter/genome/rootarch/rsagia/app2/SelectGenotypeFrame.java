@@ -71,6 +71,7 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
             String selectedGenotype = (String) genotypeComboBox.getSelectedItem();
             EditGenotypeFrame egf = new EditGenotypeFrame(this.selectedOrganism, selectedGenotype);
             egf.addPropertyChangeListener(this);
+            egf.setLocationRelativeTo(null);
             egf.setVisible(true);
         }
     }

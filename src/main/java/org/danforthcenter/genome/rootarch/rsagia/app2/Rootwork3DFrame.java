@@ -107,6 +107,7 @@ public class Rootwork3DFrame extends javax.swing.JFrame implements
 					Double.parseDouble(refRatioField.getText()),
 					"F");
 			rlf.addPropertyChangeListener("done", this);
+			rlf.setLocationRelativeTo(null);
 			rlf.setVisible(true);
 		} else if (evt.getSource() == rlf
 				&& evt.getPropertyName().equals("done")

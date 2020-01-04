@@ -212,6 +212,7 @@ public class Rootwork3DPersFrame_new extends JFrame implements
                     doAddField.getText()
             );
             rlf.addPropertyChangeListener("done", this);
+            rlf.setLocationRelativeTo(null);
             rlf.setVisible(true);
         } else if (evt.getSource() == rlf
                 && evt.getPropertyName().equals("done")

@@ -123,6 +123,7 @@ public class Rootwork3DFrame_new extends JFrame implements
                     Integer.parseInt(refImageField.getText()),
                     Double.parseDouble(refRatioField.getText()), doAddField.getText());
             rlf.addPropertyChangeListener("done", this);
+            rlf.setLocationRelativeTo(null);
             rlf.setVisible(true);
         } else if (evt.getSource() == rlf
                 && evt.getPropertyName().equals("done")

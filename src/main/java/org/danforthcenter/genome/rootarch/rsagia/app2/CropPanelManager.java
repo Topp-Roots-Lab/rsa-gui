@@ -112,6 +112,7 @@ public class CropPanelManager implements java.beans.PropertyChangeListener {
                     imf.dispose();
                     if (curCropIndex < num_crop_imgs) {
                         cwf = new CropWaitFrame();
+                        cwf.setLocationRelativeTo(null);
                         cwf.setLabel(curCropIndex + 1, num_crop_imgs);
                         cwf.setVisible(true);
                     }

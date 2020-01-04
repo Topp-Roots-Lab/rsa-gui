@@ -57,6 +57,7 @@ public class SelectOrganismFrame extends JDialog implements
                 String selectedOrganism = (String) comboBox1.getItemAt(index);
                 EditOrganismFrame editOrganism = new EditOrganismFrame(selectedOrganism, this.dirRenameApp, this.baseDir);
                 editOrganism.addPropertyChangeListener("getall", this);
+                editOrganism.setLocationRelativeTo(null);
                 editOrganism.setVisible(true);
             }
             else {
@@ -65,6 +66,7 @@ public class SelectOrganismFrame extends JDialog implements
         } else if (e.getSource() == this.viewButton) {
             String selectedOrganism = (String) comboBox1.getSelectedItem();
             ViewOrganismFrame viewOrganism = new ViewOrganismFrame(selectedOrganism);
+            viewOrganism.setLocationRelativeTo(null);
             viewOrganism.setVisible(true);
         }
     }

@@ -31,6 +31,7 @@ public class GiaRoot2DConfigurationFrame extends javax.swing.JFrame implements
 	/** Creates new form GiaRootConfigurationFrame */
 	public GiaRoot2DConfigurationFrame(GiaRoot2D giaRoot2D, String descriptors) {
 		initComponents();
+		this.setLocationRelativeTo(null);
 
 		descriptorsTextField.setText(descriptors);
 		configComboBox.removeAllItems();
