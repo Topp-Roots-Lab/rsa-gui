@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="App" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="org.danforthcenter.genome.rootarch.rsagia.app2.App" />
-    <module name="gia-gui" />
+    <module name="rsa-gia" />
     <option name="PROGRAM_PARAMETERS" value="default.properties" />
     <RunnerSettings RunnerId="Run" />
     <ConfigurationWrapper RunnerId="Run" />
