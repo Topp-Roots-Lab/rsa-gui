@@ -41,6 +41,7 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 	public EditColumnsFrame(RsaInputTable rit, File userFile) {
 		initComponents();
 
+		this.setTitle("Edit Data Table Columns");
 		this.rit = rit;
 		this.userFile = userFile;
 

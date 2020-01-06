@@ -49,6 +49,7 @@ public class RisFilterFrame extends javax.swing.JFrame implements
 	/** Creates new form RisFilterFrame */
 	public RisFilterFrame() {
 		initComponents();
+		this.setTitle("Filter Data Table");
 
 		speciesField.setInputVerifier(new StringPairFilterInputVerifier());
 		experimentField.setInputVerifier(new StringPairFilterInputVerifier());

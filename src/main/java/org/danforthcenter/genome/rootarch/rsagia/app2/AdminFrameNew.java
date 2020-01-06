@@ -149,6 +149,7 @@ public class AdminFrameNew extends JFrame implements ActionListener {
 
     public AdminFrameNew() {
         $$$setupUI$$$();
+        this.setTitle("Session Administration Panel");
         initiliazeMaxProcessesField();
         this.osmxb = (OperatingSystemMXBean) ManagementFactory.getOperatingSystemMXBean();
 

@@ -265,10 +265,13 @@ public class MainFrame extends javax.swing.JFrame implements
             }
         } else if (e.getSource() == this.editColsButton) {
             EditColumnsFrame ecf = new EditColumnsFrame(rsaTable, userFile);
+            ecf.setLocationRelativeTo(null);
             ecf.setVisible(true);
         } else if (e.getSource() == this.filterButton) {
+            rff.setLocationRelativeTo(null);
             rff.setVisible(true);
         } else if (e.getSource() == this.adminButton) {
+            admin.setLocationRelativeTo(null);
             admin.setVisible(true);
         } else if (e.getSource() == this.editOrganism) {
             SelectOrganismFrame selOrg = new SelectOrganismFrame(am.getDirRename(), baseDir);
