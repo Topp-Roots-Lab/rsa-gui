@@ -95,7 +95,7 @@ echo 'model/vrml=meshlab.desktop' >> /usr/share/applications/mimeapps.list
 dnf install -y ImageMagick libpng12 libXrender-devel libXrandr-devel libXfixes-devel libXinerama-devel fontconfig-devel freetype-devel libXi-devel libXt-devel libXext-devel libX11-devel libSM-devel libICE-devel glibc-devel libXtst-devel tinyxml
 git clone https://github.com/glennrp/libpng.git --branch libpng15 --single-branch && cd libpng && ./configure --exec-prefix=/usr --libdir=/lib64 && make && make check && make install && cd ..
 wget http://download.osgeo.org/libtiff/tiff-3.9.7.tar.gz && tar -zvxf tiff-3.9.7.tar.gz && cd tiff-3.9.7/ && ./configure --exec-prefix=/usr --libdir=/lib64 && make && make check && make install && cd ..
-wget http://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz && tar -zxvf qt-everywhere-opensource-src-4.8.7.tar.gz && cd qt-everywhere-opensource-src-4.8.7/ && echo 'yes' | ./configure -prefix /opt/Qt-4.8.7  -opensource -shared -no-pch -no-javascript-jit -no-script -nomake demos -nomake examples && sed -i 's|view()->selectionModel()->select(index, QItemSelectionModel::Columns \& QItemSelectionModel::Deselect);|view()->selectionModel()->select(index, static_cast<QItemSelectionModel::SelectionFlags>(QItemSelectionModel::Columns \& QItemSelectionModel::Deselect));|g' ./src/plugins/accessible/widgets/itemviews.cpp && gmake -j4 && gmake install && ln -s /opt/Qt-4.8.7/lib/libQtCore.so.4 /usr/lib64/libQtCore.so.4
+wget http://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz && tar -zxvf qt-everywhere-opensource-src-4.8.7.tar.gz && cd qt-everywhere-opensource-src-4.8.7/ && echo 'yes' | ./configure -prefix /opt/Qt-4.8.7  -opensource -shared -no-pch -no-javascript-jit -no-script -nomake demos -nomake examples && sed -i 's|view()->selectionModel()->select(index, QItemSelectionModel::Columns \& QItemSelectionModel::Deselect);|view()->selectionModel()->select(index, static_cast<QItemSelectionModel::SelectionFlags>(QItemSelectionModel::Columns \& QItemSelectionModel::Deselect));|g' ./src/plugins/accessible/widgets/itemviews.cpp && gmake -j4 && gmake install && ln -s /opt/Qt-4.8.7/lib/libQtCore.so.4 /usr/lib64/libQtCore.so.4 && cd ..
 # Download application
 git clone --depth 1 https://github.com/Topp-Roots-Lab/rsa-gui.git --branch maven-refactor --single-branch /opt/rsa-gia
 git clone --depth 1 https://github.com/Topp-Roots-Lab/rsa-tools.git --branch master --single-branch
@@ -107,7 +107,7 @@ touch /var/log/rsa-gia/gia.log
 ln -sv /var/log/rsa-gia/gia.log /opt/rsa-gia/bin/gia/gia.log
 echo 'export PATH="$PATH:/opt/java/java_default/bin:/opt/rsa-gia/bin"' > /etc/profile.d/rsagia.sh
 echo 'export JAVA_HOME=/usr/java/jdk1.8.0_202-amd64/:$JAVA_HOME' >> /etc/profile.d/rsagia.sh
-echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/rsa-gia/bin/gia/lib/"'
+echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/rsa-gia/bin/gia/lib/"' >> /etc/profile.d/rsagia.sh
 source /etc/profile.d/rsagia.sh 
 pip2 install -r rsa-tools/requirements.txt
 mkdir -pv /opt/rsa-gia/bin/importer /opt/rsa-gia/bin/file-handlers /opt/rsa-gia/bin/gia-programs/quality-control/qc
@@ -152,6 +152,5 @@ mkdir -pv /data/rsa/to_sort/root /data/rsa/to_sort/tparker /data/rsa/to_sort/nji
 rsync -vrogP --chown=rsa-data:rootarch --chmod=D2775,F644 --stats  tparker@stargate.datasci.danforthcenter.org:/shares/ctopp_share/data/rsa/original_images/corn/TIM/p0019/t13/PNG/ /data/rsa/to_sort/root
 chown -Rc rsa-data:rootarch /data/rsa/to_sort/
 cd /data/rsa/to_sort/
-find /data/rsa/to_sort/root -type f -iname "*.PNG" | while read f ; do  cp -v "$f" "/data/rsa/to_sort/tparker/$(basename $f)"; done
-chmod -Rc o+w ctopp/ njiang/ tparker/
+find /data/rsa/to_sort/root -type f -iname "*.PNG" | while read f ; do  cp -pv "$f" "/data/rsa/to_sort/tparker/$(basename $f)"; done
 ```
