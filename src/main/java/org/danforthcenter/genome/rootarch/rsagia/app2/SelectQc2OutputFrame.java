@@ -365,7 +365,7 @@ public class SelectQc2OutputFrame extends javax.swing.JFrame implements
 		jSlider.setValue(0);
 		jSlider.setBorder(BorderFactory.createTitledBorder(""));
 		Hashtable<Integer, JLabel> table = new Hashtable<Integer, JLabel>();
-		table.put(0, new JLabel("O"));
+		table.put(0, new JLabel("0"));
 		table.put(10, new JLabel("10"));
 		table.put(20, new JLabel("20"));
 		table.put(30, new JLabel("30"));
@@ -445,13 +445,13 @@ public class SelectQc2OutputFrame extends javax.swing.JFrame implements
 		// "/localhome/vp23/tmp/Is~cyl~a0.01-b0.01-h1-top0-topr0-x0y0z0-eps0.1-pi12~orthogonal_vp23_2012-12-11_15-03-18_template_insilico_test_scale_4_thresholded_composite.png";
 
 		File tmp = new File(imgdir.getAbsolutePath() + File.separator + "tmp");
-        System.out.println(this.getClass() + " loadAndShowImage " + tmp.toString());
-        System.out.println(String.format("DEBUG: loadAndShowImage(File imgdir) -> loadAndShowImage(%s)", imgdir.toString()));
+        // System.out.println(this.getClass() + " loadAndShowImage " + tmp.toString());
+        // System.out.println(String.format("DEBUG: loadAndShowImage(File imgdir) -> loadAndShowImage(%s)", imgdir.toString()));
 
 		NameSubstringFileFilter nsff = new NameSubstringFileFilter(
 				THRESHOLDED_COMPOSITE_FILTER);
 		File[] files = tmp.listFiles(nsff);
-		System.out.println(String.format("DEBUG: NameSubstringFileFilter Output: %s", Arrays.toString(files)));
+		// System.out.println(String.format("DEBUG: NameSubstringFileFilter Output: %s", Arrays.toString(files)));
 		if (files == null || files.length != 1) {
 			String Msg = "File not found:\n " + tmp + File.separator + "*"
 					+ THRESHOLDED_COMPOSITE_FILTER;
@@ -553,7 +553,7 @@ public class SelectQc2OutputFrame extends javax.swing.JFrame implements
 		// setPermisionsForQc2File();
 
 		count = 0;
-		System.out.println(String.format("DEBUG: %s", input[count]));
+		// System.out.println(String.format("DEBUG: %s", input[count]));
 		loadAndShowImage(input[count]);
 		// set default scale 50%
 		double s = 0.5;
