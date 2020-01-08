@@ -91,16 +91,23 @@ cp -Rv operations-scripts/servers/viper/meshlab/meshlab.png /usr/share/pixmaps/
 echo 'model/vrml=meshlab.desktop' >> /usr/share/applications/mimeapps.list
 
 # ==== RSA-GiA ====
-dnf install -y ImageMagick libpng12 libXrender-devel libXrandr-devel libXfixes-devel libXinerama-devel fontconfig-devel freetype-devel libXi-devel libXt-devel libXext-devel libX11-devel libSM-devel libICE-devel glibc-devel libXtst-devel
+# Install dependencies
+dnf install -y ImageMagick libpng12 libXrender-devel libXrandr-devel libXfixes-devel libXinerama-devel fontconfig-devel freetype-devel libXi-devel libXt-devel libXext-devel libX11-devel libSM-devel libICE-devel glibc-devel libXtst-devel tinyxml
 git clone https://github.com/glennrp/libpng.git --branch libpng15 --single-branch && cd libpng && ./configure --exec-prefix=/usr --libdir=/lib64 && make && make check && make install && cd ..
 wget http://download.osgeo.org/libtiff/tiff-3.9.7.tar.gz && tar -zvxf tiff-3.9.7.tar.gz && cd tiff-3.9.7/ && ./configure --exec-prefix=/usr --libdir=/lib64 && make && make check && make install && cd ..
 wget http://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz && tar -zxvf qt-everywhere-opensource-src-4.8.7.tar.gz && cd qt-everywhere-opensource-src-4.8.7/ && echo 'yes' | ./configure -prefix /opt/Qt-4.8.7  -opensource -shared -no-pch -no-javascript-jit -no-script -nomake demos -nomake examples && sed -i 's|view()->selectionModel()->select(index, QItemSelectionModel::Columns \& QItemSelectionModel::Deselect);|view()->selectionModel()->select(index, static_cast<QItemSelectionModel::SelectionFlags>(QItemSelectionModel::Columns \& QItemSelectionModel::Deselect));|g' ./src/plugins/accessible/widgets/itemviews.cpp && gmake -j4 && gmake install && ln -s /opt/Qt-4.8.7/lib/libQtCore.so.4 /usr/lib64/libQtCore.so.4
-git clone --depth 1 https://github.com/Topp-Roots-Lab/rsa-gui.git --branch maven-refactor --single-branch
+# Download application
+git clone --depth 1 https://github.com/Topp-Roots-Lab/rsa-gui.git --branch maven-refactor --single-branch /opt/rsa-gia
 git clone --depth 1 https://github.com/Topp-Roots-Lab/rsa-tools.git --branch master --single-branch
-mkdir -pv /opt/rsa-gia/bin /etc/opt/rsa-gia /var/log/rsa-gia
-cp -Rv rsa-gui/bin/* /opt/rsa-gia/bin
+mkdir -pv /etc/opt/rsa-gia /var/log/rsa-gia
+chown -Rc :rootarch /var/log/rsa-gia
+chmod -Rc g+w /var/log/rsa-gia
+# Initialize gia.log for Gia2d
+touch /var/log/rsa-gia/gia.log
+ln -sv /var/log/rsa-gia/gia.log /opt/rsa-gia/bin/gia/gia.log
 echo 'export PATH="$PATH:/opt/java/java_default/bin:/opt/rsa-gia/bin"' > /etc/profile.d/rsagia.sh
-echo 'export JAVA_HOME=/usr/java/jdk1.8.0_202-amd64/' >> /etc/profile.d/rsagia.sh
+echo 'export JAVA_HOME=/usr/java/jdk1.8.0_202-amd64/:$JAVA_HOME' >> /etc/profile.d/rsagia.sh
+echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/rsa-gia/bin/gia/lib/"'
 source /etc/profile.d/rsagia.sh 
 pip2 install -r rsa-tools/requirements.txt
 mkdir -pv /opt/rsa-gia/bin/importer /opt/rsa-gia/bin/file-handlers /opt/rsa-gia/bin/gia-programs/quality-control/qc
@@ -135,10 +142,10 @@ find $dest_tmplt -mindepth 1 -type d -exec chmod -v 2750 '{}' \;
 find $dest_tmplt -mindepth 1 -type f -exec chown -v rsa-data:rootarch '{}' \;
 find $dest_tmplt -mindepth 1 -type f -exec chmod -v 640 '{}' \;
 # rm -rvf /opt/rsa-gia/bin/rsa-gia-templates /opt/rsa-gia/bin/rsa-install-rsagiatemplates rsa-create-rsadata-rootarchrsa-mv2orig
-find rsa-gui/ -type f -iname "rsa-gia.desktop" -exec cp -v {} /usr/share/applications/ \;
-find rsa-gui/ -type f -iname "default.*properties" -exec cp -v {} /etc/opt/rsa-gia \;
-find rsa-gui/ -type f -iname "rsa-gia.png" -exec cp -v {} /usr/share/pixmaps/ \;
-yes | cp -Rvf rsa-gui/bin/rsa-gia-templates /data/rsa/
+find /opt/rsa-gia/ -type f -iname "rsa-gia.desktop" -exec cp -v {} /usr/share/applications/ \;
+find /opt/rsa-gia/ -type f -iname "default.*properties" -exec cp -v {} /etc/opt/rsa-gia \;
+find /opt/rsa-gia/ -type f -iname "rsa-gia.png" -exec cp -v {} /usr/share/pixmaps/ \;
+yes | cp -Rvf /opt/rsa-gia/bin/rsa-gia-templates /data/rsa/
 
 # Download data
 mkdir -pv /data/rsa/to_sort/root /data/rsa/to_sort/tparker /data/rsa/to_sort/njiang /data/rsa/to_sort/ctopp
