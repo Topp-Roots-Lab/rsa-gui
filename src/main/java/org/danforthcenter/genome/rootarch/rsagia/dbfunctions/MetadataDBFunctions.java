@@ -438,7 +438,7 @@ public class MetadataDBFunctions {
     public boolean checkSeedTimepointImageTypeExists(String organism, String experiment, String seed, String timepoint, String imageType) {
         int seedID = (int) this.findSeedMetadataFromOrgExpSeed(organism, experiment, seed).get(0).getValue("seed_id");
         String query = "select * from dataset d inner join dataset_image_type dit on d.dataset_id = dit.dataset_id where d.seed_id=" +
-                seedID + " and d.timepoint'" + timepoint + "' and dit.image_type='" + imageType + "'";
+                seedID + " and d.timepoint='" + timepoint + "' and dit.image_type='" + imageType + "'";
         Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);
         if (resultRecord == null || resultRecord.size() == 0) {
             return false;
