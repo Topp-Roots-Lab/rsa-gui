@@ -100,11 +100,11 @@ wget http://download.qt.io/archive/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8
 git clone --depth 1 https://github.com/Topp-Roots-Lab/rsa-gui.git --branch maven-refactor --single-branch /opt/rsa-gia
 git clone --depth 1 https://github.com/Topp-Roots-Lab/rsa-tools.git --branch master --single-branch
 mkdir -pv /etc/opt/rsa-gia /var/log/rsa-gia
-chown -Rc :rootarch /var/log/rsa-gia
-chmod -Rc g+w /var/log/rsa-gia
 # Initialize gia.log for Gia2d
 touch /var/log/rsa-gia/gia.log
 ln -sv /var/log/rsa-gia/gia.log /opt/rsa-gia/bin/gia/gia.log
+chown -Rc :rootarch /var/log/rsa-gia
+chmod -Rc g+w /var/log/rsa-gia
 echo 'export PATH="$PATH:/opt/java/java_default/bin:/opt/rsa-gia/bin"' > /etc/profile.d/rsagia.sh
 echo 'export JAVA_HOME=/usr/java/jdk1.8.0_202-amd64/:$JAVA_HOME' >> /etc/profile.d/rsagia.sh
 echo 'export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/opt/rsa-gia/bin/gia/lib/"' >> /etc/profile.d/rsagia.sh
