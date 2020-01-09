@@ -1,8 +1,6 @@
 # Virtual Machine Example Setup
 
-This is an example run through of setting up Viper with CentOS 8 from scratch as a virtual machine (VirtualBox).
-This set up does not assume the virtual machine is a part of the Data Science cluster, so it does
-not use its authentication server or NFS mounts.
+This is an example run through of setting up Viper with CentOS 8 from scratch as a virtual machine (VirtualBox). This set up does not assume the virtual machine is a part of the Data Science cluster, so it does not use its authentication server or NFS mounts. This assumes you have already installed CentOS 8 on your VM. For guidance on how to set up the operating system, please follow the appropriate guide found at https://github.com/Topp-Roots-Lab/operations-scripts.
 
 ```bash
 # ==== Users and groups ====
@@ -21,10 +19,6 @@ usermod -g ibaxter tparker
 usermod -aG ctopp tparker
 usermod -aG ctopp njiang
 usermod -g ctopp njiang
-
-nano /etc/dconf/db/local.d/00-screensaver
-dconf update
-nano /etc/polkit-1/localauthority/50-local.d/45-allow-colord.pkla
 
 # ==== Desktop Environment and System-wide Dependencides ====
 dnf groupinstall -y "Server with GUI"
