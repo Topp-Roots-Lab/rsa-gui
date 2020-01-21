@@ -19,7 +19,7 @@ This appilcation is written in Java, and it was designed to run on a Linux syste
   * [Dependencies](#dependencies)
     * [RHEL-based, CentOS Dependency Installation Guide](#rhel-based-centos-dependency-installation-guide)
     * [Debian-based, Ubuntu Dependency Installation Guide](#debian-based-ubuntu-dependency-installation-guide)
-  * [Build](#build)
+  * _[Build](#build) (planned)_
   * [Configure MySQL Server](#mysql-configuration)
 * [Troubleshooting](#troubleshooting)
   * [Missing Python Packages](#missing-python-packages)
@@ -43,7 +43,7 @@ In order to install and use this application, you will need to install or
 configure the following components onto a system.
 
 - [Java SE Runtime Environment 8u202](https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html)
-- [Build Project]()*
+- [Build Project](#build) _(planned)_
 - [Python 2.7.x](https://www.python.org/downloads/)
 
 *Note, some binaries can be copied directly from another server's installation
@@ -279,6 +279,13 @@ sudo mysql_secure_installation
 #### Build
 
 _TODO_
+#### Java Package: `rsa-gia.jar`
+
+The basic instructions are to clone this repo and then open it IntelliJ CE. It prompts you to import as a Maven project, do so. It should add a sidebar on the right side of the interface named Maven that include *lifecycle* actions to _clean_, _compile_, and _package_ the project.
+
+To produce a `.jar` for release, use the _package_ action to compile and create the file. For single-file releases, use the package that includes dependencies.
+
+In the future, this documentation will be updated with specific guidelines on how to configure your development environment.
 
 #### MySQL Configuration
 Log into MySQL
