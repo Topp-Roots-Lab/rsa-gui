@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<configuration>
+    <core>
+        <property name="serialize_image_format" value="jpg" />
+        <property name="thread_pool_size" value="5" />
+        <property name="memory_limit" value="1000" />
+    </core>
+    
+    <algorithm_manager_defaults>
+        <property name="thresholdedimage" value="thresholding_adaptive" />
+        <property name="croppedimage" value="cropping_manual" />
+        <property name="grayimage" value="preparation_color_2_gray" />
+    </algorithm_manager_defaults>
+    
+
+    <algorithm id="transform_setscale">
+        <property name="metric_scale" value="100"/>
+    </algorithm>
+    
+    <algorithm id="transform_rotation">
+        <property name="rotate" value="270"/>
+    </algorithm>
+    
+    <algorithm id="transform_autocropping_duke">
+        <property name="crop_bottom" value="true"/>
+        <property name="crop_top" value="true"/>
+        <property name="crop_left" value="true"/>
+        <property name="crop_right" value="true"/>
+        <property name="tolerance_vertical_1st_pass" value="1"/>
+        <property name="tolerance_horizontal_pass" value="100"/>
+        <property name="tolerance_vertical_2nd_pass" value="100"/>
+        <property name="margin" value="1500" />
+    </algorithm>
+
+    <algorithm id="thresholding_adaptive">
+        <property name="max_value" value="255"/>
+        <property name="adaptive_method" value="CV_ADAPTIVE_THRESH_MEAN_C"/>
+        <property name="threshold_type" value="CV_THRESH_BINARY"/>
+        <property name="block_size" value="25"/>
+        <property name="subtract_constant" value="-2.0"/>
+    </algorithm>
+    
+    <algorithm id="double_adaptive_thresholding">
+        <property name="block_size" value="150" />
+        <property name="drop_value" value="5" />
+    </algorithm>
+
+</configuration>

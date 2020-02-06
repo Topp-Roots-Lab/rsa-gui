@@ -1,0 +1,21 @@
+#!/bin/sh
+
+################################################################################
+##
+## Start the Gia Gui application
+##
+## Fri May 31 2013 Vladimir Popov <vladimir.popov@duke.edu> 
+##
+## Mon August 12 2013 Vladimir Popov <vladimir.popov@duke.edu> 
+##     Added the full Class Path, including all dependency jars, - just in case.
+##     (the LD_LIBRARY_PATH does not seem to be working as expected)
+################################################################################
+
+# NOTE(tparker): Migration from CentOS 6
+# For the sake of following Linux Filesystem Hierarchy Standard a little bit
+# better, I changed it so that the configuration file was moved into /etc
+
+f=`readlink -f "$0"`
+dir=`dirname "$f"`
+
+java -jar ${dir}/gia-java/rsa-gia-4.0.1-jar-with-dependencies.jar /etc/opt/rsa-gia/default.properties

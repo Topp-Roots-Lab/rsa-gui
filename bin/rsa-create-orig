@@ -1,0 +1,129 @@
+#!/bin/sh
+#################################################################################################
+##
+## Creates directories: /data, /data/rsa, /data/rsa/original_images, and /data/rsa/processed_images
+## and sets default permissions for all created directories.
+## 
+##
+## NOTE: Before using this script,make sure that 
+##       you already ran the rsa-create-rsadata-rootarch script,
+##       which creates:
+##
+## 1. User rsa-data
+## 2. Group rootarch
+## 3. And adds rsa-data user to the group rootarch
+##
+##
+## Fri May 31 2013 Vladimir Popov <vladimir.popov@duke.edu> 
+## 
+################################################################################################
+
+echo
+echo "=== Starting the $0 script =="
+echo
+
+if [ $USER != "root" ]; then
+    echo "ERROR: this script must be executed under 'root' account."
+    echo
+    exit 1
+fi
+
+
+echo
+echo "=== Creating and setting default permissions for directory /data ==="
+echo
+# /data
+if [ -d "/data" ]
+then
+    echo "Directory /data exists. Continue ..."
+else
+    echo "Directory /data does not exist. Creating ... Continue ..."
+    mkdir /data
+    chown root:root /data 
+    chmod 755 /data     
+fi
+
+echo
+echo "=== Creating and setting default permissions for directory /data/rsa ==="
+echo
+if [ -d "/data/rsa" ]
+then
+    echo "Directory /data/rsa exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /data/rsa does not exist. Creating ... Continue ..."
+   # /data/rsa
+   mkdir /data/rsa
+   chown root:rootarch /data/rsa
+   chmod 2770 /data/rsa    
+fi
+
+
+echo
+echo "=== Creating and setting default permissions for directory /data/rsa/original_images ==="
+echo
+if [ -d "/data/rsa/original_images" ]
+then
+    echo "Directory /data/rsa/original_images exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /data/rsa/original_images does not exists. Creating ... Continue ..."
+   # /data/rsa/original_images
+   mkdir /data/rsa/original_images
+   chown rsa-data:rootarch /data/rsa/original_images
+   chmod 2750 /data/rsa/original_images
+fi
+
+echo
+echo "=== Creating and setting default permissions for directory /data/rsa/processed_images ==="
+echo
+if [ -d "/data/rsa/processed_images" ]
+then
+    echo "Directory /data/rsa/processed_images exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /data/rsa/processed_images does not exists. Creating ... Continue ..."
+   # /data/rsa/processed_images
+   mkdir /data/rsa/processed_images
+   chown rsa-data:rootarch /data/rsa/processed_images
+   chmod 2770 /data/rsa/processed_images
+fi
+
+echo
+echo "=== Creating and setting default permissions for directory /data/rsa/rsa-gia-templates ==="
+echo
+if [ -d "/data/rsa/rsa-gia-templates" ]
+then
+    echo "Directory /data/rsa/rsa-gia-templates exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /data/rsa/rsa-gia-templates does not exists. Creating ... Continue ..."
+   # /data/rsa/rsa-gia-templates
+   mkdir /data/rsa/rsa-gia-templates
+   chown rsa-data:rootarch /data/rsa/rsa-gia-templates
+   chmod 2750 /data/rsa/rsa-gia-templates
+fi
+
+echo
+echo "=== Creating and setting default permissions for directory /data/to_sort ==="
+echo
+if [ -d "/data/rsa/to_sort" ]
+then
+    echo "Directory /data/rsa/to_sort exists. Please, clean it up, if possible, and try again."
+    echo "Exiting script $0"
+    exit;
+else
+    echo "Directory /data/to_sort does not exist. Creating ... Continue ..."
+   # /data/rsa/to_sort
+   mkdir /data/rsa/to_sort
+   chown rsa-data:rootarch /data/rsa/to_sort
+   chmod 2770 /data/rsa/to_sort
+fi
+
+echo
+echo "=== Script finished ==="
+echo

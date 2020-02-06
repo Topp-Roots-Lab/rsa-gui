@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<job config="jobs/config-test1.xml" driver="xml" connection_string="./test-job">
+    <export driver="csv" connection_string="../test1-job.csv"/>
+    <upload connection_string="/home/staff/elimgta/gia/data/test01/" />
+    <compute types="averagerootwidthfeaturelinear;bushinessfeature;ccomponentscountfeature;depthfeature;ellipseaxesaspectratiofeature;grayimage;lengthdistrfeature;majorellipseaxesfeaturelinear;maximumnumberofrootsfeature;maxwidthfeature;mediannumberofrootsfeature;minorellipseaxesfeaturelinear;networkareafeatureplanar;networkconvexareafeatureplanar;perimeterfeaturelinear;solidityfeature;specificrootlengthfeatureinvplanar;surfaceareafeature;thinnedimage;thresholdedimage;totallengthfeature;volumefeature;widthdepthratiofeature"/>
+</job>
