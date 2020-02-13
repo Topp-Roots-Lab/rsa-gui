@@ -16,11 +16,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="rsa-gia" />
+        <module name="rsa-gui" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="rsa-gia" target="1.8" />
+      <module name="rsa-gui" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

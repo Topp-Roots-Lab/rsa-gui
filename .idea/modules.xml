@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/rsa-gia.iml" filepath="$PROJECT_DIR$/rsa-gia.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rsa-gui.iml" filepath="$PROJECT_DIR$/rsa-gui.iml" />
     </modules>
   </component>
 </project>
