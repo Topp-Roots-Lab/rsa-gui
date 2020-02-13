@@ -40,7 +40,7 @@
             <!-- The destination package of your generated classes (within the destination directory) -->
             <packageName>org.danforthcenter.genome.rootarch.rsagia.db</packageName>
             <!-- The destination directory of your generated classes. Using Maven directory layout here -->
-            <directory>./src</directory>
+            <directory>./src/main/java</directory>
         </target>
     </generator>
 </configuration>
