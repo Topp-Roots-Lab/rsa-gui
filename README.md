@@ -1,8 +1,16 @@
 # Root System Architecture, General Image Analysis GUI
 
-The RSA-GIA pipeline is the Topp Lab’s image processing pipeline for plants grown in a gel-based medium. The input is a set of images from the gel system. The output is a csv file of traits calculated from image processing.
+The RSA-GIA pipeline is the Topp Lab’s image processing pipeline for plants
+grown in a gel-based medium. The input is a set of images from the gel system.
+The output is a csv file of traits calculated from image processing.
 
-This appilcation is written in Java, and it was designed to run on a Linux system, namely CentOS. As such, installation and development guides will assume you are working in a Linux-based operating system.
+The pipeline acts a wrapper for the underlying CLI tools that have been
+developed over the years. Some of these tools have GUI versions as well, such
+as GiaRoots, which is referred to as Gia2D in the RSA-GIA pipeline.
+
+This appilcation is written in Java, and it was designed to run on a Linux
+system, namely CentOS. As such, installation and development guides will assume
+you are working in a Linux-based operating system.
 
 ---
 
@@ -142,16 +150,17 @@ sudo mysql_secure_installation
 
 #### Build
 
-Below is a barebones guide on building the project from scratch. A more in-depth
-guide will be provided in the future if needed.
+Maven is used to manage the project's dependencies and can be used to compile and package it.
 
-#### Java Package: `rsa-gia.jar`
+#### Java Package: `rsa-gui.jar`
 
-The basic instructions are to clone this repo and then open it IntelliJ CE. It prompts you to import as a Maven project, do so. It should add a sidebar on the right side of the interface named Maven that include *lifecycle* actions to _clean_, _compile_, and _package_ the project.
+**Note**: If you follow the installation guide, then the `.jar` included is named `rsa-gia*.jar` instead.
 
-To produce a `.jar` for release, use the _package_ action to compile and create the file. For single-file releases, use the package that includes dependencies.
+If you want to package the project for use, navigate to your clone of this repo and then run the following Maven command:
 
-In the future, this documentation will be updated with specific guidelines on how to configure your development environment.
+```bash
+mvn clean package
+```
 
 #### MySQL Configuration
 
