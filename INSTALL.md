@@ -116,6 +116,7 @@ find /opt/rsa-gia/ -type f -iname "rsa-gia.png" -exec cp -v {} /usr/share/pixmap
 
 # Add configuration file
 find /opt/rsa-gia/ -type f -iname "default.*properties" -exec cp -v {} /etc/opt/rsa-gia \;
+mv -vf /etc/opt/rsa-gia/default.qa.properties /etc/opt/rsa-gia/default.properties
 
 # Initialize gia.log for Gia2d
 touch /var/log/rsa-gia/gia.log
