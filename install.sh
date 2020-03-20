@@ -1,26 +1,4 @@
-# Installation
-
-Below is a full installation on how to install RSA-GiA onto a barebones instance
-of an operating system. This include changes to file system
-hierarchy, dependency installation, configuration of properties file, and
-compiling sub-components. For testing purposes, we suggest using a virtual
-machine. A guide on setting up a VirtualBox-based VM is provided in [doc/virtual-machine-setup.md](doc/virtual-machine-setup.md).
-
-## Dependencies
-
-In order to install and use this application, you will need to install or
-configure the following components onto a system.
-
-* [Java SE Runtime Environment 1.8](https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase8-2177648.html)
-* [Python 2.7 and Python 3](https://www.python.org/downloads/) and [pip](https://pip.pypa.io/en/stable/installing/)
-
-This installation guide includes installation of the application's interface.
-
-## CentOS 8
-
-Use the following commands to update the system and install dependencies
-
-```bash
+#!/usr/bin/env bash
 # Install dependencies
 dnf install -y ImageMagick libpng12 libXrender-devel libXrandr-devel libXfixes-devel libXinerama-devel fontconfig-devel freetype-devel libXi-devel libXt-devel libXext-devel libX11-devel libSM-devel libICE-devel glibc-devel libXtst-devel tinyxml gcc gcc-c++ maven
 
@@ -132,35 +110,3 @@ popd
 rm -rvf /opt/rsa-gia/target
 
 echo -e "Installation complete!\nMake sure to update '/etc/opt/rsa-gia/default.properties.' to point to your database server.\nYou will need to add any users to the 'rootarch' group before use.\nReboot required."
-```
-
-**Done!** RSA-GiA is now installed onto the system. Make sure to review the guides below on adding new users and overall administration of the software.
-
-## Alternative Binaries
-
-The Java-based GUI, `rsa-gia.jar`, is effectively a wrapper for a suite of CLI tools. Originally, these tools were installed individually. Currently, it is sufficient to copy the binaries from the working instance of Viper. I've put a copy of these files in `/shares/ctopp_share/data/repos/viper`. Additionally, a copy should be included in the `bin/` folder for this repository.
-
-However, the original versions are hosted by the Benfey lab.
-
-Benfey's Wiki: http://mk42ws.biology.duke.edu:8000/wiki/010-BenfeyLab/120-BioBusch/030-RootArch/150-RsaPipeline/090-Installation
-
-To install the original versions can be installed by downloading the RPM packages. These are installed into the `/usr/local/bin` folder. The RPM installation must be forced because some of the binaries and libraries are directly placed into the /usr/lib and /usr/bin directories which are owned by another package: `filesystem-3.2-25.el7`. The only file that may be overwritten is matlab in `/usr/bin/matlab`. It is included in `rsa-pipeline-admin-2.0.0-1`. If you have a version of matlab installed in this location, make sure to create a backup copy.
-
-```bash
-wget http://mk42ws.biology.duke.edu:8000/raw-attachment/wiki/010-BenfeyLab/120-BioBusch/030-RootArch/150-RsaPipeline/090-Installation/rsa-pipeline-rpm-2.tar.gz
-tar -zxvf rsa-pipeline-rpm-2.tar.gz
-rpm -ivh rsa-pipeline-rpm-2/* --force
-mv -v /usr/local/bin/gia* /opt/rsa-gia
-mv -v /usr/local/bin/matlab-programs /opt/rsa-gia
-mv -v /usr/local/bin/reconstruction* /opt/rsa-gia
-mv -v /usr/local/bin/rsa* /opt/rsa-gia
-mv -v /usr/local/bin/skeleton3D /opt/rsa-gia
-```
-
-## Testing
-
-Ni Jiang provided some sample data for testing RSA-GiA. It is a timeseries dataset using corn.
-
-```bash
-rsync -vrogP --chown=rsa-data:rootarch --chmod=D2775,F644 --stat tparker@stargate.datasci.danforthcenter.org:/shares/ctopp_share/data/rsa/original_images/corn/TIM/ /data/rsa/to_sort/root
-```
