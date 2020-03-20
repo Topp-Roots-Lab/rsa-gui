@@ -72,10 +72,9 @@ public class GiaRoot2D implements IApplication {
 		return allDescriptors;
 	}
 
-	public ArrayList<String> getConfigTemplates() {
-		ArrayList<String> ans = new ArrayList<String>();
+	public ArrayList<String> getSavedConfigs() {
 		OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
-		ans = oidbf.getTemplates("giaroot_2d");
+		ArrayList<String> ans = oidbf.getSavedConfigs("giaroot_2d");
 		return ans;
 	}
 
@@ -198,9 +197,10 @@ public class GiaRoot2D implements IApplication {
 	public void preprocess(GiaRoot2DInput input, OutputInfo output,
 			ApplicationManager am) {
 		// write the gia xml files
-		GiaConfigXml gcx = new GiaConfigXml(
-				getTemplateFromString(input.getTemplateString()), input
-						.getRis().getPreferredType(), OUTPUT_TYPE);
+		OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+		String savedTemplate = oidbf.findSavedConfigContents(input.getTemplateString(),"giaroot_2d");
+		GiaConfigXml gcx = new GiaConfigXml(savedTemplate, input
+				.getRis().getPreferredType(), OUTPUT_TYPE);
 		File configXml = new File(output.getDir() + File.separator
 				+ input.getTemplateString() + CONFIG_XML_SUFFIX);
 		gcx.write(configXml);
@@ -237,18 +237,13 @@ public class GiaRoot2D implements IApplication {
     }
 
 	public String getTemplateString(OutputInfo oi) {
-		ExtensionFileFilter eff = new ExtensionFileFilter("xml");
-		File[] fs = oi.getDir().listFiles(eff);
 		String ans = null;
-		for (File f : fs) {
-			String s = f.getName();
-			int i = s.lastIndexOf(CONFIG_XML_SUFFIX);
-			if (i > 0) {
-				ans = s.substring(0, i);
-				break;
-			}
+		if (oi.savedConfigID == null) {
+			ans = "...";
+		} else {
+			OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+			ans = oidbf.findSavedConfigName(oi.savedConfigID);
 		}
-
 		return ans;
 	}
 

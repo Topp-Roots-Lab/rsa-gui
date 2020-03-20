@@ -73,9 +73,8 @@ public class Gia3D_v2 implements IApplication {
 	}
 
 	public ArrayList<String> getConfigs() {
-        ArrayList<String> ans = new ArrayList<String>();
         OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
-        ans = oidbf.getTemplates("gia3d_v2");
+		ArrayList<String> ans = oidbf.getSavedConfigs("gia3d_v2");
         return ans;
     }
 
@@ -114,7 +113,7 @@ public class Gia3D_v2 implements IApplication {
 
 		OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
 		oidbf.insertProgramRunTable(oi);
-		int configID = oidbf.findConfigID(config, oi.getAppName());
+		int configID = oidbf.findSavedConfigID(config, oi.getAppName());
 		oi.setSavedConfigID(configID);
 		JSONObject jo = new JSONObject();
 		OutputInfo usedOI = (OutputInfo) vol;

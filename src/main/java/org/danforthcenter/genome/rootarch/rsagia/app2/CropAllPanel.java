@@ -245,7 +245,6 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
-        panel1.setEnabled(true);
         panel1.setMaximumSize(new Dimension(2147483647, 112));
         panel1.setMinimumSize(new Dimension(834, 50));
         panel1.setPreferredSize(new Dimension(834, 112));
@@ -307,4 +306,5 @@ public class CropAllPanel extends JComponent implements ActionListener, MouseLis
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

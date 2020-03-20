@@ -5,12 +5,7 @@
 
 package org.danforthcenter.genome.rootarch.rsagia2;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Responsible for producing the gia config xml file based off of some runtime
@@ -28,7 +23,7 @@ public class GiaConfigXml {
 	public static final String INPUT_FORMAT_PLACEHOLDER = "${INPUT_IMAGE_TYPE}";
 	public static final String OUTPUT_FORMAT_PLACEHOLDER = "${OUTPUT_IMAGE_TYPE}";
 
-	protected File template;
+	protected String template;
 	protected String inputFormat;
 	protected String outputFormat;
 
@@ -39,7 +34,7 @@ public class GiaConfigXml {
 	 *            - no longer needed
 	 * @param outputFormat
 	 */
-	public GiaConfigXml(File template, String inputFormat, String outputFormat) {
+	public GiaConfigXml(String template, String inputFormat, String outputFormat) {
 		this.template = template;
 		this.inputFormat = inputFormat;
 		this.outputFormat = outputFormat;
@@ -50,7 +45,7 @@ public class GiaConfigXml {
 		BufferedWriter bw = null;
 
 		try {
-			br = new BufferedReader(new FileReader(template));
+			br = new BufferedReader(new StringReader(template));
 			bw = new BufferedWriter(new FileWriter(f));
 
 			String s = null;

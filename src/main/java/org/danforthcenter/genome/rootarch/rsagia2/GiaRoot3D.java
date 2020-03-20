@@ -5,6 +5,8 @@
 
 package org.danforthcenter.genome.rootarch.rsagia2;
 
+import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -71,7 +73,9 @@ public class GiaRoot3D implements IApplication {
 
 		File templateFile = new File(templateDir + File.separator + config
 				+ ".xml");
-		GiaConfigXml gcx = new GiaConfigXml(templateFile, "tiff", "tiff");
+		OutputInfoDBFunctions oidbf = new OutputInfoDBFunctions();
+		String savedTemplate = oidbf.findSavedConfigContents(config, "gia3d");
+		GiaConfigXml gcx = new GiaConfigXml(savedTemplate, "tiff", "tiff");
 		gcx.write(ans.getConfigFile(templateFile));
 
 		FileUtil.createSymLink(vol.getVolumeFile(), new File(ans.getDir()

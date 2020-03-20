@@ -366,7 +366,7 @@ public class FillDb {
                         String templateName = features.get(0);
                         String savedConfigIDString = "NULL";
                         String configContents = "NULL";
-                        Result<Record> savedTemplate = oidbf.findSavedTemplateFromName(templateName,appName);
+                        Result<Record> savedTemplate = oidbf.findSavedConfigFromName(templateName,appName);
                         if (savedTemplate.size() > 0) {
                             Integer savedConfigID = (int) savedTemplate.get(0).getValue("config_id");
                             savedConfigIDString = savedConfigID.toString();
@@ -460,7 +460,7 @@ public class FillDb {
                 } else if (appName.equals("gia3d_v2") && oi.getAppName().equals("gia3d_v2")) {
                     if (oi.isValid()) {
                         String inputConfig = this.gia3Dv2Config(oi);
-                        int configID = oidbf.findConfigID(inputConfig,oi.getAppName());
+                        int configID = oidbf.findSavedConfigID(inputConfig,oi.getAppName());
                         String scaleProp = this.scalePropertyFileToJSONString(oi, true);
                         String gia3dv2Result = Gia3D_v2Output.readFormatTSVFile(new File(oi.getDir() + File.separator + "gia_3d_v2.tsv"));
                         String q = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +

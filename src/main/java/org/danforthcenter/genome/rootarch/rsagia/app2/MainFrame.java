@@ -132,10 +132,12 @@ public class MainFrame extends javax.swing.JFrame implements
         this.addExperiment.addActionListener(this);
         this.addSeed.addActionListener(this);
         this.addGenotype.addActionListener(this);
+        this.addGia2DConfig.addActionListener(this);
         this.editOrganism.addActionListener(this);
         this.editExperiment.addActionListener(this);
         this.editSeed.addActionListener(this);
         this.editGenotype.addActionListener(this);
+        this.editGia2DConfig.addActionListener(this);
         this.uploadImages.addActionListener(this);
         this.uploadSeedsCSV.addActionListener(this);
         this.addUser.addActionListener(this);
@@ -293,6 +295,11 @@ public class MainFrame extends javax.swing.JFrame implements
             selGenotype.addPropertyChangeListener("getall", this);
             selGenotype.setLocationRelativeTo(null);
             selGenotype.setVisible(true);
+        }else if (e.getSource() == this.editGia2DConfig) {
+            SelectGia2DConfigFrame selGia2DConfig = new SelectGia2DConfigFrame();
+            selGia2DConfig.addPropertyChangeListener("getall", this);
+            selGia2DConfig.setLocationRelativeTo(null);
+            selGia2DConfig.setVisible(true);
         }
         else if (e.getSource() == this.uploadImages) {
             UploadImages ui = new UploadImages(am.getImport(), baseDir);
@@ -318,6 +325,10 @@ public class MainFrame extends javax.swing.JFrame implements
             asf.setVisible(true);
         } else if (e.getSource() == this.addGenotype) {
             AddGenotypeFrame agf = new AddGenotypeFrame();
+            agf.setLocationRelativeTo(null);
+            agf.setVisible(true);
+        } else if (e.getSource() == this.addGia2DConfig) {
+            AddGia2DConfigFrame agf = new AddGia2DConfigFrame();
             agf.setLocationRelativeTo(null);
             agf.setVisible(true);
         } else if (e.getSource() == this.uploadSeedsCSV) {
@@ -463,11 +474,14 @@ public class MainFrame extends javax.swing.JFrame implements
         addExperiment = new javax.swing.JMenuItem();
         addSeed = new javax.swing.JMenuItem();
         addGenotype = new javax.swing.JMenuItem();
+        addGia2DConfig = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         editOrganism = new javax.swing.JMenuItem();
         editExperiment = new javax.swing.JMenuItem();
         editSeed = new javax.swing.JMenuItem();
         editGenotype = new javax.swing.JMenuItem();
+        editGia2DConfig = new javax.swing.JMenuItem();
+
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -618,7 +632,8 @@ public class MainFrame extends javax.swing.JFrame implements
         jMenu1.add(addSeed);
         addGenotype.setText("Add Genotype");
         jMenu1.add(addGenotype);
-
+        addGia2DConfig.setText("Add Gia2D Config");
+        jMenu1.add(addGia2DConfig);
         jMenu2.setText("Edit Metadata");
         jMenu2.setEnabled(true);
         jMenuBar1.add(jMenu2);
@@ -630,6 +645,8 @@ public class MainFrame extends javax.swing.JFrame implements
         jMenu2.add(editSeed);
         editGenotype.setText("Edit/View Genotype");
         jMenu2.add(editGenotype);
+        editGia2DConfig.setText("Edit/View Gia2D Config");
+        jMenu2.add(editGia2DConfig);
 
         jMenu3.setText("Import Seed Metadata");
         jMenu3.setEnabled(true);
@@ -788,10 +805,12 @@ public class MainFrame extends javax.swing.JFrame implements
     private javax.swing.JMenuItem addExperiment;
     private javax.swing.JMenuItem addSeed;
     private javax.swing.JMenuItem addGenotype;
+    private javax.swing.JMenuItem addGia2DConfig;
     private javax.swing.JMenuItem editOrganism;
     private javax.swing.JMenuItem editExperiment;
     private javax.swing.JMenuItem editSeed;
     private javax.swing.JMenuItem editGenotype;
+    private javax.swing.JMenuItem editGia2DConfig;
     private javax.swing.JMenuItem uploadImages;
     private javax.swing.JMenuItem uploadSeedsCSV;
     private javax.swing.JMenuItem addUser;

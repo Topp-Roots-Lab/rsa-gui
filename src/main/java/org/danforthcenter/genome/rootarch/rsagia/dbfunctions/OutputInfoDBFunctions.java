@@ -1,14 +1,10 @@
 package org.danforthcenter.genome.rootarch.rsagia.dbfunctions;
 
-import org.danforthcenter.genome.rootarch.rsagia2.ExtensionFileFilter;
 import org.danforthcenter.genome.rootarch.rsagia2.OutputInfo;
 import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
-import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
-import org.jooq.tools.json.JSONObject;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -146,28 +142,79 @@ public class OutputInfoDBFunctions {
         ConnectDb.getDslContext().execute(query);
     }
 
-    public int findConfigID(String templateName, String appName)
-    {
-        Result<Record> configRecord = this.findSavedTemplateFromName(templateName, appName);
-        return (int) configRecord.getValue(0, "config_id");
-    }
-    public Result<Record> findSavedTemplateFromName(String templateName, String appName)
+    public void insertSavedConfig(String newContents, String configName, String appName)
     {
         int programID = this.findAppID(appName);
-        Result<Record> configRecord = ConnectDb.getDslContext().fetch("select * from saved_config where program_id=" + programID + " and name='"+
-                templateName + "'");
+        String query = "insert into saved_config (program_id,name,contents) values ("+programID+",'"+configName+"','"+newContents+"')";
+        ConnectDb.getDslContext().execute(query);
+    }
+
+    public void updateSavedConfig(String newContents, String newConfigName, String oldConfigName, String appName)
+    {
+        int programID = this.findAppID(appName);
+        String query = "update saved_config set contents='" + newContents + "', name='" + newConfigName + "' where program_id=" + programID + " and name='" + oldConfigName + "'";
+        ConnectDb.getDslContext().execute(query);
+    }
+
+    public void moveSavedConfigToUnsavedConfig(String configName, String appName)
+    {
+        Result<Record> configRecord = this.findSavedConfigFromName(configName, appName);
+        int configID = (int) configRecord.getValue(0, "config_id");
+        String contents = (String) configRecord.getValue(0, "contents");
+        String query = "update program_run set saved_config_id=null, unsaved_config_contents='" + contents + "' where saved_config_id=" + configID;
+        ConnectDb.getDslContext().execute(query);
+    }
+
+    public boolean checkSavedConfigNameExists(String configName, String appName)
+    {
+        Result<Record> configRecord = this.findSavedConfigFromName(configName, appName);
+        if (configRecord == null || configRecord.size() == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    public String findSavedConfigName(int configID)
+    {
+        String query = "select name from saved_config where config_id=" + configID;
+        Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);
+        String name = (String) resultRecord.getValue(0, "name");
+        return name;
+    }
+
+    public int findSavedConfigID(String configName, String appName)
+    {
+        Result<Record> configRecord = this.findSavedConfigFromName(configName, appName);
+        return (int) configRecord.getValue(0, "config_id");
+    }
+
+    public String findSavedConfigContents(String configName, String appName)
+    {
+        Result<Record> configRecord = this.findSavedConfigFromName(configName, appName);
+        return (String) configRecord.getValue(0, "contents");
+    }
+
+    public Result<Record> findSavedConfigFromName(String configName, String appName)
+    {
+        int programID = this.findAppID(appName);
+        Result<Record> configRecord = ConnectDb.getDslContext().fetch("select * from saved_config where program_id=" + programID + " and name='" + configName + "'");
         return configRecord;
     }
-    public ArrayList<String> getTemplates(String appName)
+
+    public ArrayList<String> getSavedConfigs(String appName)
     {
-        ArrayList<String> templates = new ArrayList();
+        ArrayList<String> savedConfigs = new ArrayList();
         int appID = this.findAppID(appName);
         String query = "select name from saved_config where program_id=" + appID;
         Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);
         for(Record r:resultRecord)
         {
-            templates.add((String) r.getValue("name"));
+            savedConfigs.add((String) r.getValue("name"));
         }
-        return templates;
+        return savedConfigs;
     }
 }

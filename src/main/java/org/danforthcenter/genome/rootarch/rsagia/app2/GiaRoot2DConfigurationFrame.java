@@ -36,7 +36,7 @@ public class GiaRoot2DConfigurationFrame extends javax.swing.JFrame implements
 		descriptorsTextField.setText(descriptors);
 		configComboBox.removeAllItems();
 		configComboBox.addItem(SELECT_ONE);
-		ArrayList<String> ss = giaRoot2D.getConfigTemplates();
+		ArrayList<String> ss = giaRoot2D.getSavedConfigs();
 		for (String s : ss) {
 			configComboBox.addItem(s);
 		}
