@@ -25,7 +25,6 @@ public class SelectGia2DConfigFrame extends JFrame implements ActionListener, Pr
         this.viewButton.addActionListener(this);
         this.editButton.addActionListener(this);
         this.getContentPane().add(this.panel1);
-        pack();
 
         this.oidf = new OutputInfoDBFunctions();
         loadConfigs();
@@ -38,6 +37,7 @@ public class SelectGia2DConfigFrame extends JFrame implements ActionListener, Pr
             configs.addElement(s);
         }
         this.configComboBox.setModel(configs);
+        pack();
     }
 
     @Override
@@ -72,7 +72,6 @@ public class SelectGia2DConfigFrame extends JFrame implements ActionListener, Pr
     private void $$$setupUI$$$() {
         panel1 = new JPanel();
         panel1.setLayout(new GridBagLayout());
-        panel1.setPreferredSize(new Dimension(300, 100));
         label = new JLabel();
         label.setText("Select configuration:");
         GridBagConstraints gbc;
@@ -88,6 +87,7 @@ public class SelectGia2DConfigFrame extends JFrame implements ActionListener, Pr
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 0, 0, 10);
         panel1.add(configComboBox, gbc);
         viewButton = new JButton();
         viewButton.setText("View");
@@ -101,6 +101,7 @@ public class SelectGia2DConfigFrame extends JFrame implements ActionListener, Pr
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
+        gbc.insets = new Insets(0, 0, 0, 10);
         panel1.add(editButton, gbc);
     }
 
