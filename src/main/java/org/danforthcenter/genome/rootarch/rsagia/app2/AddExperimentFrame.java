@@ -4,6 +4,7 @@ import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions
 import org.danforthcenter.genome.rootarch.rsagia2.UserAccess;
 import org.jooq.Record;
 import org.jooq.Result;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -51,26 +52,31 @@ public class AddExperimentFrame extends JDialog implements ActionListener {
             String organism = (String) organismComboBox.getSelectedItem();
             String newExperimentCode = codeField.getText();
             String description = descField.getText();
-            Result<Record> experimentRecord = mdf.findExperimentFromOrganism(organism);
             String user = UserAccess.getCurrentUser();
             boolean check = true;
-            for (Record r : experimentRecord) {
-                if (newExperimentCode.equals((String) r.getValue("experiment_code"))) {
-                    check = false;
-                    JOptionPane.showMessageDialog(null, "This experiment is already added for organism " + organism, "ERROR", JOptionPane.ERROR_MESSAGE);
-                }
+            if (organism == null) {
+                JOptionPane.showMessageDialog(null, "Organism value cannot be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                check = false;
+            }
+            if (check == true && this.mdf.checkOrgandExpPairExists(organism, newExperimentCode)) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "This experiment is already added for organism " + organism + ".", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
             if (check == true && !(newExperimentCode.length() == 3 && newExperimentCode.toUpperCase().equals(newExperimentCode) && mdf.isAlpha(newExperimentCode) == true)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "This experiment is not in valid format. The valid format is upper case 3 letter code.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
             if (check == true) {
-                mdf.insertExperiment(organism, newExperimentCode, description, user);
-                JOptionPane.showMessageDialog(null, newExperimentCode + " is added for organism " + organism + " successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
+                try {
+                    mdf.insertExperiment(organism, newExperimentCode, description, user);
+                    JOptionPane.showMessageDialog(null, "The experiment is added successfully.", null, JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "The experiment is NOT added successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
-
     }
 
     /**
@@ -167,4 +173,5 @@ public class AddExperimentFrame extends JDialog implements ActionListener {
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

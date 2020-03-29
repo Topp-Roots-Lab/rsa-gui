@@ -60,10 +60,26 @@ public class EditUserFrame extends JDialog implements ActionListener {
             String newLastName = lastNameField.getText();
             String newLabName = labNameField.getText();
             boolean newActive = activeCheckBox.isSelected();
-            this.udf.updateUser(newUserName, this.selectedUser, newAccessLevel, newFirstName, newLastName, newLabName, newActive);
-            JOptionPane.showMessageDialog(null, "User is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-            firePropertyChange("getall", null, null);
-            this.dispose();
+            boolean check = true;
+            if (newUserName.isEmpty()) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "Username should not be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            if (check == true && !newUserName.equals(this.selectedUser) && this.udf.checkUserExists(newUserName)) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "Username already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            if (check == true) {
+                try {
+                    this.udf.updateUser(newUserName, this.selectedUser, newAccessLevel, newFirstName, newLastName, newLabName, newActive);
+                    firePropertyChange("getall", null, null);
+                    JOptionPane.showMessageDialog(null, "The user is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "The user is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         } else if (e.getSource() == cancelButton) {
             this.dispose();
         }

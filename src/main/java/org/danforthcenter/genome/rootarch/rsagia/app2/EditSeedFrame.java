@@ -152,6 +152,11 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Seed value should start with 'p'.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
 
+            if (check == true && !seedNew.equals(seedOld) && this.mdf.checkSeedExists(selectedOrganism, selectedExperiment, seedNew) == true) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "Seed already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
             if (check == true && !dateNew.isEmpty()) {
                 try {
                     imagingStartDateNew = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(dateNew);
@@ -168,7 +173,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
             Double wetrootNewD = null;
             String strchamberNewD = "";
 
-            if (check == true && !dryshootNew.isEmpty() && dryshootNew != null) {
+            if (check == true && !dryshootNew.isEmpty()) {
                 try {
                     dryshootNewD = Double.parseDouble(dryshootNew);
                 } catch (NumberFormatException nfe) {
@@ -176,7 +181,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Dryshoot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
                 }
             }
-            if (check == true && !dryrootNew.isEmpty() && dryrootNew != null) {
+            if (check == true && !dryrootNew.isEmpty()) {
                 try {
                     dryrootNewD = Double.parseDouble(dryrootNew);
                 } catch (NumberFormatException nfe) {
@@ -184,7 +189,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Dryroot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
                 }
             }
-            if (check == true && !wetshootNew.isEmpty() && wetshootNew != null) {
+            if (check == true && !wetshootNew.isEmpty()) {
                 try {
                     wetshootNewD = Double.parseDouble(wetshootNew);
                 } catch (NumberFormatException nfe) {
@@ -192,7 +197,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Wetshoot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
                 }
             }
-            if (check == true && !wetrootNew.isEmpty() && wetrootNew != null) {
+            if (check == true && !wetrootNew.isEmpty()) {
                 try {
                     wetrootNewD = Double.parseDouble(wetrootNew);
                 } catch (NumberFormatException nfe) {
@@ -200,7 +205,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Wetroot value should be numeric value.", null, JOptionPane.ERROR_MESSAGE);
                 }
             }
-            if (check == true && !schamberField.getText().isEmpty() && schamberField.getText() != null) {
+            if (check == true && !schamberField.getText().isEmpty()) {
                 strchamberNewD = schamberField.getText();
             }
 
@@ -208,33 +213,28 @@ public class EditSeedFrame extends JDialog implements ActionListener {
                 File originalImagesOld = new File(this.baseDir + File.separator + "original_images" + File.separator +
                         this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedOld);
                 File processedImagesOld = new File(this.baseDir + File.separator + "processed_images" + File.separator +
-                            this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedOld);
+                        this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedOld);
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator +
-                            this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedNew);
+                        this.selectedOrganism + File.separator + selectedExperiment + File.separator + this.seedNew);
                 try {
-                    if (originalImagesOld.exists() && !seedOld.equals(seedNew))
-                    {
+                    if (originalImagesOld.exists() && !seedOld.equals(seedNew)) {
                         FileUtil.renameDirWithPrivileges(originalImagesOld, seedNew, this.dirRenameApp);
                     }
-                    if (processedImagesOld.exists() && !seedOld.equals(seedNew))
-                    {
+                    if (processedImagesOld.exists() && !seedOld.equals(seedNew)) {
                         FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
-
                     this.mdf.updateSeed(this.seedOld, this.selectedOrganism, this.selectedExperiment, this.seedNew, genotypeNewID,
-                                dryshootNewD, dryrootNewD, wetshootNewD, wetrootNewD, strchamberNewD, imagingIntervalUnitNew,
+                            dryshootNewD, dryrootNewD, wetshootNewD, wetrootNewD, strchamberNewD, imagingIntervalUnitNew,
                             descriptionNew, imagingStartDateNew);
                     firePropertyChange("getall", null, null);
-                    JOptionPane.showMessageDialog(null, "This seed is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-                    } catch (Exception e1)
-                    {
-                        e1.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Seed is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                    }
+                    JOptionPane.showMessageDialog(null, "The seed is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "The seed is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
             }
-            else if (e.getSource() == cancelButton) {
+        } else if (e.getSource() == cancelButton) {
             this.dispose();
         }
     }

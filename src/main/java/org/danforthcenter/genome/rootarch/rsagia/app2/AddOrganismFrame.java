@@ -60,9 +60,14 @@ public class AddOrganismFrame extends JDialog implements ActionListener {
                 JOptionPane.showMessageDialog(null, "This combination of species and subspecies is already added.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
             if (check == true) {
-                this.mdf.insertNewOrganism(organismName, organismCode, species, subspecies, description);
-                JOptionPane.showMessageDialog(null, "Organism " + organismName + " is added successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
+                try {
+                    this.mdf.insertNewOrganism(organismName, organismCode, species, subspecies, description);
+                    JOptionPane.showMessageDialog(null, "The organism is added successfully.", null, JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "The organism is NOT added successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }

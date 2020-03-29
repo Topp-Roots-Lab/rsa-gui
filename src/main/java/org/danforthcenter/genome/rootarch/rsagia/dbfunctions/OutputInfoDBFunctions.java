@@ -2,6 +2,7 @@ package org.danforthcenter.genome.rootarch.rsagia.dbfunctions;
 
 import org.danforthcenter.genome.rootarch.rsagia2.OutputInfo;
 import org.danforthcenter.genome.rootarch.rsagia2.RsaImageSet;
+import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -38,43 +39,28 @@ public class OutputInfoDBFunctions {
         return datasetRecord;
     }
 
-    /**
-     * This method is used to find the ID of the last program run.
-     * If the program has not been run before, then return 0.
-     * This method assumes that any caller will increment the value
-     * by 1 before taking action.
-     * @return int This is the ID value of the last program run
-     */
-    public int findMaxRunID() {
-        String query = "select max(run_id) max from program_run";
-        Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);
-        if (resultRecord.getValue(0, "max") == null) {
-            return 0;
-        } else {
-            return (int) resultRecord.getValue(0, "max");
-        }
-    }
-
     public int findAppID(String appName) {
         String query = "select program_id from program where name = '" + appName + "'";
         Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);
         return (int) resultRecord.getValue(0, "program_id");
     }
 
-    public void insertProgramRunTable(OutputInfo oi) {
+    public int insertProgramRunTable(OutputInfo oi) {
         int datasetID = oi.getRis().getDatasetID();
-        int runID = this.findMaxRunID() + 1;
         int appID = this.findAppID(oi.getAppName());
         UserDBFunctions uf = new UserDBFunctions();
         int userID = (int) uf.findUserFromName(oi.getUser()).getValue(0, "user_id");
         String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
         String date_ = new SimpleDateFormat(DATE_FORMAT).format(oi.getDate());
 
-        String query = "insert into program_run (run_id, user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
-                "values(" + runID + "," + userID + "," + appID + "," + datasetID + "," + 0 + ","
+        String query = "insert into program_run (user_id, program_id, dataset_id, saved, red_flag, run_date, saved_config_id, unsaved_config_contents, input_runs, descriptors, results) " +
+                "values(" + userID + "," + appID + "," + datasetID + "," + 0 + ","
                 + 1 + ",'"+ date_ + "',NULL,NULL,NULL,NULL,NULL)";
-        ConnectDb.getDslContext().execute(query);
+        DSLContext dslContext = ConnectDb.getDslContext();
+        dslContext.execute(query);
+        int runID = dslContext.lastID().intValue();
         oi.setRunID(runID);
+        return runID;
     }
     public void updateDescriptors(OutputInfo oi) {
         String descs = oi.getDescriptors();

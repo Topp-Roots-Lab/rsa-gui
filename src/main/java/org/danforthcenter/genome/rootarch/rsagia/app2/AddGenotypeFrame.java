@@ -21,8 +21,7 @@ public class AddGenotypeFrame extends JDialog implements ActionListener {
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        pack();
-        addButton.addActionListener(this);
+        this.addButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
         loadOrganisms();
     }
@@ -33,25 +32,37 @@ public class AddGenotypeFrame extends JDialog implements ActionListener {
         for (Record r : organismRecord) {
             organisms.addElement((String) r.getValue("organism_name"));
         }
-        organismComboBox.setModel(organisms);
+        this.organismComboBox.setModel(organisms);
+        pack();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == addButton) {
-            String organism = (String) organismComboBox.getSelectedItem();
-            String genotype = genotypeField.getText();
-            if (!genotype.isEmpty()) {
-                Result<Record> genotypeRecord = this.mdf.findGenotypeID(genotype, organism);
-                if (genotypeRecord.size() > 0) {
-                    JOptionPane.showMessageDialog(null, "This genotype is already added.", "ERROR", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    this.mdf.insertGenotype(organism, genotype);
-                    JOptionPane.showMessageDialog(null, "This genotype is added successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                }
-            } else {
+        if (e.getSource() == this.addButton) {
+            String organism = (String) this.organismComboBox.getSelectedItem();
+            String genotype = this.genotypeField.getText();
+            boolean check = true;
+            if (organism == null) {
+                JOptionPane.showMessageDialog(null, "Organism value cannot be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                check = false;
+            }
+            if (check == true && genotype.isEmpty()) {
+                check = false;
                 JOptionPane.showMessageDialog(null, "You entered empty genotype value.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            if (check == true && this.mdf.checkGenotypeExists(organism, genotype)) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "This genotype is already added.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            if (check == true) {
+                try {
+                    this.mdf.insertGenotype(organism, genotype);
+                    JOptionPane.showMessageDialog(null, "The genotype is added successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "The genotype is NOT added successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }

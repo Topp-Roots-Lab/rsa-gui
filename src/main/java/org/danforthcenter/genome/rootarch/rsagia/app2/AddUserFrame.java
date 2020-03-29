@@ -45,9 +45,25 @@ public class AddUserFrame extends JDialog implements ActionListener {
             String firstName = this.firstNameField.getText();
             String lastName = this.lastNameField.getText();
             String labName = this.labNameField.getText();
-            this.udf.insertUser(userName, accessLevel, firstName, lastName, labName);
-            JOptionPane.showMessageDialog(null, userName + " is added to user table successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-            this.dispose();
+            boolean check = true;
+            if (userName.isEmpty()) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "Username should not be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            if (check == true && this.udf.checkUserExists(userName)) {
+                check = false;
+                JOptionPane.showMessageDialog(null, "Username already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            if (check == true) {
+                try {
+                    this.udf.insertUser(userName, accessLevel, firstName, lastName, labName);
+                    JOptionPane.showMessageDialog(null, "The user is added successfully.", null, JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "The user is NOT added successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         }
     }
 

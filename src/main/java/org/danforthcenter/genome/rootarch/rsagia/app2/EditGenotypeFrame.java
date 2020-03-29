@@ -42,7 +42,7 @@ public class EditGenotypeFrame extends JDialog implements ActionListener {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Genotype value should not be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-            if (check == true && this.mdf.checkGenotypeExists(this.selectedOrganism, newGenotype)) {
+            if (check == true && !newGenotype.equals(this.selectedGenotype) && this.mdf.checkGenotypeExists(this.selectedOrganism, newGenotype)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "Genotype value already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -50,12 +50,12 @@ public class EditGenotypeFrame extends JDialog implements ActionListener {
                 try {
                     this.mdf.updateGenotype(this.selectedOrganism, this.selectedGenotype, newGenotype);
                     firePropertyChange("getall", null, null);
-                    JOptionPane.showMessageDialog(null, "Genotype value is edited successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "The genotype is edited successfully.", "INFO", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                 } catch (Exception e1) {
                     e1.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Genotype value is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "The genotype is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-                this.dispose();
             }
         } else if (e.getSource() == this.cancelButton) {
             this.dispose();

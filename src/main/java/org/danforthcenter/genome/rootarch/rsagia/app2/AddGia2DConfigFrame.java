@@ -34,13 +34,20 @@ public class AddGia2DConfigFrame extends JFrame implements ActionListener {
         if (e.getSource() == this.addButton) {
             String name = this.nameText.getText();
             String contents = this.area.getText();
+            boolean check = true;
             if (name.length() == 0) {
+                check = false;
                 JOptionPane.showMessageDialog(null, "Please enter the name.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else if (contents.length() == 0) {
+            }
+            if (check == true && contents.length() == 0) {
+                check = false;
                 JOptionPane.showMessageDialog(null, "Please enter the contents.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else if (this.oidbf.checkSavedConfigNameExists(name, "giaroot_2d")) {
+            }
+            if (check == true && this.oidbf.checkSavedConfigNameExists(name, "giaroot_2d")) {
+                check = false;
                 JOptionPane.showMessageDialog(null, "Name already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else {
+            }
+            if (check == true) {
                 try {
                     this.oidbf.insertSavedConfig(contents, name, "giaroot_2d");
                     JOptionPane.showMessageDialog(null, "The configuration is added successfully.", null, JOptionPane.INFORMATION_MESSAGE);

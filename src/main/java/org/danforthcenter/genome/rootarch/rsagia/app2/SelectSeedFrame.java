@@ -38,7 +38,6 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        pack();
         this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
         this.viewButton.addActionListener(this);
@@ -90,18 +89,18 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     private void loadOrganisms() {
         ArrayList<String> orgList = this.mdf.findOrgsHavingSeed();
         DefaultComboBoxModel organisms = new DefaultComboBoxModel(orgList.toArray());
-        this.selectedOrganism = (String) organisms.getElementAt(0);
+        selectedOrganism = (String) organisms.getElementAt(0);
         orgComboBox.setModel(organisms);
         loadExperiments();
     }
 
     private void loadExperiments() {
         DefaultComboBoxModel experiments = new DefaultComboBoxModel();
-        Result<Record> expRecord = this.mdf.findExperimentFromOrganism(this.selectedOrganism);
+        Result<Record> expRecord = this.mdf.findExperimentFromOrganism(selectedOrganism);
         for (Record r : expRecord) {
             experiments.addElement((String) r.getValue("experiment_code"));
         }
-        this.selectedExperiment = (String) experiments.getElementAt(0);
+        selectedExperiment = (String) experiments.getElementAt(0);
         expComboBox.setModel(experiments);
         loadGenotypes();
     }
@@ -116,7 +115,7 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
             }
             genotypes.addElement(genotypeName);
         }
-        this.selectedGenotype = (String) genotypes.getElementAt(0);
+        selectedGenotype = (String) genotypes.getElementAt(0);
         genotypeComboBox.setModel(genotypes);
         loadSeeds();
     }
@@ -129,19 +128,28 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
         }
         selectedSeed = (String) seeds.getElementAt(0);
         seedComboBox.setModel(seeds);
+        pack();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == viewButton) {
-            ViewSeedFrame vsf = new ViewSeedFrame(this.selectedOrganism, this.selectedExperiment, this.selectedSeed);
-            vsf.setLocationRelativeTo(null);
-            vsf.setVisible(true);
+            if (selectedOrganism != null && selectedExperiment != null && selectedGenotype != null && selectedSeed != null) {
+                ViewSeedFrame vsf = new ViewSeedFrame(selectedOrganism, selectedExperiment, selectedSeed);
+                vsf.setLocationRelativeTo(null);
+                vsf.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please add seed first!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (e.getSource() == editButton) {
-            EditSeedFrame esf = new EditSeedFrame(selectedOrganism, selectedExperiment, selectedSeed, dirRenameApp, baseDir);
-            esf.addPropertyChangeListener("getall", this);
-            esf.setLocationRelativeTo(null);
-            esf.setVisible(true);
+            if (selectedOrganism != null && selectedExperiment != null && selectedGenotype != null && selectedSeed != null) {
+                EditSeedFrame esf = new EditSeedFrame(selectedOrganism, selectedExperiment, selectedSeed, dirRenameApp, baseDir);
+                esf.addPropertyChangeListener("getall", this);
+                esf.setLocationRelativeTo(null);
+                esf.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please add seed first!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -275,4 +283,5 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

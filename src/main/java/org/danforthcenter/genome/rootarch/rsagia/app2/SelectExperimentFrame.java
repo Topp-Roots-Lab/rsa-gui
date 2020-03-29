@@ -25,13 +25,13 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
     private DirRename dirRenameApp;
     private File baseDir;
     private String selectedExperiment;
+    private String selectedOrganism;
 
     public SelectExperimentFrame(DirRename dirRenameApp, File baseDir) {
         super(null, "Select Experiment", ModalityType.APPLICATION_MODAL);
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        pack();
         this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
         this.editButton.addActionListener(this);
@@ -46,6 +46,15 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     selectedExperiment = (String) e.getItem();
                     loadOrganisms();
+                }
+            }
+        });
+
+        orgComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    selectedOrganism = (String) e.getItem();
                 }
             }
         });
@@ -64,31 +73,35 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
 
     private void loadOrganisms() {
         DefaultComboBoxModel organisms = new DefaultComboBoxModel();
-        Result<Record> organismRecord = mdf.findOrganismByExperiment(selectedExperiment);
+        Result<Record> organismRecord = this.mdf.findOrganismByExperiment(selectedExperiment);
         for (Record r : organismRecord) {
             organisms.addElement((String) r.getValue("organism_name"));
         }
+        selectedOrganism = (String) organisms.getElementAt(0);
         orgComboBox.setModel(organisms);
+        pack();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == editButton) {
-            String experiment = (String) expComboBox.getSelectedItem();
-            String organism = (String) orgComboBox.getSelectedItem();
-            EditExperimentFrame editExp = new EditExperimentFrame(experiment, organism, this.dirRenameApp, this.baseDir);
-            editExp.addPropertyChangeListener("getall", this);
-            editExp.setLocationRelativeTo(null);
-            editExp.setVisible(true);
-
+            if (selectedOrganism != null && selectedExperiment != null) {
+                EditExperimentFrame editExp = new EditExperimentFrame(selectedExperiment, selectedOrganism, dirRenameApp, baseDir);
+                editExp.addPropertyChangeListener("getall", this);
+                editExp.setLocationRelativeTo(null);
+                editExp.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please add experiment first!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (e.getSource() == viewButton) {
-            String selectedExperiment = (String) expComboBox.getSelectedItem();
-            String organism = (String) orgComboBox.getSelectedItem();
-            ViewExperimentFrame viewExperiment = new ViewExperimentFrame(selectedExperiment, organism);
-            viewExperiment.setLocationRelativeTo(null);
-            viewExperiment.setVisible(true);
+            if (selectedOrganism != null && selectedExperiment != null) {
+                ViewExperimentFrame viewExperiment = new ViewExperimentFrame(selectedExperiment, selectedOrganism);
+                viewExperiment.setLocationRelativeTo(null);
+                viewExperiment.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please add experiment first!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
-
     }
 
     @Override
@@ -97,7 +110,6 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
             firePropertyChange("getall", null, null);
             loadExperiments();
         }
-
     }
 
     /**

@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -24,6 +26,7 @@ public class SelectOrganismFrame extends JDialog implements
     private MetadataDBFunctions mdf;
     private DirRename dirRenameApp;
     private File baseDir;
+    private String selectedOrganism;
 
     public SelectOrganismFrame(DirRename dirRenameApp, File baseDir) {
         super(null, "Select Organism", ModalityType.APPLICATION_MODAL);
@@ -31,13 +34,21 @@ public class SelectOrganismFrame extends JDialog implements
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        pack();
         this.dirRenameApp = dirRenameApp;
         this.baseDir = baseDir;
         editButton.addActionListener(this);
         viewButton.addActionListener(this);
         this.mdf = new MetadataDBFunctions();
         loadOrganisms();
+
+        comboBox1.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    selectedOrganism = (String) e.getItem();
+                }
+            }
+        });
     }
 
     private void loadOrganisms() {
@@ -46,28 +57,34 @@ public class SelectOrganismFrame extends JDialog implements
         for (Record r : organismRecord) {
             organisms.addElement((String) r.getValue("organism_name"));
         }
+        selectedOrganism = (String) organisms.getElementAt(0);
         comboBox1.setModel(organisms);
+        pack();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.editButton) {
-            if (UserAccess.getCurrentAccessLevel() == UserAccessLevel.Admin) {
-                int index = comboBox1.getSelectedIndex();
-                String selectedOrganism = (String) comboBox1.getItemAt(index);
-                EditOrganismFrame editOrganism = new EditOrganismFrame(selectedOrganism, this.dirRenameApp, this.baseDir);
-                editOrganism.addPropertyChangeListener("getall", this);
-                editOrganism.setLocationRelativeTo(null);
-                editOrganism.setVisible(true);
-            }
-            else {
-                JOptionPane.showMessageDialog(null, "You don't have the permission to edit organism.", null, JOptionPane.ERROR_MESSAGE);
+            if (selectedOrganism != null) {
+                if (UserAccess.getCurrentAccessLevel() == UserAccessLevel.Admin) {
+                    EditOrganismFrame editOrganism = new EditOrganismFrame(selectedOrganism, this.dirRenameApp, this.baseDir);
+                    editOrganism.addPropertyChangeListener("getall", this);
+                    editOrganism.setLocationRelativeTo(null);
+                    editOrganism.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "You don't have the permission to edit organism.", null, JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please add organism first!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         } else if (e.getSource() == this.viewButton) {
-            String selectedOrganism = (String) comboBox1.getSelectedItem();
-            ViewOrganismFrame viewOrganism = new ViewOrganismFrame(selectedOrganism);
-            viewOrganism.setLocationRelativeTo(null);
-            viewOrganism.setVisible(true);
+            if (selectedOrganism != null) {
+                ViewOrganismFrame viewOrganism = new ViewOrganismFrame(selectedOrganism);
+                viewOrganism.setLocationRelativeTo(null);
+                viewOrganism.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please add organism first!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 

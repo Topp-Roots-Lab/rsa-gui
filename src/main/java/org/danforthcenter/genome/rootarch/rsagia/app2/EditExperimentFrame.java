@@ -83,9 +83,8 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
             if (experimentNew.length() != 3 || !experimentNew.toUpperCase().equals(experimentNew)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "The experiment is not in valid format.", "ERROR", JOptionPane.ERROR_MESSAGE);
-
             }
-            if (check == true && this.mdf.checkOrgandExpPairExists(experimentNew, selectedOrganism)) {
+            if (check == true && !experimentNew.equals(selectedExperiment) && this.mdf.checkOrgandExpPairExists(selectedOrganism, experimentNew)) {
                 check = false;
                 JOptionPane.showMessageDialog(null, "This experiment and organism pair already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -96,7 +95,6 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
                         this.selectedOrganism + File.separator + File.separator + selectedExperiment);
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator +
                         this.selectedOrganism + File.separator + File.separator + experimentNew);
-
                 try {
                     if (originalImagesOld.exists() && !selectedExperiment.equals(experimentNew)) {
                         FileUtil.renameDirWithPrivileges(originalImagesOld, experimentNew, this.dirRenameApp);
@@ -104,16 +102,14 @@ public class EditExperimentFrame extends JDialog implements ActionListener, Prop
                     if (processedImagesOld.exists() && !selectedExperiment.equals(experimentNew)) {
                         FileUtil.renameFile(processedImagesOld, processedImagesNew);
                     }
-
                     this.mdf.updateExperiment(selectedExperiment, selectedOrganism, experimentNew, desc);
                     firePropertyChange("getall", null, null);
-                    JOptionPane.showMessageDialog(null, "This experiment is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "The experiment is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                 } catch (Exception e1) {
                     e1.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Experiment is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "The experiment is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-
-                this.dispose();
             }
         } else if (e.getSource() == cancelButton) {
             this.dispose();

@@ -41,13 +41,20 @@ public class EditGia2DConfigFrame extends JFrame implements ActionListener {
         if (e.getSource() == this.saveButton) {
             String newName = this.nameText.getText();
             String newContents = this.area.getText();
+            boolean check = true;
             if (newName.length() == 0) {
+                check = false;
                 JOptionPane.showMessageDialog(null, "Config name is empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else if (newContents.length() == 0) {
+            }
+            if (check == true && newContents.length() == 0) {
+                check = false;
                 JOptionPane.showMessageDialog(null, "Config contents are empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else if (!newName.equals(this.selectedConfigName) && this.oidbf.checkSavedConfigNameExists(newName, "giaroot_2d")) {
+            }
+            if (check == true && !newName.equals(this.selectedConfigName) && this.oidbf.checkSavedConfigNameExists(newName, "giaroot_2d")) {
+                check = false;
                 JOptionPane.showMessageDialog(null, "Name already exists.", "ERROR", JOptionPane.ERROR_MESSAGE);
-            } else {
+            }
+            if (check == true) {
                 try {
                     if (!newContents.equals(this.configContents)) {
                         this.oidbf.moveSavedConfigToUnsavedConfig(this.selectedConfigName, "giaroot_2d");

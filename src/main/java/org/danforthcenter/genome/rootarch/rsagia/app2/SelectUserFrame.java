@@ -29,7 +29,6 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
         $$$setupUI$$$();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.getContentPane().add(this.panel1);
-        pack();
 
         activeUsersCheckBox.setSelected(true);
         activeUsersCheckBox.addActionListener(this);
@@ -38,6 +37,7 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
         this.udf = new UserDBFunctions();
 
         loadUsers();
+
         userComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -49,28 +49,25 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
     }
 
     public void loadUsers() {
-        Result<Record> userRecord = null;
+        DefaultComboBoxModel users = new DefaultComboBoxModel();
+        Result<Record> userRecord;
         if (activeUsersCheckBox.isSelected()) {
             userRecord = this.udf.getActiveUsers();
         } else {
             userRecord = this.udf.getAllUsers();
         }
-        DefaultComboBoxModel users = new DefaultComboBoxModel();
-        if (userRecord != null && userRecord.size() != 0) {
-            for (Record r : userRecord) {
-                users.addElement((String) r.getValue("user_name"));
-            }
-            this.selectedUser = (String) users.getElementAt(0);
-        } else {
-            this.selectedUser = null;
+        for (Record r : userRecord) {
+            users.addElement((String) r.getValue("user_name"));
         }
+        selectedUser = (String) users.getElementAt(0);
         userComboBox.setModel(users);
+        pack();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.viewButton) {
-            if (this.selectedUser != null) {
+            if (selectedUser != null) {
                 ViewUserFrame vuf = new ViewUserFrame(selectedUser);
                 vuf.setLocationRelativeTo(null);
                 vuf.setVisible(true);
@@ -78,17 +75,17 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
                 JOptionPane.showMessageDialog(null, "You don't have a user to view.", null, JOptionPane.ERROR_MESSAGE);
             }
         } else if (e.getSource() == this.editButton) {
-            if (UserAccess.getCurrentAccessLevel() == UserAccessLevel.Admin) {
-                if (this.selectedUser != null) {
+            if (selectedUser != null) {
+                if (UserAccess.getCurrentAccessLevel() == UserAccessLevel.Admin) {
                     EditUserFrame euf = new EditUserFrame(selectedUser);
                     euf.addPropertyChangeListener(this);
                     euf.setLocationRelativeTo(null);
                     euf.setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(null, "You don't have a user to edit.", null, JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "You don't have the permission to edit user.", null, JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "You don't have the permission to edit user.", null, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You don't have a user to edit.", null, JOptionPane.ERROR_MESSAGE);
             }
         } else if (e.getSource() == this.activeUsersCheckBox) {
             loadUsers();

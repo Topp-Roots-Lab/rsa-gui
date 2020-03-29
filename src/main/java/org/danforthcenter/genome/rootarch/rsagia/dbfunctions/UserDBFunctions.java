@@ -1,6 +1,7 @@
 package org.danforthcenter.genome.rootarch.rsagia.dbfunctions;
 
 import org.danforthcenter.genome.rootarch.rsagia.db.enums.UserAccessLevel;
+import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
 
@@ -30,19 +31,26 @@ public class UserDBFunctions {
         return userRecord;
     }
 
-    public int findMax()
+    public boolean checkUserExists(String userName)
     {
-        Result<Record> record = ConnectDb.getDslContext().fetch("select max(user_id) max from user");
-        int max = (int) record.get(0).get("max");
-        return max;
+        Result<Record> userRecord = this.findUserFromName(userName);
+        if (userRecord == null || userRecord.size() == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
-    public void insertUser(String userName, String accessLevel, String firstName, String lastName, String labName)
+    public int insertUser(String userName, String accessLevel, String firstName, String lastName, String labName)
     {
-        int count = findMax() + 1;
-        String query = "insert into user (user_id, user_name, first_name, last_name, lab_name, access_level, active) " +
-                "values (" + count + ",'" + userName +"','" + firstName + "','" + lastName + "','" + labName + "','" + accessLevel + "', true)";
-        ConnectDb.getDslContext().execute(query);
+        String query = "insert into user (user_name, first_name, last_name, lab_name, access_level, active) " +
+                "values ('" + userName + "','" + firstName + "','" + lastName + "','" + labName + "','" + accessLevel + "', true)";
+        DSLContext dslContext = ConnectDb.getDslContext();
+        dslContext.execute(query);
+        return dslContext.lastID().intValue();
     }
 
     public String[] getAccessLevels()

@@ -3,6 +3,8 @@ package org.danforthcenter.genome.rootarch.rsagia.app2;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.MetadataDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.Import;
 import org.danforthcenter.genome.rootarch.rsagia2.UserAccess;
+import org.jooq.Record;
+import org.jooq.Result;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,6 +65,12 @@ public class UploadImages extends JFrame implements ActionListener, PropertyChan
                 this.selectedPathField.setText(this.fileChooser.getSelectedFile().toString());
             }
         } else if (e.getSource() == importButton) {
+            MetadataDBFunctions dbFunctions = new MetadataDBFunctions();
+            Result<Record> organismRecord = dbFunctions.selectAllOrganism();
+            if (organismRecord.size() == 0) {
+                JOptionPane.showMessageDialog(null, "Organism table is empty. Please add an organism first.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             this.processingField.setText("Processing...");
             this.printstextArea.setText(null);
             try {
@@ -245,4 +253,5 @@ public class UploadImages extends JFrame implements ActionListener, PropertyChan
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

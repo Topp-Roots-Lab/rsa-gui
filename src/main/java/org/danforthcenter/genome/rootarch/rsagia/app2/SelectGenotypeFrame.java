@@ -23,6 +23,7 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
     private JButton editButton;
     private MetadataDBFunctions mdf;
     private String selectedOrganism;
+    private String selectedGenotype;
 
     public SelectGenotypeFrame() {
         super(null, "Select Genotype", ModalityType.APPLICATION_MODAL);
@@ -34,8 +35,6 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
 
         loadOrganisms();
 
-        pack();
-
         organismComboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -45,34 +44,48 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
                 }
             }
         });
+
+        genotypeComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    selectedGenotype = (String) e.getItem();
+                }
+            }
+        });
     }
 
     private void loadOrganisms() {
         ArrayList<String> orgList = this.mdf.findOrganismsWithGenotypes();
         DefaultComboBoxModel organisms = new DefaultComboBoxModel(orgList.toArray());
-        this.selectedOrganism = (String) organisms.getElementAt(0);
+        selectedOrganism = (String) organisms.getElementAt(0);
         organismComboBox.setModel(organisms);
         loadGenotypes();
     }
 
     private void loadGenotypes() {
         DefaultComboBoxModel genotypes = new DefaultComboBoxModel();
-        Result<Record> genotypeRecord = this.mdf.findGenotypesFromOrganism(this.selectedOrganism);
+        Result<Record> genotypeRecord = this.mdf.findGenotypesFromOrganism(selectedOrganism);
         for (Record r : genotypeRecord) {
             Object genotypeName = r.getValue("genotype_name");
             genotypes.addElement(genotypeName);
         }
+        selectedGenotype = (String) genotypes.getElementAt(0);
         genotypeComboBox.setModel(genotypes);
+        pack();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.editButton) {
-            String selectedGenotype = (String) genotypeComboBox.getSelectedItem();
-            EditGenotypeFrame egf = new EditGenotypeFrame(this.selectedOrganism, selectedGenotype);
-            egf.addPropertyChangeListener(this);
-            egf.setLocationRelativeTo(null);
-            egf.setVisible(true);
+            if (selectedOrganism != null && selectedGenotype != null) {
+                EditGenotypeFrame egf = new EditGenotypeFrame(selectedOrganism, selectedGenotype);
+                egf.addPropertyChangeListener(this);
+                egf.setLocationRelativeTo(null);
+                egf.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please add genotype first!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -152,4 +165,5 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

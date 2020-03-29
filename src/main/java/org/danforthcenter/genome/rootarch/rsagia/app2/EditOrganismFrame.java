@@ -81,7 +81,6 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
                 File originalImagesOld = new File(this.baseDir + File.separator + "original_images" + File.separator + selectedOrganism);
                 File processedImagesOld = new File(this.baseDir + File.separator + "processed_images" + File.separator + selectedOrganism);
                 File processedImagesNew = new File(this.baseDir + File.separator + "processed_images" + File.separator + organismNameNew);
-
                 try {
                     if (originalImagesOld.exists() && !selectedOrganism.equals(organismNameNew)) {
                         FileUtil.renameDirWithPrivileges(originalImagesOld, organismNameNew, this.dirRenameApp);
@@ -91,14 +90,12 @@ public class EditOrganismFrame extends JDialog implements ActionListener {
                     }
                     this.mdf.updateOrganism(organismNameNew, organismCodeNew, speciesNew, subspeciesNew, descriptionNew, this.selectedOrganism);
                     firePropertyChange("getall", null, null);
-                    JOptionPane.showMessageDialog(null, "Organism is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-
+                    JOptionPane.showMessageDialog(null, "The organism is edited successfully.", null, JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
                 } catch (Exception e1) {
                     e1.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Organism is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "The organism is NOT edited successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
                 }
-
-                this.dispose();
             }
         } else if (e.getSource() == cancelButton) {
             this.dispose();

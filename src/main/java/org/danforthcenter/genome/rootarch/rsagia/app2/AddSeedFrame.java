@@ -98,15 +98,19 @@ public class AddSeedFrame extends JDialog implements ActionListener {
             String experiment = (String) experimentComboBox.getSelectedItem();
             String seed = seedField.getText();
             String genotypeName = (String) genotypeComboBox.getSelectedItem();
+            boolean check = true;
+            if (organism == null || experiment == null) {
+                JOptionPane.showMessageDialog(null, "Organism and experiment values cannot be empty.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                check = false;
+            }
             int genotypeID = -1;
-            if (!genotypeName.equals("None")) {
+            if (check == true && !genotypeName.equals("None")) {
                 Result<Record> genotypeRecord = this.mdf.findGenotypeID(genotypeName, organism);
                 Record r = genotypeRecord.get(0);
                 genotypeID = (int) r.getValue("genotype_id");
             }
-            boolean check = true;
             Double dryshoot = null;
-            if (!dryshootField.getText().isEmpty()) {
+            if (check == true && !dryshootField.getText().isEmpty()) {
                 try {
                     dryshoot = Double.parseDouble(dryshootField.getText());
                 } catch (NumberFormatException nfe) {
@@ -115,7 +119,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
                 }
             }
             Double dryroot = null;
-            if (!dryrootField.getText().isEmpty() && check == true) {
+            if (check == true && !dryrootField.getText().isEmpty()) {
                 try {
                     dryroot = Double.parseDouble(dryrootField.getText());
                 } catch (NumberFormatException nfe) {
@@ -124,7 +128,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
                 }
             }
             Double wetshoot = null;
-            if (!wetshootField.getText().isEmpty() && check == true) {
+            if (check == true && !wetshootField.getText().isEmpty()) {
                 try {
                     wetshoot = Double.parseDouble(wetshootField.getText());
                 } catch (NumberFormatException nfe) {
@@ -133,7 +137,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
                 }
             }
             Double wetroot = null;
-            if (!wetrootField.getText().isEmpty() && check == true) {
+            if (check == true && !wetrootField.getText().isEmpty()) {
                 try {
                     wetroot = Double.parseDouble(wetrootField.getText());
                 } catch (NumberFormatException nfe) {
@@ -142,14 +146,14 @@ public class AddSeedFrame extends JDialog implements ActionListener {
                 }
             }
             String schamber = "";
-            if (!schamberField.getText().isEmpty()) {
+            if (check == true && !schamberField.getText().isEmpty()) {
                 schamber = schamberField.getText();
             }
             String imagingIntervalUnit = (String) imagingIntervalUnitComboBox.getSelectedItem();
             String description = descriptionField.getText();
             String date = imagingStartField.getText();
             Date imagingStartDate = null;
-            if (!date.isEmpty() && check == true) {
+            if (check == true && !date.isEmpty()) {
                 try {
                     imagingStartDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(date);
                 } catch (ParseException e1) {
@@ -159,9 +163,9 @@ public class AddSeedFrame extends JDialog implements ActionListener {
                 }
             }
 
-            if (check == true && (organism.isEmpty() || experiment.isEmpty() || seed.isEmpty())) {
+            if (check == true && seed.isEmpty()) {
                 check = false;
-                JOptionPane.showMessageDialog(null, "You must have entered a wrong organism or experiment or seed value.", null, JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Seed name cannot be empty.", null, JOptionPane.ERROR_MESSAGE);
             }
             if (check == true && !seed.substring(0, 1).equals("p")) {
                 check = false;
@@ -172,10 +176,15 @@ public class AddSeedFrame extends JDialog implements ActionListener {
                 JOptionPane.showMessageDialog(null, "This seed is already added.", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
             if (check == true) {
-                this.mdf.insertSeed(organism, experiment, seed, genotypeID, dryshoot, dryroot, wetshoot, wetroot, schamber, imagingIntervalUnit, description,
-                        imagingStartDate);
-                JOptionPane.showMessageDialog(null, "The seed is added to database successfully.", null, JOptionPane.INFORMATION_MESSAGE);
-                this.dispose();
+                try {
+                    this.mdf.insertSeed(organism, experiment, seed, genotypeID, dryshoot, dryroot, wetshoot, wetroot, schamber, imagingIntervalUnit, description,
+                            imagingStartDate);
+                    JOptionPane.showMessageDialog(null, "The seed is added successfully.", null, JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "The seed is NOT added successfully.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }
@@ -464,4 +473,5 @@ public class AddSeedFrame extends JDialog implements ActionListener {
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

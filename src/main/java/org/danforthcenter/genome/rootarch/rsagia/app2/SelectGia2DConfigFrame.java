@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ public class SelectGia2DConfigFrame extends JFrame implements ActionListener, Pr
     private JButton editButton;
     private JPanel panel1;
     private OutputInfoDBFunctions oidf;
+    private String selectedConfig;
 
     public SelectGia2DConfigFrame() {
         $$$setupUI$$$();
@@ -25,33 +28,47 @@ public class SelectGia2DConfigFrame extends JFrame implements ActionListener, Pr
         this.viewButton.addActionListener(this);
         this.editButton.addActionListener(this);
         this.getContentPane().add(this.panel1);
-
         this.oidf = new OutputInfoDBFunctions();
+
         loadConfigs();
+
+        configComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    selectedConfig = (String) e.getItem();
+                }
+            }
+        });
     }
 
     private void loadConfigs() {
-        DefaultComboBoxModel configs = new DefaultComboBoxModel();
         ArrayList<String> savedConfigs = this.oidf.getSavedConfigs("giaroot_2d");
-        for (String s : savedConfigs) {
-            configs.addElement(s);
-        }
+        DefaultComboBoxModel configs = new DefaultComboBoxModel(savedConfigs.toArray());
+        selectedConfig = (String) configs.getElementAt(0);
         this.configComboBox.setModel(configs);
         pack();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String selectedConfig = (String) this.configComboBox.getSelectedItem();
         if (e.getSource() == this.viewButton) {
-            ViewGia2DConfigFrame viewConfig = new ViewGia2DConfigFrame(selectedConfig);
-            viewConfig.setLocationRelativeTo(null);
-            viewConfig.setVisible(true);
+            if (selectedConfig != null) {
+                ViewGia2DConfigFrame viewConfig = new ViewGia2DConfigFrame(selectedConfig);
+                viewConfig.setLocationRelativeTo(null);
+                viewConfig.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please add config first!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (e.getSource() == this.editButton) {
-            EditGia2DConfigFrame editConfig = new EditGia2DConfigFrame(selectedConfig);
-            editConfig.addPropertyChangeListener("getall", this);
-            editConfig.setLocationRelativeTo(null);
-            editConfig.setVisible(true);
+            if (selectedConfig != null) {
+                EditGia2DConfigFrame editConfig = new EditGia2DConfigFrame(selectedConfig);
+                editConfig.addPropertyChangeListener("getall", this);
+                editConfig.setLocationRelativeTo(null);
+                editConfig.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please add config first!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
