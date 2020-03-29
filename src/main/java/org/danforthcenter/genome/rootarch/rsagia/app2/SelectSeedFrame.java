@@ -89,7 +89,7 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
 
     private void loadOrganisms() {
         ArrayList<String> orgList = this.mdf.findOrgsHavingSeed();
-        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>((String[]) orgList.toArray());
+        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>(orgList.toArray(new String[0]));
         selectedOrganism = (String) organisms.getElementAt(0);
         orgComboBox.setModel(organisms);
         loadExperiments();

@@ -45,7 +45,7 @@ public class SelectGia2DConfigFrame extends JFrame implements ActionListener, Pr
 
     private void loadConfigs() {
         ArrayList<String> savedConfigs = this.oidf.getSavedConfigs("giaroot_2d");
-        DefaultComboBoxModel<String> configs = new DefaultComboBoxModel<>((String[]) savedConfigs.toArray());
+        DefaultComboBoxModel<String> configs = new DefaultComboBoxModel<>(savedConfigs.toArray(new String[0]));
         selectedConfig = (String) configs.getElementAt(0);
         this.configComboBox.setModel(configs);
         pack();

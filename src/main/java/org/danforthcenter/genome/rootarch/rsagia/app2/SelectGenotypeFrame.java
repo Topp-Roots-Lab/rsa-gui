@@ -58,7 +58,7 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
 
     private void loadOrganisms() {
         ArrayList<String> orgList = this.mdf.findOrganismsWithGenotypes();
-        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>((String[]) orgList.toArray());
+        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>(orgList.toArray(new String[0]));
         selectedOrganism = (String) organisms.getElementAt(0);
         organismComboBox.setModel(organisms);
         loadGenotypes();
