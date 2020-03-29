@@ -36,7 +36,7 @@ public class ApplicationManager {
             // tw 2015jun29
 //			Rootwork3D rootwork3D, GiaRoot3D giaRoot3D,
             Rootwork3D rootwork3D, Rootwork3DPers rootwork3DPers, GiaRoot3D giaRoot3D,
-			Gia3D_v2 gia3D_v2, Import importApp, DirRename dirRenameApp) {
+			Gia3D_v2 gia3D_v2, QualityControl qc, QualityControl qc2, QualityControl qc3, Import importApp, DirRename dirRenameApp) {
 		this.ism = ism;
 		this.scale = scale;
 		this.crop = crop;
@@ -51,9 +51,9 @@ public class ApplicationManager {
         this.rootwork3DPers = rootwork3DPers;
 		this.giaRoot3D = giaRoot3D;
 		this.gia3D_v2 = gia3D_v2;
-		this.qc = new QualityControl("qc", giaRoot2D);
-		this.qc2 = new QualityControl("qc2", giaRoot2D);
-		this.qc3 = new QualityControl("qc3", giaRoot2D);
+		this.qc = qc;
+		this.qc2 = qc2;
+		this.qc3 = qc3;
 		this.importApp = importApp;
 		this.dirRenameApp = dirRenameApp;
 

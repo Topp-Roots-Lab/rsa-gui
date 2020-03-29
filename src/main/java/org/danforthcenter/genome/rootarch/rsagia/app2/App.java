@@ -197,6 +197,12 @@ public class App {
 			File f7 = new File(sysProps.getProperty("gia3d_v2_template_dir"));
 			Gia3D_v2 gia3D_v2 = new Gia3D_v2(s11, s12, s14, s15, f7, s72);
 
+			String s16 = sysProps.getProperty("qc_path");
+			String s17 = sysProps.getProperty("qc3d_path");
+			QualityControl qc = new QualityControl("qc", gia, s16, s17);
+			QualityControl qc2 = new QualityControl("qc2", gia, s16, s17);
+			QualityControl qc3 = new QualityControl("qc3", gia, s16, s17);
+
 			String importScriptPath = sysProps.getProperty("import_script_path");
 			Import importApp = new Import(importScriptPath, f1, ssm);
 
@@ -205,7 +211,7 @@ public class App {
 
 			final ApplicationManager am = new ApplicationManager(ssm, scale,
 					crop, recrop, gia, export, rootwork3D, rootwork3Dpers, giaRoot3D,
-					gia3D_v2, importApp, dirRenameApp);
+					gia3D_v2, qc, qc2, qc3, importApp, dirRenameApp);
 			giaRoot3D.setAm(am);
 			gia3D_v2.setAm(am);
 

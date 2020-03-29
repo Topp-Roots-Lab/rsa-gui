@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Properties;
 import java.util.Random;
 
 import javax.swing.BorderFactory;
@@ -54,6 +53,8 @@ import org.danforthcenter.genome.rootarch.rsagia.app2.SelectQcOutputFrame;
 public class QualityControl implements IApplication {
 	protected GiaRoot2D gia;
 	protected String type;
+	protected String qcPath;
+	protected String qc3Path;
 
 	private SelectQcOutputFrame selectQcFrame;
 	private SelectQc2OutputFrame selectQc2Frame;
@@ -64,14 +65,13 @@ public class QualityControl implements IApplication {
 	private ArrayList<Integer> options;
 	private ApplicationManager am;
 	private RsaPipelineDirUtil dirUtil = new RsaPipelineDirUtil();
-	private static Properties sysProps;
 
 	// ============================<editor-fold desc="Constructor">{{{
-	public QualityControl(String type, GiaRoot2D gia) {
+	public QualityControl(String type, GiaRoot2D gia, String qcPath, String qc3Path) {
 		this.gia = gia;
 		this.type = type;
-
-		this.sysProps = new Properties();
+		this.qcPath = qcPath;
+		this.qc3Path = qc3Path;
 	}
 
 	// End of Constructor...........................}}}</editor-fold>
@@ -255,12 +255,11 @@ public class QualityControl implements IApplication {
      *
      * 
      */
-	public static void doQc(String src, int scaleQc, String dest, String code,
+	public void doQc(String src, int scaleQc, String dest, String code,
 			String template_name) {
 
         System.out.println("QualityControl.java doQc " + src + " " + dest);
-		String QC_PATH="/opt/rsa-gia/bin/gia-programs/quality-control/qc/all_qc_folder.py";
-        File QCScript = new File(QC_PATH);
+        File QCScript = new File(this.qcPath);
         if ( QCScript.exists() ) {
 
             // example
@@ -268,7 +267,7 @@ public class QualityControl implements IApplication {
             // /data/rsa/processed_images/corn/NAM/p00039/d06/saved/giaroot_2d/prz_2011-05-10_16-56-21
             // 4 ./ 101011000 [template_name]
 
-            String[] cmd = {QC_PATH, src, Integer.toString(scaleQc), dest, code,
+            String[] cmd = {this.qcPath, src, Integer.toString(scaleQc), dest, code,
                     template_name};
 
             ProcessBuilder pb = new ProcessBuilder(cmd);
@@ -314,19 +313,13 @@ public class QualityControl implements IApplication {
 	 * 
 	 * 
 	 */
-	public static void doQc3(String src, String dest) {
-		// TODO: move to config
-        // standard linux configuration
-		//String QC3_PATH = "/usr/local/bin/gia-programs/quality-control/qc-3/QC3D.py";
-        // for viper
-		String QC3_PATH = "/opt/rsa-gia/bin/gia-programs/quality-control/qc-3/QC3D.py";
-
+	public void doQc3(String src, String dest) {
 		// example
 		// ./QC3D.py
 		// /data/rsa/processed_images/rice/RIL/p00001/d12/sandbox/rootwork_3d/vp23_2013-04-29_13-06-50/OsRILp00001d12_vp23_2013-04-29_13-06-50_rootwork.out
 		// ~/tmp/
 		//
-		String[] cmd = { QC3_PATH, src, dest };
+		String[] cmd = { this.qc3Path, src, dest };
 		//
 		// for debug comment the rest
 		//
