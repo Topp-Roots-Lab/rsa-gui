@@ -26,11 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-import javax.swing.JTree;
+import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -64,7 +60,7 @@ public class ChooseOutputPanel2 extends javax.swing.JPanel implements
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTree reviewTree;
 	private javax.swing.JScrollPane jScrollPane2;
-	private javax.swing.JList finalList;
+	private javax.swing.JList<OutputInfo> finalList;
 
 	// End of variables declaration...........................}}}</editor-fold>
 
@@ -85,7 +81,7 @@ public class ChooseOutputPanel2 extends javax.swing.JPanel implements
 		});
 
 		originalMap = map;
-		finalList.setModel(new DefaultListModel());
+		finalList.setModel(new DefaultListModel<>());
 		finalList.setCellRenderer(new FinalListCellRenderer(am));
 
 		toFinalButton.addActionListener(this);
@@ -95,7 +91,7 @@ public class ChooseOutputPanel2 extends javax.swing.JPanel implements
 		for (Map.Entry<RsaImageSet, ArrayList<OutputInfo>> ent : originalMap
 				.entrySet()) {
 			if (moveSingles && ent.getValue().size() == 1) {
-				DefaultListModel dlm = (DefaultListModel) finalList.getModel();
+				DefaultListModel<OutputInfo> dlm = (DefaultListModel<OutputInfo>) finalList.getModel();
 				dlm.addElement(ent.getValue().get(0));
 			} else {
 				addToReview(ent.getKey(), ent.getValue());
@@ -193,9 +189,9 @@ public class ChooseOutputPanel2 extends javax.swing.JPanel implements
 								new Object[] { p });
 					}
 
-					DefaultListModel dlm = (DefaultListModel) finalList
+					DefaultListModel<OutputInfo> dlm = (DefaultListModel<OutputInfo>) finalList
 							.getModel();
-					dlm.addElement(n.getUserObject());
+					dlm.addElement((OutputInfo) n.getUserObject());
 				}
 			}
 		}
@@ -339,7 +335,7 @@ public class ChooseOutputPanel2 extends javax.swing.JPanel implements
 		reviewTree.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
 		reviewTree.setRootVisible(false);
 		jScrollPane1 = new javax.swing.JScrollPane(reviewTree);
-		finalList = new javax.swing.JList();
+		finalList = new javax.swing.JList<>();
 		jScrollPane2 = new javax.swing.JScrollPane(finalList);
 
 		jSplitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, false,

@@ -9,8 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("unchecked")
 public class EditUserFrame extends JDialog implements ActionListener {
-    private JComboBox accessComboBox;
+    private JComboBox<String> accessComboBox;
     private JTextField firstNameField;
     private JTextField lastNameField;
     private JTextField labNameField;
@@ -42,7 +43,7 @@ public class EditUserFrame extends JDialog implements ActionListener {
         labNameField.setText((String) r.getValue("lab_name"));
         activeCheckBox.setSelected(((Byte) r.getValue("active")) == 1);
 
-        DefaultComboBoxModel levels = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> levels = new DefaultComboBoxModel<>();
         String[] accessLevelList = this.udf.getAccessLevels();
         for (String item : accessLevelList) {
             levels.addElement(item);
@@ -209,4 +210,5 @@ public class EditUserFrame extends JDialog implements ActionListener {
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

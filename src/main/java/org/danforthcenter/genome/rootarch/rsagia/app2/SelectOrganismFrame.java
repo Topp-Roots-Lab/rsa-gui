@@ -17,9 +17,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 
+@SuppressWarnings("unchecked")
 public class SelectOrganismFrame extends JDialog implements
         ActionListener, PropertyChangeListener {
-    private JComboBox comboBox1;
+    private JComboBox<String> comboBox1;
     private JButton editButton;
     private JPanel panel1;
     private JButton viewButton;
@@ -52,7 +53,7 @@ public class SelectOrganismFrame extends JDialog implements
     }
 
     private void loadOrganisms() {
-        DefaultComboBoxModel organisms = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>();
         Result<Record> organismRecord = this.mdf.selectAllOrganism();
         for (Record r : organismRecord) {
             organisms.addElement((String) r.getValue("organism_name"));
@@ -161,4 +162,5 @@ public class SelectOrganismFrame extends JDialog implements
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

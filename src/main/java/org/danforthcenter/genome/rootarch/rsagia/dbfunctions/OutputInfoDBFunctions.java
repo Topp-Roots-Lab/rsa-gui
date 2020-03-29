@@ -193,7 +193,7 @@ public class OutputInfoDBFunctions {
 
     public ArrayList<String> getSavedConfigs(String appName)
     {
-        ArrayList<String> savedConfigs = new ArrayList();
+        ArrayList<String> savedConfigs = new ArrayList<>();
         int appID = this.findAppID(appName);
         String query = "select name from saved_config where program_id=" + appID;
         Result<Record> resultRecord = ConnectDb.getDslContext().fetch(query);

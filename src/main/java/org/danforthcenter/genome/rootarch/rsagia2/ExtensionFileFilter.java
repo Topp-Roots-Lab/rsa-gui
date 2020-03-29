@@ -31,7 +31,7 @@ public class ExtensionFileFilter implements java.io.FileFilter {
 
 	public ExtensionFileFilter(ArrayList<String> extensions) {
 
-		this.extensions = (ArrayList<String>) extensions.clone();
+		this.extensions = new ArrayList<>(extensions);
 		Collections.sort(this.extensions);
 	}
 

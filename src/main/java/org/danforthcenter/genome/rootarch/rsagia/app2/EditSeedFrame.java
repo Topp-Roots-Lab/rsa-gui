@@ -19,6 +19,7 @@ import java.util.Date;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
+@SuppressWarnings("unchecked")
 public class EditSeedFrame extends JDialog implements ActionListener {
     private JButton saveButton;
     private JButton cancelButton;
@@ -33,8 +34,8 @@ public class EditSeedFrame extends JDialog implements ActionListener {
     private JTextField descriptionField;
     private JTextField imagingStartDateField;
     private JPanel panel1;
-    private JComboBox imagingIntervalUnitComboBox;
-    private JComboBox genotypeComboBox;
+    private JComboBox<String> imagingIntervalUnitComboBox;
+    private JComboBox<String> genotypeComboBox;
     private MetadataDBFunctions mdf;
     private String selectedOrganism;
     private String selectedExperiment;
@@ -69,7 +70,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         if (seedGenotypeID != null) {
             selectedGenotypeID = (int) seedGenotypeID;
         }
-        DefaultComboBoxModel genotypes = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> genotypes = new DefaultComboBoxModel<>();
         genotypes.addElement("None");
         Result<Record> genotypeRecord1 = this.mdf.findGenotypesFromOrganism(this.selectedOrganism);
         for (Record r1 : genotypeRecord1) {
@@ -108,7 +109,7 @@ public class EditSeedFrame extends JDialog implements ActionListener {
         } else {
             schamberField.setText((String) r.getValue("sterilization_chamber"));
         }
-        DefaultComboBoxModel units = new DefaultComboBoxModel(new String[]{"hour", "day"});
+        DefaultComboBoxModel<String> units = new DefaultComboBoxModel<>(new String[]{"hour", "day"});
         units.setSelectedItem(r.getValue("imaging_interval_unit"));
         imagingIntervalUnitComboBox.setModel(units);
         descriptionField.setText((String) r.getValue("description"));
@@ -523,4 +524,5 @@ public class EditSeedFrame extends JDialog implements ActionListener {
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

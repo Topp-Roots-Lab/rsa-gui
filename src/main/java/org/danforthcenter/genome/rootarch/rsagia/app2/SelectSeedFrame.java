@@ -16,14 +16,15 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 
+@SuppressWarnings("unchecked")
 public class SelectSeedFrame extends JDialog implements ActionListener, PropertyChangeListener {
-    private JComboBox orgComboBox;
-    private JComboBox expComboBox;
-    private JComboBox seedComboBox;
+    private JComboBox<String> orgComboBox;
+    private JComboBox<String> expComboBox;
+    private JComboBox<String> seedComboBox;
     private JButton viewButton;
     private JButton editButton;
     private JPanel panel1;
-    private JComboBox genotypeComboBox;
+    private JComboBox<String> genotypeComboBox;
     private DirRename dirRenameApp;
     private File baseDir;
     private MetadataDBFunctions mdf;
@@ -88,14 +89,14 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
 
     private void loadOrganisms() {
         ArrayList<String> orgList = this.mdf.findOrgsHavingSeed();
-        DefaultComboBoxModel organisms = new DefaultComboBoxModel(orgList.toArray());
+        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>((String[]) orgList.toArray());
         selectedOrganism = (String) organisms.getElementAt(0);
         orgComboBox.setModel(organisms);
         loadExperiments();
     }
 
     private void loadExperiments() {
-        DefaultComboBoxModel experiments = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> experiments = new DefaultComboBoxModel<>();
         Result<Record> expRecord = this.mdf.findExperimentFromOrganism(selectedOrganism);
         for (Record r : expRecord) {
             experiments.addElement((String) r.getValue("experiment_code"));
@@ -106,14 +107,14 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     }
 
     private void loadGenotypes() {
-        DefaultComboBoxModel genotypes = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> genotypes = new DefaultComboBoxModel<>();
         Result<Record> genotypeRecord = this.mdf.findDistinctGenotypesOfExperiment(selectedExperiment, selectedOrganism);
         for (Record r : genotypeRecord) {
             Object genotypeName = r.getValue("genotype_name");
             if (genotypeName == null) {
                 genotypeName = "None";
             }
-            genotypes.addElement(genotypeName);
+            genotypes.addElement((String) genotypeName);
         }
         selectedGenotype = (String) genotypes.getElementAt(0);
         genotypeComboBox.setModel(genotypes);
@@ -121,7 +122,7 @@ public class SelectSeedFrame extends JDialog implements ActionListener, Property
     }
 
     private void loadSeeds() {
-        DefaultComboBoxModel seeds = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> seeds = new DefaultComboBoxModel<>();
         Result<Record> seedRecord = this.mdf.findSeedsFromOrganismExperimentGenotype(selectedOrganism, selectedExperiment, selectedGenotype);
         for (Record r : seedRecord) {
             seeds.addElement((String) r.getValue("seed_name"));

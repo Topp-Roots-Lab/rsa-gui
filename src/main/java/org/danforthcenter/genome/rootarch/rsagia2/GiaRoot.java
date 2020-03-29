@@ -37,9 +37,6 @@ public class GiaRoot {
 
 	/**
 	 * Assumes a previously written job xml file exists at JOB_XML_NAME.
-	 * 
-	 * @param output
-	 * @return
 	 */
 	public Process start(File jobFile, File dir) {
 		String[] cmd = { "nice", giaExecPath, jobFile.getAbsolutePath() };
@@ -69,8 +66,6 @@ public class GiaRoot {
 	 * For whatever reason, there's a linking issue that currently remains
 	 * unresolved in GiaRoots. If it can't find the algorithms directory in the
 	 * current working directory, it will fail.
-	 * 
-	 * @param oi
 	 */
 	protected void createAlgorithmsLink(File dir) {
 

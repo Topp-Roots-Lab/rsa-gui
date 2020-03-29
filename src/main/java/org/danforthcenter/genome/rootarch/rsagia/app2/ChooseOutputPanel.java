@@ -62,7 +62,7 @@ public class ChooseOutputPanel extends javax.swing.JPanel implements
 		});
 
 		originalMap = map;
-		finalList.setModel(new DefaultListModel());
+		finalList.setModel(new DefaultListModel<>());
 		finalList.setCellRenderer(new FinalListCellRenderer(am));
 
 		toFinalButton.addActionListener(this);
@@ -72,7 +72,7 @@ public class ChooseOutputPanel extends javax.swing.JPanel implements
 		for (Map.Entry<RsaImageSet, ArrayList<OutputInfo>> ent : originalMap
 				.entrySet()) {
 			if (moveSingles && ent.getValue().size() == 1) {
-				DefaultListModel dlm = (DefaultListModel) finalList.getModel();
+				DefaultListModel<OutputInfo> dlm = (DefaultListModel<OutputInfo>) finalList.getModel();
 				dlm.addElement(ent.getValue().get(0));
 			} else {
 				addToReview(ent.getKey(), ent.getValue());
@@ -107,7 +107,7 @@ public class ChooseOutputPanel extends javax.swing.JPanel implements
 	}
 
 	public void removeFinalOutputs() {
-		DefaultListModel dlm = (DefaultListModel) finalList.getModel();
+		DefaultListModel<OutputInfo> dlm = (DefaultListModel<OutputInfo>) finalList.getModel();
 		while (dlm.getSize() > 0) {
 			OutputInfo oi = (OutputInfo) dlm.get(0);
 			if (oneOutputOnly) {
@@ -120,7 +120,7 @@ public class ChooseOutputPanel extends javax.swing.JPanel implements
 	}
 
 	protected void sendSelectedFinalToReview() {
-		DefaultListModel dlm = (DefaultListModel) finalList.getModel();
+		DefaultListModel<OutputInfo> dlm = (DefaultListModel<OutputInfo>) finalList.getModel();
 		int[] inds = finalList.getSelectedIndices();
 
 		if (inds != null) {
@@ -169,9 +169,9 @@ public class ChooseOutputPanel extends javax.swing.JPanel implements
 								new Object[] { p });
 					}
 
-					DefaultListModel dlm = (DefaultListModel) finalList
+					DefaultListModel<OutputInfo> dlm = (DefaultListModel<OutputInfo>) finalList
 							.getModel();
-					dlm.addElement(n.getUserObject());
+					dlm.addElement((OutputInfo) n.getUserObject());
 				}
 			}
 		}
@@ -367,7 +367,7 @@ public class ChooseOutputPanel extends javax.swing.JPanel implements
 	}// </editor-fold>//GEN-END:initComponents
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JList finalList;
+	private javax.swing.JList<OutputInfo> finalList;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JScrollPane jScrollPane2;
 	private javax.swing.JTree reviewTree;

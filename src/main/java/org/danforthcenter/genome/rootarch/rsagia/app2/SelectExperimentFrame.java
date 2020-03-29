@@ -15,12 +15,13 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 
+@SuppressWarnings("unchecked")
 public class SelectExperimentFrame extends JDialog implements ActionListener, PropertyChangeListener {
-    private JComboBox expComboBox;
+    private JComboBox<String> expComboBox;
     private JButton editButton;
     private JPanel panel1;
     private JButton viewButton;
-    private JComboBox orgComboBox;
+    private JComboBox<String> orgComboBox;
     private MetadataDBFunctions mdf;
     private DirRename dirRenameApp;
     private File baseDir;
@@ -61,7 +62,7 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
     }
 
     private void loadExperiments() {
-        DefaultComboBoxModel experiments = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> experiments = new DefaultComboBoxModel<>();
         Result<Record> expRecord = this.mdf.selectAllExperiments();
         for (Record r : expRecord) {
             experiments.addElement((String) r.getValue("experiment_code"));
@@ -72,7 +73,7 @@ public class SelectExperimentFrame extends JDialog implements ActionListener, Pr
     }
 
     private void loadOrganisms() {
-        DefaultComboBoxModel organisms = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>();
         Result<Record> organismRecord = this.mdf.findOrganismByExperiment(selectedExperiment);
         for (Record r : organismRecord) {
             organisms.addElement((String) r.getValue("organism_name"));

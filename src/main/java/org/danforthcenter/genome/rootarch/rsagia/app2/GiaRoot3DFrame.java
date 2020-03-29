@@ -37,8 +37,8 @@ public class GiaRoot3DFrame extends javax.swing.JFrame implements
 		descriptorList.removeAll();
 		configComboBox.removeAllItems();
 
-		descriptorList.setModel(new DefaultListModel());
-		DefaultListModel dlm = (DefaultListModel) descriptorList.getModel();
+		descriptorList.setModel(new DefaultListModel<>());
+		DefaultListModel<String> dlm = (DefaultListModel<String>) descriptorList.getModel();
 		for (String str : descrList) {
 			dlm.addElement(str);
 		}
@@ -64,9 +64,9 @@ public class GiaRoot3DFrame extends javax.swing.JFrame implements
 					JOptionPane.PLAIN_MESSAGE, null, arr, arr);
 			if (obj != null) {
 				descrHoldList.remove(obj);
-				DefaultListModel dlm = (DefaultListModel) descriptorList
+				DefaultListModel<String> dlm = (DefaultListModel<String>) descriptorList
 						.getModel();
-				dlm.addElement(obj);
+				dlm.addElement((String) obj);
 
 				if (descrHoldList.size() == 0) {
 					addButton.setEnabled(false);
@@ -335,8 +335,8 @@ public class GiaRoot3DFrame extends javax.swing.JFrame implements
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton addButton;
 	private javax.swing.JButton cancelButton;
-	private javax.swing.JComboBox configComboBox;
-	private javax.swing.JList descriptorList;
+	private javax.swing.JComboBox<String> configComboBox;
+	private javax.swing.JList<String> descriptorList;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JScrollPane jScrollPane1;

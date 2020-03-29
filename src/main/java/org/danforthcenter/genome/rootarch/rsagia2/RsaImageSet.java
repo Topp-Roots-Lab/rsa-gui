@@ -7,13 +7,8 @@ package org.danforthcenter.genome.rootarch.rsagia2;
 
 import java.io.File;
 import java.math.BigInteger;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
-import org.danforthcenter.genome.rootarch.rsagia.app2.App;
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.RsaImageSetDBFunctions;
 import org.jooq.Record;
 import org.jooq.Result;

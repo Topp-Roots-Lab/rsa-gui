@@ -18,7 +18,7 @@
 package org.danforthcenter.genome.rootarch.rsagia2;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
-import org.jooq.tools.json.JSONObject;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

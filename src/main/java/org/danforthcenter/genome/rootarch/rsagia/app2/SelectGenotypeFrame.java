@@ -16,10 +16,11 @@ import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 
+@SuppressWarnings("unchecked")
 public class SelectGenotypeFrame extends JDialog implements ActionListener, PropertyChangeListener {
     private JPanel panel1;
-    private JComboBox organismComboBox;
-    private JComboBox genotypeComboBox;
+    private JComboBox<String> organismComboBox;
+    private JComboBox<String> genotypeComboBox;
     private JButton editButton;
     private MetadataDBFunctions mdf;
     private String selectedOrganism;
@@ -57,18 +58,18 @@ public class SelectGenotypeFrame extends JDialog implements ActionListener, Prop
 
     private void loadOrganisms() {
         ArrayList<String> orgList = this.mdf.findOrganismsWithGenotypes();
-        DefaultComboBoxModel organisms = new DefaultComboBoxModel(orgList.toArray());
+        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>((String[]) orgList.toArray());
         selectedOrganism = (String) organisms.getElementAt(0);
         organismComboBox.setModel(organisms);
         loadGenotypes();
     }
 
     private void loadGenotypes() {
-        DefaultComboBoxModel genotypes = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> genotypes = new DefaultComboBoxModel<>();
         Result<Record> genotypeRecord = this.mdf.findGenotypesFromOrganism(selectedOrganism);
         for (Record r : genotypeRecord) {
             Object genotypeName = r.getValue("genotype_name");
-            genotypes.addElement(genotypeName);
+            genotypes.addElement((String) genotypeName);
         }
         selectedGenotype = (String) genotypes.getElementAt(0);
         genotypeComboBox.setModel(genotypes);

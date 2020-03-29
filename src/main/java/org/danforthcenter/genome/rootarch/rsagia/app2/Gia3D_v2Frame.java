@@ -45,8 +45,8 @@ public class Gia3D_v2Frame extends javax.swing.JFrame implements
 	// Variables declaration - do not modify
 	private javax.swing.JButton addButton;
 	private javax.swing.JButton cancelButton;
-	private javax.swing.JComboBox configComboBox;
-	private javax.swing.JList descriptorList;
+	private javax.swing.JComboBox<String> configComboBox;
+	private javax.swing.JList<String> descriptorList;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JScrollPane jScrollPane1;
@@ -66,8 +66,8 @@ public class Gia3D_v2Frame extends javax.swing.JFrame implements
 		descriptorList.removeAll();
 		configComboBox.removeAllItems();
 
-		descriptorList.setModel(new DefaultListModel());
-		DefaultListModel dlm = (DefaultListModel) descriptorList.getModel();
+		descriptorList.setModel(new DefaultListModel<>());
+		DefaultListModel<String> dlm = (DefaultListModel<String>) descriptorList.getModel();
 		for (String str : descrList) {
 			dlm.addElement(str);
 		}
@@ -102,9 +102,9 @@ public class Gia3D_v2Frame extends javax.swing.JFrame implements
 					JOptionPane.PLAIN_MESSAGE, null, arr, arr);
 			if (obj != null) {
 				descrHoldList.remove(obj);
-				DefaultListModel dlm = (DefaultListModel) descriptorList
+				DefaultListModel<String> dlm = (DefaultListModel<String>) descriptorList
 						.getModel();
-				dlm.addElement(obj);
+				dlm.addElement((String) obj);
 
 				if (descrHoldList.size() == 0) {
 					addButton.setEnabled(false);
@@ -116,7 +116,7 @@ public class Gia3D_v2Frame extends javax.swing.JFrame implements
 			}
 		} else if (e.getSource() == removeButton) {
 			int[] inds = descriptorList.getSelectedIndices();
-			DefaultListModel dlm = (DefaultListModel) descriptorList.getModel();
+			DefaultListModel<String> dlm = (DefaultListModel<String>) descriptorList.getModel();
 			Object[] values = new Object[inds.length];
 			for (int j = 0; j < values.length; j++) {
 				values[j] = dlm.getElementAt(inds[j]);
@@ -153,7 +153,7 @@ public class Gia3D_v2Frame extends javax.swing.JFrame implements
 
 	public String getDescriptors() {
 		String ans = "";
-		DefaultListModel dlm = (DefaultListModel) descriptorList.getModel();
+		DefaultListModel<String> dlm = (DefaultListModel<String>) descriptorList.getModel();
 		int s = dlm.getSize();
 		for (int i = 0; i < s; i++) {
 			ans += ((String) dlm.get(i)) + ((i == s - 1) ? "" : ";");

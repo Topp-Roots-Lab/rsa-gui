@@ -26,8 +26,7 @@ package org.danforthcenter.genome.rootarch.rsagia2;
 //
 //}
 
-import org.jooq.tools.json.JSONArray;
-import org.jooq.tools.json.JSONObject;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.util.Properties;

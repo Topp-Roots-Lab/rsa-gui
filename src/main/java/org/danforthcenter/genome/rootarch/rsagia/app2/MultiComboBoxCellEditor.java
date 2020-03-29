@@ -41,7 +41,7 @@ public class MultiComboBoxCellEditor implements
 		for (int i = 0; i < rows.size(); i++) {
 			StringSet ss = new StringSet(rows.get(i));
 			if (!stringToEditor.containsKey(ss)) {
-				JComboBox cb = new JComboBox();
+				JComboBox<String> cb = new JComboBox<>();
 				for (String s : ss.getVals()) {
 					cb.addItem(s);
 				}

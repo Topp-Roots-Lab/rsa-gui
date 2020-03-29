@@ -9,9 +9,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("unchecked")
 public class AddGenotypeFrame extends JDialog implements ActionListener {
     private MetadataDBFunctions mdf;
-    private JComboBox organismComboBox;
+    private JComboBox<String> organismComboBox;
     private JTextField genotypeField;
     private JButton addButton;
     private JPanel panel1;
@@ -27,7 +28,7 @@ public class AddGenotypeFrame extends JDialog implements ActionListener {
     }
 
     private void loadOrganisms() {
-        DefaultComboBoxModel organisms = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>();
         Result<Record> organismRecord = this.mdf.selectAllOrganism();
         for (Record r : organismRecord) {
             organisms.addElement((String) r.getValue("organism_name"));
@@ -128,4 +129,5 @@ public class AddGenotypeFrame extends JDialog implements ActionListener {
     public JComponent $$$getRootComponent$$$() {
         return panel1;
     }
+
 }

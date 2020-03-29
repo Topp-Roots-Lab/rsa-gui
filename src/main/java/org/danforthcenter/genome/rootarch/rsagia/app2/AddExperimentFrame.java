@@ -10,8 +10,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("unchecked")
 public class AddExperimentFrame extends JDialog implements ActionListener {
-    private JComboBox organismComboBox;
+    private JComboBox<String> organismComboBox;
     private JTextField codeField;
     private JTextField descField;
     private JButton addButton;
@@ -34,7 +35,7 @@ public class AddExperimentFrame extends JDialog implements ActionListener {
     }
 
     private void loadOrganisms() {
-        DefaultComboBoxModel organisms = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>();
         Result<Record> organismRecord = this.mdf.selectAllOrganism();
         for (Record r : organismRecord) {
             organisms.addElement((String) r.getValue("organism_name"));

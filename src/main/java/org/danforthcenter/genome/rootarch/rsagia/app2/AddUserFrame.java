@@ -7,8 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("unchecked")
 public class AddUserFrame extends JDialog implements ActionListener {
-    private JComboBox accessLevelComboBox;
+    private JComboBox<String> accessLevelComboBox;
     private JTextField firstNameField;
     private JButton addUserButton;
     private JTextField lastNameField;
@@ -29,7 +30,7 @@ public class AddUserFrame extends JDialog implements ActionListener {
     }
 
     public void loadAccessLevels() {
-        DefaultComboBoxModel accessLevels = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> accessLevels = new DefaultComboBoxModel<>();
         String[] accessLevelList = this.udf.getAccessLevels();
         for (String item : accessLevelList) {
             accessLevels.addElement(item);

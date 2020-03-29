@@ -5,7 +5,7 @@
 
 package org.danforthcenter.genome.rootarch.rsagia2;
 
-import org.jooq.tools.json.JSONObject;
+import org.json.JSONObject;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;

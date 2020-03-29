@@ -45,7 +45,7 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 		this.rit = rit;
 		this.userFile = userFile;
 
-		DefaultListModel dlm = new DefaultListModel();
+		DefaultListModel<String> dlm = new DefaultListModel<>();
 		showList.setModel(dlm);
 		// DefaultListModel dlm = (DefaultListModel)showList.getModel();
 		// dlm.removeAllElements();
@@ -58,7 +58,7 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 			dlm.addElement(rit.getColumnName(i));
 		}
 
-		DefaultListModel dlm2 = new DefaultListModel();// (DefaultListModel)hideList.getModel();
+		DefaultListModel<String> dlm2 = new DefaultListModel<>();// (DefaultListModel)hideList.getModel();
 		hideList.setModel(dlm2);
 		// dlm2.removeAllElements();
 		hideSet = new HashSet<String>();
@@ -80,8 +80,8 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == toShowButton) {
 			if (!hideList.isSelectionEmpty()) {
-				DefaultListModel dlm = (DefaultListModel) hideList.getModel();
-				DefaultListModel dlm2 = (DefaultListModel) showList.getModel();
+				DefaultListModel<String> dlm = (DefaultListModel<String>) hideList.getModel();
+				DefaultListModel<String> dlm2 = (DefaultListModel<String>) showList.getModel();
 
 				// // tw 2014nov13 getSelectedValues is deprecated
 				// // update method and change array to list
@@ -91,16 +91,16 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 				for (Object v : vals) {
 					String s = (String) v;
 					hideSet.remove(s);
-					dlm.removeElement(v);
+					dlm.removeElement(s);
 
 					showSet.add(s);
-					dlm2.addElement(v);
+					dlm2.addElement(s);
 				}
 			}
 		} else if (e.getSource() == toHideButton) {
 			if (!showList.isSelectionEmpty()) {
-				DefaultListModel dlm = (DefaultListModel) showList.getModel();
-				DefaultListModel dlm2 = (DefaultListModel) hideList.getModel();
+				DefaultListModel<String> dlm = (DefaultListModel<String>) showList.getModel();
+				DefaultListModel<String> dlm2 = (DefaultListModel<String>) hideList.getModel();
 
 				// // tw 2014nov13 getSelectedValues is deprecated
 				// // update method and change array to list
@@ -111,19 +111,19 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 				for (Object v : vals) {
 					String s = (String) v;
 					showSet.remove(s);
-					dlm.removeElement(v);
+					dlm.removeElement(s);
 
 					hideSet.add(s);
-					dlm2.addElement(v);
+					dlm2.addElement(s);
 				}
 			}
 		} else if (e.getSource() == upButton) {
 			if (!showList.isSelectionEmpty()) {
 				int i = showList.getSelectedIndex();
 				if (i > 0) {
-					DefaultListModel dlm = (DefaultListModel) showList
+					DefaultListModel<String> dlm = (DefaultListModel<String>) showList
 							.getModel();
-					Object o = dlm.elementAt(i - 1);
+					String o = dlm.elementAt(i - 1);
 					dlm.remove(i - 1);
 					dlm.add(i, o);
 				}
@@ -132,9 +132,9 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 			if (!showList.isSelectionEmpty()) {
 				int i = showList.getSelectedIndex();
 				if (i < showList.getModel().getSize() - 2) {
-					DefaultListModel dlm = (DefaultListModel) showList
+					DefaultListModel<String> dlm = (DefaultListModel<String>) showList
 							.getModel();
-					Object o = dlm.elementAt(i);
+					String o = dlm.elementAt(i);
 					dlm.remove(i);
 					dlm.add(i + 1, o);
 					showList.setSelectedIndex(i + 1);
@@ -413,12 +413,12 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 
 	// Variables declaration - do not modify
 	private javax.swing.JButton downButton;
-	private javax.swing.JList hideList;
+	private javax.swing.JList<String> hideList;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel2;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JScrollPane jScrollPane2;
-	private javax.swing.JList showList;
+	private javax.swing.JList<String> showList;
 	private javax.swing.JButton toHideButton;
 	private javax.swing.JButton toShowButton;
 	private javax.swing.JButton upButton;

@@ -42,6 +42,7 @@ import java.io.FilenameFilter;
  * @author vp23
  * 
  */
+@SuppressWarnings("unchecked")
 public class VrmlUtil {
 
 	// ============================<editor-fold desc="main">{{{

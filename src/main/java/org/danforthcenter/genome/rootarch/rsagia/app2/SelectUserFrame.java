@@ -15,8 +15,9 @@ import java.awt.event.ItemListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+@SuppressWarnings("unchecked")
 public class SelectUserFrame extends JDialog implements ActionListener, PropertyChangeListener {
-    private JComboBox userComboBox;
+    private JComboBox<String> userComboBox;
     private JButton viewButton;
     private JButton editButton;
     private JPanel panel1;
@@ -49,7 +50,7 @@ public class SelectUserFrame extends JDialog implements ActionListener, Property
     }
 
     public void loadUsers() {
-        DefaultComboBoxModel users = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> users = new DefaultComboBoxModel<>();
         Result<Record> userRecord;
         if (activeUsersCheckBox.isSelected()) {
             userRecord = this.udf.getActiveUsers();

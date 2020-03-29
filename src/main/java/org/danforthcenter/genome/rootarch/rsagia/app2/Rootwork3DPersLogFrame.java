@@ -13,7 +13,7 @@ package org.danforthcenter.genome.rootarch.rsagia.app2;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.*;
-import org.jooq.tools.json.JSONObject;
+import org.json.JSONObject;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

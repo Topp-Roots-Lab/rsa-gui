@@ -7,7 +7,7 @@ import org.danforthcenter.genome.rootarch.rsagia.db.tables.SavedConfig;
 import org.danforthcenter.genome.rootarch.rsagia.db.tables.User;
 import org.danforthcenter.genome.rootarch.rsagia2.*;
 import org.jooq.*;
-import org.jooq.tools.json.JSONObject;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.nio.file.Files;

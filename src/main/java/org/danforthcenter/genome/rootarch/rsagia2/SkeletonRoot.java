@@ -38,9 +38,6 @@ public class SkeletonRoot {
 
 	/**
 	 * Assumes a previously written job xml file exists at JOB_XML_NAME.
-	 * 
-	 * @param output
-	 * @return
 	 */
 	public Process start() {
 		String[] cmd = { "nice", skel3DExecScript };

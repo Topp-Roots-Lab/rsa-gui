@@ -12,9 +12,10 @@ import java.util.ArrayList;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
 
+@SuppressWarnings("unchecked")
 public class SelectGia2DConfigFrame extends JFrame implements ActionListener, PropertyChangeListener {
     private JLabel label;
-    private JComboBox configComboBox;
+    private JComboBox<String> configComboBox;
     private JButton viewButton;
     private JButton editButton;
     private JPanel panel1;
@@ -44,7 +45,7 @@ public class SelectGia2DConfigFrame extends JFrame implements ActionListener, Pr
 
     private void loadConfigs() {
         ArrayList<String> savedConfigs = this.oidf.getSavedConfigs("giaroot_2d");
-        DefaultComboBoxModel configs = new DefaultComboBoxModel(savedConfigs.toArray());
+        DefaultComboBoxModel<String> configs = new DefaultComboBoxModel<>((String[]) savedConfigs.toArray());
         selectedConfig = (String) configs.getElementAt(0);
         this.configComboBox.setModel(configs);
         pack();

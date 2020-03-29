@@ -12,9 +12,9 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
+@SuppressWarnings("unchecked")
 public class AddSeedFrame extends JDialog implements ActionListener {
     private JTextField seedField;
     private JTextField dryshootField;
@@ -24,12 +24,12 @@ public class AddSeedFrame extends JDialog implements ActionListener {
     private JTextField schamberField;
     private JTextField descriptionField;
     private JTextField imagingStartField;
-    private JComboBox organismComboBox;
-    private JComboBox experimentComboBox;
-    private JComboBox imagingIntervalUnitComboBox;
+    private JComboBox<String> organismComboBox;
+    private JComboBox<String> experimentComboBox;
+    private JComboBox<String> imagingIntervalUnitComboBox;
     private JButton addButton;
     private JPanel panel1;
-    private JComboBox genotypeComboBox;
+    private JComboBox<String> genotypeComboBox;
     private MetadataDBFunctions mdf;
     private String selectedOrganism;
 
@@ -44,7 +44,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
 
         loadOrganisms();
 
-        DefaultComboBoxModel units = new DefaultComboBoxModel(new String[]{"hour", "day"});
+        DefaultComboBoxModel<String> units = new DefaultComboBoxModel<>(new String[]{"hour", "day"});
         units.setSelectedItem("day");
         imagingIntervalUnitComboBox.setModel(units);
 
@@ -61,7 +61,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
     }
 
     private void loadGenotypes() {
-        DefaultComboBoxModel genotypes = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> genotypes = new DefaultComboBoxModel<>();
         genotypes.addElement("None");
         Result<Record> genotypeRecord = this.mdf.findGenotypesFromOrganism(this.selectedOrganism);
         for (Record r : genotypeRecord) {
@@ -71,7 +71,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
     }
 
     private void loadOrganisms() {
-        DefaultComboBoxModel organisms = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> organisms = new DefaultComboBoxModel<>();
         Result<Record> organismRecord = this.mdf.selectAllOrganism();
         for (Record r : organismRecord) {
             organisms.addElement((String) r.getValue("organism_name"));
@@ -83,7 +83,7 @@ public class AddSeedFrame extends JDialog implements ActionListener {
     }
 
     private void loadExperiments() {
-        DefaultComboBoxModel experiments = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> experiments = new DefaultComboBoxModel<>();
         Result<Record> expRecord = this.mdf.findExperimentFromOrganism(this.selectedOrganism);
         for (Record r : expRecord) {
             experiments.addElement((String) r.getValue("experiment_code"));

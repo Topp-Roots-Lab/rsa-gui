@@ -323,9 +323,6 @@ public class FileUtil {
 	//
 	/**
 	 * Returns the group identifier of the file or directory
-	 * 
-	 * @param f
-	 * @return
 	 */
 	/*
 	 * public static String getGroup(File f) { String p = callLs(f); String ps[]

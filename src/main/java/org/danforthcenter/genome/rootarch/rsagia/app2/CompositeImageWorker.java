@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 
 import org.danforthcenter.genome.rootarch.rsagia.dbfunctions.OutputInfoDBFunctions;
 import org.danforthcenter.genome.rootarch.rsagia2.*;
-import org.jooq.tools.json.JSONObject;
+import org.json.JSONObject;
 
 /**
  *

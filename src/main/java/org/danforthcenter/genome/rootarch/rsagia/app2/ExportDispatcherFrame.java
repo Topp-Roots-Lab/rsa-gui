@@ -315,7 +315,7 @@ public class ExportDispatcherFrame extends javax.swing.JFrame implements
 
 	public static TreeMap<String, Boolean> getOptions() {
 
-		TreeMap<String, Boolean> options = new TreeMap();
+		TreeMap<String, Boolean> options = new TreeMap<>();
 
 		if (Integer.valueOf(giaroot_2d) > 0)
 			options.put("giaroot_2d", true);

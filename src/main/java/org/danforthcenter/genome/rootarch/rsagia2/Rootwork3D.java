@@ -182,7 +182,7 @@ public class Rootwork3D implements IApplication {
 
 	private HashMap<String, String> cropUsingBestRotationAxis(
 			Rootwork3DOutput rout, int best_axis) {
-		HashMap<String, String> ret = new HashMap();
+		HashMap<String, String> ret = new HashMap<>();
 
 		int w = -1;
 		int h = -1;
@@ -669,14 +669,6 @@ public class Rootwork3D implements IApplication {
 	/**
 	 * Sets up file structure, returns the location of the config file for
 	 * Rootwork.
-	 * 
-	 * @param out
-	 * @param gia
-	 * @param reconOpt
-	 * @param reconLowerThresh
-	 * @param numNodesOctree
-	 * @param numImages
-	 * @return
 	 */
 	protected void preprocess(Rootwork3DOutput rout, IOutputThreshold iot,
 							  int reconOpt, int reconLowerThresh, int numNodesOctree,

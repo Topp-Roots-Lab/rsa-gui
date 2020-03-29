@@ -5,8 +5,8 @@
 
 package org.danforthcenter.genome.rootarch.rsagia2;
 
-import org.jooq.tools.json.JSONArray;
-import org.jooq.tools.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class GiaRoot2DOutput extends OutputInfo implements IOutputCrop,
 						for (int i = 0; i < headerArray.length; i++) {
 							csvJsonObject.put(headerArray[i], dataArray[i]);
 						}
-						csvJsonArray.add(csvJsonObject);
+						csvJsonArray.put(csvJsonObject);
 						//imageCount = imageCount + 1;
 					}
 				}

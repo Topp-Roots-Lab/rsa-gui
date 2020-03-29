@@ -50,16 +50,11 @@ public class VoxNpzUtil {
 	/**
 	 * Convert '.out' Rootwork voxels files to '.npz' files (used in Qvox)
 	 * 
-	 * @param args
-	 *            The command line arguments, which accept the following two
-	 *            parameters
-	 *            <p>
 	 * @param dir
 	 *            directory
 	 * @param file
 	 *            voxels file name
 	 * 
-	 *            <p>
 	 *            The second parameter is optional. If this parameter missed,
 	 *            then then all '.out' voxels files in the given directory are
 	 *            converted. All original '.out' voxels files remain the same

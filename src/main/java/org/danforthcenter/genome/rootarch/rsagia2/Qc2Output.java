@@ -51,7 +51,7 @@ public class Qc2Output extends OutputInfo implements IOutputDescriptorsQc2 {
 	}
 
 	private HashMap getQc2() {
-		HashMap qc2 = new HashMap();
+		HashMap<String, String> qc2 = new HashMap<>();
 		FileInputStream fis = null;
 		int count = 0;
 

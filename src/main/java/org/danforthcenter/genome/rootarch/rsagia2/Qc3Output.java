@@ -46,7 +46,7 @@ public class Qc3Output extends OutputInfo implements IOutputDescriptorsQc3 {
 	}
 
 	private HashMap getQc3() {
-		HashMap qc3 = new HashMap();
+		HashMap<String, String> qc3 = new HashMap<>();
 		FileInputStream fis = null;
 		int count = 0;
 

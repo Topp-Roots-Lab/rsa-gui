@@ -220,7 +220,7 @@ public class GiaRoot2DConfigurationFrame extends javax.swing.JFrame implements
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton cancelButton;
-	private javax.swing.JComboBox configComboBox;
+	private javax.swing.JComboBox<String> configComboBox;
 	private javax.swing.JTextField descriptorsTextField;
 	private javax.swing.JLabel jLabel1;
 	private javax.swing.JLabel jLabel2;
