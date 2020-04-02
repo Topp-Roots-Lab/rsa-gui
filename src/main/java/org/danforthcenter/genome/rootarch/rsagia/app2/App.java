@@ -144,15 +144,18 @@ public class App {
 			Export export = new Export(null, scale, gia, exportConfig,
 					export3dConfig, exportGia3d_v2Config);
 
-
 			String s13 = userProps.getProperty("user_cols");
-			final ArrayList<String> cols = new ArrayList<String>();
+			ArrayList<String> userCols = null;
 			if (s13 != null) {
-				String[] cs = s13.split(",");
-				for (String s : cs) {
-					cols.add(s);
+				userCols = new ArrayList<String>();
+				if (!s13.isEmpty()) {
+					String[] cs = s13.split(",");
+					for (String s : cs) {
+						userCols.add(s);
+					}
 				}
 			}
+			final ArrayList<String> cols = userCols;
 
 			File f5 = new File(sysProps.getProperty("gia3d_template_dir"));
 

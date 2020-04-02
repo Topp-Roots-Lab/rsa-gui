@@ -184,13 +184,16 @@ public class EditColumnsFrame extends javax.swing.JFrame implements
 			throw new EditColumnsFrameException(null, e);
 		}
 		try {
+			String s = "";
+			for (int i = 0; i < cols.size(); i++) {
+				if (i > 0) {
+					s += ",";
+				}
+				s += cols.get(i);
+			}
+			props.setProperty("user_cols", s);
 			try {
 				bw = new BufferedWriter(new FileWriter(userFile));
-				String s = cols.get(0);
-				for (int i = 1; i < cols.size(); i++) {
-					s += "," + cols.get(i);
-				}
-				props.setProperty("user_cols", s);
 				props.store(bw, "");
 			} finally {
 				if (bw != null) {

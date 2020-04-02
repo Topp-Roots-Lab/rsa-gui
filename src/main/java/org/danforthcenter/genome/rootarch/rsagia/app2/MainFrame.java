@@ -116,7 +116,7 @@ public class MainFrame extends javax.swing.JFrame implements
         cols.add(RsaInputTable.PLANT);
         cols.add(RsaInputTable.IMAGING_DAY);
 
-        if (userCols.size() > 0) {
+        if (userCols != null) {
             rsaTable.setColumns(userCols);
         } else {
             rsaTable.setColumns(cols);
