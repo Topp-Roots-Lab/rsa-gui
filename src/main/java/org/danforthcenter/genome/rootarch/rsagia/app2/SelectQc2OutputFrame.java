@@ -590,9 +590,9 @@ public class SelectQc2OutputFrame extends javax.swing.JFrame implements
 	private void doQc2SaveCsvPerSet(File outFile) {
 		BufferedWriter bw = null;
 		try {
-			// no need to delete the existing file - it would be rewritten if
-			// not open
-			// if(outFile.exists())FileUtil.deleteRecursively(outFile);
+			if(outFile.exists()) {
+				FileUtil.deleteRecursively(outFile);
+			}
 
 			bw = new BufferedWriter(new FileWriter(outFile));
 			// get header
