@@ -21,6 +21,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -55,8 +57,7 @@ import org.danforthcenter.genome.rootarch.rsagia2.RsaPipelineDirUtil;
  *
  * @author vp23
  */
-public class SelectQc2OutputFrame extends javax.swing.JFrame implements
-		java.awt.event.ActionListener {
+public class SelectQc2OutputFrame extends javax.swing.JFrame implements	java.awt.event.ActionListener {
 	protected ApplicationManager am;
 
 	// ============================<editor-fold desc="constractor">{{{
@@ -73,6 +74,15 @@ public class SelectQc2OutputFrame extends javax.swing.JFrame implements
 		nextButton.addActionListener(this);
 		doneButton.addActionListener(this);
 		showButton.addActionListener(this);
+
+		// trigger file clean up on window close
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				cleanUp();
+				super.windowClosing(e);
+			}
+		});
 	}
 
 	// End of constractor...........................}}}</editor-fold>
@@ -183,8 +193,7 @@ public class SelectQc2OutputFrame extends javax.swing.JFrame implements
 	protected void cleanUp() {
 		for (File inp : input) {
 			File tmp = new File(inp.getAbsolutePath() + File.separator + "tmp");
-			NameSubstringFileFilter nsff = new NameSubstringFileFilter(
-					THRESHOLDED_COMPOSITE_FILTER);
+			NameSubstringFileFilter nsff = new NameSubstringFileFilter(THRESHOLDED_COMPOSITE_FILTER);
 			File[] files = tmp.listFiles(nsff);
 			// there should be only one image after applying filter nsff
 			if (files != null && files.length == 1) {
@@ -192,7 +201,12 @@ public class SelectQc2OutputFrame extends javax.swing.JFrame implements
 				FileUtil.deleteRecursively(file);
 			}
 			// delete tmp
-			FileUtil.deleteRecursively(tmp);
+			if (tmp.exists()) {
+				FileUtil.deleteRecursively(tmp);
+				System.out.println("Deleted '" + tmp.toString() + "'");
+			} else {
+				System.out.println("Temporary folder does not exist. Skipping '" + tmp.toString() + "'");
+			}
 		}
 	}
 
@@ -590,9 +604,9 @@ public class SelectQc2OutputFrame extends javax.swing.JFrame implements
 	private void doQc2SaveCsvPerSet(File outFile) {
 		BufferedWriter bw = null;
 		try {
-			// no need to delete the existing file - it would be rewritten if
-			// not open
-			// if(outFile.exists())FileUtil.deleteRecursively(outFile);
+			if(outFile.exists()) {
+				FileUtil.deleteRecursively(outFile);
+			}
 
 			bw = new BufferedWriter(new FileWriter(outFile));
 			// get header
