@@ -494,7 +494,7 @@ public class MainFrame extends javax.swing.JFrame implements
         documentation = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("rsa-gia 4.1.0");
+        setTitle("rsa-gia 4.1.1");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         nextButton.setText("Next");
@@ -507,12 +507,14 @@ public class MainFrame extends javax.swing.JFrame implements
         scaleToggle
                 .setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         scaleToggle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        scaleToggle.setToolTipText("Set scale to convert pixel to real-life units");
         jToolBar1.add(scaleToggle);
 
         cropToggle.setText("Crop");
         cropToggle.setFocusable(false);
         cropToggle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         cropToggle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        cropToggle.setToolTipText("Crop images down to region of interest (ROI)");
         jToolBar1.add(cropToggle);
 
         recropToggle.setText("Recrop");
@@ -527,6 +529,7 @@ public class MainFrame extends javax.swing.JFrame implements
         gia2DToggle
                 .setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         gia2DToggle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        gia2DToggle.setToolTipText("Image Thresholding");
         jToolBar1.add(gia2DToggle);
 
         rootwork3DToggle.setText("Rootwork");
@@ -543,10 +546,11 @@ public class MainFrame extends javax.swing.JFrame implements
                 .setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         rootwork3DPersToggle
                 .setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        rootwork3DPersToggle.setToolTipText("Volume reconstruction and meshing");
         jToolBar1.add(rootwork3DPersToggle);
 
 
-        gia3DToggle.setText("Gia3D");
+//        gia3DToggle.setText("Gia3D");
 //		gia3DToggle.setFocusable(false);
 //		gia3DToggle
 //				.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -560,6 +564,7 @@ public class MainFrame extends javax.swing.JFrame implements
                 .setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         gia3D_v2Toggle
                 .setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        gia3D_v2Toggle.setToolTipText("Measure traits");
         jToolBar1.add(gia3D_v2Toggle);
 
         reviewToggle.setText("Review");
@@ -567,6 +572,7 @@ public class MainFrame extends javax.swing.JFrame implements
         reviewToggle
                 .setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         reviewToggle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        reviewToggle.setToolTipText("Review and commit changes");
         jToolBar1.add(reviewToggle);
 
         exportToggle.setText("Export");
@@ -574,6 +580,7 @@ public class MainFrame extends javax.swing.JFrame implements
         exportToggle
                 .setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         exportToggle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        exportToggle.setToolTipText("Export traits as .csv");
         jToolBar1.add(exportToggle);
 
         qcToggle.setText("QC");
@@ -587,6 +594,7 @@ public class MainFrame extends javax.swing.JFrame implements
         qc2Toggle.setFocusable(false);
         qc2Toggle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         qc2Toggle.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        qc2Toggle.setToolTipText("Segmentation (Gia2D) quality control");
         jToolBar1.add(qc2Toggle);
 
         qc3Toggle.setText("QC3");

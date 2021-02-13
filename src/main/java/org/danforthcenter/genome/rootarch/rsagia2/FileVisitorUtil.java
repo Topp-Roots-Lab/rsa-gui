@@ -132,10 +132,8 @@ public class FileVisitorUtil {
 		}
 
 		@Override
-		public FileVisitResult visitFileFailed(Path file, IOException ioe)
-				throws IOException {
-			System.out.println(this.getClass() + " Something went wrong while working on : "
-					+ file.getFileName());
+		public FileVisitResult visitFileFailed(Path file, IOException ioe) throws IOException {
+			System.out.println(this.getClass() + " Something went wrong while working on : " + file.getFileName());
 			ioe.printStackTrace();
 			return FileVisitResult.CONTINUE;
 		}
