@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 ## v4.1.1 - 2021-02-12
 
+### Added
+
+- Tooltips to some of the tabs/toggle buttons for clarification
+
 ### Changed
 
 - QC2 step now deletes any existing `thresholding_qc2.csv` to prevent permission eror due to re-assigning the owner of a file
