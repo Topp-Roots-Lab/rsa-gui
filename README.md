@@ -26,7 +26,7 @@ you are working in a Linux-based operating system.
   * [Dependencies](#dependencies)
     * [RHEL-based, CentOS Dependency Installation Guide](#rhel-based-centos-dependency-installation-guide)
     * [Debian-based, Ubuntu Dependency Installation Guide](#debian-based-ubuntu-dependency-installation-guide)
-  * _[Build](#build) (planned)_
+  * [Build](#build)
   * [Configure MySQL Server](#mysql-configuration)
 * [Troubleshooting](#troubleshooting)
   * [Missing Python Packages](#missing-python-packages)
