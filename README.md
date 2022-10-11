@@ -8,9 +8,11 @@ The pipeline acts a wrapper for the underlying CLI tools that have been
 developed over the years. Some of these tools have GUI versions as well, such
 as GiaRoots, which is referred to as Gia2D in the RSA-GIA pipeline.
 
-This appilcation is written in Java, and it was designed to run on a Linux
+This application is written in Java, and it was designed to run on a Linux
 system, namely CentOS. As such, installation and development guides will assume
 you are working in a Linux-based operating system.
+
+The current maintainer is Tim Parker <tparker@danforthcenter.org>.
 
 ---
 
