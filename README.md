@@ -12,7 +12,7 @@ This application is written in Java, and it was designed to run on a Linux
 system, namely CentOS. As such, installation and development guides will assume
 you are working in a Linux-based operating system.
 
-The current maintainer is Tim Parker <tparker@danforthcenter.org>.
+The current maintainer is Tim Parker <<tparker@danforthcenter.org>>.
 
 ---
 
