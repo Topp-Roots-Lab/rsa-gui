@@ -1,6 +1,6 @@
 package org.danforthcenter.genome.rootarch.rsagia.dbfunctions;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.mysql.cj.jdbc.MysqlDataSource;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
