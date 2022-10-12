@@ -8,9 +8,11 @@ The pipeline acts a wrapper for the underlying CLI tools that have been
 developed over the years. Some of these tools have GUI versions as well, such
 as GiaRoots, which is referred to as Gia2D in the RSA-GIA pipeline.
 
-This appilcation is written in Java, and it was designed to run on a Linux
+This application is written in Java, and it was designed to run on a Linux
 system, namely CentOS. As such, installation and development guides will assume
 you are working in a Linux-based operating system.
+
+The current maintainer is Tim Parker <<tparker@danforthcenter.org>>.
 
 ---
 
@@ -20,6 +22,7 @@ you are working in a Linux-based operating system.
 * [Installation](#installation)
 * [Administration](#administration)
   * [Add new user](#add-new-user)
+  * [Add new species](#add-new-species)
   * [Upload data](#upload-data)
   * _[Archive data](#archive-data) (planned)_
 * [Development](#development)
@@ -31,7 +34,7 @@ you are working in a Linux-based operating system.
 * [Troubleshooting](#troubleshooting)
   * [Missing Python Packages](#missing-python-packages)
   * [Could not connect to database](#could-not-connect-to-database)
-  * [PrinicpalUser Error](#prinicpaluser-error)
+  * [PrincipalUser Error](#principaluser-error)
   * [java.nio.file.attribute.UserPrincipalNotFoundException](#java.nio.file.attribute.UserPrincipalNotFoundException)
   * [rsa-mv2orig-launcher](#rsa-mv2orig-launcher)
   * [Invalid Species](#invalid-species)
@@ -71,11 +74,40 @@ provided in [doc/virtual-machine-setup.md](doc/virtual-machine-setup.md)
 
     Conventionally, we have only had project leads and developers as project heads as defined by the GIFM. However, if time permits, adding everyone as a project head does allow for more precise control and tracking of how data is processed.
 
+### Add new species
+
+1. Open `rsa-gia` and navigate to the menu `Add Metadata > Add Organism`.
+
+    The following window will appear:
+
+    ![empty add species window](doc/img/empty-add-organism.png)
+
+1. Fill in the appropriate values for the required fields
+
+    Here is an example of kernza:
+
+    ![example add species form](doc/img/example-species.png)
+
+    > **Warning**
+    > The file naming convention is strict. For the _organism name_, use all lowercase letters. That's only letters, no numbers, spaces, or special characters. The _organism code_ must be a two letter code, first letter is capitalized and the second letter is lowercase. This is typically the initials of the scientific name. Although not required, as a convention, the full scientific name is used for the _species_ field.
+
+1. Add species code and organism name to `default.properties`. Typically, this is installed in the filepath `/etc/opt/rsa-gia/default.properties`. You need append the new species to the comma delimited lists for `species_names` and `species_codes`.
+
+    Here is an example.
+
+    ```properties
+    species_names=corn,model,rice,pennycress,insilico,millet,sorghum,brachypodium,alfalfa,Sviridis,Sitalica,arabidopsis,winterbarley,hairyvetch,purpletopturnip,commonbean,kernza
+    species_codes=Zm,Fk,Os,Ta,Is,Gm,Sb,Bd,Ms,Sv,Si,At,Hv,Vv,Bc,Pv,Ti
+    ```
+
+    > **Warning**
+    > Keep in mind that both the species name and code must be unique.
+
 ### Upload data
 
 <https://github.com/Topp-Roots-Lab/gel-imaging-file-manager.git>
 
-File uploads are handled by a separate Python script, the  _Gel Imaging File Manager_. It is a minimialist script that uploads a copy of imaging data from  the workstation to our storage on the Center's cluster and then adjusts the files' ownership and permissions to comply with restrictions required by RSA-GiA. 
+File uploads are handled by a separate Python script, the  _Gel Imaging File Manager_. It is a minimalist script that uploads a copy of imaging data from  the workstation to our storage on the Center's cluster and then adjusts the files' ownership and permissions to comply with restrictions required by `rsa-gia`.
 
 ### Archive data
 
@@ -237,7 +269,7 @@ change the password for said user.
   |Username| `rsa-gia` |
   |Password| `rsagia` |
 
-##### PrinicpalUser Error
+##### PrincipalUser Error
 
 Create rsa-data user and rootarch group and then chown dataset to that both own the data.
 
