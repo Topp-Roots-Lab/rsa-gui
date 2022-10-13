@@ -159,8 +159,6 @@ mv -v /usr/local/bin/skeleton3D /opt/rsa-gia
 
 ## Testing
 
-Ni Jiang provided some sample data for testing RSA-GiA. It is a timeseries dataset using corn.
+Ni Jiang provided some sample data for testing RSA-GIA. It is a timeseries dataset using corn. Three samples across several days.
 
-```bash
-rsync -vrogP --chown=rsa-data:rootarch --chmod=D2775,F644 --stat tparker@stargate.datasci.danforthcenter.org:/shares/ctopp_share/data/rsa/original_images/corn/TIM/ /data/rsa/to_sort/root
-```
+Unfortunately, we no longer provide a rsync or Globus endpoint, so test data can be provided upon request. Please email the current maintainer or Christopher Topp <<ctopp@danforthcenter.org>> titled _Data Request: RSA-GIA Test Data via SharePoint_.
