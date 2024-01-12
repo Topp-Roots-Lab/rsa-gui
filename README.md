@@ -12,7 +12,7 @@ This application is written in Java, and it was designed to run on a Linux
 system, namely CentOS. As such, installation and development guides will assume
 you are working in a Linux-based operating system.
 
-The current maintainer is Tim Parker <<tparker@danforthcenter.org>>.
+The current maintainer is Kenan Oestreich <<koestreich@danforthcenter.org>>.
 
 ---
 
@@ -61,14 +61,14 @@ provided in [doc/virtual-machine-setup.md](doc/virtual-machine-setup.md)
 1. Create data folder and set permissions
 
     ```bash
-    mkdir -pv /data/rsa/to_sort/root /data/rsa/to_sort/username
-    chown -Rv rsa-data:rootarch /data/rsa/to_sort/username
-    chmod -Rv u+rwx,g+rxs,o+rx /data/rsa/to_sort/username
+    mkdir -pv {path_to_rsa_directory}/to_sort/root {path_to_rsa_directory}/to_sort/{username}
+    chown -Rv rsa-data:rootarch {path_to_rsa_directory}/to_sort/username
+    chmod -Rv u+rwx,g+rxs,o+rx {path_to_rsa_directory}/to_sort/username
     ```
 
 2. Put in request to add user to rootarch group
 
-    This requires the Data Science Facility (Josh or Noah) to add them, as they maintain the authentication server for the Center's cluster.
+    Ask Kenan Oestreich to add you to the rootarch group on eris (Topp Lab's Storage Server)
 
 3. [Optional] Update Gel Imaging File Manager (GIFM) to include new user as project head
 
