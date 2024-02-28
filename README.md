@@ -68,7 +68,7 @@ provided in [doc/virtual-machine-setup.md](doc/virtual-machine-setup.md)
 
 2. Put in request to add user to rootarch group
 
-    Ask Kenan Oestreich to add you to the rootarch group on eris (Topp Lab's Storage Server)
+    Ask Kenan Oestreich to add you to the rootarch group on Topp Lab's Storage Server and Processing Server
 
 3. [Optional] Update Gel Imaging File Manager (GIFM) to include new user as project head
 
