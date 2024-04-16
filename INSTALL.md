@@ -50,7 +50,7 @@ usermod -aG rootarch rsa-data
 usermod -g rootarch rsa-data
 
 # Download application
-git clone --depth 1 https://github.com/Topp-Roots-Lab/rsa-gui.git --branch master --single-branch /opt/rsa-gia
+git clone --depth 1 https://github.com/Topp-Roots-Lab/rsa-gui.git --branch main --single-branch /opt/rsa-gia
 # Initialize file structure
 mkdir -pv /etc/opt/rsa-gia /var/log/rsa-gia
 
